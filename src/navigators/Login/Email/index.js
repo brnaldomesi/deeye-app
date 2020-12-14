@@ -19,22 +19,43 @@ import React, { useState } from 'react';
 import GradientButton from 'src/components/GradientButton';
 import { IMAGES_PATH } from 'src/config/constants';
 import MyTextInput from 'src/components/MyTextInput';
+import PropTypes from 'prop-types'
+import { authCheckUser } from 'src/redux/modules/auth';
+import { connect } from 'react-redux'
 import styles from './styles';
 
-const Email = ({ navigation }) => {
+const Email = ({ navigation, authCheckUser }) => {
   const [email, setEmail] = useState('');
   const [error, setError] = useState(0);
 
   const handleConfirm = () => {
-    navigation.navigate('Password');
+    const hasError = validateEmail(email);
+    
+    if(!hasError) {
+      authCheckUser({ 
+        data: { email },
+        success: res => {
+          if(res.status === 200) {
+            navigation.navigate('Password', {email});
+          } else if(res.status === 404) {
+            navigation.navigate('PasswordSet', {email});
+          }
+        },
+        fail: err => {
+          setError(1);
+        }
+      });
+    }
   }
 
   const validateEmail = () => {
     const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     if (reg.test(email) === false) {
       setError(1);
+      return true;
     } else {
       setError(-1);
+      return false;
     }
   } 
   
@@ -48,7 +69,6 @@ const Email = ({ navigation }) => {
           style={loginTextInput}
           value={email}
           onChangeText={ text => setEmail(text) }
-          onBlur={validateEmail}
           error={error}
           keyboardType="email-address"
           autoCompleteType="email" 
@@ -76,4 +96,16 @@ const Email = ({ navigation }) => {
   )
 };
 
-export default Email;
+Email.propTypes = {
+  navigation: PropTypes.object,
+  authCheckUser: PropTypes.func
+}
+
+const actions = {
+  authCheckUser
+}
+
+export default connect(
+  null,
+  actions
+)(Email);

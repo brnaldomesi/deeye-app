@@ -1,20 +1,50 @@
-import { AUTH_FORGOT_PASSWORD, AUTH_LOGIN, AUTH_LOGOUT, AUTH_RESET_PASSWORD, AUTH_VALIDATE_TOKEN } from './types';
-import { authLoginFail, authLoginSuccess, authLogoutSuccess } from './actions';
+import {
+  AUTH_CHECK_USER,
+  AUTH_FORGOT_PASSWORD,
+  AUTH_LOGIN,
+  AUTH_LOGOUT,
+  AUTH_RESET_PASSWORD,
+  AUTH_SIGNUP,
+  AUTH_VALIDATE_TOKEN
+} from './types';
+import {
+  authLoginFail,
+  authLoginSuccess,
+  authLogoutSuccess
+} from './actions';
 import { put, takeLatest } from 'redux-saga/effects'
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { apiCallSaga } from '../api';
 
+const authCheckUser = apiCallSaga({
+  type: AUTH_CHECK_USER,
+  method: 'post',
+  path: '/auth/checkUser',
+  selectorKey: 'authCheck',
+});
+
+const authSignup = apiCallSaga({
+  type: AUTH_SIGNUP,
+  method: 'post',
+  path: '/auth/signup',
+  selectorKey: 'authSignup',
+  success: function*(payload) {
+    AsyncStorage.setItem('token', payload['auth-token']);
+    yield put(authLoginSuccess(payload))
+  },
+  fail: function*(payload) {
+    yield put(authLoginFail(payload))
+  }
+})
+
 const authLogin = apiCallSaga({
   type: AUTH_LOGIN,
   method: 'post',
-  path: '/authentication/login',
+  path: '/auth/login',
   selectorKey: 'authLogin',
   success: function*(payload) {
-    AsyncStorage.setItem('document', {
-      token: payload['x-auth-token'],
-      userProfile: JSON.stringify(payload.profile)
-    })
+    AsyncStorage.setItem('token', payload['auth-token'])
     yield put(authLoginSuccess(payload))
   },
   fail: function*(payload) {
@@ -24,8 +54,7 @@ const authLogin = apiCallSaga({
 
 const handleLogout = function*(payload) {
   document.cookie = ''
-  Cookies.remove('token')
-  Cookies.remove('userProfile')
+  Cookies.remove('auth-token')
   yield put(authLogoutSuccess(payload))
 }
 
@@ -65,4 +94,6 @@ export default function* rootSaga() {
   yield takeLatest(AUTH_FORGOT_PASSWORD, authForgotPassword)
   yield takeLatest(AUTH_VALIDATE_TOKEN, authValidateToken)
   yield takeLatest(AUTH_RESET_PASSWORD, authResetPassword)
+  yield takeLatest(AUTH_CHECK_USER, authCheckUser)
+  yield takeLatest(AUTH_SIGNUP, authSignup)
 }

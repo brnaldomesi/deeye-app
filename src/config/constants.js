@@ -1,4 +1,4 @@
-export const BASE_URL = '/api/v1'
+export const BASE_URL = 'http://192.168.109.224:8000/api';
 
 export const IMAGES_PATH = {
   gmail: require('src/assets/images/gmail.png'),

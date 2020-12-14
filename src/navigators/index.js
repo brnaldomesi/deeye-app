@@ -1,6 +1,7 @@
 import Home from './Home';
 import Login from './Login';
 import OnBoarding from './OnBoarding';
+import Post from './Post';
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -28,6 +29,10 @@ const StackNavigator = () => (
       options={{
         headerShown: false
       }}
+    />
+    <Stack.Screen
+      name="Post"
+      component={Post}
     />
   </Stack.Navigator>
 );

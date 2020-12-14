@@ -2,6 +2,10 @@ import * as types from './types'
 
 import { createAction } from 'redux-actions'
 
+export const authCheckUser = createAction(types.AUTH_CHECK_USER)
+
+export const authSignup = createAction(types.AUTH_SIGNUP)
+
 export const authLogin = createAction(types.AUTH_LOGIN)
 
 export const authLoginSuccess = createAction(types.AUTH_LOGIN_SUCCESS)

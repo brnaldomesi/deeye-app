@@ -13,6 +13,7 @@ import Home from 'src/navigators/Home'
 import LoginHeader from 'src/components/LoginHeader';
 import OtpCode from './OtpCode';
 import Password from './Password';
+import PasswordSet from './Password/Set';
 import Phone from './Phone';
 import React from 'react'
 import { Size } from 'src/styles';
@@ -78,6 +79,13 @@ const Login = () => {
           <LoginStack.Screen
             name="Password"
             component={Password}
+            options={{
+              title: 'Password',
+            }}
+          />
+          <LoginStack.Screen
+            name="PasswordSet"
+            component={PasswordSet}
             options={{
               title: 'Password',
             }}

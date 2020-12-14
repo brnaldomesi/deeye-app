@@ -10,7 +10,7 @@ import sagas from './modules/sagas';
 
 const sagaMiddleware = createSagaMiddleware();
 const middlewares = [
-  //authMiddleware,
+  authMiddleware,
   sagaMiddleware
 ]
 const enhancers = [applyMiddleware(...middlewares)]

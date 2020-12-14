@@ -12,6 +12,10 @@ target 'deeye' do
 
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
+  pod 'react-native-config', :path => '../node_modules/react-native-config'
+
+  pod 'RNDeviceInfo', :path => '../node_modules/react-native-device-info'
+
   target 'deeyeTests' do
     inherit! :complete
     # Pods for testing

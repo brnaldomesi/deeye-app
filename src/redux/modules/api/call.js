@@ -13,7 +13,7 @@ const defaultHeaders = token => ({
   Accept: 'application/json, text/plain, */*',
   ...(token
     ? {
-        'x-auth-token': token
+        'auth-token': token
       }
     : {})
 })
@@ -68,7 +68,7 @@ export default ({
         },
         data,
         params: allowedParamKeys ? pick(queryParams, allowedParamKeys) : queryParams,
-        baseURL: `${Config.API_HOST || ''}${BASE_URL}`,
+        baseURL: `${BASE_URL}`,
         cancelToken,
         onUploadProgress,
         onDownloadProgress

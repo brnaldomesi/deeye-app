@@ -13,18 +13,15 @@ const getCookieVars = fp.compose(
 )
 
 const getInitialState = () => {
-  const cookieVars = AsyncStorage.getItem('document')
-  return {
-    token: cookieVars['token'],
-    profile: cookieVars.userProfile ? JSON.parse(decodeURIComponent(cookieVars.userProfile)) : null
-  }
+  const token = AsyncStorage.getItem('token')
+  return { token }
 }
 
 export default handleActions(
   {
     [types.AUTH_LOGIN_SUCCESS]: (state, { payload }) => ({
       ...state,
-      token: payload['x-auth-token'],
+      token: payload['auth-token'],
       profile: payload.profile
     }),
     [types.AUTH_LOGOUT_SUCCESS]: (state, { payload }) => ({
