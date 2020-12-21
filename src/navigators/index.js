@@ -9,6 +9,10 @@ const Stack = createStackNavigator();
 
 const StackNavigator = () => (
   <Stack.Navigator>
+    <Stack.Screen
+      name="Post"
+      component={Post}
+    />
     <Stack.Screen 
       name="Login" 
       component={Login}
@@ -29,10 +33,6 @@ const StackNavigator = () => (
       options={{
         headerShown: false
       }}
-    />
-    <Stack.Screen
-      name="Post"
-      component={Post}
     />
   </Stack.Navigator>
 );
