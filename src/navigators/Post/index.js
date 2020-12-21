@@ -1,5 +1,5 @@
 import React, { useCallback, useState, useRef } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, Image, StyleSheet } from 'react-native';
 import DocumentPicker from 'react-native-document-picker';
 import { RNCamera } from 'react-native-camera';
 import Button from 'src/components/Button';
@@ -7,7 +7,7 @@ import Button from 'src/components/Button';
 
 import { Text } from 'react-native';
 
-const cameraPermissionOption={
+const androidCameraPermissionOptions = {
   title: 'Permission to use camera',
   message: 'We need your permission to use your camera',
   buttonPositive: 'Ok',
@@ -43,6 +43,7 @@ const Post = () => {
     if (camera.current) {
       const options = { quality: 0.5, base64: true };
       const data = await camera.current.takePictureAsync(options);
+      setCameraView(false)
       setPosts(posts => posts.concat([{
         type: DocumentPicker.types.images,
         uri: data.uri
@@ -53,40 +54,50 @@ const Post = () => {
   const handleCancelCamera = useCallback(() => setCameraView(false), [])
 
   return (
-    <>
+    <View>
       <Button title='Add Photo' onPress={handleAddPostPress(DocumentPicker.types.images)} />
       <Button title='Add Video' onPress={handleAddPostPress(DocumentPicker.types.video)} />
       <Button title='Take Photo' onPress={handleTakePhotoPress} />
 
+      {posts.map(({ type, uri }, key) => (
+        <Image source={{ uri }} key={key} style={styles.post}/>
+      ))}
+
       {cameraView && (
-        <View>
+        <View style={styles.container}>
           <RNCamera
             ref={camera}
             style={styles.preview}
             type={RNCamera.Constants.Type.back}
             flashMode={RNCamera.Constants.FlashMode.on}
-            androidCameraPermissionOptions={cameraPermissionOption}
+            androidCameraPermissionOptions={androidCameraPermissionOptions}
+            captureAudio={false}
           />
           <Button onPress={handleTakePicture} title='SNAP' />
           <Button onPress={handleCancelCamera} title='Cancel' />
         </View>
       )}
-    </>
+    </View>
   )
 }
 
 export default Post;
 
 const styles = StyleSheet.create({
+  post: {
+    height: 400,
+    width: 400
+  },
   container: {
-    flex: 1,
-    flexDirection: 'column',
-    backgroundColor: 'black',
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    bottom: 0,
+    right: 0,
+    flex: 1
   },
   preview: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
+    flex: 1
   },
   capture: {
     flex: 0,
