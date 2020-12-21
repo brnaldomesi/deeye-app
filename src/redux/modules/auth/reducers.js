@@ -12,9 +12,13 @@ const getCookieVars = fp.compose(
   fp.get('cookie')
 )
 
-const getInitialState = () => {
-  const token = AsyncStorage.getItem('token')
-  return { token }
+const getInitialState = async () => {
+  try {
+    const token = await AsyncStorage.getItem('token');
+    return { token };
+  } catch(e) {
+    console.error(e);
+  }
 }
 
 export default handleActions(

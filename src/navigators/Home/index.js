@@ -11,8 +11,7 @@ import {
   alignItemsCenter,
   flexGrowOne,
   gradientColors,
-  normalFontSize,
-  roundMediumSizeButtonStyle
+  roundMediumSizeButtonStyle,
 } from 'src/styles'
 import { Text, View } from 'react-native';
 
@@ -23,7 +22,7 @@ import styles from './styles';
 
 const Home = ({ navigation }) => {
   const handleViewMore = () => {
-    navigation.navigate('Login');
+    
   };
 
   return (
@@ -38,7 +37,7 @@ const Home = ({ navigation }) => {
           buttonStyle={roundMediumSizeButtonStyle}
           text="View More Post"
           textColor="white"
-          fontSize={normalFontSize}
+          fontSize={Size()}
           style={styles.gradientButton}
         />
       </View>

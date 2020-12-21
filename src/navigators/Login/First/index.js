@@ -1,5 +1,5 @@
-import { Divider } from 'react-native-paper';
-import IconButton from './IconButton';
+import { Divider } from 'react-native-elements';
+import IconButton from 'src/components/IconButton';
 import React from 'react';
 import { View } from 'react-native';
 import { basicPadding } from 'src/styles';

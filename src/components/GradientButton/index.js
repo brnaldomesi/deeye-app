@@ -53,7 +53,6 @@ GradientButton.propTypes = {
   fontSize: PropTypes.number,
   fontWeight: PropTypes.string,
   style: PropTypes.object,
-
 }
 
 export default GradientButton;

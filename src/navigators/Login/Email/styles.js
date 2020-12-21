@@ -1,14 +1,13 @@
 import {
   Colors,
   Size,
-  normalFontSize
 } from 'src/styles';
 
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   emailLabel: { 
-    fontSize: normalFontSize, 
+    fontSize: Size(), 
     marginBottom: Size(0.5),
     marginTop: Size(2)
   },

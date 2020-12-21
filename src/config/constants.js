@@ -13,4 +13,7 @@ export const IMAGES_PATH = {
   onboardingRealTime: require('src/assets/images/Group-2426.png'),
   onboardingProximity: require('src/assets/images/Group-2432.png'),
   onboardingExtendSearch: require('src/assets/images/Group-2433.png'),
+  shapeActive3: require('src/assets/images/Shape-active-3.png'),
+  photoSizeSelect1: require('src/assets/images/Icon-material-photo-size-select-actual-1.png'),
+  featherVideo1: require('src/assets/images/Icon-feather-video-1.png'),
 }

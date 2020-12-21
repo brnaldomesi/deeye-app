@@ -20,7 +20,8 @@ export const Colors = {
   divider: '#b8b8b8',
   text: {
     danger: 'red'
+  },
+  postBottom: {
+    primary: '#f1f6fb'
   }
 };
-
-export const normalFontSize = Size()

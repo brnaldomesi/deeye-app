@@ -46,6 +46,14 @@ export const bgButtonPrimary = {
   backgroundColor: Colors.button.primary
 }
 
+export const bgButtonSecodary = {
+  backgroundColor: Colors.button.secodary
+}
+
+export const bgWhite = {
+  backgroundColor: 'white'
+}
+
 export const loginHeaderStyle = {
   borderTopLeftRadius: Size(),
   borderTopRightRadius: Size(),
@@ -98,6 +106,30 @@ export const fontWeightBold = {
   fontWeight: 'bold'
 }
 
+export const whiteColor = {
+  color: 'white'
+}
+
 export const primaryColor = {
   color: Colors.button.primary
+}
+
+export const secondaryColor = {
+  color: Colors.button.secondary
+}
+
+export const textBase = {
+  fontSize: Size()
+}
+
+export const textXl = {
+  fontSize: Size(1.2)
+}
+
+export const ml = {
+  marginLeft: Size()
+}
+
+export const p1 = {
+  padding: Size()
 }

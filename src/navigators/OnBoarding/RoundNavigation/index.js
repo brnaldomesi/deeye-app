@@ -6,7 +6,7 @@ import {
 import { TouchableOpacity, View } from 'react-native';
 
 import FAIcon from 'react-native-vector-icons/FontAwesome';
-import MyButton from 'src/components/MyButton'
+import MyButton from 'src/components/MyButton';
 import PropTypes from 'prop-types';
 import React from 'react';
 import styles from './styles';

@@ -1,14 +1,13 @@
 import {
   Colors,
   Size,
-  normalFontSize
 } from 'src/styles';
 
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   passwordLabel: { 
-    fontSize: normalFontSize, 
+    fontSize: Size(), 
     marginBottom: Size(0.5),
     marginTop: Size(0.8)
   },

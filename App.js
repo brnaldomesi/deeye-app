@@ -15,11 +15,11 @@ import React, { useEffect } from 'react';
 import { persistor, store } from 'src/redux';
 
 import { NavigationContainer } from '@react-navigation/native';
-import { Provider as PaperProvider } from 'react-native-paper';
 import { PersistGate } from 'redux-persist/lib/integration/react';
 import { Provider } from 'react-redux';
 import SplashScreen from 'react-native-splash-screen';
 import StackNavigator from 'src/navigators';
+import { ThemeProvider } from 'react-native-elements';
 import { flexOne } from 'src/styles';
 import { navigationRef } from 'src/navigators/Ref';
 import theme from 'src/styles/theme';
@@ -32,14 +32,14 @@ const App: () => React$Node = () => {
   return (
     <Provider store={store}>
       <PersistGate loading={<ActivityIndicator />} persistor={persistor}>
-        <PaperProvider theme={theme}>
+        <ThemeProvider theme={theme}>
           <SafeAreaView style={flexOne}>
             <NavigationContainer ref={navigationRef}>
               <StatusBar barStyle="dark-content" />
               <StackNavigator />
             </NavigationContainer>
           </SafeAreaView>
-        </PaperProvider>
+        </ThemeProvider>
       </PersistGate>
     </Provider>
   );

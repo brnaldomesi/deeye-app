@@ -1,8 +1,6 @@
 import {
   Size,
-  normalFontSize
 } from 'src/styles';
-
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
@@ -11,7 +9,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between'
   },
   passwordLabel: { 
-    fontSize: normalFontSize, 
+    fontSize: Size(), 
     marginBottom: Size(0.5),
     marginTop: Size(0.8)
   },

@@ -1,8 +1,11 @@
 import {
   Size,
   bgButtonPrimary,
-  bgButtonSecondary
-} from 'src/styles'
+  bgButtonSecondary,
+  borderSecondary,
+  secondaryColor,
+  whiteColor
+} from 'src/styles';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native'
 
 import React from 'react';
@@ -14,21 +17,29 @@ const variants = {
   nobg: { backgroundColor: '#ffff' }
 }
 
-const MyButton = ({ style, title, block, variant, children, onPress, ...rest }) => (
+const MyButton = ({ 
+  style, 
+  title, 
+  block, 
+  variant, 
+  children, 
+  onPress,
+  outlined, 
+  ...rest
+}) => (
   <TouchableOpacity
     onPress={onPress}
     style={[
       styles.container,
       block && styles.block,
       variants[variant],
+      outlined && borderSecondary,
       style
     ]}
     {...rest}
   >
     {children ? children : (
-      <Text center style={styles.buttonText}>
-        {title}
-      </Text>
+      <Text center style={ variant === 'primary' ? whiteColor : secondaryColor }>{title}</Text>
     )}
   </TouchableOpacity>
 )
@@ -48,8 +59,5 @@ const styles = StyleSheet.create({
   },
   block: {
     flex: 1
-  },
-  buttonText: {
-    color: 'white',
   }
-})
+});
