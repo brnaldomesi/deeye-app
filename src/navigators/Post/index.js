@@ -1,12 +1,11 @@
 import React, { useCallback, useState, useRef } from 'react';
-import { View, Image, StyleSheet, Alert } from 'react-native';
+import { View, Image, StyleSheet, Alert, Text } from 'react-native';
 import DocumentPicker from 'react-native-document-picker';
 import Slider from 'react-native-app-intro-slider';
+import VideoPlayer from 'react-native-video-controls';
 import { RNCamera } from 'react-native-camera';
 import Button from 'src/components/Button';
 
-
-import { Text } from 'react-native';
 
 const androidCameraPermissionOptions = {
   title: 'Permission to use camera',
@@ -31,7 +30,7 @@ const Post = () => {
       const res = await DocumentPicker.pick({
         type: [mediaType],
       });
-      setPosts(posts => posts.concat([{ type: res.type, uri: res.uri }]))
+      setPosts(posts => posts.concat([{ type: mediaType, uri: res.uri }]))
     } catch (err) {
       // if (DocumentPicker.isCancel(err)) {
       //   // User cancelled the picker, exit any dialogs or menus and move on
@@ -69,24 +68,31 @@ const Post = () => {
           },
           {
             text: 'Yes',
-            onPress: () => setPosts(posts => posts.filter((item, key) => key !== index ))
+            onPress: () => {
+              setPosts(posts => posts.filter((item, key) => key !== index ))
+              slider.current.goToSlide(0, true)
+            }
           }
         ]
       ),
     []
   )
   
-  const renderPost = ({ item: { type, uri }, index, dimensions }) => (
-    <View style={{ height: 400, width: 400 }}>
-      <Image
-        source={{ uri }}
-        resizeMode='contain'
-        style={{ height: 400, width: 400 }}
-      />
+  const renderPost = ({ item: { type, uri }, index }) => (
+    <View style={styles.post}>
+      {type === DocumentPicker.types.images ? (
+        <Image
+          source={{ uri }}
+          resizeMode='contain'
+          style={styles.post}
+        />
+      ) : type === DocumentPicker.types.video && (
+        <VideoPlayer source={{ uri }} style={styles.post} paused={true} />
+      )}
       <Button
         title="Delete"
         onPress={handleDeletePostPress(index)}
-        style={{ width: 100, marginLeft: 'auto', marginRight: 'auto', marginTop: 10 }}
+        style={styles.deletePost}
       />
     </View>
   )
@@ -139,5 +145,15 @@ const styles = StyleSheet.create({
   },
   preview: {
     flex: 1
+  },
+  post: {
+    height: 400,
+    width: 400
+  },
+  deletePost: {
+    width: 100,
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    marginTop: 10
   }
 });
