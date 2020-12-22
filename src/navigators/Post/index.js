@@ -1,6 +1,7 @@
 import React, { useCallback, useState, useRef } from 'react';
-import { View, Image, StyleSheet } from 'react-native';
+import { View, Image, StyleSheet, Alert } from 'react-native';
 import DocumentPicker from 'react-native-document-picker';
+import Slider from 'react-native-app-intro-slider';
 import { RNCamera } from 'react-native-camera';
 import Button from 'src/components/Button';
 
@@ -16,6 +17,10 @@ const androidCameraPermissionOptions = {
 
 const Post = () => {
   const camera = useRef(null)
+
+  const slider = useRef(null)
+  
+  const [slide, setSlide] = useState(0)
 
   const [cameraView, setCameraView] = useState(false)
 
@@ -53,15 +58,55 @@ const Post = () => {
 
   const handleCancelCamera = useCallback(() => setCameraView(false), [])
 
+  const handleDeletePostPress = useCallback(
+    index => () =>
+      Alert.alert(
+        'Delete',
+        'Are you sure to delete?',
+        [
+          {
+            text: 'No'
+          },
+          {
+            text: 'Yes',
+            onPress: () => setPosts(posts => posts.filter((item, key) => key !== index ))
+          }
+        ]
+      ),
+    []
+  )
+  
+  const renderPost = ({ item: { type, uri }, index, dimensions }) => (
+    <View style={{ height: 400, width: 400 }}>
+      <Image
+        source={{ uri }}
+        resizeMode='contain'
+        style={{ height: 400, width: 400 }}
+      />
+      <Button
+        title="Delete"
+        onPress={handleDeletePostPress(index)}
+        style={{ width: 100, marginLeft: 'auto', marginRight: 'auto', marginTop: 10 }}
+      />
+    </View>
+  )
+
   return (
-    <View>
+    <View style={{ flex: 1 }}>
+      <Slider
+        data={posts}
+        renderItem={renderPost}
+        showNextButton={false}
+        showDoneButton={false}
+        dotClickEnabled={false}
+        onSlideChange={setSlide}
+        keyExtractor={(item, index) => index.toString()}
+        ref={slider}
+      />
+
       <Button title='Add Photo' onPress={handleAddPostPress(DocumentPicker.types.images)} />
       <Button title='Add Video' onPress={handleAddPostPress(DocumentPicker.types.video)} />
       <Button title='Take Photo' onPress={handleTakePhotoPress} />
-
-      {posts.map(({ type, uri }, key) => (
-        <Image source={{ uri }} key={key} style={styles.post}/>
-      ))}
 
       {cameraView && (
         <View style={styles.container}>
@@ -84,10 +129,6 @@ const Post = () => {
 export default Post;
 
 const styles = StyleSheet.create({
-  post: {
-    height: 400,
-    width: 400
-  },
   container: {
     position: 'absolute',
     left: 0,
@@ -98,14 +139,5 @@ const styles = StyleSheet.create({
   },
   preview: {
     flex: 1
-  },
-  capture: {
-    flex: 0,
-    backgroundColor: '#fff',
-    borderRadius: 5,
-    padding: 15,
-    paddingHorizontal: 20,
-    alignSelf: 'center',
-    margin: 20,
-  },
+  }
 });
