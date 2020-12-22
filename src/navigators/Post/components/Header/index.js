@@ -1,8 +1,8 @@
 import {
   Colors,
   fontWeightBold,
+  marginVerticalAuto,
   ml,
-  roundWrapButtonStyle,
   textXl
 } from 'src/styles';
 import { Size, flexRowDirection } from 'src/styles';
@@ -17,7 +17,8 @@ import styles from './styles';
 const Header = ({
   handleClose,
   title,
-  rightButton
+  rightButton,
+  buttonPrimary
 }) => {
   return (
     <View style={styles.root}>
@@ -25,13 +26,13 @@ const Header = ({
         <MyButton row onPress={handleClose}>
           <AntIcon size={25} name="close" color={Colors.button.primary} />
         </MyButton>
-        <View style={ml}>
-          <Text style={[fontWeightBold, textXl, ]}>{title}</Text>
+        <View style={[ml, marginVerticalAuto]}>
+          <Text style={[fontWeightBold, textXl]}>{title}</Text>
         </View>
       </View>
       {rightButton && 
         <View>
-          <MyButton row style={[roundWrapButtonStyle]} primary outlined title="Post" />
+          <MyButton row style={styles.button} primary={buttonPrimary ? "primary" : undefined} outlined title="Post" />
         </View>
       }
     </View>

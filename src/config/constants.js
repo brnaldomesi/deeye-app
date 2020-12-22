@@ -22,4 +22,5 @@ export const IMAGES_PATH = {
   support: require('src/assets/images/Icon-feather-heart.png'),
   share: require('src/assets/images/Icon-ionic-md-share-alt.png'),
   send: require('src/assets/images/Icon-feather-send.png'),
+  camera: require('src/assets/images/Icon-feather-camera-1.png'),
 }

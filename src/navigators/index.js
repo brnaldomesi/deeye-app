@@ -2,6 +2,7 @@ import Home from './Home';
 import Login from './Login';
 import OnBoarding from './OnBoarding';
 import Post from './Post';
+import PostCreate from './Post/PostCreate';
 import PostNew from './Post/PostNew';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -38,6 +39,13 @@ const StackNavigator = ({isAuthenticated}) => {
           <Stack.Screen
             name="PostNew"
             component={PostNew}
+            options={{
+              headerShown: false
+            }}
+          />
+          <Stack.Screen
+            name="PostCreate"
+            component={PostCreate}
             options={{
               headerShown: false
             }}

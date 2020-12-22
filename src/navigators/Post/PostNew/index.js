@@ -23,21 +23,21 @@ const PostNew = ({ navigation }) => {
   };
 
   const handleMissing = () => {
-    
+    navigation.navigate('PostCreate');
   };
 
   const handleVideo = () => {
-    
+    navigation.navigate('PostCreate');
   };
 
   const handlePhoto = () => {
-    
+    navigation.navigate('PostCreate');
   };
 
   return (
     <View style={styles.root}>
       <View style={[flexOne, bgWhite]}>
-        <Header handleClose={handleClose} title="Share your post" />
+        <Header handleClose={handleClose} buttonPrimary title="Share your post" />
         <View style={[p1, flexRowDirection]}>
           <Avatar
             rounded

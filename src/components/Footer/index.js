@@ -22,7 +22,6 @@ import styles from './styles';
 
 export default ({ style }) => {
   const handleAdd = () => {
-    console.log('sdfsdf')
     RootNavigation.navigate('PostNew');
   }
 

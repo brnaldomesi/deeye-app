@@ -13,6 +13,11 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     elevation: 15
+  },
+  button: {
+    borderRadius: Size(2),
+    paddingHorizontal: Size(1.5),
+    paddingVertical: Size(0.3),
   }
 });
 

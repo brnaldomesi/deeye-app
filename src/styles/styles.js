@@ -145,3 +145,7 @@ export const py1 = {
 export const my1 = {
   marginVertical: Size()
 }
+
+export const justifyAround = {
+  justifyContent: 'space-around'
+}
