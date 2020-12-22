@@ -18,16 +18,16 @@ const RoundNavigation = ({active, navigation}) => {
 
   return (
     <View style={flexRowDirection}>
-      <MyButton onPress={handlePress('Global')} style={styles.px1}>
+      <MyButton row onPress={handlePress('Global')} style={styles.px1}>
         <FAIcon name="circle" color={active === 'global' ? Colors.button.primary : Colors.button.secondary} />
       </MyButton>
-      <MyButton onPress={handlePress('RealTime')} style={styles.px1}>
+      <MyButton row onPress={handlePress('RealTime')} style={styles.px1}>
         <FAIcon name="circle" color={active === 'realTime' ? Colors.button.primary : Colors.button.secondary} />
       </MyButton>
-      <MyButton onPress={handlePress('Proximity')} style={styles.px1}>
+      <MyButton row onPress={handlePress('Proximity')} style={styles.px1}>
         <FAIcon name="circle" color={active === 'proximity' ? Colors.button.primary : Colors.button.secondary} />
       </MyButton>
-      <MyButton onPress={handlePress('ExtendSearch')} style={styles.px1}>
+      <MyButton row onPress={handlePress('ExtendSearch')} style={styles.px1}>
         <FAIcon name="circle" color={active === 'extendSearch' ? Colors.button.primary : Colors.button.secondary} />
       </MyButton>
     </View>

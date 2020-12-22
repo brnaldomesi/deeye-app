@@ -46,7 +46,7 @@ export const bgButtonPrimary = {
   backgroundColor: Colors.button.primary
 }
 
-export const bgButtonSecodary = {
+export const bgSecodary = {
   backgroundColor: Colors.button.secodary
 }
 
@@ -132,4 +132,16 @@ export const ml = {
 
 export const p1 = {
   padding: Size()
+}
+
+export const px1 = {
+  paddingHorizontal: Size()
+}
+
+export const py1 = {
+  paddingVertical: Size()
+}
+
+export const my1 = {
+  marginVertical: Size()
 }

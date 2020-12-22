@@ -16,4 +16,10 @@ export const IMAGES_PATH = {
   shapeActive3: require('src/assets/images/Shape-active-3.png'),
   photoSizeSelect1: require('src/assets/images/Icon-material-photo-size-select-actual-1.png'),
   featherVideo1: require('src/assets/images/Icon-feather-video-1.png'),
+  setting: require('src/assets/images/Symbol-28–187.png'),
+  comment: require('src/assets/images/Icon-feather-message-circle.png'),
+  save: require('src/assets/images/Icon-feather-bookmark.png'),
+  support: require('src/assets/images/Icon-feather-heart.png'),
+  share: require('src/assets/images/Icon-ionic-md-share-alt.png'),
+  send: require('src/assets/images/Icon-feather-send.png'),
 }

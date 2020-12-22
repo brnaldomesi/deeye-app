@@ -9,12 +9,12 @@
 import {
   Size,
   alignItemsCenter,
-  flexGrowOne,
   gradientColors,
   roundMediumSizeButtonStyle,
 } from 'src/styles'
 import { Text, View } from 'react-native';
 
+import Feeds from './Feeds';
 import Footer from 'src/components/Footer';
 import GradientButton from 'src/components/GradientButton';
 import React from 'react';
@@ -27,10 +27,8 @@ const Home = ({ navigation }) => {
 
   return (
     <View style={styles.root}>
-      <View style={[flexGrowOne, alignItemsCenter]}>
-        <View style={{marginTop: Size(5), backgroundColor: 'gray'}}>
-          <Text>Temp Content</Text>
-        </View>
+      <View style={alignItemsCenter}>
+        <Feeds />
         <GradientButton 
           onPress={handleViewMore}
           gradientColors={gradientColors}

@@ -21,7 +21,7 @@ import { IMAGES_PATH } from 'src/config/constants';
 import MyTextInput from 'src/components/MyTextInput';
 import PropTypes from 'prop-types'
 import { authCheckUser } from 'src/redux/modules/auth';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 import styles from './styles';
 
 const Email = ({ navigation, authCheckUser }) => {

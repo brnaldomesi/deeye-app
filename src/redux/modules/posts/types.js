@@ -1,0 +1,2 @@
+export const GET_POSTS_LIST = 'DEEYE.GET_POSTS_LIST'
+export const CREATE_POST = 'DEEYE.CREATE_POST'

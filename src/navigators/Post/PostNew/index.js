@@ -1,7 +1,7 @@
 import { Text, View } from 'react-native';
 import {
   basicPadding,
-  bgButtonSecodary,
+  bgSecodary,
   bgWhite,
   flexOne,
   flexRowDirection,

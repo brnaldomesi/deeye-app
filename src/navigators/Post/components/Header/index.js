@@ -22,7 +22,7 @@ const Header = ({
   return (
     <View style={styles.root}>
       <View style={flexRowDirection}>
-        <MyButton onPress={handleClose}>
+        <MyButton row onPress={handleClose}>
           <AntIcon size={25} name="close" color={Colors.button.primary} />
         </MyButton>
         <View style={ml}>
@@ -31,7 +31,7 @@ const Header = ({
       </View>
       {rightButton && 
         <View>
-          <MyButton style={[roundWrapButtonStyle]} primary outlined title="Post" />
+          <MyButton row style={[roundWrapButtonStyle]} primary outlined title="Post" />
         </View>
       }
     </View>

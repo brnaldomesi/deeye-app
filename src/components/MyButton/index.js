@@ -3,6 +3,7 @@ import {
   bgButtonPrimary,
   bgButtonSecondary,
   borderSecondary,
+  flexRowDirection,
   secondaryColor,
   whiteColor
 } from 'src/styles';
@@ -17,6 +18,10 @@ const variants = {
   nobg: { backgroundColor: '#ffff' }
 }
 
+const flexDirections = {
+  row: flexRowDirection
+}
+
 const MyButton = ({ 
   style, 
   title, 
@@ -24,7 +29,8 @@ const MyButton = ({
   variant, 
   children, 
   onPress,
-  outlined, 
+  outlined,
+  row, 
   ...rest
 }) => (
   <TouchableOpacity
@@ -34,6 +40,7 @@ const MyButton = ({
       block && styles.block,
       variants[variant],
       outlined && borderSecondary,
+      row && flexDirections[row],
       style
     ]}
     {...rest}
@@ -54,7 +61,6 @@ export default ({ link, ...rest }) =>
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    flexDirection: 'row',
     justifyContent: 'center',
   },
   block: {
