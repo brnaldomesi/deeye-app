@@ -8,8 +8,8 @@
 
 import {
   Size,
-  alignItemsCenter,
   gradientColors,
+  itemsCenter,
   roundMediumSizeButtonStyle,
 } from 'src/styles'
 import { Text, View } from 'react-native';
@@ -26,19 +26,17 @@ const Home = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.root}>
-      <View style={alignItemsCenter}>
-        <Feeds />
-        <GradientButton 
-          onPress={handleViewMore}
-          gradientColors={gradientColors}
-          buttonStyle={roundMediumSizeButtonStyle}
-          text="View More Post"
-          textColor="white"
-          fontSize={Size()}
-          style={styles.gradientButton}
-        />
-      </View>
+    <View>
+      <Feeds />
+      {/* <GradientButton 
+        onPress={handleViewMore}
+        gradientColors={gradientColors}
+        buttonStyle={roundMediumSizeButtonStyle}
+        text="View More Post"
+        textColor="white"
+        fontSize={Size()}
+        style={styles.gradientButton}
+      /> */}
       <Footer style={styles.footer} />
     </View>
   );

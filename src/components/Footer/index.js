@@ -3,7 +3,7 @@ import * as RootNavigation from 'src/navigators/Ref';
 import {
   Colors,
   Size,
-  alignItemsCenter
+  itemsCenter
 } from 'src/styles'
 import {
   StyleSheet,
@@ -34,20 +34,20 @@ export default ({ style }) => {
       </View>
       <View style={styles.height} />
       <View style={styles.content}>
-        <View style={alignItemsCenter}>
+        <View style={itemsCenter}>
           <MCIcon name="access-point" size={30} color={Colors.button.secondary} />
           <Text style={{color: Colors.button.secondary}}>FEEDS</Text>
         </View>
-        <View style={alignItemsCenter}>
+        <View style={itemsCenter}>
           <AntIcon name="deleteuser" size={30} color={Colors.button.primary} />
           <Text style={{color: Colors.button.primary}}>MISSING</Text>
         </View>
         <View></View>
-        <View style={alignItemsCenter}>
+        <View style={itemsCenter}>
           <MCIcon name="bell-outline" size={30} color={Colors.button.secondary} />
           <Text style={{color: Colors.button.secondary}}>ALERT</Text>
         </View>
-        <View style={alignItemsCenter}>
+        <View style={itemsCenter}>
           <FAIcon name="envelope-o" size={30} color={Colors.button.secondary} />
           <Text style={{color: Colors.button.secondary}}>MESSAGES</Text>
         </View>

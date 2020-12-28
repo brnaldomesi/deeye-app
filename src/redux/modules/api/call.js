@@ -13,7 +13,7 @@ const defaultHeaders = token => ({
   Accept: 'application/json, text/plain, */*',
   ...(token
     ? {
-        'auth-token': token
+        'Authorization': 'Bearer ' + token
       }
     : {})
 })

@@ -2,14 +2,10 @@ import { Size } from 'src/styles';
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
-  root: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'space-between'
-  },
   gradientButton: {
     position: 'absolute',
-    bottom: Size(7)
+    bottom: Size(7),
+    alignSelf: 'center'
   },
   footer: {
     position: 'absolute',

@@ -29,9 +29,6 @@ const Password = ({ route, navigation, authLogin }) => {
   const handleConfirm = () => {
     authLogin({ 
       data: { email, password, deviceName },
-      success: res => {
-        console.log('res', res)
-      },
       fail: err => {
         console.log('err', err)
         setError(1);

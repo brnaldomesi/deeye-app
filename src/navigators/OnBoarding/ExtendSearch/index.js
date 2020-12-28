@@ -5,7 +5,7 @@ import {
   gradientColors,
   roundRectFullWidthButtonStyle
 } from 'src/styles';
-import { alignItemsCenter, basicPadding } from 'src/styles';
+import { basicPadding, itemsCenter } from 'src/styles';
 
 import GradientButton from 'src/components/GradientButton';
 import { IMAGES_PATH } from 'src/config/constants';
@@ -15,7 +15,7 @@ import styles from './styles';
 
 const ExtendSearch = ({navigation}) => {
   const handleNext = () => {
-    navigation.navigate('Home');
+    navigation.navigate('Login');
   };
 
   return (

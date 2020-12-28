@@ -16,6 +16,7 @@ import styles from './styles';
 
 const Header = ({
   handleClose,
+  handlePost,
   title,
   rightButton,
   buttonPrimary
@@ -32,7 +33,14 @@ const Header = ({
       </View>
       {rightButton && 
         <View>
-          <MyButton row style={styles.button} primary={buttonPrimary ? "primary" : undefined} outlined title="Post" />
+          <MyButton 
+            row 
+            style={styles.button} 
+            onPress={handlePost} 
+            variant={buttonPrimary ? "primary" : undefined} 
+            outlined 
+            title="Post" 
+          />
         </View>
       }
     </View>

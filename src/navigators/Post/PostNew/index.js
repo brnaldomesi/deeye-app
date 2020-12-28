@@ -27,11 +27,11 @@ const PostNew = ({ navigation }) => {
   };
 
   const handleVideo = () => {
-    navigation.navigate('PostCreate');
+    navigation.navigate('PostCreate', { postType: 'Video' });
   };
 
   const handlePhoto = () => {
-    navigation.navigate('PostCreate');
+    navigation.navigate('PostCreate', { postType: 'Image' });
   };
 
   return (

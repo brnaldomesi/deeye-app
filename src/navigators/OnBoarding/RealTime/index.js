@@ -5,7 +5,7 @@ import {
   gradientColors,
   roundRectFullWidthButtonStyle
 } from 'src/styles';
-import { alignItemsCenter, basicPadding } from 'src/styles';
+import { basicPadding, itemsCenter } from 'src/styles';
 
 import GradientButton from 'src/components/GradientButton';
 import { IMAGES_PATH } from 'src/config/constants';

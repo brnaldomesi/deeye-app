@@ -8,6 +8,18 @@ const getInitialState = () => ({
 })
 
 export default handleActions(
-  {},
+  {
+    [types.GET_POSTS_LIST_SUCCESS]: (state, { payload }) => ({
+      ...state,
+      postsList: payload
+    }),
+    [types.GET_POSTS_LIST_FAIL]: (state, { payload }) => ({
+      ...state
+    }),
+    [types.CREATE_POST_SUCCESS]: (state, { payload }) => ({
+      ...state, 
+      postsList: concat(state.postsList, [payload])
+    })
+  },
   getInitialState()
-)
+);

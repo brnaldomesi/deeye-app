@@ -77,7 +77,7 @@ export const flexRowDirection = {
   flexDirection: 'row'
 }
 
-export const alignItemsCenter = {
+export const itemsCenter = {
   alignItems: 'center'
 }
 
@@ -118,6 +118,10 @@ export const secondaryColor = {
   color: Colors.button.secondary
 }
 
+export const textSm = {
+  fontSize: Size(.8)
+} 
+
 export const textBase = {
   fontSize: Size()
 }
@@ -146,6 +150,14 @@ export const my1 = {
   marginVertical: Size()
 }
 
+export const mx1 = {
+  marginHorizontal: Size()
+}
+
 export const justifyAround = {
   justifyContent: 'space-around'
+}
+
+export const resizeCover = {
+  resizeMode: 'cover'
 }

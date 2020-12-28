@@ -60,10 +60,10 @@ const PasswordSet = ({
       authSignup({ 
         data: { email, password, deviceName },
         success: res => {
-          navigation.navigate('Post');
+          navigation.navigate('Home');
         },
         fail: err => {
-          console.log('err', err)
+          console.error(err)
         }
       });
     }
