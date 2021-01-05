@@ -3,8 +3,8 @@ import {
   basicPadding,
   bgSecodary,
   bgWhite,
+  flexCol,
   flexOne,
-  flexRowDirection,
   loginHeaderStyle,
   marginVerticalAuto,
   p1,
@@ -23,7 +23,7 @@ const PostNew = ({ navigation }) => {
   };
 
   const handleMissing = () => {
-    navigation.navigate('PostCreate');
+    navigation.navigate('MissingPerson');
   };
 
   const handleVideo = () => {
@@ -38,7 +38,7 @@ const PostNew = ({ navigation }) => {
     <View style={styles.root}>
       <View style={[flexOne, bgWhite]}>
         <Header handleClose={handleClose} buttonPrimary title="Share your post" />
-        <View style={[p1, flexRowDirection]}>
+        <View style={[p1, flexCol]}>
           <Avatar
             rounded
             icon={{name: 'user', type: 'font-awesome', color: 'black'}}

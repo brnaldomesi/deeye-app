@@ -35,21 +35,21 @@ export default ({ style }) => {
       <View style={styles.height} />
       <View style={styles.content}>
         <View style={itemsCenter}>
-          <MCIcon name="access-point" size={30} color={Colors.button.secondary} />
-          <Text style={{color: Colors.button.secondary}}>FEEDS</Text>
+          <MCIcon name="access-point" size={30} color={Colors.secondary} />
+          <Text style={{color: Colors.secondary}}>FEEDS</Text>
         </View>
         <View style={itemsCenter}>
-          <AntIcon name="deleteuser" size={30} color={Colors.button.primary} />
-          <Text style={{color: Colors.button.primary}}>MISSING</Text>
+          <AntIcon name="deleteuser" size={30} color={Colors.primary} />
+          <Text style={{color: Colors.primary}}>MISSING</Text>
         </View>
         <View></View>
         <View style={itemsCenter}>
-          <MCIcon name="bell-outline" size={30} color={Colors.button.secondary} />
-          <Text style={{color: Colors.button.secondary}}>ALERT</Text>
+          <MCIcon name="bell-outline" size={30} color={Colors.secondary} />
+          <Text style={{color: Colors.secondary}}>ALERT</Text>
         </View>
         <View style={itemsCenter}>
-          <FAIcon name="envelope-o" size={30} color={Colors.button.secondary} />
-          <Text style={{color: Colors.button.secondary}}>MESSAGES</Text>
+          <FAIcon name="envelope-o" size={30} color={Colors.secondary} />
+          <Text style={{color: Colors.secondary}}>MESSAGES</Text>
         </View>
       </View>
       <View style={styles.addButtonView}>

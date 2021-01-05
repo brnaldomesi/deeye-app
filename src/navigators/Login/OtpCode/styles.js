@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     marginTop: Size(0.5)
   },
   otpCodeLabel: {
-    color: Colors.button.primary,
+    color: Colors.primary,
     fontSize: Size(1.2),
     marginTop: Size(),
     marginBottom: Size(0.5)

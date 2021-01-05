@@ -24,4 +24,12 @@ export const IMAGES_PATH = {
   share: require('src/assets/images/Icon-ionic-md-share-alt.png'),
   send: require('src/assets/images/Icon-feather-send.png'),
   camera: require('src/assets/images/Icon-feather-camera-1.png'),
+  fileUploadBlue: require('src/assets/images/Missing_Person/Blue_Icon-material-file-upload.png'),
+  fileUploadRed: require('src/assets/images/Missing_Person/Icon-material-file-upload.png'),
+  fileUploadGreen: require('src/assets/images/Missing_Person/Icon-material-file-upload-1.png'),
+  featherCalendar: require('src/assets/images/Missing_Person/Icon-feather-calendar.png'),
+  awesomeFemaleWhite: require('src/assets/images/Missing_Person/Icon-awesome-female.png'),
+  awesomeFemalePrimary: require('src/assets/images/Missing_Person/Icon-awesome-female-1.png'),
+  awesomeMaleWhite: require('src/assets/images/Missing_Person/Icon-awesome-male-1.png'),
+  awesomeMalePrimary: require('src/assets/images/Missing_Person/Icon-awesome-male.png'),
 }

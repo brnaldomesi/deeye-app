@@ -4,13 +4,13 @@ import {
   borderDisabled,
   borderPrimary,
   borderSecondary,
-  flexRowDirection,
+  flexCol,
   gradientColors,
   loginHorizontalPadding,
-  loginTextInput,
-  positionRelative,
+  relative,
   roundRectFullWidthButtonStyle,
-  roundWrapButtonStyle
+  roundWrapButtonStyle,
+  textInput
 } from 'src/styles';
 import {
   Image,
@@ -70,12 +70,12 @@ const OtpCode = ({ route, navigation }) => {
           onPress={handleChangePhoneNumber}
           gradientColors={['white', 'white']}
           text="Change Phone Number"
-          textColor={error === -1 ? '#b9b9b9' : Colors.button.secondary}
+          textColor={error === -1 ? '#b9b9b9' : Colors.secondary}
           style={styles.changePhoneNumberButton}
           buttonStyle={error === -1 ? [roundWrapButtonStyle, borderDisabled] : [roundWrapButtonStyle, borderSecondary]}
         />
         <Text style={styles.otpCodeLabel}>OTP CODE</Text>
-        <View style={[flexRowDirection, positionRelative]}>
+        <View style={[flexCol, relative]}>
           <TextInputMask
             type={'custom'} 
             options={{
@@ -84,7 +84,7 @@ const OtpCode = ({ route, navigation }) => {
             }}
             value={otpcode}
             onChangeText={ text => setOtpcode(text) }
-            style={loginTextInput}
+            style={textInput}
             placeholder="Enter Code"
             autoCompleteType="tel"
             keyboardType="numeric"
@@ -105,7 +105,7 @@ const OtpCode = ({ route, navigation }) => {
           onPress={handleChangePhoneNumber}
           gradientColors={['white', 'white']}
           text="Resend Code"
-          textColor={error === -1 ? '#b9b9b9' : Colors.button.secondary}
+          textColor={error === -1 ? '#b9b9b9' : Colors.secondary}
           style={styles.changePhoneNumberButton}
           buttonStyle={error === -1 ? [roundWrapButtonStyle, borderDisabled] : [roundWrapButtonStyle, borderSecondary]}
         />
@@ -114,7 +114,7 @@ const OtpCode = ({ route, navigation }) => {
         onPress={handleVerify}
         gradientColors={error === -1 ? gradientColors : ['white', 'white']}
         text="Verify"
-        textColor={error === -1 ? 'white' : Colors.button.primary}
+        textColor={error === -1 ? 'white' : Colors.primary}
         fontSize={Size(1.2)}
         fontWeight="bold"
         style={styles.confirmButton}

@@ -3,8 +3,8 @@ import {
   Size,
   gradientColors,
   loginHorizontalPadding,
-  loginTextInput,
-  roundRectFullWidthButtonStyle
+  roundRectFullWidthButtonStyle,
+  textInput
 } from 'src/styles';
 import React, { useState } from 'react';
 import {
@@ -43,7 +43,7 @@ const Password = ({ route, navigation, authLogin }) => {
         <MyTextInput 
           placeholder="Enter your password"
           name="password"
-          style={loginTextInput}
+          style={textInput}
           value={password}
           onChangeText={ text => setPassword(text) }
           error={error}

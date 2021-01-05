@@ -39,7 +39,7 @@ const Proximity = ({navigation}) => {
         gradientColors={gradientColors}
         buttonStyle={roundRectFullWidthButtonStyle}
         fontSize={Size(1.2)}
-        text="Finish"
+        text="Next"
         textColor="white"
         style={styles.nextButton}
       />

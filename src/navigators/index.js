@@ -1,5 +1,6 @@
 import Home from './Home';
 import Login from './Login';
+import MissingPerson from './MissingPerson';
 import OnBoarding from './OnBoarding';
 import PostCreate from './Post/PostCreate';
 import PostNew from './Post/PostNew';
@@ -34,6 +35,13 @@ const StackNavigator = ({isAuthenticated}) => {
           <Stack.Screen
             name="PostCreate"
             component={PostCreate}
+            options={{
+              headerShown: false
+            }}
+          />
+          <Stack.Screen
+            name="MissingPerson"
+            component={MissingPerson}
             options={{
               headerShown: false
             }}

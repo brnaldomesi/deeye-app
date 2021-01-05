@@ -13,18 +13,15 @@ import React, {
 import {
   basicPadding,
   bgWhite,
+  flexCol,
   flexOne,
-  flexRowDirection,
   itemsCenter,
   mx1,
   p1,
   roundMediumSizeButtonStyle,
-  textSm
+  textDot7
 } from 'src/styles';
-import {
-  createPost,
-  uploadFile,
-} from 'src/redux/modules/posts';
+import { createPost, uploadFile } from 'src/redux/modules/posts';
 
 import { Avatar } from 'react-native-elements';
 import Button from 'src/components/Button';
@@ -188,6 +185,7 @@ const PostCreate = ({
   };
 
   const handleMissing = () => {
+    navigation.navigate('MissingPerson');
   };
 
   return (
@@ -228,7 +226,7 @@ const PostCreate = ({
               captureAudio={false}
             />
             <View style={[itemsCenter, p1]}>
-              <View style={flexRowDirection}>
+              <View style={flexCol}>
                 <MyButton onPress={handleTakePicture} title="Snap" variant="primary" style={[roundMediumSizeButtonStyle, mx1]} />
                 <MyButton onPress={handleCancelCamera} title="Cancel" variant="primary" style={[roundMediumSizeButtonStyle, mx1]} />
               </View>
@@ -289,29 +287,29 @@ const PostCreate = ({
           </View>
         </View>
       ) : (
-        <View style={[flexRowDirection, p1]}>
+        <View style={[flexCol, p1]}>
           <View style={flexOne}>
             <MyButton onPress={handleAddPostPress(DocumentPicker.types.images)}>
               <Image style={[styles.icon, styles.photoSizeSelect1]} source={IMAGES_PATH.photoSizeSelect1} />
-              <Text style={textSm}>Add Photo</Text>
+              <Text style={textDot7}>Add Photo</Text>
             </MyButton>
           </View>
           <View style={flexOne}>
             <MyButton onPress={handleAddPostPress(DocumentPicker.types.video)}>
               <Image style={[styles.icon, styles.featherVideo1]} source={IMAGES_PATH.featherVideo1} />
-              <Text style={textSm}>Add Video</Text>
+              <Text style={textDot7}>Add Video</Text>
             </MyButton>
           </View>
           <View style={flexOne}>
             <MyButton onPress={handleTakePhotoPress}>
               <Image style={[styles.icon, styles.camera]} source={IMAGES_PATH.camera} />
-              <Text style={textSm}>Take Photo</Text>
+              <Text style={textDot7}>Take Photo</Text>
             </MyButton>
           </View>
           <View style={flexOne}>
             <MyButton onPress={handleMissing}>
               <Image style={[styles.icon, styles.shapeActive3]} source={IMAGES_PATH.shapeActive3} />
-              <Text style={textSm}>Missing Person</Text>
+              <Text style={textDot7}>Missing Person</Text>
             </MyButton>
           </View>
         </View>                             
@@ -322,6 +320,7 @@ const PostCreate = ({
 
 PostCreate.propTypes = {
   uploadFile: PropTypes.func,
+  createPost: PropTypes.func
 }
 
 const actions = {

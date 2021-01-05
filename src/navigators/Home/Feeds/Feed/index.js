@@ -9,8 +9,8 @@ import {
   Size,
   bgSecodary,
   bgWhite,
+  flexCol,
   flexOne,
-  flexRowDirection,
   fontWeightBold,
   my1,
   p1,
@@ -57,24 +57,19 @@ const Feed = ({ post }) => {
 
   }
 
+  console.log('uri', ASSET_BASE_URL + post.post_attachments[0].path)
+
   return (
     <View style={[bgWhite, my1]}>
-      <View style={{
-        shadowOffset: {
-          width: 0,
-          height: 2
-        },
-        shadowOpacity: 0.25,
-        elevation: 9,
-      }}>
+      <View>
         <Image
           style={[styles.thumbnail, resizeCover]}
           source={{
-            uri: ASSET_BASE_URL + post.post_attachments[0].path,
+            uri: post.post_attachments[0] ? ASSET_BASE_URL + post.post_attachments[0].path : undefined,
           }}
         />
       </View>
-      <View style={[flexRowDirection, styles.caption]}>
+      <View style={[flexCol, styles.caption]}>
         <View>
           <Avatar
             rounded

@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
   },
   heading: {
     fontSize: Size(1.7),
-    color: Colors.button.primary,
+    color: Colors.primary,
     fontWeight: 'bold',
     textAlign: 'center',
   },
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     flex: 2,
   },
   content: {
-    color: Colors.button.primary,
+    color: Colors.primary,
     fontSize: Size(1.2),
     textAlign: 'center'
   },

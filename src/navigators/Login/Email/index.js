@@ -2,12 +2,12 @@ import {
   Colors,
   Size,
   borderPrimary,
-  flexRowDirection,
+  flexCol,
   gradientColors,
   loginHorizontalPadding,
-  loginTextInput,
-  positionRelative,
+  relative,
   roundRectFullWidthButtonStyle,
+  textInput,
 } from 'src/styles';
 import {
   Image,
@@ -62,11 +62,11 @@ const Email = ({ navigation, authCheckUser }) => {
   return (
     <View style={loginHorizontalPadding}>
       <Text style={styles.emailLabel}>Email Address</Text>
-      <View style={[flexRowDirection, positionRelative]}>
+      <View style={[flexCol, relative]}>
         <MyTextInput 
           placeholder="Enter your email address"
           name="email"
-          style={loginTextInput}
+          style={textInput}
           value={email}
           onChangeText={ text => setEmail(text) }
           error={error}
@@ -86,7 +86,7 @@ const Email = ({ navigation, authCheckUser }) => {
         onPress={handleConfirm}
         gradientColors={error === -1 ? gradientColors : ['white', 'white']}
         text="Confirm"
-        textColor={error === -1 ? 'white' : Colors.button.primary}
+        textColor={error === -1 ? 'white' : Colors.primary}
         fontSize={Size(1.2)}
         fontWeight="bold"
         style={styles.confirmButton}

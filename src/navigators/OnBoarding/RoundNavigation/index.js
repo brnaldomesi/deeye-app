@@ -1,7 +1,7 @@
 import {
   Colors,
   Size,
-  flexRowDirection
+  flexCol
 } from 'src/styles';
 import { TouchableOpacity, View } from 'react-native';
 
@@ -17,18 +17,18 @@ const RoundNavigation = ({active, navigation}) => {
   }
 
   return (
-    <View style={flexRowDirection}>
+    <View style={flexCol}>
       <MyButton row onPress={handlePress('Global')} style={styles.px1}>
-        <FAIcon name="circle" color={active === 'global' ? Colors.button.primary : Colors.button.secondary} />
+        <FAIcon name="circle" color={active === 'global' ? Colors.primary : Colors.secondary} />
       </MyButton>
       <MyButton row onPress={handlePress('RealTime')} style={styles.px1}>
-        <FAIcon name="circle" color={active === 'realTime' ? Colors.button.primary : Colors.button.secondary} />
+        <FAIcon name="circle" color={active === 'realTime' ? Colors.primary : Colors.secondary} />
       </MyButton>
       <MyButton row onPress={handlePress('Proximity')} style={styles.px1}>
-        <FAIcon name="circle" color={active === 'proximity' ? Colors.button.primary : Colors.button.secondary} />
+        <FAIcon name="circle" color={active === 'proximity' ? Colors.primary : Colors.secondary} />
       </MyButton>
       <MyButton row onPress={handlePress('ExtendSearch')} style={styles.px1}>
-        <FAIcon name="circle" color={active === 'extendSearch' ? Colors.button.primary : Colors.button.secondary} />
+        <FAIcon name="circle" color={active === 'extendSearch' ? Colors.primary : Colors.secondary} />
       </MyButton>
     </View>
   )

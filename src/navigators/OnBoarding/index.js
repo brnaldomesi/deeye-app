@@ -1,4 +1,8 @@
-import { Size, fontWeightBold, whiteColor } from 'src/styles';
+import {
+  Size,
+  fontWeightBold,
+  primaryColor
+} from 'src/styles';
 import { Text, TouchableOpacity } from 'react-native'
 
 import ExtendSearch from './ExtendSearch';
@@ -34,7 +38,7 @@ const OnBoarding = ({ navigation }) => {
               {...props} 
               onPress={() => navigation.navigate('RealTime')}
             >
-              <Text style={[fontWeightBold, whiteColor]}>SKIP</Text>
+              <Text style={[fontWeightBold, primaryColor]}>SKIP</Text>
             </TouchableOpacity>
           )
         }}
@@ -48,7 +52,7 @@ const OnBoarding = ({ navigation }) => {
               {...props} 
               onPress={() => navigation.navigate('Global')}
             >
-              <Text style={[fontWeightBold, whiteColor]}>BACK</Text>
+              <Text style={[fontWeightBold, primaryColor]}>BACK</Text>
             </TouchableOpacity>
           ),
           headerRight: props => (
@@ -56,7 +60,7 @@ const OnBoarding = ({ navigation }) => {
               {...props} 
               onPress={() => navigation.navigate('Proximity')}
             >
-              <Text style={[fontWeightBold, whiteColor]}>SKIP</Text>
+              <Text style={[fontWeightBold, primaryColor]}>SKIP</Text>
             </TouchableOpacity>
           )
         }}
@@ -70,7 +74,7 @@ const OnBoarding = ({ navigation }) => {
               {...props} 
               onPress={() => navigation.navigate('RealTime')}
             >
-              <Text style={[fontWeightBold, whiteColor]}>BACK</Text>
+              <Text style={[fontWeightBold, primaryColor]}>BACK</Text>
             </TouchableOpacity>
           ),
           headerRight: props => (
@@ -78,7 +82,7 @@ const OnBoarding = ({ navigation }) => {
               {...props} 
               onPress={() => navigation.navigate('ExtendSearch')}
             >
-              <Text style={[fontWeightBold, whiteColor]}>SKIP</Text>
+              <Text style={[fontWeightBold, primaryColor]}>SKIP</Text>
             </TouchableOpacity>
           )
         }}
@@ -92,7 +96,7 @@ const OnBoarding = ({ navigation }) => {
               {...props} 
               onPress={() => navigation.navigate('Proximity')}
             >
-              <Text style={[fontWeightBold, whiteColor]}>BACK</Text>
+              <Text style={[fontWeightBold, primaryColor]}>BACK</Text>
             </TouchableOpacity>
           )
         }}

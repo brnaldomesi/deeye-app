@@ -1,10 +1,10 @@
-import { Size, bgButtonPrimary } from 'src/styles'
+import { Size, bgPrimary } from 'src/styles'
 import { StyleSheet, Text, TouchableOpacity } from 'react-native'
 
 import React from 'react'
 
 const variants = {
-  primary: bgButtonPrimary,
+  primary: bgPrimary,
   // danger: CustomStyles.
   nobg: { backgroundColor: '#ffff' }
 }
@@ -14,7 +14,7 @@ const Button = ({ style, title, block, variant, children, ...rest }) => (
     style={[
       styles.container,
       block && styles.block,
-      variants[variant] || bgButtonPrimary,
+      variants[variant] || bgPrimary,
       style
     ]}
     activeOpacity={0.7}

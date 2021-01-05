@@ -1,25 +1,25 @@
 import {
   Size,
-  bgButtonPrimary,
   bgButtonSecondary,
+  bgPrimary,
   borderSecondary,
-  flexRowDirection,
+  flexCol,
   secondaryColor,
-  whiteColor
+  textWhite
 } from 'src/styles';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native'
 
 import React from 'react';
 
 const variants = {
-  primary: bgButtonPrimary,
+  primary: bgPrimary,
   // danger: CustomStyles.
   secondary: bgButtonSecondary,
   nobg: { backgroundColor: '#ffff' }
 }
 
 const flexDirections = {
-  row: flexRowDirection
+  row: flexCol
 }
 
 const MyButton = ({ 
@@ -46,7 +46,7 @@ const MyButton = ({
     {...rest}
   >
     {children ? children : (
-      <Text center style={ variant === 'primary' ? whiteColor : secondaryColor }>{title}</Text>
+      <Text center style={ variant === 'primary' ? textWhite : secondaryColor }>{title}</Text>
     )}
   </TouchableOpacity>
 )

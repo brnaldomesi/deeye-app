@@ -2,13 +2,13 @@ import {
   Colors,
   Size,
   borderPrimary,
-  flexRowDirection,
+  flexCol,
   gradientColors,
   loginHorizontalPadding,
-  loginTextInput,
   marginVerticalAuto,
-  positionRelative,
-  roundRectFullWidthButtonStyle
+  relative,
+  roundRectFullWidthButtonStyle,
+  textInput
 } from 'src/styles';
 import {
   Image,
@@ -98,7 +98,7 @@ const PasswordSet = ({
   };
 
   const ruleSection = Object.keys(pwdRules).map((rule, index) => (
-    <View style={[flexRowDirection, positionRelative]} key={index}>
+    <View style={[flexCol, relative]} key={index}>
       <View style={marginVerticalAuto}>
         <Image 
           style={styles.smallCheckCircle}
@@ -117,7 +117,7 @@ const PasswordSet = ({
       <MyTextInput 
         placeholder="Enter Your Password"
         name="password"
-        style={loginTextInput}
+        style={textInput}
         value={password}
         onChangeText={ text => validatePassword(text) }
         secureTextEntry
@@ -128,11 +128,11 @@ const PasswordSet = ({
       />
       <View style={styles.ruleSection}>{ruleSection}</View>
       <Text style={styles.passwordLabel}>Confirm Password</Text>
-      <View style={[flexRowDirection, positionRelative]}>
+      <View style={[flexCol, relative]}>
         <MyTextInput 
           placeholder="Confirm your password"
           name="confirmPassword"
-          style={loginTextInput}
+          style={textInput}
           value={confirmPassword}
           onChangeText={ text => checkPasswordMatch(text) }
           secureTextEntry
@@ -151,7 +151,7 @@ const PasswordSet = ({
         onPress={handleConfirm}
         gradientColors={!pwdRuleError && !pwdMismatcherror  ? gradientColors : ['white', 'white']}
         text="Confirm"
-        textColor={!pwdRuleError && !pwdMismatcherror ? 'white' : Colors.button.primary}
+        textColor={!pwdRuleError && !pwdMismatcherror ? 'white' : Colors.primary}
         fontSize={Size(1.2)}
         fontWeight="bold"
         style={styles.confirmButton}

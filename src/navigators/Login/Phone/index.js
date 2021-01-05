@@ -2,13 +2,13 @@ import {
   Colors,
   Size,
   borderPrimary,
+  flexCol,
   flexOne,
-  flexRowDirection,
   gradientColors,
   loginHorizontalPadding,
-  loginTextInput,
-  positionRelative,
-  roundRectFullWidthButtonStyle
+  relative,
+  roundRectFullWidthButtonStyle,
+  textInput
 } from 'src/styles';
 import {
   Image,
@@ -37,7 +37,7 @@ const Phone = ({ navigation }) => {
   return (
     <View style={loginHorizontalPadding}>
       <Text style={styles.phoneNumberLabel}>Phone Number</Text>
-      <View style={[flexRowDirection, positionRelative]}>
+      <View style={[flexCol, relative]}>
         <TextInputMask
           type={'custom'}
           options={{
@@ -46,7 +46,7 @@ const Phone = ({ navigation }) => {
           }}
           value={phoneNumber}
           onChangeText={ text => setPhoneNumber(text) }
-          style={[loginTextInput, flexOne]}
+          style={[textInput, flexOne]}
           placeholder="Enter your phone number"
           autoCompleteType="tel"
           keyboardType="numeric"
@@ -63,13 +63,13 @@ const Phone = ({ navigation }) => {
           padding: Size()
         }}
       >
-        <AntIcon name="exclamationcircleo" color={Colors.button.primary} />  A OTP codd will be sent to the phone number, keep your phone close.
+        <AntIcon name="exclamationcircleo" color={Colors.primary} />  A OTP codd will be sent to the phone number, keep your phone close.
       </Text>
       <GradientButton 
         onPress={handleVerify}
         gradientColors={error === -1 ? gradientColors : ['white', 'white']}
         text="Verify"
-        textColor={error === -1 ? 'white' : Colors.button.primary}
+        textColor={error === -1 ? 'white' : Colors.primary}
         fontSize={Size(1.2)}
         fontWeight="bold"
         style={styles.confirmButton}

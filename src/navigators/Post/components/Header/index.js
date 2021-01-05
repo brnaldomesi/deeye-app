@@ -2,10 +2,10 @@ import {
   Colors,
   fontWeightBold,
   marginVerticalAuto,
-  ml,
+  ml1,
   textXl
 } from 'src/styles';
-import { Size, flexRowDirection } from 'src/styles';
+import { Size, flexCol } from 'src/styles';
 import { Text, View } from 'react-native';
 
 import AntIcon from 'react-native-vector-icons/AntDesign';
@@ -23,11 +23,11 @@ const Header = ({
 }) => {
   return (
     <View style={styles.root}>
-      <View style={flexRowDirection}>
+      <View style={flexCol}>
         <MyButton row onPress={handleClose}>
-          <AntIcon size={25} name="close" color={Colors.button.primary} />
+          <AntIcon size={25} name="close" color={Colors.primary} />
         </MyButton>
-        <View style={[ml, marginVerticalAuto]}>
+        <View style={[ml1, marginVerticalAuto]}>
           <Text style={[fontWeightBold, textXl]}>{title}</Text>
         </View>
       </View>
