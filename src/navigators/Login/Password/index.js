@@ -30,7 +30,7 @@ const Password = ({ route, navigation, authLogin }) => {
     authLogin({ 
       data: { email, password, deviceName },
       fail: err => {
-        console.log('err', err)
+        console.error('err', err)
         setError(1);
       }
     });

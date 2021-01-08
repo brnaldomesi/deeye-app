@@ -1,4 +1,8 @@
-import { Image, View } from 'react-native';
+import {
+  Alert,
+  Image,
+  View
+} from 'react-native';
 import {
   Menu,
   MenuOption,
@@ -6,26 +10,28 @@ import {
   MenuTrigger,
 } from 'react-native-popup-menu';
 import React, {useCallback, useState} from 'react';
+import { deletePost, togglePostVisibility } from 'src/redux/modules/posts';
 import { itemsCenter, resizeCover } from 'src/styles';
 
 import { IMAGES_PATH } from 'src/config/constants';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
+import { navigationRef } from 'src/navigators/Ref';
 import styles from './styles';
-import { togglePostVisibility } from 'src/redux/modules/posts';
 import { useFocusEffect } from '@react-navigation/native';
 
 const PopupMenu = ({
   isMyPost, 
   visible,
   togglePostVisibility,
-  id
+  id,
+  deletePost,
+  getUserPostsList
 }) => {
   const [visibleFlag, setVisibleFlag] = useState(!!visible);
 
   useFocusEffect(useCallback(
     () => {
-      console.log('final', visible)
       setVisibleFlag(visible);
     }, [visible])
   );
@@ -43,10 +49,22 @@ const PopupMenu = ({
   }
 
   const handleDelete = () => {
-    
+    Alert.alert(
+      'Delete',
+      'Are you sure to delete?',
+      [
+        {
+          text: 'No'
+        },
+        {
+          text: 'Yes',
+          onPress: () => {
+            deletePost({id});
+          }
+        }
+      ]
+    );
   }
-
-  console.log('popupmenu', id, visible, visibleFlag)
 
   return (
     <Menu>
@@ -69,7 +87,8 @@ const PopupMenu = ({
 };
 
 const actions = {
-  togglePostVisibility
+  togglePostVisibility,
+  deletePost
 }
 
 export default compose(

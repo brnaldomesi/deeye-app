@@ -32,7 +32,11 @@ export default handleActions(
           postsList: concat(state.postsList, [payload])
         }
       }
-    }
+    },
+    [types.DELETE_POST_SUCCESS]: (state, { payload }) => ({
+      ...state, 
+      postsList: state.postsList.filter(post => post.id != payload.id)
+    }),
   },
   getInitialState()
 );

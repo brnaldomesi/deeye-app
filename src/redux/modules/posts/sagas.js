@@ -2,6 +2,7 @@ import * as types from './types'
 
 import {
   createPostSuccess,
+  deletePostSuccess,
   getPostsListFail,
   getPostsListSuccess,
   togglePostVisibilitySuccess
@@ -46,6 +47,16 @@ const togglePostVisibility = apiCallSaga({
   }
 })
 
+const deletePost = apiCallSaga({
+  type: types.DELETE_POST,
+  method: 'delete',
+  allowedParamKeys: [],
+  path: ({payload}) => `/posts/${payload.id}`,
+  selectorKey: 'post',
+  success: function*(payload, action) {
+    yield put(deletePostSuccess(payload))
+  }
+})
 
 const uploadFile = apiCallSaga({
   type: types.UPLOAD_FILE,
@@ -60,4 +71,5 @@ export default function* rootSaga() {
   yield takeLatest(types.CREATE_POST, createPost)
   yield takeLatest(types.UPLOAD_FILE, uploadFile)
   yield takeLatest(types.TOGGLE_POST_VISIBILITY, togglePostVisibility)
+  yield takeLatest(types.DELETE_POST, deletePost)
 }

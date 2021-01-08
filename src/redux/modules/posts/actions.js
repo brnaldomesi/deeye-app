@@ -10,3 +10,5 @@ export const createPostSuccess = createAction(types.CREATE_POST_SUCCESS);
 export const uploadFile = createAction(types.UPLOAD_FILE);
 export const togglePostVisibility = createAction(types.TOGGLE_POST_VISIBILITY);
 export const togglePostVisibilitySuccess = createAction(types.TOGGLE_POST_VISIBILITY_SUCCESS);
+export const deletePost = createAction(types.DELETE_POST);
+export const deletePostSuccess = createAction(types.DELETE_POST_SUCCESS);
