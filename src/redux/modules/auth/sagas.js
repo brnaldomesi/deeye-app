@@ -44,8 +44,9 @@ const authLogin = apiCallSaga({
   path: '/auth/login',
   selectorKey: 'authLogin',
   success: function*(payload) {
-    AsyncStorage.setItem('token', payload['auth-token'])
-    yield put(authLoginSuccess(payload))
+    AsyncStorage.setItem('token', payload['auth-token']);
+    AsyncStorage.setItem('profile', JSON.stringify(payload.profile));
+    yield put(authLoginSuccess(payload));
   },
   fail: function*(payload) {
     yield put(authLoginFail(payload))
@@ -53,9 +54,8 @@ const authLogin = apiCallSaga({
 })
 
 const handleLogout = function*(payload) {
-  document.cookie = ''
-  Cookies.remove('auth-token')
-  yield put(authLogoutSuccess(payload))
+  AsyncStorage.clear();
+  yield put(authLogoutSuccess(payload));
 }
 
 const authLogout = apiCallSaga({

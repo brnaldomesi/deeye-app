@@ -1,7 +1,3 @@
-// import { dataSelector, isRequestPending } from '../api'
-
-// export const postsListSelector = dataSelector('postsList', []);
-
 import { createSelector } from 'reselect';
 import fp from 'lodash/fp';
 

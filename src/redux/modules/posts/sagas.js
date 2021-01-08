@@ -3,7 +3,8 @@ import * as types from './types'
 import {
   createPostSuccess,
   getPostsListFail,
-  getPostsListSuccess
+  getPostsListSuccess,
+  togglePostVisibilitySuccess
 } from './actions'
 import { put, takeLatest } from 'redux-saga/effects'
 
@@ -34,6 +35,18 @@ const createPost = apiCallSaga({
   }
 })
 
+const togglePostVisibility = apiCallSaga({
+  type: types.TOGGLE_POST_VISIBILITY,
+  method: 'put',
+  allowedParamKeys: [],
+  path: ({payload}) => `/posts/${payload.id}`,
+  selectorKey: 'post',
+  success: function*(payload, action) {
+    yield put(togglePostVisibilitySuccess(payload))
+  }
+})
+
+
 const uploadFile = apiCallSaga({
   type: types.UPLOAD_FILE,
   method: 'post',
@@ -46,4 +59,5 @@ export default function* rootSaga() {
   yield takeLatest(types.GET_POSTS_LIST, getPostsList)
   yield takeLatest(types.CREATE_POST, createPost)
   yield takeLatest(types.UPLOAD_FILE, uploadFile)
+  yield takeLatest(types.TOGGLE_POST_VISIBILITY, togglePostVisibility)
 }

@@ -19,7 +19,20 @@ export default handleActions(
     [types.CREATE_POST_SUCCESS]: (state, { payload }) => ({
       ...state, 
       postsList: concat(state.postsList, [payload])
-    })
+    }),
+    [types.TOGGLE_POST_VISIBILITY_SUCCESS]: (state, { payload }) => {
+      if(payload.visible == 0) {
+        return {
+          ...state, 
+          postsList: state.postsList.filter(post => post.id !== payload.id)
+        }
+      } else {
+        return {
+          ...state, 
+          postsList: concat(state.postsList, [payload])
+        }
+      }
+    }
   },
   getInitialState()
 );

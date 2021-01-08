@@ -14,6 +14,7 @@ import {
 import React, { useEffect } from 'react';
 import { persistor, store } from 'src/redux';
 
+import { MenuProvider } from 'react-native-popup-menu';
 import { NavigationContainer } from '@react-navigation/native';
 import { PersistGate } from 'redux-persist/lib/integration/react';
 import { Provider } from 'react-redux';
@@ -35,8 +36,10 @@ const App: () => React$Node = () => {
         <ThemeProvider theme={theme}>
           <SafeAreaView style={flexOne}>
             <NavigationContainer ref={navigationRef}>
-              <StatusBar barStyle="dark-content" />
-              <StackNavigator />
+              <MenuProvider>
+                <StatusBar barStyle="dark-content" />
+                <StackNavigator />
+              </MenuProvider>
             </NavigationContainer>
           </SafeAreaView>
         </ThemeProvider>

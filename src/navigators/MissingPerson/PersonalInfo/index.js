@@ -46,7 +46,6 @@ import MyButton from 'src/components/MyButton';
 import PropTypes from 'prop-types';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
 import moment from 'moment';
 import styles from './styles';
 import { uploadFile } from 'src/redux/modules/posts';
@@ -450,8 +449,6 @@ const actions = {
   uploadFile,
 }
 
-// const selector = createStructuredSelector({
-// });
 
 export default compose(
   connect(null, actions)

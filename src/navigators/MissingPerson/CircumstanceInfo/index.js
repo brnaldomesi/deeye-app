@@ -50,7 +50,6 @@ import MyButton from 'src/components/MyButton';
 import PropTypes from 'prop-types';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
 import { flexOne } from 'src/styles';
 import moment from 'moment';
 import styles from './styles';
@@ -279,9 +278,6 @@ CircumstanceInfo.propTypes = {
 const actions = {
   uploadFile,
 }
-
-// const selector = createStructuredSelector({
-// });
 
 export default compose(
   connect(null, actions)

@@ -120,6 +120,10 @@ export const bgWhite = {
   backgroundColor: 'white'
 }
 
+export const bgTransparent = {
+  backgroundColor: 'transparent'
+}
+
 /* Position */
 export const relative = {
   position: 'relative'
@@ -248,6 +252,10 @@ export const itemsCenter = {
 
 export const itemsStart = {
   alignItems: 'flex-start'
+}
+
+export const itemsEnd = {
+  alignItems: 'flex-end'
 }
 
 export const selfCenter = {

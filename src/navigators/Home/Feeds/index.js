@@ -8,11 +8,13 @@ import { Size } from 'src/styles';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import { profileSelector } from 'src/redux/modules/auth';
 import styles from './styles';
 
 const Feeds = ({
   getPostsList,
-  posts
+  posts,
+  profile
 }) => {
   
   useEffect(() => {
@@ -21,8 +23,8 @@ const Feeds = ({
 
   return (
     <ScrollView>
-      {posts && posts.map( (post, index) => 
-        <Feed post={post} key={index} />
+      {posts && posts.map(post => 
+        <Feed post={post} key={post.id} profileId={profile.id} />
       )}
       <View style={{ height: Size(5.7) }} />
     </ScrollView>
@@ -32,7 +34,7 @@ const Feeds = ({
 Feeds.propTypes = {
   getPostsList: PropTypes.func,
   posts: PropTypes.array,
-  token: PropTypes.string
+  profile: PropTypes.object
 }
 
 const actions = {
@@ -40,7 +42,8 @@ const actions = {
 }
 
 const selector = createStructuredSelector({
-  posts: postsListSelector
+  posts: postsListSelector,
+  profile: profileSelector
 });
 
 export default compose(

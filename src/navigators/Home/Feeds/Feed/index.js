@@ -4,10 +4,17 @@ import {
   Text,
   View
 } from 'react-native';
+import {
+  Menu,
+  MenuOption,
+  MenuOptions,
+  MenuTrigger,
+} from 'react-native-popup-menu';
 import React, { useEffect } from 'react';
 import {
   Size,
   bgSecodary,
+  bgTransparent,
   bgWhite,
   flexCol,
   flexOne,
@@ -17,7 +24,8 @@ import {
   primaryColor,
   px1,
   py1,
-  resizeCover
+  resizeCover,
+  roundedFull
 } from 'src/styles';
 import { getPostsList, postsListSelector } from 'src/redux/modules/posts';
 
@@ -25,6 +33,7 @@ import { ASSET_BASE_URL } from 'src/config/constants';
 import { Divider } from 'react-native-elements';
 import { IMAGES_PATH } from 'src/config/constants';
 import MyButton from 'src/components/MyButton';
+import PopupMenu from 'src/components/PopupMenu';
 import PropTypes from 'prop-types';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
@@ -32,11 +41,7 @@ import { createStructuredSelector } from 'reselect';
 import styles from './styles';
 import { tokenSelector } from 'src/redux/modules/auth';
 
-const Feed = ({ post }) => {
-  const handlePress = () => {
-
-  }
-
+const Feed = ({ post, profileId }) => {
   const handleComment = () => {
 
   }
@@ -56,8 +61,6 @@ const Feed = ({ post }) => {
   const handleSend = () => {
 
   }
-
-  console.log('uri', ASSET_BASE_URL + post.post_attachments[0].path)
 
   return (
     <View style={[bgWhite, my1]}>
@@ -82,9 +85,7 @@ const Feed = ({ post }) => {
           <Text>{post.description}</Text>
         </View>
         <View>
-          <MyButton onPress={handlePress}>
-            <Image style={styles.settingImg} source={IMAGES_PATH.setting} />
-          </MyButton>
+          <PopupMenu isMyPost={post.profile_id === profileId} visible={post.visible} id={post.id} />
         </View>
       </View>
       <Divider style={styles.divider} />
@@ -133,6 +134,7 @@ const Feed = ({ post }) => {
 };
 
 Feed.propTypes = {
+  profileId: PropTypes.number.isRequired
 }
 
 const actions = {

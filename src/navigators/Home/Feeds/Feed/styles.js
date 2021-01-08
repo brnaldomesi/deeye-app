@@ -6,11 +6,6 @@ const styles = StyleSheet.create({
   imageContainer: {
     borderRadius: Size()
   },
-  settingImg: {
-    width: Size(.3),
-    height: undefined,
-    aspectRatio: 12/63
-  },
   divider: {
     backgroundColor: Colors.divider,
     marginHorizontal: Size(),

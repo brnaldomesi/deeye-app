@@ -41,7 +41,6 @@ import MyButton from 'src/components/MyButton';
 import PropTypes from 'prop-types';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
 import styles from './styles';
 
 const ContactInfo = ({
@@ -263,8 +262,6 @@ const actions = {
   uploadFile
 }
 
-// const selector = createStructuredSelector({
-// });
 
 export default compose(
   connect(null, actions)

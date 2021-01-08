@@ -1,4 +1,4 @@
-import Home from './Home';
+import Drawer from './Drawer';
 import Login from './Login';
 import MissingPerson from './MissingPerson';
 import OnBoarding from './OnBoarding';
@@ -19,8 +19,8 @@ const StackNavigator = ({isAuthenticated}) => {
     <Stack.Navigator>
       {isAuthenticated ? <> 
           <Stack.Screen
-            name="Home"
-            component={Home}
+            name="Drawer"
+            component={Drawer}
             options={{
               headerShown: false
             }}
