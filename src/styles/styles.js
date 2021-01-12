@@ -94,6 +94,10 @@ export const w80P = {
   width: '80%'
 }
 
+export const wFull = {
+  width: '100%'
+}
+
 /* Layout */
 export const flexOne = {
   flex: 1

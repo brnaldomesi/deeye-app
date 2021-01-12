@@ -12,3 +12,5 @@ export const togglePostVisibility = createAction(types.TOGGLE_POST_VISIBILITY);
 export const togglePostVisibilitySuccess = createAction(types.TOGGLE_POST_VISIBILITY_SUCCESS);
 export const deletePost = createAction(types.DELETE_POST);
 export const deletePostSuccess = createAction(types.DELETE_POST_SUCCESS);
+export const updatePost = createAction(types.UPDATE_POST);
+export const updatePostSuccess = createAction(types.UPDATE_POST_SUCCESS);

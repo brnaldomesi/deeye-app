@@ -37,6 +37,12 @@ export default handleActions(
       ...state, 
       postsList: state.postsList.filter(post => post.id != payload.id)
     }),
+    [types.UPDATE_POST_SUCCESS]: (state, { payload }) => {
+      return {
+        ...state,
+        postsList: state.postsList.map(post => (post.id === payload.id ? payload : post))
+      }
+    },
   },
   getInitialState()
 );

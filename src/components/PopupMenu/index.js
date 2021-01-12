@@ -1,3 +1,5 @@
+import * as RootNavigation from 'src/navigators/Ref';
+
 import {
   Alert,
   Image,
@@ -21,28 +23,27 @@ import styles from './styles';
 import { useFocusEffect } from '@react-navigation/native';
 
 const PopupMenu = ({
+  post,
   isMyPost, 
-  visible,
   togglePostVisibility,
-  id,
   deletePost,
   getUserPostsList
 }) => {
-  const [visibleFlag, setVisibleFlag] = useState(!!visible);
+  const [visibleFlag, setVisibleFlag] = useState(!!post.visible);
 
   useFocusEffect(useCallback(
     () => {
-      setVisibleFlag(visible);
-    }, [visible])
+      setVisibleFlag(post.visible);
+    }, [post.visible])
   );
 
   const handleEdit = () => {
-
+    RootNavigation.navigate("PostEdit", {post});
   }
 
   const toggleVisibility = () => {
     togglePostVisibility({
-      id: id,
+      id: post.id,
       data: {visible: !visibleFlag}
     });
     setVisibleFlag(!visibleFlag);
@@ -59,7 +60,7 @@ const PopupMenu = ({
         {
           text: 'Yes',
           onPress: () => {
-            deletePost({id});
+            deletePost({id: post.id});
           }
         }
       ]

@@ -5,7 +5,8 @@ import {
   deletePostSuccess,
   getPostsListFail,
   getPostsListSuccess,
-  togglePostVisibilitySuccess
+  togglePostVisibilitySuccess,
+  updatePostSuccess
 } from './actions'
 import { put, takeLatest } from 'redux-saga/effects'
 
@@ -66,10 +67,22 @@ const uploadFile = apiCallSaga({
   selectorKey: 'uploadedFile',
 })
 
+const updatePost = apiCallSaga({
+  type: types.UPDATE_POST,
+  method: 'put',
+  allowedParamKeys: [],
+  path: ({payload}) => `/posts/${payload.id}`,
+  selectorKey: 'post',
+  success: function*(payload, action) {
+    yield put(updatePostSuccess(payload))
+  }
+})
+
 export default function* rootSaga() {
   yield takeLatest(types.GET_POSTS_LIST, getPostsList)
   yield takeLatest(types.CREATE_POST, createPost)
   yield takeLatest(types.UPLOAD_FILE, uploadFile)
   yield takeLatest(types.TOGGLE_POST_VISIBILITY, togglePostVisibility)
   yield takeLatest(types.DELETE_POST, deletePost)
+  yield takeLatest(types.UPDATE_POST, updatePost)
 }

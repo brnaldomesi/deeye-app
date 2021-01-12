@@ -3,6 +3,7 @@ import Login from './Login';
 import MissingPerson from './MissingPerson';
 import OnBoarding from './OnBoarding';
 import PostCreate from './Post/PostCreate';
+import PostEdit from './Post/PostEdit';
 import PostNew from './Post/PostNew';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -38,6 +39,10 @@ const StackNavigator = ({isAuthenticated}) => {
             options={{
               headerShown: false
             }}
+          />
+          <Stack.Screen
+            name="PostEdit"
+            component={PostEdit}
           />
           <Stack.Screen
             name="MissingPerson"

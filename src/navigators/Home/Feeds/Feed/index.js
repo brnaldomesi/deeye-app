@@ -85,7 +85,7 @@ const Feed = ({ post, profileId }) => {
           <Text>{post.description}</Text>
         </View>
         <View>
-          <PopupMenu isMyPost={post.profile_id === profileId} visible={post.visible} id={post.id} />
+          <PopupMenu post={post} isMyPost={post.profile_id === profileId} />
         </View>
       </View>
       <Divider style={styles.divider} />

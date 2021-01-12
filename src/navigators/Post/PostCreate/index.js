@@ -36,7 +36,6 @@ import Slider from 'react-native-app-intro-slider';
 import VideoPlayer from 'react-native-video-controls';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
 import styles from './styles';
 
 const androidCameraPermissionOptions = {
@@ -327,9 +326,6 @@ const actions = {
   uploadFile,
   createPost
 }
-
-// const selector = createStructuredSelector({
-// });
 
 export default compose(
   connect(null, actions)
