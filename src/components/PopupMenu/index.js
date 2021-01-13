@@ -12,8 +12,16 @@ import {
   MenuTrigger,
 } from 'react-native-popup-menu';
 import React, {useCallback, useState} from 'react';
-import { deletePost, togglePostVisibility } from 'src/redux/modules/posts';
-import { itemsCenter, resizeCover } from 'src/styles';
+import {
+  Size,
+  itemsCenter,
+  resizeCover
+} from 'src/styles';
+import {
+  deletePost,
+  reportPost,
+  togglePostVisibility
+} from 'src/redux/modules/posts';
 
 import { IMAGES_PATH } from 'src/config/constants';
 import { compose } from 'redux';
@@ -27,7 +35,8 @@ const PopupMenu = ({
   isMyPost, 
   togglePostVisibility,
   deletePost,
-  getUserPostsList
+  getUserPostsList,
+  reportPost
 }) => {
   const [visibleFlag, setVisibleFlag] = useState(!!post.visible);
 
@@ -67,6 +76,10 @@ const PopupMenu = ({
     );
   }
 
+  const handleReport = () => {
+    reportPost({id: post.id});
+  }
+
   return (
     <Menu>
       <MenuTrigger>
@@ -74,14 +87,18 @@ const PopupMenu = ({
           <Image style={[styles.settingImg, resizeCover]} source={IMAGES_PATH.setting} />
         </View>
       </MenuTrigger>
-      <MenuOptions>
-        {isMyPost &&
+      <MenuOptions customStyles={{optionText: {fontSize: Size(1.2)}}}>
+        {isMyPost ? (
           <> 
             <MenuOption onSelect={handleEdit} text='Edit' />
             <MenuOption onSelect={toggleVisibility} text={visibleFlag ? 'Hide' : 'Unhide'} />
             <MenuOption onSelect={handleDelete} text='Delete' />
           </>
-        }
+        ) : (
+          <>
+            <MenuOption onSelect={handleReport} text='Report' />
+          </>
+        )}
       </MenuOptions>
     </Menu>
   )
@@ -89,7 +106,8 @@ const PopupMenu = ({
 
 const actions = {
   togglePostVisibility,
-  deletePost
+  deletePost,
+  reportPost
 }
 
 export default compose(

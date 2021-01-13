@@ -27,7 +27,11 @@ import {
   resizeCover,
   roundedFull
 } from 'src/styles';
-import { getPostsList, postsListSelector } from 'src/redux/modules/posts';
+import {
+  likePost,
+  savePost,
+  sharePost
+} from 'src/redux/modules/posts';
 
 import { ASSET_BASE_URL } from 'src/config/constants';
 import { Divider } from 'react-native-elements';
@@ -37,21 +41,26 @@ import PopupMenu from 'src/components/PopupMenu';
 import PropTypes from 'prop-types';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
 import styles from './styles';
 import { tokenSelector } from 'src/redux/modules/auth';
 
-const Feed = ({ post, profileId }) => {
+const Feed = ({ 
+  post, 
+  profileId,
+  savePost,
+  likePost,
+  sharePost 
+}) => {
   const handleComment = () => {
 
   }
 
   const handleSave = () => {
-
+    savePost({id: post.id});
   }
 
-  const handleSupport = () => {
-
+  const handleLike = () => {
+    likePost({id: post.id})
   }
 
   const handleShare = () => {
@@ -106,13 +115,13 @@ const Feed = ({ post, profileId }) => {
         </View>
         <View>
           <MyButton onPress={handleSave}>
-            <Image style={styles.saveImg} source={IMAGES_PATH.save} />
+            <Image style={styles.saveImg} source={post.saved ? IMAGES_PATH.save1 : IMAGES_PATH.save} />
             <Text>Save</Text>
           </MyButton>
         </View>
         <View>
-          <MyButton onPress={handleSupport}>
-            <Image style={styles.suppportImg} source={IMAGES_PATH.support} />
+          <MyButton onPress={handleLike}>
+            <Image style={styles.suppportImg} source={post.liked ? IMAGES_PATH.support1 : IMAGES_PATH.support} />
             <Text>Support</Text>
           </MyButton>
         </View>
@@ -138,11 +147,11 @@ Feed.propTypes = {
 }
 
 const actions = {
+  savePost,
+  likePost,
+  sharePost
 }
 
-const selector = createStructuredSelector({
-});
-
 export default compose(
-  connect(selector, actions)
+  connect(null, actions)
 )(Feed);

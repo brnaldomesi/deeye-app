@@ -14,7 +14,7 @@ const PostEdit = ({
   const handleSubmit = data => {
     updatePost({
       id: post.id,
-      data: {description: data.description},
+      data: {description: data.description}
     });
   }
   

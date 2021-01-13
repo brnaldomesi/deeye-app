@@ -5,6 +5,7 @@ import {
   deletePostSuccess,
   getPostsListFail,
   getPostsListSuccess,
+  sharePostSuccess,
   togglePostVisibilitySuccess,
   updatePostSuccess
 } from './actions'
@@ -78,6 +79,47 @@ const updatePost = apiCallSaga({
   }
 })
 
+const reportPost = apiCallSaga({
+  type: types.REPORT_POST,
+  method: 'put',
+  allowedParamKeys: [],
+  path: ({payload}) => `/posts/${payload.id}/report`,
+  selectorKey: 'post'
+})
+
+const savePost = apiCallSaga({
+  type: types.SAVE_POST,
+  method: 'put',
+  allowedParamKeys: [],
+  path: ({payload}) => `/posts/${payload.id}/save`,
+  selectorKey: 'post',
+  success: function*(payload, action) {
+    yield put(updatePostSuccess(payload))
+  }
+})
+
+const likePost = apiCallSaga({
+  type: types.LIKE_POST,
+  method: 'put',
+  allowedParamKeys: [],
+  path: ({payload}) => `/posts/${payload.id}/like`,
+  selectorKey: 'post',
+  success: function*(payload, action) {
+    yield put(updatePostSuccess(payload))
+  }
+})
+
+const sharePost = apiCallSaga({
+  type: types.SHARE_POST,
+  method: 'post',
+  allowedParamKeys: [],
+  path: ({payload}) => `/posts/${payload.id}/share`,
+  selectorKey: 'post',
+  success: function*(payload, action) {
+    yield put(sharePostSuccess(payload))
+  }
+})
+
 export default function* rootSaga() {
   yield takeLatest(types.GET_POSTS_LIST, getPostsList)
   yield takeLatest(types.CREATE_POST, createPost)
@@ -85,4 +127,7 @@ export default function* rootSaga() {
   yield takeLatest(types.TOGGLE_POST_VISIBILITY, togglePostVisibility)
   yield takeLatest(types.DELETE_POST, deletePost)
   yield takeLatest(types.UPDATE_POST, updatePost)
+  yield takeLatest(types.REPORT_POST, reportPost)
+  yield takeLatest(types.SAVE_POST, savePost)
+  yield takeLatest(types.LIKE_POST, likePost)
 }
