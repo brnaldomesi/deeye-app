@@ -34,4 +34,12 @@ export const IMAGES_PATH = {
   awesomeFemalePrimary: require('src/assets/images/Missing_Person/Icon-awesome-female-1.png'),
   awesomeMaleWhite: require('src/assets/images/Missing_Person/Icon-awesome-male-1.png'),
   awesomeMalePrimary: require('src/assets/images/Missing_Person/Icon-awesome-male.png'),
+  feeds: require('src/assets/images/Icon-not_active-metro-feed.png'),
+  feedsActive: require('src/assets/images/Icon-not_active-metro-feed-1.png'),
+  missing: require('src/assets/images/Shape-active-3.png'),
+  missingActive: require('src/assets/images/Shape-active-1.png'),
+  alert: require('src/assets/images/Formad-1.png'),
+  alertActive: require('src/assets/images/Forma-1.png'),
+  message: require('src/assets/images/Icon-feather-mail.png'),
+  messageActive: require('src/assets/images/Icon-feather-mail-1.png'),
 }

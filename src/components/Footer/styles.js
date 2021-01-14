@@ -31,13 +31,29 @@ const styles = StyleSheet.create({
   content: {
     position: 'absolute',
     top: 0,
-    bottom: Size(1),
+    bottom: Size(.7),
     left: 0,
     right: 0,
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-around',
     paddingHorizontal: Size()
+  },
+  icons: {
+    width: undefined,
+    height: Size(2)
+  },
+  feeds: {
+    aspectRatio: 115/86
+  },
+  missing: {
+    aspectRatio: 31/42
+  },
+  alert: {
+    aspectRatio: 41/44
+  },
+  message: {
+    aspectRatio: 102/73
   }
 });
 

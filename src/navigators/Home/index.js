@@ -6,28 +6,32 @@
  * @flow strict-local
  */
 
+import React, { useState } from 'react';
 import {
   Size,
+  flexOne,
   gradientColors,
   itemsCenter,
-  roundMediumSizeButtonStyle,
+  roundMediumSizeButtonStyle
 } from 'src/styles'
 import { Text, View } from 'react-native';
 
 import Feeds from './Feeds';
 import Footer from 'src/components/Footer';
 import GradientButton from 'src/components/GradientButton';
-import React from 'react';
 import styles from './styles';
 
-const Home = ({ navigation }) => {
+const Home = ({ route, navigation }) => {
+   
+  const [footerRoute, setFooterRoute] = route.params === undefined ? useState('feeds') : useState(route.params.query);
+
   const handleViewMore = () => {
     
   };
 
   return (
-    <View>
-      <Feeds />
+    <View style={flexOne}>
+      <Feeds footerRoute={footerRoute} />
       {/* <GradientButton 
         onPress={handleViewMore}
         gradientColors={gradientColors}
@@ -37,7 +41,7 @@ const Home = ({ navigation }) => {
         fontSize={Size()}
         style={styles.gradientButton}
       /> */}
-      <Footer style={styles.footer} />
+      <Footer style={styles.footer} footerRoute={footerRoute} />
     </View>
   );
 };
