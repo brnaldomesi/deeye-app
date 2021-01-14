@@ -90,8 +90,7 @@ const PersonalInfo = ({navigation, uploadFile}) => {
     formData.missing_post.dob = moment(dob).format("YYYY-MM-DD hh:mm:ss");
     formData.attachments = attachments;
     formData.post_type = "MissingPerson";
-    formData.description = "Missing Person post sample";
-    navigation.navigate('CircumstanceInfo',{formData})
+    navigation.navigate('CircumstanceInfo', {formData})
   };
 
   const handleUpload = (data) => {
@@ -160,14 +159,14 @@ const PersonalInfo = ({navigation, uploadFile}) => {
 
   const handleWeightKg = () => {
     if(weightUnit === 'lb' & weight !== null) {
-      setWeight((weight * 35.274).toFixed(0))
+      setWeight((weight * 0.45).toFixed(0))
     }
     setWeightUnit('kg')
   }
 
   const handleWeightLb = () => {
     if(weightUnit === 'kg' & weight !== null) {
-      setWeight((weight / 35.274).toFixed(1))
+      setWeight((weight / 0.45).toFixed(1))
     }
     setWeightUnit('lb')
   }

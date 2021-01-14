@@ -154,6 +154,10 @@ export const textRed = {
   color: 'red'
 }
 
+export const textYellow100 = {
+  color: Colors.yellow100
+}
+
 export const textGreen1 = {
   color: Colors.green1
 }
@@ -182,6 +186,10 @@ export const textXl = {
 export const marginVerticalAuto = {
   marginTop: 'auto',
   marginBottom: 'auto'
+}
+
+export const m0 = {
+  margin: 0
 }
 
 export const mt1 = {
@@ -214,6 +222,10 @@ export const my1 = {
 
 export const mx1 = {
   marginHorizontal: Size()
+}
+
+export const p0 = {
+  padding: 0
 }
 
 export const p1 = {

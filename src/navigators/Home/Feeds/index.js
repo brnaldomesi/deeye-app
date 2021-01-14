@@ -1,6 +1,9 @@
 import React, { useEffect } from 'react';
 import { ScrollView, View } from 'react-native';
-import { getPostsList, postsListSelector } from 'src/redux/modules/posts';
+import {
+  getPostsList,
+  postsListSelector
+} from 'src/redux/modules/posts';
 
 import Feed from './Feed'
 import PropTypes from 'prop-types';
@@ -14,16 +17,19 @@ import styles from './styles';
 const Feeds = ({
   getPostsList,
   posts,
-  profile
+  profile,
+  footerRoute
 }) => {
-  
+
   useEffect(() => {
     getPostsList();
   }, [])
 
+  const feedsArr = footerRoute === 'missing' ? posts.filter(post => post.post_type==="MissingPerson") : posts;
+
   return (
     <ScrollView>
-      {posts && posts.map(post => 
+      {feedsArr && feedsArr.map(post => 
         <Feed post={post} key={post.id} profileId={profile.id} />
       )}
       <View style={{ height: Size(5.7) }} />

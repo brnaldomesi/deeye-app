@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import {
   Size,
   flexOne,
@@ -20,10 +20,21 @@ import Feeds from './Feeds';
 import Footer from 'src/components/Footer';
 import GradientButton from 'src/components/GradientButton';
 import styles from './styles';
+import { useFocusEffect } from '@react-navigation/native';
 
 const Home = ({ route, navigation }) => {
    
-  const [footerRoute, setFooterRoute] = route.params === undefined ? useState('feeds') : useState(route.params.query);
+  const [footerRoute, setFooterRoute] = useState('feeds');
+
+  useFocusEffect(useCallback(
+    () => {
+      if(route.params === undefined) {
+        setFooterRoute('feeds');
+      } else {
+        setFooterRoute(route.params.query);
+      }
+    }, [route.params])
+  );
 
   const handleViewMore = () => {
     

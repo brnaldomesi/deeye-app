@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
   },
   thumbnail: {
     width: '100%',
-    height: Size(12),
+    height: Size(13),
     borderRadius: Size(),
   }
 });

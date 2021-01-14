@@ -77,6 +77,7 @@ const CircumstanceInfo = ({
     formData.missing_post.has_tattoo = hasTattoo;
     formData.missing_post.language = language;
     formData.missing_post.company_name = companyName;
+    formData.missing_post.duo_location = duoLocation;
 
     navigation.navigate('ContactInfo', {formData});
   }

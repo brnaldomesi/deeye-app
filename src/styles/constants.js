@@ -7,6 +7,7 @@ export const Size = (n = 1) => n * 10 * width / 250;
 export const Colors = {
   primary: '#05174f',
   secondary: '#9f9f9f',
+  yellow100: '#ed8829',
   gradient: {
     primary: '#0f0ed4',
     secondary: '#0e0b8a',
