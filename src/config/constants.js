@@ -42,4 +42,7 @@ export const IMAGES_PATH = {
   alertActive: require('src/assets/images/Forma-1.png'),
   message: require('src/assets/images/Icon-feather-mail.png'),
   messageActive: require('src/assets/images/Icon-feather-mail-1.png'),
+  phoneCall: require('src/assets/images/Icon-feather-phone-call.png'),
+  openChat: require('src/assets/images/Icon-open-chat.png'),
+  verifiedBadge: require('src/assets/images/Icon-material-verified-user.png'),
 }

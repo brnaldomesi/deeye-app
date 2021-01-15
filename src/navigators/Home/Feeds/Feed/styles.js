@@ -63,6 +63,24 @@ const styles = StyleSheet.create({
     width: '100%',
     height: Size(13),
     borderRadius: Size(),
+  },
+  contactImg: {
+    width: Size(),
+    height: Size()
+  },
+  badge: {
+    width: Size(1.2),
+    height: Size(1.5),
+    top: Size(.5),
+    right: Size(1)
+  },
+  missingDays: {
+    bottom: 0,
+    right: 0,
+    borderTopLeftRadius: Size(),
+    borderBottomRightRadius: Size(1.5),
+    paddingHorizontal: Size(.7),
+    paddingVertical: Size(.2)
   }
 });
 

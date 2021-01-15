@@ -18,6 +18,10 @@ target 'deeye' do
 
   pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-async-storage/async-storage'
 
+  pod 'react-native-video', :path => '../node_modules/react-native-video'
+
+  pod 'react-native-video-cache', :path => '../node_modules/react-native-video-cache'
+
   target 'deeyeTests' do
     inherit! :complete
     # Pods for testing

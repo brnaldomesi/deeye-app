@@ -1,36 +1,42 @@
-import {
-  ActivityIndicator,
-  Image,
-  Text,
-  View
-} from 'react-native';
 import { Avatar, Tile } from 'react-native-elements';
 import {
   Colors,
   Size,
+  absolute,
   bgSecodary,
   bgTransparent,
   bgWhite,
   flexCol,
   flexOne,
   fontWeightBold,
+  gradientColors,
   justifyBetween,
   m0,
   marginVerticalAuto,
   ml1,
   mt1,
+  mtp5,
   my1,
   p0,
   p1,
   primaryColor,
   px1,
   py1,
+  relative,
+  resizeContain,
   resizeCover,
   roundedFull,
+  selfCenter,
   textBase,
+  textWhite,
   textXl,
   textYellow100
 } from 'src/styles';
+import {
+  Image,
+  Text,
+  View
+} from 'react-native';
 import {
   Menu,
   MenuOption,
@@ -48,14 +54,16 @@ import { ASSET_BASE_URL } from 'src/config/constants';
 import AntIcon from 'react-native-vector-icons/AntDesign';
 import { Button } from 'react-native-elements';
 import { Divider } from 'react-native-elements';
+import FastImage from 'react-native-fast-image'
 import { IMAGES_PATH } from 'src/config/constants';
+import LinearGradient from 'react-native-linear-gradient';
 import MyButton from 'src/components/MyButton';
 import PopupMenu from 'src/components/PopupMenu';
 import PropTypes from 'prop-types';
-import { Image as RNImage } from 'react-native-elements';
 import VideoPlayer from 'react-native-video-controls';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
+import { getDiffFromToday } from 'src/utils/helpers';
 import moment from 'moment';
 import styles from './styles';
 import { tokenSelector } from 'src/redux/modules/auth';
@@ -98,25 +106,38 @@ const Feed = ({
 
   return (
     <View style={[bgWhite, my1]}>
-      <View>
+      <View style={[relative, flexOne]}>
         {postType === "Video" ? (
           <VideoPlayer 
             source={{ uri: post.post_attachments[0] ? ASSET_BASE_URL + post.post_attachments[0].path : undefined }} 
             style={[styles.thumbnail, resizeCover]}
             paused={true} 
+            disableBack
+            disableFullscreen
           />
         ) : (
-          <Image
-            style={[styles.thumbnail, resizeCover]}
-            source={{
-              uri: post.post_attachments[0] ? ASSET_BASE_URL + post.post_attachments[0].path + '?' + post.id : undefined,
-            }}
-          />
-          // <RNImage 
-          //   source={{ uri: post.post_attachments[0] ? ASSET_BASE_URL + post.post_attachments[0].path : undefined }}
-          //   style={[styles.thumbnail, resizeCover]}
-          //   PlaceholderContent={<ActivityIndicator />}
-          // />
+          <>
+            <FastImage
+              style={styles.thumbnail}
+              source={{
+                uri: post.post_attachments[0] ? ASSET_BASE_URL + post.post_attachments[0].path : undefined
+              }}
+              resizeMode={FastImage.resizeMode.cover}
+            />
+            {postType === 'MissingPerson' && 
+              <>
+                <Image style={[styles.badge, resizeContain, absolute]} source={IMAGES_PATH.verifiedBadge} />
+                <LinearGradient 
+                  colors={gradientColors} 
+                  style={[absolute, styles.missingDays]}
+                  start={{x:0, y:0}}
+                  end={{x:1, y: 0}}
+                >
+                  <Text style={textWhite}>{'Missing ' + getDiffFromToday(post.updated_at) + ' Now'}</Text>
+                </LinearGradient>
+              </>
+            }
+          </>
         )}
       </View>
       <View style={[flexCol, styles.caption]}>
@@ -125,8 +146,8 @@ const Feed = ({
             rounded
             icon={{name: 'user', type: 'font-awesome', color: 'black'}}
           />
-          <Text style={[primaryColor, fontWeightBold]}>Mike F.</Text>
-          <Text>2s min</Text>
+          <Text style={[primaryColor, fontWeightBold]}>{post.author.first_name + ' ' + post.author.last_name}</Text>
+          <Text>{getDiffFromToday(post.updated_at)}</Text>
         </View>
         <View style={[flexOne, px1]}>
           {postType === 'MissingPerson' ? (
@@ -197,6 +218,34 @@ const Feed = ({
               </View>
             </View>
           }
+          <Divider style={styles.divider} />
+          <View>
+            <Text style={[textXl, primaryColor]}>Circumstances</Text>
+            <View style={mtp5}>
+              <Text>{missingContent.circumstance}</Text>
+            </View>
+          </View>
+          <Divider style={styles.divider} />
+          <View style={[flexCol, justifyBetween]}>
+            <View>
+              <Text style={[textXl, primaryColor]}>Contact</Text>
+              <Text>If you have any information about{"\n"}the whomabout of {missingContent.fullname}</Text>
+            </View>
+            <View style={flexCol}>
+              <View>
+                <Image style={[styles.contactImg, selfCenter]} source={IMAGES_PATH.phoneCall} />
+                <View style={mtp5}>
+                  <Text>Call</Text>
+                </View>
+              </View>
+              <View style={ml1}>
+                <Image style={[styles.contactImg, selfCenter]} source={IMAGES_PATH.openChat} />
+                <View style={mtp5}>
+                  <Text>Message</Text>
+                </View>
+              </View>
+            </View>
+          </View>
         </View>
       }
       <Divider style={styles.divider} />
