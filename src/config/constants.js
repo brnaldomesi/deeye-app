@@ -45,4 +45,5 @@ export const IMAGES_PATH = {
   phoneCall: require('src/assets/images/Icon-feather-phone-call.png'),
   openChat: require('src/assets/images/Icon-open-chat.png'),
   verifiedBadge: require('src/assets/images/Icon-material-verified-user.png'),
+  arrowLeft: require('src/assets/images/Icon-awesome-arrow-left.png'),
 }

@@ -2,7 +2,7 @@ import {
   Colors,
   Size,
   borderPrimary,
-  flexCol,
+  flexRow,
   gradientColors,
   loginHorizontalPadding,
   marginVerticalAuto,
@@ -98,7 +98,7 @@ const PasswordSet = ({
   };
 
   const ruleSection = Object.keys(pwdRules).map((rule, index) => (
-    <View style={[flexCol, relative]} key={index}>
+    <View style={[flexRow, relative]} key={index}>
       <View style={marginVerticalAuto}>
         <Image 
           style={styles.smallCheckCircle}
@@ -128,7 +128,7 @@ const PasswordSet = ({
       />
       <View style={styles.ruleSection}>{ruleSection}</View>
       <Text style={styles.passwordLabel}>Confirm Password</Text>
-      <View style={[flexCol, relative]}>
+      <View style={[flexRow, relative]}>
         <MyTextInput 
           placeholder="Confirm your password"
           name="confirmPassword"

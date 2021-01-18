@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { ScrollView, View } from 'react-native';
 import {
   getPostsList,
+  getPostsListForUnsigned,
   postsListSelector
 } from 'src/redux/modules/posts';
 
@@ -18,11 +19,17 @@ const Feeds = ({
   getPostsList,
   posts,
   profile,
-  footerRoute
+  footerRoute,
+  unsigned,
+  getPostsListForUnsigned
 }) => {
 
   useEffect(() => {
-    getPostsList();
+    if(unsigned) {
+      getPostsListForUnsigned();
+    } else {
+      getPostsList();
+    }
   }, [])
 
   const feedsArr = footerRoute === 'missing' ? posts.filter(post => post.post_type==="MissingPerson") : posts;
@@ -30,7 +37,7 @@ const Feeds = ({
   return (
     <ScrollView>
       {feedsArr && feedsArr.map(post => 
-        <Feed post={post} key={post.id} profileId={profile.id} />
+        <Feed post={post} key={post.id} profileId={profile ? profile.id : undefined} />
       )}
       <View style={{ height: Size(5.7) }} />
     </ScrollView>
@@ -44,7 +51,8 @@ Feeds.propTypes = {
 }
 
 const actions = {
-  getPostsList
+  getPostsList,
+  getPostsListForUnsigned
 }
 
 const selector = createStructuredSelector({

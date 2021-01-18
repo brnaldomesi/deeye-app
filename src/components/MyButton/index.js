@@ -3,7 +3,7 @@ import {
   bgButtonSecondary,
   bgPrimary,
   borderSecondary,
-  flexCol,
+  flexRow,
   secondaryColor,
   textWhite
 } from 'src/styles';
@@ -19,7 +19,7 @@ const variants = {
 }
 
 const flexDirections = {
-  row: flexCol
+  row: flexRow
 }
 
 const MyButton = ({ 

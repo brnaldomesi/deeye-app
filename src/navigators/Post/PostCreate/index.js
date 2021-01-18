@@ -13,8 +13,8 @@ import React, {
 import {
   basicPadding,
   bgWhite,
-  flexCol,
   flexOne,
+  flexRow,
   itemsCenter,
   mx1,
   p1,
@@ -225,7 +225,7 @@ const PostCreate = ({
               captureAudio={false}
             />
             <View style={[itemsCenter, p1]}>
-              <View style={flexCol}>
+              <View style={flexRow}>
                 <MyButton onPress={handleTakePicture} title="Snap" variant="primary" style={[roundMediumSizeButtonStyle, mx1]} />
                 <MyButton onPress={handleCancelCamera} title="Cancel" variant="primary" style={[roundMediumSizeButtonStyle, mx1]} />
               </View>
@@ -286,7 +286,7 @@ const PostCreate = ({
           </View>
         </View>
       ) : (
-        <View style={[flexCol, p1]}>
+        <View style={[flexRow, p1]}>
           <View style={flexOne}>
             <MyButton onPress={handleAddPostPress(DocumentPicker.types.images)}>
               <Image style={[styles.icon, styles.photoSizeSelect1]} source={IMAGES_PATH.photoSizeSelect1} />

@@ -103,7 +103,7 @@ export const flexOne = {
   flex: 1
 }
 
-export const flexCol = {
+export const flexRow = {
   flexDirection: 'row'
 }
 
@@ -122,6 +122,14 @@ export const bgSecodary = {
 
 export const bgWhite = {
   backgroundColor: 'white'
+}
+
+export const bgDivider = {
+  backgroundColor: Colors.divider
+}
+
+export const bgBlack = {
+  backgroundColor: 'black'
 }
 
 export const bgTransparent = {

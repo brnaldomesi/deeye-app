@@ -6,7 +6,7 @@ import {
 } from 'react-native';
 import {
   Size,
-  flexCol,
+  flexRow,
   marginVerticalAuto
 } from 'src/styles';
 
@@ -25,7 +25,7 @@ const IconButton = ({
 
   return (
     <TouchableOpacity onPress={onPress}>
-      <View style={flexCol}>
+      <View style={flexRow}>
         <Image 
           style={styles.iconImage} 
           source={IMAGES_PATH[imageName]} 

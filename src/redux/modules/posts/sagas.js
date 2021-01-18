@@ -27,6 +27,20 @@ const getPostsList = apiCallSaga({
   }
 })
 
+const getPostsListForUnsigned = apiCallSaga({
+  type: types.GET_POSTS_LIST_FOR_UNSIGNED,
+  method: 'get',
+  allowedParamKeys: [],
+  path: '/posts/unsigned',
+  selectorKey: 'postsList',
+  success: function*(payload) {
+    yield put(getPostsListSuccess(payload))
+  },
+  fail: function*(payload) {
+    yield put(getPostsListFail(payload))
+  }
+})
+
 const createPost = apiCallSaga({
   type: types.CREATE_POST,
   method: 'post',
@@ -122,6 +136,7 @@ const sharePost = apiCallSaga({
 
 export default function* rootSaga() {
   yield takeLatest(types.GET_POSTS_LIST, getPostsList)
+  yield takeLatest(types.GET_POSTS_LIST_FOR_UNSIGNED, getPostsListForUnsigned)
   yield takeLatest(types.CREATE_POST, createPost)
   yield takeLatest(types.UPLOAD_FILE, uploadFile)
   yield takeLatest(types.TOGGLE_POST_VISIBILITY, togglePostVisibility)

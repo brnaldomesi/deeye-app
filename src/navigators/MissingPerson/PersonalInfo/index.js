@@ -13,8 +13,8 @@ import {
   bgPrimary,
   bgWhite,
   borderPrimary,
-  flexCol,
   flexOne,
+  flexRow,
   itemsCenter,
   itemsStart,
   justifyCenter,
@@ -216,10 +216,10 @@ const PersonalInfo = ({navigation, uploadFile}) => {
             />
           </View>
 
-          <View style={[mt1, flexCol]}>
+          <View style={[mt1, flexRow]}>
             <View style={flexOne}>
               <Text>Age (Date of Birthday)</Text>
-              <View style={flexCol}>
+              <View style={flexRow}>
                 <MyButton onPress={handleDob} style={[mtp5, itemsStart]}>
                   <Image 
                     style={[styles.square, resizeContain]}
@@ -243,7 +243,7 @@ const PersonalInfo = ({navigation, uploadFile}) => {
             </View>
             <View style={flexOne}>
               <Text>Sex</Text>
-              <View style={[flexCol, mtp5]}>
+              <View style={[flexRow, mtp5]}>
                 <View 
                   style={[
                     roundedSm, 
@@ -277,10 +277,10 @@ const PersonalInfo = ({navigation, uploadFile}) => {
             </View>
           </View>
 
-          <View style={[mt1, flexCol]}>
+          <View style={[mt1, flexRow]}>
             <View style={flexOne}>
               <Text>Height</Text>
-              <View style={[flexCol, mtp5]}>
+              <View style={[flexRow, mtp5]}>
                 <TextInput 
                   value={height} 
                   onChangeText={ text => setHeight(text) } 
@@ -317,7 +317,7 @@ const PersonalInfo = ({navigation, uploadFile}) => {
             </View>
             <View style={flexOne}>
               <Text>Weight</Text>
-              <View style={[flexCol, mtp5]}>
+              <View style={[flexRow, mtp5]}>
                 <TextInput 
                   value={weight} 
                   onChangeText={ text => setWeight(text) } 
@@ -354,7 +354,7 @@ const PersonalInfo = ({navigation, uploadFile}) => {
             </View>
           </View>
 
-          <View style={[mt1, flexCol]}>
+          <View style={[mt1, flexRow]}>
             <View style={flexOne}>
               <Text>Hair</Text>
               <TextInput 
@@ -383,7 +383,7 @@ const PersonalInfo = ({navigation, uploadFile}) => {
             </View> 
           </View>
 
-          <View style={[mt1, flexCol]}>
+          <View style={[mt1, flexRow]}>
             <View style={flexOne}>
               <Text>Eyes</Text>
               <TextInput 
@@ -399,7 +399,7 @@ const PersonalInfo = ({navigation, uploadFile}) => {
             </View>
             <View style={flexOne}>
               <Text>Medical condition</Text>
-              <View style={[flexCol, mtp5]}>
+              <View style={[flexRow, mtp5]}>
                 <Button 
                   title="Yes" 
                   onPress={() => setMedicalCondition(true)}

@@ -3,8 +3,8 @@ import {
   basicPadding,
   bgSecodary,
   bgWhite,
-  flexCol,
   flexOne,
+  flexRow,
   loginHeaderStyle,
   marginVerticalAuto,
   p1,
@@ -38,7 +38,7 @@ const PostNew = ({ navigation }) => {
     <View style={styles.root}>
       <View style={[flexOne, bgWhite]}>
         <Header handleClose={handleClose} buttonPrimary title="Share your post" />
-        <View style={[p1, flexCol]}>
+        <View style={[p1, flexRow]}>
           <Avatar
             rounded
             icon={{name: 'user', type: 'font-awesome', color: 'black'}}

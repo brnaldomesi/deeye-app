@@ -6,11 +6,6 @@ const styles = StyleSheet.create({
   imageContainer: {
     borderRadius: Size()
   },
-  divider: {
-    backgroundColor: Colors.divider,
-    marginHorizontal: Size(),
-    marginVertical: Size(.7)
-  },
   footer: {
     backgroundColor: Colors.postBottom.primary,
     borderBottomLeftRadius: Size(),
@@ -63,10 +58,6 @@ const styles = StyleSheet.create({
     width: '100%',
     height: Size(13),
     borderRadius: Size(),
-  },
-  contactImg: {
-    width: Size(),
-    height: Size()
   },
   badge: {
     width: Size(1.2),

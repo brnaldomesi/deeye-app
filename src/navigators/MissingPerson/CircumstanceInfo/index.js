@@ -13,7 +13,7 @@ import {
   bgWhite,
   borderPrimary,
   borderRed,
-  flexCol,
+  flexRow,
   fontWeightBold,
   italic,
   itemsCenter,
@@ -146,7 +146,7 @@ const CircumstanceInfo = ({
           <View style={mt1}>
             <Text>Missing Since</Text>
             <Text style={[textDot7, italic]}>When the person went missing from</Text>
-            <View style={flexCol}>
+            <View style={flexRow}>
               <MyButton onPress={handleMissingSince} style={[mtp5]}>
                 <Image 
                   style={[styles.square, resizeContain]}
@@ -192,10 +192,10 @@ const CircumstanceInfo = ({
             <Text style={[textDot7, italic]}>Important information such as medical condition and tatto etc will be great help in the search</Text>
           </View>
           
-          <View style={[mt1, flexCol]}>
+          <View style={[mt1, flexRow]}>
             <View style={flexOne}>
               <Text>Tattoo</Text>
-              <View style={[flexCol, mtp5]}>
+              <View style={[flexRow, mtp5]}>
                 <Button 
                   title="Yes" 
                   onPress={() => setHasTattoo(true)}

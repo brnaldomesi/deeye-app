@@ -2,8 +2,8 @@ import {
   Colors,
   bgPrimary,
   borderGreen1,
-  flexCol,
   flexOne,
+  flexRow,
   fontWeightBold,
   italic,
   itemsCenter,
@@ -143,7 +143,7 @@ const ContactInfo = ({
             placeholder="Phone number" 
           />
 
-          <View style={flexCol}>
+          <View style={flexRow}>
             <CheckBox
               title='Police Department'
               checkedIcon='dot-circle-o'
@@ -172,7 +172,7 @@ const ContactInfo = ({
             placeholder="Phone number" 
           />
 
-          <View style={flexCol}>
+          <View style={flexRow}>
             <CheckBox
               title='Police Department'
               checkedIcon='dot-circle-o'
@@ -202,7 +202,7 @@ const ContactInfo = ({
             ]}
           >
             <Text style={[textGreen1, fontWeightBold]}>Do you have a missing person report?</Text>
-            <View style={flexCol}>
+            <View style={flexRow}>
               <CheckBox
                 title='No'
                 checkedIcon='dot-circle-o'

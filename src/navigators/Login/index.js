@@ -7,6 +7,7 @@ import {
 
 import { BlurView } from '@react-native-community/blur';
 import Email from './Email';
+import Feeds from 'src/navigators/Home/Feeds'
 import First from './First';
 import Footer from 'src/components/Footer';
 import Home from 'src/navigators/Home'
@@ -25,12 +26,8 @@ const Login = () => {
 
   return (
     <>
-      <View style={{
-          flex:2,
-          alignItems: 'center'
-        }}
-      >
-        <Text>Temp Content</Text>
+      <View style={{flex:2}}>
+        <Feeds unsigned />
       </View>
       <BlurView
         style={styles.absolute}

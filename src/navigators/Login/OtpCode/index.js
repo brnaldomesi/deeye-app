@@ -4,7 +4,7 @@ import {
   borderDisabled,
   borderPrimary,
   borderSecondary,
-  flexCol,
+  flexRow,
   gradientColors,
   loginHorizontalPadding,
   relative,
@@ -75,7 +75,7 @@ const OtpCode = ({ route, navigation }) => {
           buttonStyle={error === -1 ? [roundWrapButtonStyle, borderDisabled] : [roundWrapButtonStyle, borderSecondary]}
         />
         <Text style={styles.otpCodeLabel}>OTP CODE</Text>
-        <View style={[flexCol, relative]}>
+        <View style={[flexRow, relative]}>
           <TextInputMask
             type={'custom'} 
             options={{

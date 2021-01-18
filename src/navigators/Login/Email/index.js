@@ -2,7 +2,7 @@ import {
   Colors,
   Size,
   borderPrimary,
-  flexCol,
+  flexRow,
   gradientColors,
   loginHorizontalPadding,
   relative,
@@ -62,7 +62,7 @@ const Email = ({ navigation, authCheckUser }) => {
   return (
     <View style={loginHorizontalPadding}>
       <Text style={styles.emailLabel}>Email Address</Text>
-      <View style={[flexCol, relative]}>
+      <View style={[flexRow, relative]}>
         <MyTextInput 
           placeholder="Enter your email address"
           name="email"

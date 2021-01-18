@@ -1,7 +1,7 @@
 import {
   Colors,
   Size,
-  flexCol
+  flexRow
 } from 'src/styles';
 import { TouchableOpacity, View } from 'react-native';
 
@@ -17,7 +17,7 @@ const RoundNavigation = ({active, navigation}) => {
   }
 
   return (
-    <View style={flexCol}>
+    <View style={flexRow}>
       <MyButton row onPress={handlePress('Global')} style={styles.px1}>
         <FAIcon name="circle" color={active === 'global' ? Colors.primary : Colors.secondary} />
       </MyButton>

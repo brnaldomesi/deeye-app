@@ -2,8 +2,8 @@ import {
   Colors,
   Size,
   borderPrimary,
-  flexCol,
   flexOne,
+  flexRow,
   gradientColors,
   loginHorizontalPadding,
   relative,
@@ -37,7 +37,7 @@ const Phone = ({ navigation }) => {
   return (
     <View style={loginHorizontalPadding}>
       <Text style={styles.phoneNumberLabel}>Phone Number</Text>
-      <View style={[flexCol, relative]}>
+      <View style={[flexRow, relative]}>
         <TextInputMask
           type={'custom'}
           options={{
