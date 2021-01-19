@@ -83,7 +83,7 @@ const PostDetail = ({route, navigation}) => {
       <View style={[missingCollpase ? relative : [absolute, styles.footer], p1]}>
         {postType === 'MissingPerson' ? (
           <MissingDetailInfo 
-            post={post} 
+            missingContent={post.missing_post_content} 
             missingCollpase={missingCollpase}
             onPress={toggleMissingCollapse}
             fromDetail 

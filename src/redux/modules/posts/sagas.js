@@ -5,7 +5,6 @@ import {
   deletePostSuccess,
   getPostsListFail,
   getPostsListSuccess,
-  sharePostSuccess,
   togglePostVisibilitySuccess,
   updatePostSuccess
 } from './actions'
@@ -130,7 +129,7 @@ const sharePost = apiCallSaga({
   path: ({payload}) => `/posts/${payload.id}/share`,
   selectorKey: 'post',
   success: function*(payload, action) {
-    yield put(sharePostSuccess(payload))
+    yield put(createPostSuccess(payload))
   }
 })
 
@@ -145,4 +144,5 @@ export default function* rootSaga() {
   yield takeLatest(types.REPORT_POST, reportPost)
   yield takeLatest(types.SAVE_POST, savePost)
   yield takeLatest(types.LIKE_POST, likePost)
+  yield takeLatest(types.SHARE_POST, sharePost)
 }

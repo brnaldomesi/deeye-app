@@ -49,13 +49,12 @@ const ActionFooter = ({
   }
 
   const handleShare = () => {
-
+    sharePost({id: post.id});
   }
 
   const handleSend = () => {
 
   }
-
 
   return (
     <View style={style}>

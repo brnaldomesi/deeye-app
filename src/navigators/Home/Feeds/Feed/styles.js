@@ -72,6 +72,12 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: Size(1.5),
     paddingHorizontal: Size(.7),
     paddingVertical: Size(.2)
+  },
+  sharedby: {
+    borderRadius: Size(),
+    borderColor: Colors.secondary,
+    borderWidth: 1,
+    width: Size(6)
   }
 });
 

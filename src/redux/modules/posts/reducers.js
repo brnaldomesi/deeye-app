@@ -45,11 +45,7 @@ export default handleActions(
         ...state,
         postsList: state.postsList.map(post => (post.id === payload.id ? payload : post))
       }
-    },
-    [types.SHARE_POST_SUCCESS]: (state, { payload }) => ({
-      ...state, 
-      postsList: concat(state.postsList, [payload])
-    }),
+    }
   },
   getInitialState()
 );

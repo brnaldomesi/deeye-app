@@ -11,6 +11,8 @@ import {
   flexRow,
   fontWeightBold,
   gradientColors,
+  m0,
+  mt1,
   my1,
   p0,
   p1,
@@ -42,6 +44,7 @@ import React, { useEffect, useState } from 'react';
 
 import { ASSET_BASE_URL } from 'src/config/constants';
 import ActionFooter from 'src/components/ActionFooter';
+import {Button} from 'react-native-elements';
 import { Divider } from 'react-native-elements';
 import FastImage from 'react-native-fast-image';
 import { IMAGES_PATH } from 'src/config/constants';
@@ -63,10 +66,16 @@ const Feed = ({
   const [missingCollpase, setMissingCollpase] =  useState(true);
 
   const postType = post.post_type;
-  const missingContent = post.missing_post_content;
+  const sourceType = postType === 'Share' ? post.post_source.post_type : postType
+  const missingContent = postType === 'Share' ? post.post_source.missing_post_content : post.missing_post_content;
+  const authorName = postType === 'Share' ? post.post_source.author.first_name + ' ' + post.post_source.author.last_name : post.author.first_name + ' ' + post.author.last_name;
+  const postAttachment = postType === 'Share' ? post.post_source.post_attachments[0] : post.post_attachments[0];
+  const uri = postAttachment ? ASSET_BASE_URL + postAttachment.path : undefined;
+  const updatedAt = postType === 'Share' ? post.post_source.updated_at : post.updated_at;
+  const description = postType === 'Share' ? post.post_source.description : post.description;
 
   const navigatePostDetail = () => {
-    RootNavigation.navigate('PostDetail', {post});
+    RootNavigation.navigate('PostDetail', {post: postType === 'Share' ? post.post_source : post});
   }
 
   const toggleMissingCollapse = () => {
@@ -75,11 +84,32 @@ const Feed = ({
 
   return (
     <View style={[bgWhite, my1]}>
+      {postType === 'Share' && 
+        <View style={p1}>
+          <Button 
+            type="clear" 
+            title="Shared by" 
+            disabled
+            buttonStyle={[p0, m0, styles.sharedby]}
+          />
+          <View style={flexRow}>
+            <Avatar
+              rounded
+              icon={{name: 'user', type: 'font-awesome', color: 'black'}}
+            />
+            <View>
+              <Text style={[primaryColor, fontWeightBold]}>{post.author.first_name + ' ' + post.author.last_name}</Text>
+              <Text>{getDiffFromToday(post.updated_at)}</Text>
+              <Text style={mt1}>{post.description}</Text>
+            </View>
+          </View>
+        </View>
+      }
       <View style={[relative, flexOne]}>
         <TouchableOpacity onPress={navigatePostDetail}>
-          {postType === "Video" ? (
+          {sourceType === "Video" ? (
             <VideoPlayer 
-              source={{ uri: post.post_attachments[0] ? ASSET_BASE_URL + post.post_attachments[0].path : undefined }} 
+              source={{uri}} 
               style={[styles.thumbnail, resizeCover]}
               paused={true} 
               disableBack
@@ -89,12 +119,10 @@ const Feed = ({
             <>
               <FastImage
                 style={styles.thumbnail}
-                source={{
-                  uri: post.post_attachments[0] ? ASSET_BASE_URL + post.post_attachments[0].path : undefined
-                }}
+                source={{uri}}
                 resizeMode={FastImage.resizeMode.cover}
               />
-              {postType === 'MissingPerson' && 
+              {sourceType === 'MissingPerson' && 
                 <>
                   <Image style={[styles.badge, resizeContain, absolute]} source={IMAGES_PATH.verifiedBadge} />
                   <LinearGradient 
@@ -103,7 +131,7 @@ const Feed = ({
                     start={{x:0, y:0}}
                     end={{x:1, y: 0}}
                   >
-                    <Text style={textWhite}>{'Missing ' + getDiffFromToday(post.updated_at) + ' Now'}</Text>
+                    <Text style={textWhite}>{'Missing ' + getDiffFromToday(updatedAt) + ' Now'}</Text>
                   </LinearGradient>
                 </>
               }
@@ -117,26 +145,26 @@ const Feed = ({
             rounded
             icon={{name: 'user', type: 'font-awesome', color: 'black'}}
           />
-          <Text style={[primaryColor, fontWeightBold]}>{post.author.first_name + ' ' + post.author.last_name}</Text>
-          <Text>{getDiffFromToday(post.updated_at)}</Text>
+          <Text style={[primaryColor, fontWeightBold]}>{authorName}</Text>
+          <Text>{getDiffFromToday(updatedAt)}</Text>
         </View>
         <View style={[flexOne, px1]}>
-          {postType === 'MissingPerson' ? (
+          {sourceType === 'MissingPerson' ? (
             <>
               <Text style={[textXl, fontWeightBold, primaryColor]}>{missingContent.fullname}</Text>
               <Text>AKA {missingContent.aka}</Text>
             </>
           ) : (
-            <Text>{post.description}</Text>
+            <Text>{description}</Text>
           )} 
         </View>
         <View>
           <PopupMenu post={post} isMyPost={post.profile_id === profileId} />
         </View>
       </View>
-      {postType === 'MissingPerson' && 
+      {sourceType === 'MissingPerson' && 
         <MissingDetailInfo 
-          post={post} 
+          missingContent={missingContent} 
           missingCollpase={missingCollpase}
           onPress={toggleMissingCollapse}
           style={p1}

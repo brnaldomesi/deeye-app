@@ -32,13 +32,12 @@ import styles from './styles';
 
 const MissingDetailInfo = ({
   style,
-  post,
+  missingContent,
   onPress,
   missingCollpase,
   fromDetail
 }) => {
-  const missingContent = post.missing_post_content;
-
+  
   return (
     <View style={style}>
       <Text style={[fromDetail ? textWhite : primaryColor, fontWeightBold]}>Missing From: {missingContent.duo_location}</Text>
