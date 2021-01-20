@@ -49,7 +49,7 @@ const ActionFooter = ({
   }
 
   const handleShare = () => {
-    sharePost({id: post.id});
+    sharePost({id: post.id, description: 'Share post description'});
   }
 
   const handleSend = () => {

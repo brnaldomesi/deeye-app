@@ -5,7 +5,6 @@ import {
   deletePostSuccess,
   getPostsListFail,
   getPostsListSuccess,
-  togglePostVisibilitySuccess,
   updatePostSuccess
 } from './actions'
 import { put, takeLatest } from 'redux-saga/effects'
@@ -51,14 +50,14 @@ const createPost = apiCallSaga({
   }
 })
 
-const togglePostVisibility = apiCallSaga({
-  type: types.TOGGLE_POST_VISIBILITY,
+const hidePost = apiCallSaga({
+  type: types.HIDE_POST,
   method: 'put',
   allowedParamKeys: [],
-  path: ({payload}) => `/posts/${payload.id}`,
+  path: ({payload}) => `/posts/${payload.id}/hide`,
   selectorKey: 'post',
   success: function*(payload, action) {
-    yield put(togglePostVisibilitySuccess(payload))
+    yield put(deletePostSuccess(payload))
   }
 })
 
@@ -66,7 +65,7 @@ const deletePost = apiCallSaga({
   type: types.DELETE_POST,
   method: 'delete',
   allowedParamKeys: [],
-  path: ({payload}) => `/posts/${payload.id}`,
+  path: ({payload}) => `/posts/${payload.id}/hide`,
   selectorKey: 'post',
   success: function*(payload, action) {
     yield put(deletePostSuccess(payload))
@@ -138,7 +137,7 @@ export default function* rootSaga() {
   yield takeLatest(types.GET_POSTS_LIST_FOR_UNSIGNED, getPostsListForUnsigned)
   yield takeLatest(types.CREATE_POST, createPost)
   yield takeLatest(types.UPLOAD_FILE, uploadFile)
-  yield takeLatest(types.TOGGLE_POST_VISIBILITY, togglePostVisibility)
+  yield takeLatest(types.HIDE_POST, hidePost)
   yield takeLatest(types.DELETE_POST, deletePost)
   yield takeLatest(types.UPDATE_POST, updatePost)
   yield takeLatest(types.REPORT_POST, reportPost)

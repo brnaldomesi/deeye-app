@@ -19,8 +19,8 @@ import {
 } from 'src/styles';
 import {
   deletePost,
-  reportPost,
-  togglePostVisibility
+  hidePost,
+  reportPost
 } from 'src/redux/modules/posts';
 
 import { IMAGES_PATH } from 'src/config/constants';
@@ -28,34 +28,22 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { navigationRef } from 'src/navigators/Ref';
 import styles from './styles';
-import { useFocusEffect } from '@react-navigation/native';
 
 const PopupMenu = ({
   post,
   isMyPost, 
-  togglePostVisibility,
+  hidePost,
   deletePost,
   getUserPostsList,
   reportPost
 }) => {
-  const [visibleFlag, setVisibleFlag] = useState(!!post.visible);
-
-  useFocusEffect(useCallback(
-    () => {
-      setVisibleFlag(post.visible);
-    }, [post.visible])
-  );
-
+  
   const handleEdit = () => {
     RootNavigation.navigate("PostEdit", {post});
   }
 
-  const toggleVisibility = () => {
-    togglePostVisibility({
-      id: post.id,
-      data: {visible: !visibleFlag}
-    });
-    setVisibleFlag(!visibleFlag);
+  const handleHide = () => {
+    hidePost({id: post.id})
   }
 
   const handleDelete = () => {
@@ -91,11 +79,11 @@ const PopupMenu = ({
         {isMyPost ? (
           <> 
             <MenuOption onSelect={handleEdit} text='Edit' />
-            <MenuOption onSelect={toggleVisibility} text={visibleFlag ? 'Hide' : 'Unhide'} />
             <MenuOption onSelect={handleDelete} text='Delete' />
           </>
         ) : (
           <>
+            <MenuOption onSelect={handleHide} text='Hide' />
             <MenuOption onSelect={handleReport} text='Report' />
           </>
         )}
@@ -105,7 +93,7 @@ const PopupMenu = ({
 };
 
 const actions = {
-  togglePostVisibility,
+  hidePost,
   deletePost,
   reportPost
 }

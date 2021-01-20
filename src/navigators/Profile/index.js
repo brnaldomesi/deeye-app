@@ -7,7 +7,6 @@ import {
 import Posts from './Posts';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Tooltip } from 'react-native-elements';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { p1 } from 'src/styles';
