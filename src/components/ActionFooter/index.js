@@ -1,9 +1,10 @@
+import * as RootNavigation from 'src/navigators/Ref';
+
 import {
   Image,
   Text,
   View
 } from 'react-native';
-import React, { useEffect, useState } from 'react';
 import {
   likePost,
   savePost,
@@ -12,6 +13,7 @@ import {
 
 import { IMAGES_PATH } from 'src/config/constants';
 import MyButton from 'src/components/MyButton';
+import React from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import styles from './styles';
@@ -27,29 +29,20 @@ const ActionFooter = ({
   sharePost,
   fromDetail
 }) => {
-  const [saved, setSaved] = useState(post.saved);
-  const [liked, setLiked] = useState(post.liked);
-
   const handleComment = () => {
-
+    RootNavigation.navigate('PostDetailForComment', {id: post.id});
   }
 
   const handleSave = () => {
-    savePost({
-      id: post.id,
-      success: res => setSaved(res.saved)
-    });
+    savePost({ id: post.id });
   }
 
   const handleLike = () => {
-    likePost({
-      id: post.id,
-      success: res => setLiked(res.liked)
-    })
+    likePost({ id: post.id })
   }
 
   const handleShare = () => {
-    sharePost({id: post.id, description: 'Share post description'});
+    sharePost({ id: post.id, data: { description: 'Share post description' } });
   }
 
   const handleSend = () => {
@@ -66,13 +59,13 @@ const ActionFooter = ({
       </View>
       <View>
         <MyButton onPress={handleSave}>
-          <Image style={styles.saveImg} source={(fromDetail ? saved : post.saved) ? IMAGES_PATH.save1 : IMAGES_PATH.save} />
+          <Image style={styles.saveImg} source={post.saved ? IMAGES_PATH.save1 : IMAGES_PATH.save} />
           <Text style={fromDetail ? textWhite : undefined}>Save</Text>
         </MyButton>
       </View>
       <View>
         <MyButton onPress={handleLike}>
-          <Image style={styles.suppportImg} source={(fromDetail ? liked : post.liked) ? IMAGES_PATH.support1 : IMAGES_PATH.support} />
+          <Image style={styles.suppportImg} source={post.liked ? IMAGES_PATH.support1 : IMAGES_PATH.support} />
           <Text style={fromDetail ? textWhite : undefined}>Support</Text>
         </MyButton>
       </View>

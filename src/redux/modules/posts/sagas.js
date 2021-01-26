@@ -65,7 +65,7 @@ const deletePost = apiCallSaga({
   type: types.DELETE_POST,
   method: 'delete',
   allowedParamKeys: [],
-  path: ({payload}) => `/posts/${payload.id}/hide`,
+  path: ({payload}) => `/posts/${payload.id}`,
   selectorKey: 'post',
   success: function*(payload, action) {
     yield put(deletePostSuccess(payload))
@@ -132,6 +132,17 @@ const sharePost = apiCallSaga({
   }
 })
 
+const getPost = apiCallSaga({
+  type: types.GET_POST,
+  method: 'get',
+  allowedParamKeys: [],
+  path: ({payload}) => `/posts/${payload.id}`,
+  selectorKey: 'post',
+  success: function*(payload, action) {
+    yield put(updatePostSuccess(payload));
+  }
+})
+
 export default function* rootSaga() {
   yield takeLatest(types.GET_POSTS_LIST, getPostsList)
   yield takeLatest(types.GET_POSTS_LIST_FOR_UNSIGNED, getPostsListForUnsigned)
@@ -144,4 +155,5 @@ export default function* rootSaga() {
   yield takeLatest(types.SAVE_POST, savePost)
   yield takeLatest(types.LIKE_POST, likePost)
   yield takeLatest(types.SHARE_POST, sharePost)
+  yield takeLatest(types.GET_POST, getPost)
 }

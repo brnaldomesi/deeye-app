@@ -13,7 +13,6 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { profileSelector } from 'src/redux/modules/auth';
-import styles from './styles';
 
 const Feeds = ({
   getPostsList,

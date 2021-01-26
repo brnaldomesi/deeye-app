@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import { Text, View } from 'react-native';
 import {
   basicPadding,
@@ -6,18 +7,23 @@ import {
   flexOne,
   flexRow,
   loginHeaderStyle,
-  marginVerticalAuto,
+  mlp5,
+  myAuto,
   p1,
   textXl
 } from 'src/styles';
 
+import { ASSET_BASE_URL } from 'src/config/constants';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Avatar } from 'react-native-elements';
 import Header from '../components/Header';
 import IconButton from 'src/components/IconButton';
-import React from 'react';
 import styles from './styles';
 
 const PostNew = ({ navigation }) => {
+  const [avatarPath, setAvatarPath] = useState(null);
+  AsyncStorage.getItem('profile').then(profile => setAvatarPath(ASSET_BASE_URL + JSON.parse(profile).avatar_path));
+
   const handleClose = () => {
     navigation.navigate('Home');
   };
@@ -41,9 +47,9 @@ const PostNew = ({ navigation }) => {
         <View style={[p1, flexRow]}>
           <Avatar
             rounded
-            icon={{name: 'user', type: 'font-awesome', color: 'black'}}
+            source={{uri: avatarPath}}
           />
-          <View style={marginVerticalAuto}>
+          <View style={[myAuto, mlp5]}>
             <Text>What do you want to talk about?</Text>
           </View>
         </View>

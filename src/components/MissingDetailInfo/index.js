@@ -6,10 +6,10 @@ import {
   flexRow,
   fontWeightBold,
   justifyBetween,
-  marginVerticalAuto,
   ml1,
   mt1,
   mtp5,
+  myAuto,
   primaryColor,
   selfCenter,
   textWhite,
@@ -67,7 +67,7 @@ const MissingDetailInfo = ({
         </View>
         <Button
           onPress={onPress}
-          buttonStyle={[bgTransparent, marginVerticalAuto]}
+          buttonStyle={[bgTransparent, myAuto]}
           icon={<AntIcon name={missingCollpase ? "downcircleo" : "upcircleo"} color={fromDetail ? 'white' : Colors.yellow100} size={25} />}
         />
       </View>

@@ -16,7 +16,7 @@ import {
 } from 'src/styles'
 import { Text, View } from 'react-native';
 
-import Feeds from './Feeds';
+import Feeds from 'src/components/Feeds';
 import Footer from 'src/components/Footer';
 import GradientButton from 'src/components/GradientButton';
 import styles from './styles';

@@ -8,6 +8,8 @@ export const getPostsListFail = createAction(types.GET_POSTS_LIST_FAIL);
 
 export const getPostsListForUnsigned = createAction(types.GET_POSTS_LIST_FOR_UNSIGNED);
 
+export const getPost = createAction(types.GET_POST);
+
 export const createPost = createAction(types.CREATE_POST);
 export const createPostSuccess = createAction(types.CREATE_POST_SUCCESS);
 

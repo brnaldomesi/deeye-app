@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { getUserPostsList, userPostsListSelector } from 'src/redux/modules/profiles';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import Feed from 'src/navigators/Home/Feeds/Feed'
+import Feed from 'src/components/Feeds/Feed'
 import PropTypes from 'prop-types';
 import { Size } from 'src/styles';
 import { compose } from 'redux';

@@ -7,7 +7,7 @@ import {
 import {
   Size,
   flexRow,
-  marginVerticalAuto
+  myAuto
 } from 'src/styles';
 
 import { IMAGES_PATH } from 'src/config/constants';
@@ -30,7 +30,7 @@ const IconButton = ({
           style={styles.iconImage} 
           source={IMAGES_PATH[imageName]} 
         />
-        <View style={[{ marginLeft: Size(2) }, marginVerticalAuto]}>
+        <View style={[{ marginLeft: Size(2) }, myAuto]}>
           <Text style={{
             fontSize: Size(1.2)
           }}>{text}</Text>

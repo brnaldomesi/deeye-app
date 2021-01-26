@@ -46,4 +46,6 @@ export const IMAGES_PATH = {
   openChat: require('src/assets/images/Icon-open-chat.png'),
   verifiedBadge: require('src/assets/images/Icon-material-verified-user.png'),
   arrowLeft: require('src/assets/images/Icon-awesome-arrow-left.png'),
+  heart: require('src/assets/images/Icon-awesome-heart.png'),
+  heart1: require('src/assets/images/Icon-awesome-heart-1.png'),
 }

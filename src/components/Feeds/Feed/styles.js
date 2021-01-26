@@ -20,40 +20,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     padding: Size()
   },
-  commentImg: {
-    width: undefined,
-    height: Size(),
-    aspectRatio: 1,
-    marginBottom: Size(.3)
-  },
-  saveImg: {
-    width: undefined,
-    height: Size(),
-    aspectRatio: 48/61,
-    marginBottom: Size(.3)
-  },
-  suppportImg: {
-    width: undefined,
-    height: Size(),
-    aspectRatio: 72/63,
-    marginBottom: Size(.3)
-  },
-  shareImg: {
-    width: undefined,
-    height: Size(),
-    aspectRatio: 75/64,
-    marginBottom: Size(.3)
-  },
-  sendImg: {
-    width: undefined,
-    height: Size(),
-    aspectRatio: 1,
-    marginBottom: Size(.3)
-  },
-  caption: {
-    paddingHorizontal: Size(),
-    paddingTop: Size()
-  },
   thumbnail: {
     width: '100%',
     height: Size(13),
@@ -69,7 +35,6 @@ const styles = StyleSheet.create({
     bottom: 0,
     right: 0,
     borderTopLeftRadius: Size(),
-    borderBottomRightRadius: Size(1.5),
     paddingHorizontal: Size(.7),
     paddingVertical: Size(.2)
   },
@@ -78,6 +43,10 @@ const styles = StyleSheet.create({
     borderColor: Colors.secondary,
     borderWidth: 1,
     width: Size(6)
+  },
+  divider: {
+    marginTop: Size(0.5),
+    backgroundColor: Colors.divider
   }
 });
 

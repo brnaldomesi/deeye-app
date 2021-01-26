@@ -30,7 +30,7 @@ export default handleActions(
     [types.UPDATE_POST_SUCCESS]: (state, { payload }) => {
       return {
         ...state,
-        postsList: state.postsList.map(post => (post.id === payload.id ? payload : post))
+        postsList: state.postsList.map(post => post.id === payload.id ? payload : post)
       }
     }
   },

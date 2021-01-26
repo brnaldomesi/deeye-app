@@ -128,6 +128,10 @@ export const bgDivider = {
   backgroundColor: Colors.divider
 }
 
+export const bgBottomPrimary = {
+  backgroundColor: Colors.postBottom.primary
+}
+
 export const bgBlack = {
   backgroundColor: 'black'
 }
@@ -145,6 +149,18 @@ export const absolute = {
   position: 'absolute'
 }
 
+export const left0 = {
+  left: 0
+}
+
+export const right0 = {
+  right: 0
+}
+
+export const bottom0 = {
+  bottom: 0
+}
+
 /* Font */
 export const fontWeightBold = {
   fontWeight: 'bold'
@@ -156,6 +172,10 @@ export const italic = {
 
 export const textWhite = {
   color: 'white'
+}
+
+export const textBlack = {
+  color: 'black'
 }
 
 export const textRed = {
@@ -191,7 +211,7 @@ export const textXl = {
 }
 
 //Margin & Padding
-export const marginVerticalAuto = {
+export const myAuto = {
   marginTop: 'auto',
   marginBottom: 'auto'
 }
@@ -220,6 +240,10 @@ export const ml1 = {
   marginLeft: Size()
 }
 
+export const mlp5 = {
+  marginLeft: 5
+}
+
 export const mlSm = {
   marginLeft: Size(.5)
 }
@@ -240,8 +264,16 @@ export const p1 = {
   padding: Size()
 }
 
+export const pp5 = {
+  padding: 5
+}
+
 export const pDot7 = {
   padding: Size(.7)
+}
+
+export const pl1 = {
+  paddingLeft: Size()
 }
 
 export const pyXs = {
@@ -256,6 +288,10 @@ export const pyDot7 = {
   paddingVertical: Size(.7)
 }
 
+export const pyDot5 = {
+  paddingVertical: Size(.5)
+}
+
 export const px1 = {
   paddingHorizontal: Size(1)
 }
@@ -267,7 +303,6 @@ export const px2 = {
 export const py1 = {
   paddingVertical: Size()
 }
-
 
 /* Align */
 export const itemsCenter = {
@@ -321,4 +356,9 @@ export const borderWhite = {
 
 export const border1 = {
   borderWidth: 1
+}
+
+/* Flex Wrap */
+export const flexWrap = {
+  flexWrap: 'wrap'
 }

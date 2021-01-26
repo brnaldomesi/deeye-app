@@ -1,8 +1,8 @@
 import {
   Colors,
   fontWeightBold,
-  marginVerticalAuto,
   ml1,
+  myAuto,
   textXl
 } from 'src/styles';
 import { Size, flexRow } from 'src/styles';
@@ -27,7 +27,7 @@ const Header = ({
         <MyButton row onPress={handleClose}>
           <AntIcon size={25} name="close" color={Colors.primary} />
         </MyButton>
-        <View style={[ml1, marginVerticalAuto]}>
+        <View style={[ml1, myAuto]}>
           <Text style={[fontWeightBold, textXl]}>{title}</Text>
         </View>
       </View>

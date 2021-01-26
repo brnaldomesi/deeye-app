@@ -7,7 +7,7 @@ import {
 
 import { BlurView } from '@react-native-community/blur';
 import Email from './Email';
-import Feeds from 'src/navigators/Home/Feeds'
+import Feeds from 'src/components/Feeds'
 import First from './First';
 import Footer from 'src/components/Footer';
 import Home from 'src/navigators/Home'

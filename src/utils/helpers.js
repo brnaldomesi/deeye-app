@@ -13,6 +13,7 @@ export const hasPunctuation = str => /[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/.test(s
 export const getDiffFromToday = timestamp => {
   const ts = moment(timestamp);
   const today = moment();
+  //const today = moment().utc(moment());
   const duration = moment.duration(today.diff(ts));
   
   const years = duration.asYears();

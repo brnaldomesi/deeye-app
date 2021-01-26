@@ -6,3 +6,8 @@ export const postsListSelector = createSelector(
   postsSelector,
   fp.get('postsList')
 );
+
+export const postSelector = id => createSelector(
+  postsListSelector,
+  postsList => postsList.find(i => i.id === id)
+)
