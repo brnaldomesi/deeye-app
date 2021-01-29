@@ -198,6 +198,10 @@ export const secondaryColor = {
   color: Colors.secondary
 }
 
+export const textDot5 = {
+  fontSize: Size(.6)
+}
+
 export const textDot7 = {
   fontSize: Size(.7)
 } 
@@ -214,6 +218,11 @@ export const textXl = {
 export const myAuto = {
   marginTop: 'auto',
   marginBottom: 'auto'
+}
+
+export const mxAuto = {
+  marginLeft: 'auto',
+  marginRight: 'auto'
 }
 
 export const m0 = {
@@ -252,8 +261,16 @@ export const my1 = {
   marginVertical: Size()
 }
 
+export const myp5 = {
+  marginVertical: 5
+}
+
 export const mx1 = {
   marginHorizontal: Size()
+}
+
+export const mb2= {
+  marginBottom: Size(2)
 }
 
 export const p0 = {
@@ -292,8 +309,16 @@ export const pyDot5 = {
   paddingVertical: Size(.5)
 }
 
+export const pyp5 = {
+  paddingVertical: 5
+}
+
 export const px1 = {
   paddingHorizontal: Size(1)
+}
+
+export const pxp5 = {
+  paddingHorizontal: 5
 }
 
 export const px2 = {
@@ -302,6 +327,10 @@ export const px2 = {
 
 export const py1 = {
   paddingVertical: Size()
+}
+
+export const pt1 = {
+  paddingTop: Size()
 }
 
 /* Align */
