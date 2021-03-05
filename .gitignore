@@ -58,4 +58,4 @@ buck-out/
 # CocoaPods
 /ios/Pods/
 
-src/config/apipath.js
+/src/config/apipath.js
