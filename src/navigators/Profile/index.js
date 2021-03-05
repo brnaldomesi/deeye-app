@@ -5,10 +5,7 @@ import {
 } from 'react-native';
 
 import Posts from './Posts';
-import PropTypes from 'prop-types';
 import React from 'react';
-import { compose } from 'redux';
-import { connect } from 'react-redux';
 import { p1 } from 'src/styles';
 
 const Profile = ({navigation}) => {
@@ -22,15 +19,4 @@ const Profile = ({navigation}) => {
   )
 };
 
-Profile.propTypes = {
-}
-
-const actions = {
-}
-
-// const selector = createStructuredSelector({
-// });
-
-export default compose(
-  connect(null, actions)
-)(Profile);
+export default Profile;

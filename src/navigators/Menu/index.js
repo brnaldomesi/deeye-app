@@ -60,11 +60,11 @@ import MyButton from 'src/components/MyButton';
 import { Switch } from '@5stones/react-native-switch';
 import styles from './styles';
 
-const Menu = () => {
+const Menu = ({ navigation }) => {
   const [tempState, setTempState] = useState(true)
   
   const handleClose = () => {
-    
+    navigation.goBack()
   }
 
   const handleAdd = () => {
@@ -167,7 +167,7 @@ const Menu = () => {
             <View style={flexRow}>
               <Text style={textXl}>Patric Adams</Text>
               <View style={[myAuto, ml1]}>
-                <Image source={IMAGES_PATH.pathCheckSmall} style={[styles.sizeOne, resizeContain]} />
+                <Image source={IMAGES_PATH.patchCheckSmall} style={[styles.sizeOne, resizeContain]} />
               </View>
             </View>
             <View style={myp5}>
@@ -226,7 +226,7 @@ const Menu = () => {
                         style={styles.settings}
                       />
                       <Text style={[myAuto, styles.subtitle]}>Peas In Their Pods, Inc.</Text>
-                      <Image source={IMAGES_PATH.pathCheckSmall} style={[styles.sizeOne, resizeContain, myAuto]} />
+                      <Image source={IMAGES_PATH.patchCheckSmall} style={[styles.sizeOne, resizeContain, myAuto]} />
                     </View>
                     <View style={[flexRow, pyp5]}>
                       <Avatar
@@ -238,7 +238,7 @@ const Menu = () => {
                         style={styles.settings}
                       />
                       <Text style={[myAuto, styles.subtitle]}>National Center for Missing & Exploited Children</Text>
-                      <Image source={IMAGES_PATH.pathCheckSmall} style={[styles.sizeOne, resizeContain, myAuto]} />
+                      <Image source={IMAGES_PATH.patchCheckSmall} style={[styles.sizeOne, resizeContain, myAuto]} />
                     </View>
                     <View style={[flexRow, pyp5]}>
                       <Avatar
@@ -250,7 +250,7 @@ const Menu = () => {
                         style={styles.settings}
                       />
                       <Text style={[myAuto, styles.subtitle]}>TIPSTER App</Text>
-                      <Image source={IMAGES_PATH.pathCheckSmall} style={[styles.sizeOne, resizeContain, myAuto]} />
+                      <Image source={IMAGES_PATH.patchCheckSmall} style={[styles.sizeOne, resizeContain, myAuto]} />
                     </View>
                     <View style={[flexRow, pyp5]}>
                       <Avatar
@@ -262,7 +262,7 @@ const Menu = () => {
                         style={styles.settings}
                       />
                       <Text style={[myAuto, styles.subtitle]}>Black and Missing, Inc.</Text>
-                      <Image source={IMAGES_PATH.pathCheckSmall} style={[styles.sizeOne, resizeContain, myAuto]} />
+                      <Image source={IMAGES_PATH.patchCheckSmall} style={[styles.sizeOne, resizeContain, myAuto]} />
                     </View>
                   </View>
                   <Button 
@@ -310,10 +310,10 @@ const Menu = () => {
                         backgroundInactive={'red'}
                         circleActiveColor={'white'}
                         circleInActiveColor={'white'}
-                        changeValueImmediately={true} // if rendering inside circle, change state immediately or wait for animation to complete                  
-                        switchLeftPx={Size(.32)} // denominator for logic when sliding to TRUE position. Higher number = more space from RIGHT of the circle to END of the slider
-                        switchRightPx={Size()} // denominator for logic when sliding to FALSE position. Higher number = more space from LEFT of the circle to BEGINNING of the slider
-                        switchWidthMultiplier={Size(.18)} // multipled by the `circleSize` prop to calculate total width of the Switch
+                        changeValueImmediately={true}             
+                        switchLeftPx={Size(.32)}
+                        switchRightPx={Size()}
+                        switchWidthMultiplier={Size(.18)}
                       />
                     </View>
                   </View>
@@ -335,10 +335,10 @@ const Menu = () => {
                         backgroundInactive={'red'}
                         circleActiveColor={'white'}
                         circleInActiveColor={'white'}
-                        changeValueImmediately={true} // if rendering inside circle, change state immediately or wait for animation to complete                  
-                        switchLeftPx={Size(.32)} // denominator for logic when sliding to TRUE position. Higher number = more space from RIGHT of the circle to END of the slider
-                        switchRightPx={Size()} // denominator for logic when sliding to FALSE position. Higher number = more space from LEFT of the circle to BEGINNING of the slider
-                        switchWidthMultiplier={Size(.18)} // multipled by the `circleSize` prop to calculate total width of the Switch
+                        changeValueImmediately={true}
+                        switchLeftPx={Size(.32)}
+                        switchRightPx={Size()}
+                        switchWidthMultiplier={Size(.18)}
                       />
                     </View>
                   </View>
@@ -360,10 +360,10 @@ const Menu = () => {
                         backgroundInactive={'red'}
                         circleActiveColor={'white'}
                         circleInActiveColor={'white'}
-                        changeValueImmediately={true} // if rendering inside circle, change state immediately or wait for animation to complete                  
-                        switchLeftPx={Size(.32)} // denominator for logic when sliding to TRUE position. Higher number = more space from RIGHT of the circle to END of the slider
-                        switchRightPx={Size()} // denominator for logic when sliding to FALSE position. Higher number = more space from LEFT of the circle to BEGINNING of the slider
-                        switchWidthMultiplier={Size(.18)} // multipled by the `circleSize` prop to calculate total width of the Switch
+                        changeValueImmediately={true}
+                        switchLeftPx={Size(.32)}
+                        switchRightPx={Size()}
+                        switchWidthMultiplier={Size(.18)}
                       />
                     </View>
                   </View>
@@ -385,10 +385,10 @@ const Menu = () => {
                         backgroundInactive={'red'}
                         circleActiveColor={'white'}
                         circleInActiveColor={'white'}
-                        changeValueImmediately={true} // if rendering inside circle, change state immediately or wait for animation to complete                  
-                        switchLeftPx={Size(.32)} // denominator for logic when sliding to TRUE position. Higher number = more space from RIGHT of the circle to END of the slider
-                        switchRightPx={Size()} // denominator for logic when sliding to FALSE position. Higher number = more space from LEFT of the circle to BEGINNING of the slider
-                        switchWidthMultiplier={Size(.18)} // multipled by the `circleSize` prop to calculate total width of the Switch
+                        changeValueImmediately={true}
+                        switchLeftPx={Size(.32)}
+                        switchRightPx={Size()}
+                        switchWidthMultiplier={Size(.18)}
                       />
                     </View>
                   </View>

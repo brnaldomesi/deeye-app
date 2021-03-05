@@ -30,7 +30,7 @@ import {
   createCommentForPost,
 } from 'src/redux/modules/comments';
 
-import { ASSET_BASE_URL } from 'src/config/constants';
+import { ASSET_BASE_URL } from 'src/config/apipath';
 import { Avatar } from 'react-native-elements';
 import { Button } from 'react-native-elements';
 import Comments from 'src/components/Comments'

@@ -10,8 +10,8 @@ export const hasNumber = str => /\d/.test(str);
 
 export const hasPunctuation = str => /[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/.test(str);
 
-export const getDiffFromToday = timestamp => {
-  const ts = moment(timestamp);
+export const getDiffFromToday = (inputTime, isTimeStamp = false) => {
+  const ts = isTimeStamp ? moment(moment.unix(inputTime).format("MM/DD/YYYY")) : moment(inputTime);
   const today = moment();
   //const today = moment().utc(moment());
   const duration = moment.duration(today.diff(ts));

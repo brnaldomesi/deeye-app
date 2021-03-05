@@ -10,7 +10,7 @@ import {
   wFull
 } from 'src/styles';
 
-import { ASSET_BASE_URL } from 'src/config/constants';
+import { ASSET_BASE_URL } from 'src/config/apipath';
 import { Button } from 'react-native-elements';
 import Carousel from 'react-native-snap-carousel';
 import VideoPlayer from 'react-native-video-controls';

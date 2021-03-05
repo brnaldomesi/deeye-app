@@ -1,7 +1,7 @@
 import { call, put, select } from 'redux-saga/effects'
 import { requestPending, requestRejected, requestSuccess } from './actions'
 
-import { BASE_URL } from 'src/config/constants'
+import { BASE_URL } from 'src/config/apipath'
 import Config from "react-native-config";
 import axios from 'axios'
 import get from 'lodash/get'

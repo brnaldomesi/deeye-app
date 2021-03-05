@@ -14,7 +14,7 @@ import {
 } from './actions';
 import { put, takeLatest } from 'redux-saga/effects'
 
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from '@react-native-community/async-storage';
 import { apiCallSaga } from '../api';
 
 const authCheckUser = apiCallSaga({
@@ -31,6 +31,7 @@ const authSignup = apiCallSaga({
   selectorKey: 'authSignup',
   success: function*(payload) {
     AsyncStorage.setItem('token', payload['auth-token']);
+    AsyncStorage.setItem('profile', JSON.stringify(payload.profile));
     yield put(authLoginSuccess(payload))
   },
   fail: function*(payload) {

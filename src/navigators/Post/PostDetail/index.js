@@ -24,7 +24,7 @@ import {
   textXl
 } from 'src/styles';
 
-import { ASSET_BASE_URL } from 'src/config/constants';
+import { ASSET_BASE_URL } from 'src/config/apipath';
 import ActionFooter from 'src/components/ActionFooter';
 import { Button } from 'react-native-elements';
 import { Divider } from 'react-native-elements';

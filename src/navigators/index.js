@@ -1,5 +1,6 @@
 import Drawer from './Drawer';
 import Login from './Login';
+import Message from './Message';
 import MissingPerson from './MissingPerson';
 import OnBoarding from './OnBoarding';
 import PostCreate from './Post/PostCreate';
@@ -63,6 +64,13 @@ const StackNavigator = ({isAuthenticated}) => {
           <Stack.Screen
             name="MissingPerson"
             component={MissingPerson}
+            options={{
+              headerShown: false
+            }}
+          />
+          <Stack.Screen
+            name="Message"
+            component={Message}
             options={{
               headerShown: false
             }}

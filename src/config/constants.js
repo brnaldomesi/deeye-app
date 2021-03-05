@@ -1,5 +1,9 @@
-export const BASE_URL = 'http://192.168.109.224:8000/api';
-export const ASSET_BASE_URL = 'http://192.168.109.224:8000/storage/';
+export const COMETCHAT_CONSTANTS = {
+  APP_ID: "290700b5cce1c74",
+  REGION: "us",
+  AUTH_KEY: "86bebe50eea1b23257f18f2dc267483a88392812",
+  API_KEY: "19741cd83412087e6a84b5c134979bc16a98a0bb",
+};
 
 export const IMAGES_PATH = {
   gmail: require('src/assets/images/gmail.png'),
@@ -53,7 +57,7 @@ export const IMAGES_PATH = {
   addCircle: require('src/assets/images/Group1305.png'),
   power: require('src/assets/images/power.png'),
   banner: require('src/assets/images/banner.jpg'),
-  pathCheckSmall: require('src/assets/images/patch-check-fll_menu_small.png'),
+  patchCheckSmall: require('src/assets/images/patch-check-fll_menu_small.png'),
   activityBadge: require('src/assets/images/Group1340.png'),
   people: require('src/assets/images/people.png'),
   building: require('src/assets/images/building.png'),
@@ -71,4 +75,6 @@ export const IMAGES_PATH = {
   fileMedical: require('src/assets/images/file-medical.png'),
   execlamationCircleFill: require('src/assets/images/exclamation-circle-fill.png'),
   upcScan: require('src/assets/images/upc-scan.png'),
-}
+  video: require('src/assets/images/Group1137.png'),
+  audio: require('src/assets/images/Group1136.png'),
+};

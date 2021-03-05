@@ -42,7 +42,7 @@ import {
 } from 'react-native-popup-menu';
 import React, { useEffect, useState } from 'react';
 
-import { ASSET_BASE_URL } from 'src/config/constants';
+import { ASSET_BASE_URL } from 'src/config/apipath';
 import ActionFooter from 'src/components/ActionFooter';
 import { Avatar } from 'react-native-elements';
 import {Button} from 'react-native-elements';
@@ -121,7 +121,7 @@ const Feed = ({
             disableFullscreen
           />
         ) : (
-          <>
+          <TouchableOpacity onPress={navigatePostDetail(postType === 'Share' ? post.post_source.id : post.id)}>
             <FastImage
               style={styles.thumbnail}
               source={{uri}}
@@ -136,11 +136,11 @@ const Feed = ({
                   start={{x:0, y:0}}
                   end={{x:1, y: 0}}
                 >
-                  <Text style={textWhite}>{'Missing ' + getDiffFromToday(updatedAt) + ' Now'}</Text>
+                  <Text style={textWhite}>{'Missing ' + getDiffFromToday(missingContent.missing_since) + ' Now'}</Text>
                 </LinearGradient>
               </>
             }
-          </>
+          </TouchableOpacity>
         )}
       </View>
       <View style={p1}>
@@ -154,16 +154,14 @@ const Feed = ({
             <Text>{getDiffFromToday(updatedAt)}</Text>
           </View>
           <View style={[flexOne, px1]}>
-            <TouchableOpacity onPress={navigatePostDetail(postType === 'Share' ? post.post_source.id : post.id)}>
-              {sourceType === 'MissingPerson' ? (
-                <>
-                  <Text style={[textXl, fontWeightBold, primaryColor]}>{missingContent.fullname}</Text>
-                  <Text>AKA {missingContent.aka}</Text>
-                </>
-              ) : (
-                <Text>{description}</Text>
-              )} 
-            </TouchableOpacity>
+            {sourceType === 'MissingPerson' ? (
+              <>
+                <Text style={[textXl, fontWeightBold, primaryColor]}>{missingContent.fullname}</Text>
+                <Text>AKA {missingContent.aka}</Text>
+              </>
+            ) : (
+              <Text>{description}</Text>
+            )}
           </View>
           <View>
             <PopupMenu post={post} isMyPost={post.profile_id === profileId} />

@@ -46,7 +46,7 @@ export default ({
   }
 
   const navigateMessage = () => {
-    RootNavigation.navigate('Home', { query: 'message' });
+    RootNavigation.navigate('Message', { query: 'message' });
   }
 
 

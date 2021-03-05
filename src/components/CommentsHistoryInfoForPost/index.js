@@ -5,7 +5,7 @@ import {
   myAuto
 } from 'src/styles';
 
-import { ASSET_BASE_URL } from 'src/config/constants';
+import { ASSET_BASE_URL } from 'src/config/apipath';
 import { Avatar } from 'react-native-elements';
 import React from 'react';
 import styles from './styles';

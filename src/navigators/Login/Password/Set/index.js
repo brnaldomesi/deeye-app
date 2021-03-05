@@ -23,6 +23,8 @@ import {
   hasUpperCase
 } from 'src/utils/helpers';
 
+import { COMETCHAT_CONSTANTS } from 'src/config/constants';
+import { CometChat } from '@cometchat-pro/react-native-chat';
 import GradientButton from 'src/components/GradientButton';
 import { IMAGES_PATH } from 'src/config/constants';
 import MyTextInput from 'src/components/MyTextInput';
@@ -60,6 +62,16 @@ const PasswordSet = ({
       authSignup({ 
         data: { email, password, deviceName },
         success: res => {
+          const uid = 'user' + res.profile.user_id;
+          const user = new CometChat.User(uid);
+          user.setName(uid);
+
+          CometChat.createUser(user, COMETCHAT_CONSTANTS.AUTH_KEY).then(user => {
+            console.log("user created", user);
+          }, error => {
+            console.error(error);
+          });
+
           navigation.navigate('Home');
         },
         fail: err => {
