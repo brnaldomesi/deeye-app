@@ -29,6 +29,7 @@ import {
   textYellow100
 } from 'src/styles';
 import {
+  Dimensions,
   Image,
   Text,
   TouchableOpacity,
@@ -67,6 +68,7 @@ const Feed = ({
   setCommentPosterInfo
 }) => {
   const [missingCollpase, setMissingCollpase] =  useState(true);
+  const [ thumbsize, setThumbsize ] = useState({ width: Dimensions.get('window').width, height: 0 });
 
   const postType = post.post_type;
   const sourceType = postType === 'Share' ? post.post_source.post_type : postType
@@ -77,6 +79,15 @@ const Feed = ({
   const updatedAt = postType === 'Share' ? post.post_source.updated_at : post.updated_at;
   const description = postType === 'Share' ? post.post_source.description : post.description;
   const avatarPath = postType === 'Share' ? ASSET_BASE_URL + post.post_source.author.avatar_path : ASSET_BASE_URL + post.author.avatar_path;
+
+  useEffect(() => {
+    if(uri) {
+      Image.getSize(uri, (width, height) => {
+        setThumbsize({width, height});
+      }, (error) => {
+      });
+    }
+  }, [uri])
 
   const navigatePostDetail = id => () => {
     RootNavigation.navigate('PostDetail', {id});
@@ -123,7 +134,10 @@ const Feed = ({
         ) : (
           <TouchableOpacity onPress={navigatePostDetail(postType === 'Share' ? post.post_source.id : post.id)}>
             <FastImage
-              style={styles.thumbnail}
+              style={{
+                width: Dimensions.get('window').width,
+                height: thumbsize.height * Dimensions.get('window').width / thumbsize.width
+              }}
               source={{uri}}
               resizeMode={FastImage.resizeMode.contain}
             />
