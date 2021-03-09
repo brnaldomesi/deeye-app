@@ -15,6 +15,7 @@ import {
   fontWeightBold,
   itemsStart,
   justifyAround,
+  opacity40,
   p1,
   relative,
   resizeContain,
@@ -75,7 +76,7 @@ const PostDetail = ({
       </View>
       <View style={[flexOne, relative]}>
         <FastImage
-          style={flexOne}
+          style={[flexOne, !missingCollpase ? opacity40 : undefined]}
           source={{uri: bgImageUrl}}
           resizeMode={FastImage.resizeMode.stretch}
         />
@@ -83,7 +84,7 @@ const PostDetail = ({
           <>
             <Image style={[styles.badge, resizeContain, absolute]} source={IMAGES_PATH.verifiedBadge} />
             <View style={[absolute, styles.missing, bgWhite]}>
-              <Text>{'Missing ' + getDiffFromToday(postContent.updated_at) + ' Now'}</Text> 
+              <Text>{'Missing ' + getDiffFromToday(postContent.missing_post_content.missing_since) + ' Now'}</Text> 
             </View>
           </>
         }

@@ -53,7 +53,7 @@ const ContactInfo = ({
   const [contactPhoneNumber2, setContactPhoneNumber2] = useState('');
   const [phoneNumber1Type, setPhoneNumber1Type] = useState(false);
   const [phoneNumber2Type, setPhoneNumber2Type] = useState(false);
-  const [haveRerpot, setHaveRerpot] = useState(true);
+  const [haveRerpot, setHaveRerpot] = useState(false);
   const [selectedFileName, setSelectedFileName] = useState('');
   const [attachments, setAttachments] = useState([]);
 

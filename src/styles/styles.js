@@ -391,3 +391,7 @@ export const border1 = {
 export const flexWrap = {
   flexWrap: 'wrap'
 }
+
+export const opacity40 = {
+  opacity: 0.4
+}

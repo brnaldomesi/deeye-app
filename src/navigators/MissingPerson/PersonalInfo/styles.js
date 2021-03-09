@@ -23,6 +23,12 @@ const styles = StyleSheet.create({
   switchBtn: {
     width: Size(2.6),
     height: Size(2.6)
+  },
+  dropdown: {
+    borderColor: Colors.primary,
+    borderWidth: 1,
+    borderRadius: Size(.5),
+    height: Size(2.5)
   }
 });
 

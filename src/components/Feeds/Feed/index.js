@@ -10,6 +10,7 @@ import {
   flexRow,
   fontWeightBold,
   gradientColors,
+  justifyBetween,
   m0,
   mlp5,
   mt1,
@@ -17,6 +18,7 @@ import {
   my1,
   p0,
   p1,
+  pl1,
   primaryColor,
   px1,
   py1,
@@ -68,7 +70,7 @@ const Feed = ({
   setCommentPosterInfo
 }) => {
   const [missingCollpase, setMissingCollpase] =  useState(true);
-  const [ thumbsize, setThumbsize ] = useState({ width: Dimensions.get('window').width, height: 0 });
+  const [ thumbsize, setThumbsize ] = useState({ width: Dimensions.get('window').width, height: Size(13) });
 
   const postType = post.post_type;
   const sourceType = postType === 'Share' ? post.post_source.post_type : postType
@@ -158,28 +160,30 @@ const Feed = ({
         )}
       </View>
       <View style={p1}>
-        <View style={flexRow}>
-          <View>
+        <View style={[flexRow, justifyBetween]}>
+          <View style={flexRow}>
             <Avatar
               rounded
               source={{uri: avatarPath}}
             />
-            <Text style={[primaryColor, fontWeightBold]}>{authorName}</Text>
-            <Text>{getDiffFromToday(updatedAt)}</Text>
-          </View>
-          <View style={[flexOne, px1]}>
-            {sourceType === 'MissingPerson' ? (
-              <>
-                <Text style={[textXl, fontWeightBold, primaryColor]}>{missingContent.fullname}</Text>
-                <Text>AKA {missingContent.aka}</Text>
-              </>
-            ) : (
-              <Text>{description}</Text>
-            )}
+            <View style={pl1}>
+              <Text style={[primaryColor, fontWeightBold]}>{authorName}</Text>
+              <Text>{getDiffFromToday(updatedAt)}</Text>
+            </View>
           </View>
           <View>
             <PopupMenu post={post} isMyPost={post.profile_id === profileId} />
           </View>
+        </View>
+        <View style={[pl1, mtp5]}>
+          {sourceType === 'MissingPerson' ? (
+            <>
+              <Text style={[textXl, fontWeightBold, primaryColor]}>{missingContent.fullname}</Text>
+              <Text>AKA {missingContent.aka}</Text>
+            </>
+          ) : (
+            <Text>{description}</Text>
+          )}
         </View>
         {sourceType === 'MissingPerson' && 
           <MissingDetailInfo 

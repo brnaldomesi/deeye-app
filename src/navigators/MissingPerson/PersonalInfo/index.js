@@ -43,6 +43,7 @@ import DocumentPicker from 'react-native-document-picker';
 import Header from '../components/Header';
 import { IMAGES_PATH } from 'src/config/constants';
 import MyButton from 'src/components/MyButton';
+import { Picker } from '@react-native-picker/picker';
 import PropTypes from 'prop-types';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
@@ -58,9 +59,9 @@ const PersonalInfo = ({navigation, uploadFile}) => {
   const [weight, setWeight] = useState(null);
   const [heightUnit, setHeightUnit] = useState('ft');
   const [weightUnit, setWeightUnit] = useState('kg');
-  const [hair, setHair] = useState('');
-  const [race, setRace] = useState('');
-  const [eye, setEye] = useState('');
+  const [hair, setHair] = useState('Black');
+  const [race, setRace] = useState('Yellow');
+  const [eye, setEye] = useState('Black');
   const [selectedFileNames, setSelectedFileNames] = useState('');
   const [medicalCondition, setMedicalCondition] = useState(true);
   const [dob, setDob] = useState(new Date(1598051730000));
@@ -357,45 +358,61 @@ const PersonalInfo = ({navigation, uploadFile}) => {
           <View style={[mt1, flexRow]}>
             <View style={flexOne}>
               <Text>Hair</Text>
-              <TextInput 
-                value={hair}
-                onChangeText={ text => setHair(text) }
-                style={[
-                  textInput, 
-                  mtp5,
-                  w80P
-                ]}
-                placeholder="color of the hair"
-              />
+              <View style={[styles.dropdown, mtp5, w80P]}>
+                <Picker
+                  selectedValue={hair}
+                  onValueChange={(itemValue, itemIndex) =>
+                    setHair(itemValue)
+                  }
+                  style={{ height: Size(2.5) }}
+                >
+                  <Picker.Item label="Yellow" value="Yellow" />
+                  <Picker.Item label="Wave" value="Wave" />
+                  <Picker.Item label="Blond" value="Blond" />
+                  <Picker.Item label="White" value="White" />
+                  <Picker.Item label="Black" value="Black" />
+                </Picker>
+              </View>
             </View>
             <View style={flexOne}>
               <Text>Race</Text>
-              <TextInput 
-                value={race}
-                onChangeText={ text => setRace(text) }
-                style={[
-                  textInput, 
-                  mtp5,
-                  w80P
-                ]}
-                placeholder="race of being"
-              />
+              <View style={[styles.dropdown, mtp5, w80P]}>
+                <Picker
+                  selectedValue={race}
+                  onValueChange={(itemValue, itemIndex) =>
+                    setRace(itemValue)
+                  }
+                  style={{ height: Size(2.5) }}
+                >
+                  <Picker.Item label="Black" value="Black" />
+                  <Picker.Item label="White" value="White" />
+                  <Picker.Item label="Yellow" value="Yellow" />
+                  <Picker.Item label="American" value="American" />
+                  <Picker.Item label="Asian" value="Asian" />
+                  <Picker.Item label="European" value="European" />
+                  <Picker.Item label="Oceanian" value="Oceanian" />
+                </Picker>
+              </View>
             </View> 
           </View>
 
           <View style={[mt1, flexRow]}>
             <View style={flexOne}>
               <Text>Eyes</Text>
-              <TextInput 
-                value={eye}
-                onChangeText={ text => setEye(text) }
-                style={[
-                  textInput, 
-                  mtp5,
-                  w80P
-                ]}
-                placeholder="color of the eye"
-              />
+              <View style={[styles.dropdown, mtp5, w80P]}>
+                <Picker
+                  selectedValue={eye}
+                  onValueChange={(itemValue, itemIndex) =>
+                    setEye(itemValue)
+                  }
+                  style={{ height: Size(2.5) }}
+                >
+                  <Picker.Item label="Yellow" value="Yellow" />
+                  <Picker.Item label="Brown" value="Brown" />
+                  <Picker.Item label="Blue" value="Blue" />
+                  <Picker.Item label="Black" value="Black" />
+                </Picker>
+              </View>
             </View>
             <View style={flexOne}>
               <Text>Medical condition</Text>

@@ -21,7 +21,7 @@ export default handleActions(
     },
     [types.CREATE_POST_SUCCESS]: (state, { payload }) => ({
       ...state, 
-      postsList: concat(state.postsList, [payload])
+      postsList: concat([payload], state.postsList)
     }),
     [types.DELETE_POST_SUCCESS]: (state, { payload }) => ({
       ...state, 
