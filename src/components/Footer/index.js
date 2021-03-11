@@ -42,11 +42,11 @@ export default ({
   }
 
   const navigateAlert = () => {
-    RootNavigation.navigate('Home', { query: 'alert' });
+    RootNavigation.navigate('Alert');
   }
 
   const navigateMessage = () => {
-    RootNavigation.navigate('Message', { query: 'message' });
+    RootNavigation.navigate('Message');
   }
 
 

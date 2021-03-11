@@ -1,3 +1,4 @@
+import Alert from './Alert';
 import Drawer from './Drawer';
 import Login from './Login';
 import Message from './Message';
@@ -74,6 +75,10 @@ const StackNavigator = ({isAuthenticated}) => {
             options={{
               headerShown: false
             }}
+          />
+          <Stack.Screen
+            name="Alert"
+            component={Alert}
           />
         </>
         : <>
