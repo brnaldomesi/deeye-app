@@ -51,7 +51,7 @@ import moment from 'moment';
 import styles from './styles';
 import { uploadFile } from 'src/redux/modules/posts';
 
-const PersonalInfo = ({navigation, uploadFile}) => {
+const PersonalInfo = ({navigation, uploadFile, categoryInfo}) => {
   const [fullname, setFullname] = useState('');
   const [aka, setAka] = useState('');
   const [gender, setGender] = useState('Male');
@@ -70,6 +70,7 @@ const PersonalInfo = ({navigation, uploadFile}) => {
   
   const handleNext = () => {
     const formData = {}
+    formData.missing_post.missing_type = categoryInfo;
     formData.missing_post = {};
     formData.missing_post.fullname = fullname;
     formData.missing_post.aka = aka;

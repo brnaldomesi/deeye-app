@@ -1,8 +1,13 @@
 import CircumstanceInfo from './CircumstanceInfo';
 import ContactInfo from './ContactInfo';
 import PersonalInfo from './PersonalInfo';
+import MissingCategory from './MissingCategory';
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
+import AntIcon from 'react-native-vector-icons/AntDesign';
+import {
+  Colors
+} from 'src/styles';
 
 const MissingPersonStack = createStackNavigator();
 
@@ -10,6 +15,14 @@ const MissingPerson = ({ navigation }) => {
 
   return (
     <MissingPersonStack.Navigator>
+      <MissingPersonStack.Screen
+        name="MissingCategory"
+        component={MissingCategory}
+        options={{
+          title: 'Missing Person Post',
+          headerBackImage: () => <AntIcon size={25} name="close" color={Colors.primary} />
+        }}
+      />
       <MissingPersonStack.Screen
         name="PersonalInfo"
         component={PersonalInfo}

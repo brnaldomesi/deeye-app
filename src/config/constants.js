@@ -77,4 +77,9 @@ export const IMAGES_PATH = {
   upcScan: require('src/assets/images/upc-scan.png'),
   video: require('src/assets/images/Group1137.png'),
   audio: require('src/assets/images/Group1136.png'),
+  categoryType1: require('src/assets/images/Missing_Person/Group1072.png'),
+  categoryType2: require('src/assets/images/Missing_Person/Group1082.png'),
+  categoryType3: require('src/assets/images/Missing_Person/Group1081.png'),
+  categoryType4: require('src/assets/images/Missing_Person/Group1080.png'),
+  categoryType5: require('src/assets/images/Missing_Person/Group1083.png'),
 };
