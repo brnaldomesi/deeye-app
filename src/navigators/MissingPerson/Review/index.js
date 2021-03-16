@@ -36,6 +36,7 @@ import { createStructuredSelector } from 'reselect';
 import { profileSelector } from 'src/redux/modules/auth';
 import AsyncStorage from '@react-native-community/async-storage';
 import { ASSET_BASE_URL } from 'src/config/apipath';
+import AntIcon from 'react-native-vector-icons/AntDesign';
 
 const Review = ({
   route, 
@@ -87,7 +88,7 @@ const Review = ({
     <View style={gStyle.flexOne}>
       <Header title="Review Post" step={4} />
       <ScrollView>
-        <View style={[gStyle.bgWhite, gStyle.my1]}>
+        <View style={[gStyle.bgWhite]}>
           <View style={gStyle.relative}>
             {sourceType === "Video" ? (
               <VideoPlayer 
@@ -152,12 +153,6 @@ const Review = ({
               )}
             </View>
             {sourceType === 'MissingPerson' && 
-              // <MissingDetailInfo 
-              //   missingContent={missingContent} 
-              //   missingCollpase={missingCollpase}
-              //   onPress={toggleMissingCollapse}
-              //   style={gStyle.p1}
-              // />
               <View style={gStyle.p1}>
                 <Text style={[gStyle.primaryColor, gStyle.fontWeightBold]}>Missing From: {formData.missing_post.duo_location}</Text>
                 <Text style={[gStyle.primaryColor, gStyle.fontWeightBold]}>Missing Since: {moment(formData.missing_post.missing_since).format("dddd, MMMM D, YYYY")}</Text>
@@ -184,53 +179,62 @@ const Review = ({
                       <Text>{formData.missing_post.weight_kg ? formData.missing_post.weight_kg + ' kg' : formData.missing_post.weight_lb + ' lb'}</Text>
                     </View>
                   </View>
+                  <Button
+                    onPress={toggleMissingCollapse}
+                    buttonStyle={[gStyle.bgTransparent, gStyle.myAuto]}
+                    icon={<AntIcon name={missingCollpase ? "downcircleo" : "upcircleo"} color={gStyle.Colors.yellow100} size={25} />}
+                  />
                 </View>
-                <View style={gStyle.flexRow}>
-                  <View>
-                    <Text style={[gStyle.textYellow100, gStyle.fontWeightBold]}>Eye</Text>
-                    <Text>{formData.missing_post.eye}</Text>
-                  </View>
-                  <View style={gStyle.ml1}>
-                    <Text style={[gStyle.textYellow100, gStyle.fontWeightBold]}>Hair</Text>
-                    <Text>{formData.missing_post.hair}</Text>
-                  </View>
-                  <View style={gStyle.ml1}>
-                    <Text style={[gStyle.textYellow100, gStyle.fontWeightBold]}>Tattoo</Text>
-                    <Text>{formData.missing_post.has_tattoo ? "Yes" : "No"}</Text>
-                  </View>
-                  <View style={gStyle.ml1}>
-                    <Text style={[gStyle.textYellow100, gStyle.fontWeightBold]}>Language</Text>
-                    <Text>{formData.missing_post.language}</Text>
-                  </View>
-                </View>
-                <Divider style={[gStyle.bgDivider, styles.bottom_divider]} />
-                <View>
-                  <Text style={[gStyle.textXl, gStyle.primaryColor]}>Circumstances</Text>
-                  <View style={gStyle.mtp5}>
-                    <Text>{formData.missing_post.circumstance}</Text>
-                  </View>
-                </View>
-                <Divider style={[gStyle.bgDivider, styles.bottom_divider]} />
-                <View style={[gStyle.flexRow, gStyle.justifyBetween]}>
-                  <View>
-                    <Text style={[gStyle.textXl, gStyle.primaryColor]}>Contact</Text>
-                    <Text>If you have any information about{"\n"}the whomabout of {formData.missing_post.fullname}</Text>
-                  </View>
-                  <View style={gStyle.flexRow}>
+                {!missingCollpase && 
+                  <>
+                    <View style={gStyle.flexRow}>
+                      <View>
+                        <Text style={[gStyle.textYellow100, gStyle.fontWeightBold]}>Eye</Text>
+                        <Text>{formData.missing_post.eye}</Text>
+                      </View>
+                      <View style={gStyle.ml1}>
+                        <Text style={[gStyle.textYellow100, gStyle.fontWeightBold]}>Hair</Text>
+                        <Text>{formData.missing_post.hair}</Text>
+                      </View>
+                      <View style={gStyle.ml1}>
+                        <Text style={[gStyle.textYellow100, gStyle.fontWeightBold]}>Tattoo</Text>
+                        <Text>{formData.missing_post.has_tattoo ? "Yes" : "No"}</Text>
+                      </View>
+                      <View style={gStyle.ml1}>
+                        <Text style={[gStyle.textYellow100, gStyle.fontWeightBold]}>Language</Text>
+                        <Text>{formData.missing_post.language}</Text>
+                      </View>
+                    </View>
+                    <Divider style={[gStyle.bgDivider, styles.bottom_divider]} />
                     <View>
-                      <Image style={[styles.contactImg, styles.selfCenter]} source={IMAGES_PATH.phoneCall} />
+                      <Text style={[gStyle.textXl, gStyle.primaryColor]}>Circumstances</Text>
                       <View style={gStyle.mtp5}>
-                        <Text>Call</Text>
+                        <Text>{formData.missing_post.circumstance}</Text>
                       </View>
                     </View>
-                    <View style={gStyle.ml1}>
-                      <Image style={[styles.contactImg, styles.selfCenter]} source={IMAGES_PATH.openChat} />
-                      <View style={gStyle.mtp5}>
-                        <Text>Message</Text>
+                    <Divider style={[gStyle.bgDivider, styles.bottom_divider]} />
+                    <View style={[gStyle.flexRow, gStyle.justifyBetween]}>
+                      <View>
+                        <Text style={[gStyle.textXl, gStyle.primaryColor]}>Contact</Text>
+                        <Text>If you have any information about{"\n"}the whomabout of {formData.missing_post.fullname}</Text>
+                      </View>
+                      <View style={gStyle.flexRow}>
+                        <View>
+                          <Image style={[styles.contactImg, styles.selfCenter]} source={IMAGES_PATH.phoneCall} />
+                          <View style={gStyle.mtp5}>
+                            <Text>Call</Text>
+                          </View>
+                        </View>
+                        <View style={gStyle.ml1}>
+                          <Image style={[styles.contactImg, styles.selfCenter]} source={IMAGES_PATH.openChat} />
+                          <View style={gStyle.mtp5}>
+                            <Text>Message</Text>
+                          </View>
+                        </View>
                       </View>
                     </View>
-                  </View>
-                </View>
+                  </>
+                }
               </View>  
             }
             <Divider style={styles.divider} />

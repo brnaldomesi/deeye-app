@@ -263,7 +263,6 @@ const actions = {
   uploadFile
 }
 
-
 export default compose(
   connect(null, actions)
 )(ContactInfo);
