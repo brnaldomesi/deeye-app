@@ -30,25 +30,10 @@ const MissingCategory = ({ navigation }) => {
     navigation.navigate('Home');
   };
 
-  const getMissingType = type = () => {
-    switch (type) {
-      case 0:
-        return 'Medical_Fragile_Missing'
-      case 1:
-        return 'Family_Abduction'
-      case 2:
-        return 'Endanger_Run_Away'
-      case 3:
-        return 'Run_Away'
-      case 4:
-        return 'Missing_person'
-      default:
-        return 'Medical_Fragile_Missing'
-    }
-  }
-
   const handleCategory = index => () => {
-    navigation.navigate('PersonalInfo', { categoryType: getMissingType(index) });
+    const arrCategory = ['Missing_person', 'Run_Away', 'Endanger_Run_Away', 'Family_Abduction', 'Medical_Fragile_Missing'];
+
+    navigation.navigate('PersonalInfo', { missingType: arrCategory[index] });
   }
 
   return (

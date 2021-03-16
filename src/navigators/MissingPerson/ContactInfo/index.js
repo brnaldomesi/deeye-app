@@ -65,8 +65,9 @@ const ContactInfo = ({
     if(attachments[0]) {
       formData.missing_post.verification_report_path = attachments[0].uri;
     }
-    formData.missing_post.missing_type = "Missing_person";
     formData.missing_post.badge_awarded = "Pending";
+
+    console.log("category final", formData.missing_post);
 
     createPost({
       data: formData,
