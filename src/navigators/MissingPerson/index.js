@@ -2,6 +2,7 @@ import CircumstanceInfo from './CircumstanceInfo';
 import ContactInfo from './ContactInfo';
 import PersonalInfo from './PersonalInfo';
 import MissingCategory from './MissingCategory';
+import Review from './Review';
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import AntIcon from 'react-native-vector-icons/AntDesign';
@@ -40,6 +41,13 @@ const MissingPerson = ({ navigation }) => {
       <MissingPersonStack.Screen
         name="ContactInfo"
         component={ContactInfo}
+        options={{
+          title: 'Circumstance Information',
+        }}
+      />
+      <MissingPersonStack.Screen
+        name="Review"
+        component={Review}
         options={{
           title: 'Circumstance Information',
         }}

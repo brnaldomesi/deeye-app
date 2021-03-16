@@ -67,17 +67,17 @@ const ContactInfo = ({
     }
     formData.missing_post.badge_awarded = "Pending";
 
-    console.log("category final", formData.missing_post);
+    navigation.navigate('Review', {formData});
 
-    createPost({
-      data: formData,
-      success: res => {
-        navigation.navigate('Home');
-      },
-      fail: err => {
-        console.error(err)
-      }
-    })
+    // createPost({
+    //   data: formData,
+    //   success: res => {
+    //     navigation.navigate('Home');
+    //   },
+    //   fail: err => {
+    //     console.error(err)
+    //   }
+    // })
   }
 
   const handleUpload = (data) => {

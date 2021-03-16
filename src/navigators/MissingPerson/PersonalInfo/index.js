@@ -105,7 +105,9 @@ const PersonalInfo = ({navigation, uploadFile, route}) => {
       data: formData,
       success: res => {
         setAttachments(attachments => attachments.concat([{
-          id: res.id, 
+          id: res.id,
+          uri: res.path,
+          type: res.file_type,
           attachment_type: 'General'
         }]));
       },

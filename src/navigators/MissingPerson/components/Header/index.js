@@ -30,29 +30,31 @@ const Header = ({ title, step }) => {
       ]}
     >
       <Text style={[textWhite, textXl]}>{title}</Text>
-      <View style={[absolute, styles.step]}>
-        <Text 
-          style={[
-            textDot7, 
-            textWhite, 
-            selfCenter
-          ]}
-        >
-          Step
-        </Text>
-        <View 
-          style={[
-            roundedFull, 
-            borderWhite, 
-            border1, 
-            itemsCenter, 
-            justifyCenter, 
-            styles.stepCircle
-          ]}
-        >
-          <Text style={textWhite}>{step}/3</Text>
+      {step < 4 && 
+        <View style={[absolute, styles.step]}>
+          <Text 
+            style={[
+              textDot7, 
+              textWhite, 
+              selfCenter
+            ]}
+          >
+            Step
+          </Text>
+          <View 
+            style={[
+              roundedFull, 
+              borderWhite, 
+              border1, 
+              itemsCenter, 
+              justifyCenter, 
+              styles.stepCircle
+            ]}
+          >
+            <Text style={textWhite}>{step}/3</Text>
+          </View>
         </View>
-      </View>
+      }
     </View>
   )
 };
