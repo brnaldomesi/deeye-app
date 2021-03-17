@@ -1,34 +1,15 @@
 import React, { useState } from 'react';
 import { Text, View, ScrollView, Image, TouchableOpacity } from 'react-native';
 import {
-  basicPadding,
-  bgSecodary,
   bgWhite,
   flexOne,
-  flexRow,
-  loginHeaderStyle,
-  mlp5,
-  myAuto,
-  p1,
-  textXl,
   resizeContain
 } from 'src/styles';
 
-import { ASSET_BASE_URL } from 'src/config/apipath';
-import AsyncStorage from '@react-native-community/async-storage';
-import { Avatar } from 'react-native-elements';
-import Header from '../components/Header';
-import IconButton from 'src/components/IconButton';
 import styles from './styles';
 import { IMAGES_PATH } from 'src/config/constants';
 
 const MissingCategory = ({ navigation }) => {
-  const [avatarPath, setAvatarPath] = useState(null);
-  AsyncStorage.getItem('profile').then(profile => setAvatarPath(ASSET_BASE_URL + JSON.parse(profile).avatar_path));
-
-  const handleClose = () => {
-    navigation.navigate('Home');
-  };
 
   const handleCategory = index => () => {
     const arrCategory = ['Missing_person', 'Run_Away', 'Endanger_Run_Away', 'Family_Abduction', 'Medical_Fragile_Missing'];
@@ -47,7 +28,7 @@ const MissingCategory = ({ navigation }) => {
 
           <TouchableOpacity style={styles.item_category} onPress={handleCategory(0)}>
             <View style={[styles.image_flex]}>
-              <Image style={[styles.item_image, resizeContain]} source={IMAGES_PATH.categoryType1} />
+              <Image style={[styles.item_image, resizeContain]} source={IMAGES_PATH.category_missing_person} />
             </View>
             <View style={styles.item_text_group}>
                 <Text style={styles.item_text}>Missing Person</Text>
@@ -59,7 +40,7 @@ const MissingCategory = ({ navigation }) => {
           </TouchableOpacity>
           <TouchableOpacity style={styles.item_category} onPress={handleCategory(1)}>
             <View style={[styles.image_flex]}>
-              <Image style={[styles.item_image, resizeContain]} source={IMAGES_PATH.categoryType2} />
+              <Image style={[styles.item_image, resizeContain]} source={IMAGES_PATH.category_run_away} />
             </View>
             <View style={styles.item_text_group}>
                 <Text style={styles.item_text}>Run-away</Text>
@@ -70,7 +51,7 @@ const MissingCategory = ({ navigation }) => {
           </TouchableOpacity>    
           <TouchableOpacity style={styles.item_category} onPress={handleCategory(2)}>
             <View style={[styles.image_flex]}>
-              <Image style={[styles.item_image, resizeContain]} source={IMAGES_PATH.categoryType3} />
+              <Image style={[styles.item_image, resizeContain]} source={IMAGES_PATH.category_endanger} />
             </View>
             <View style={styles.item_text_group}>
                 <Text style={styles.item_text}>Endanger run away</Text>
@@ -82,7 +63,7 @@ const MissingCategory = ({ navigation }) => {
           </TouchableOpacity>    
           <TouchableOpacity style={styles.item_category} onPress={handleCategory(3)}>
             <View style={[styles.image_flex]}>
-              <Image style={[styles.item_image, resizeContain]} source={IMAGES_PATH.categoryType4} />
+              <Image style={[styles.item_image, resizeContain]} source={IMAGES_PATH.category_family} />
             </View>
             <View style={styles.item_text_group}>
                 <Text style={styles.item_text}>Family Abduction</Text>
@@ -95,7 +76,7 @@ const MissingCategory = ({ navigation }) => {
           </TouchableOpacity>    
           <TouchableOpacity style={styles.item_category} onPress={handleCategory(4)}>
             <View style={[styles.image_flex]}>
-              <Image style={[styles.item_image, resizeContain]} source={IMAGES_PATH.categoryType5} />
+              <Image style={[styles.item_image, resizeContain]} source={IMAGES_PATH.category_medical} />
             </View>
             <View style={styles.item_text_group}>
                 <Text style={styles.item_text}>Medical fragile missing</Text>

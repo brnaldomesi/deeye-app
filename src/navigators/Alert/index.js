@@ -1,56 +1,63 @@
-import { Button, StyleSheet, Text, View } from 'react-native';
-import React, { useEffect } from 'react';
-
-import { fcmService } from 'src/utils/FCMService'
-import { localNotificationService } from 'src/utils/LocalNotificationService'
+import {
+  TouchableOpacity,
+  Text,
+  ScrollView,
+  Image,
+  View
+} from 'react-native';
+import React from 'react';
 import styles from './styles';
+import * as gStyle from 'src/styles'
+import {IMAGES_PATH} from "../../config/constants";
 
 const Alert = () => {
-  useEffect(() => {
-    fcmService.registerAppWithFCM();
-    fcmService.register(onRegister, onNotification, onOpenNotification);
-    localNotificationService.configure(onOpenNotification);
 
-    function onRegister(token) {
-      console.log("[App] onRegister: ", token);
-    }
-
-    function onNotification(notify) {
-      console.log("[App] onNotification: ", notify);
-      const options = {
-        soundName: 'default',
-        playSound: true
-      }
-      localNotificationService.showNotification(
-        0,
-        notify.title,
-        notify.body,
-        notify,
-        options
-      ) 
-    }
-
-    function onOpenNotification(notify) {
-      console.log("[App] onOpenNotification: ", notify);
-      alert("Open Notification: " + notify.body);      
-    }
-
-    return () => {
-      console.log("[App] unRegister");
-      fcmService.unRegister();
-      localNotificationService.unregister();
-    }
-  }, [])
-  
   return (
-    <View style={styles.container}>
-      <Text>Sample React Native Firebase</Text>
-      <Button
-        title="Press me"
-        onPress={() => localNotificationService.cancelAllLocalNotifications()}
-      />
+    <View style={[styles.container, gStyle.bgWhite]}>
+      <ScrollView style={styles.scroll_view}>
+        <View style={styles.simple_item}>
+          <View style={styles.leftImg}>
+            <View style={[styles.vwImg, styles.alert_color_green]}>
+              <Image style={styles.circleImg} source={IMAGES_PATH.avatar} />
+            </View>
+            <Image style={styles.badgeImg} source={IMAGES_PATH.alert_request} />
+          </View>
+          <View style={styles.contentText}>
+            <Text style={styles.text_content}><Text style={styles.name_primary}>Roy Adams</Text>{' '}supports your post</Text>
+          </View>
+          <View style={styles.timeText}>
+            <View style={styles.rightImg}>
+              <TouchableOpacity style={styles.settingTouch}>
+                <Text style={styles.settingText}>Accept</Text>
+              </TouchableOpacity>
+            </View>
+            <View>
+              <Text style={styles.text_min}>15min</Text>
+            </View>
+          </View>
+        </View>
+        <View style={styles.simple_item}>
+          <View style={styles.leftImg}>
+            <View style={[styles.vwImg, styles.alert_color_red]}>
+              <Image style={styles.circleImg} source={IMAGES_PATH.avatar} />
+            </View>
+            <Image style={styles.badgeImg} source={IMAGES_PATH.alert_support} />
+          </View>
+          <View style={styles.contentText}>
+            <Text style={styles.text_content}><Text style={styles.name_primary}>Roy Adams</Text>{' '}supports your post supports your post</Text>
+          </View>
+          <View style={styles.timeText}>
+            <View style={styles.rightImg}>
+              <Image style={styles.settingImg} source={IMAGES_PATH.setting} />
+            </View>
+            <View style={styles.d_flex}>
+              <Text style={styles.text_min}>15min</Text>
+            </View>
+          </View>
+        </View>
+      </ScrollView>
     </View>
-  )  
+  )
 }
 
 export default Alert;

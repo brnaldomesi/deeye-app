@@ -16,6 +16,9 @@ import { connect } from 'react-redux';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createStructuredSelector } from 'reselect'
 import { isAuthenticatedSelector } from 'src/redux/modules/auth';
+import AntIcon from "react-native-vector-icons/AntDesign";
+import {Colors} from "../styles";
+import MCIcon from "react-native-vector-icons/MaterialCommunityIcons";
 
 const Stack = createStackNavigator();
 
@@ -79,6 +82,10 @@ const StackNavigator = ({isAuthenticated}) => {
           <Stack.Screen
             name="Alert"
             component={Alert}
+            options={{
+              headerShown: true,
+              headerBackImage: () => <MCIcon name="format-align-left" size={25} />
+            }}
           />
         </>
         : <>
