@@ -90,4 +90,9 @@ export const IMAGES_PATH = {
   alert_request: require('src/assets/images/Group1119.png'),
   alert_mention: require('src/assets/images/Group1126.png'),
   alert_reply: require('src/assets/images/Group1128.png'),
+  alert_verify: require('src/assets/images/Icon-material-verified-user.png'),
+  bx_upload: require('src/assets/images/bx-upload.png'),
+  bx_broadcast: require('src/assets/images/bx-broadcast.png'),
+  bx_share: require('src/assets/images/bx-share-alt.png'),
+  bx_user: require('src/assets/images/bx-user-x.png'),
 };

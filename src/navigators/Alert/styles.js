@@ -117,6 +117,14 @@ const styles = StyleSheet.create({
     borderRadius: Size(1.25),
   },
 
+  alert_color_white: {
+    borderColor: 'white',
+  },
+
+  alert_color_large_default: {
+    borderColor: '#b71c1c',
+  },
+
   alert_color_red: {
     borderColor: '#e84343',
   },
@@ -159,7 +167,222 @@ const styles = StyleSheet.create({
   leftImg: {
     minWidth: Size(4),
     flexShrink: 1,
-  }
+  },
+
+  m_auto: {
+    marginTop: 'auto',
+    marginBottom: 'auto',
+    marginStart: 'auto',
+    marginEnd: 'auto',
+  },
+
+  large_item: {
+    width: '100%',
+    borderStyle: 'solid',
+    borderBottomWidth: 1,
+    borderBottomColor: '#aaaaaa'
+  },
+
+  large_top_item: {
+    display: 'flex',
+    flexDirection: 'row',
+    minHeight: Size(10),
+    width: '100%',
+  },
+
+  large_bottom_item: {
+    display: 'flex',
+    flexDirection: 'row',
+    minHeight: Size(3),
+    width: '100%',
+    backgroundColor: '#f1f9ff',
+  },
+
+  large_leftImg: {
+    display: 'flex',
+    flexDirection: 'row',
+    minWidth: Size(6),
+    flexShrink: 1,
+  },
+
+  large_vwImg: {
+    width: Size(3.5),
+    maxHeight: Size(3.5),
+    marginTop: 'auto',
+    marginBottom: 'auto',
+    marginStart: 'auto',
+    marginEnd: 'auto',
+    flexGrow: 1,
+    overflow: 'hidden',
+    borderWidth: 2,
+    borderRadius: Size(1.75),
+  },
+
+  large_badgeImg: {
+    width: Size(.7),
+    height: Size(.7),
+    position: 'absolute',
+    bottom: Size(.2),
+    right: Size(.2)
+  },
+
+  large_badgeBtn: {
+    height: Size(.8),
+    position: 'absolute',
+    bottom: Size(2),
+    left: Size(1.7),
+    borderRadius: Size(.4),
+    overflow: 'hidden',
+  },
+
+  large_badgeBtn_small: {
+    backgroundColor: '#77c545',
+    height: Size(.8),
+    paddingTop: 0,
+    paddingBottom: 0,
+  },
+
+  text_white: {
+    color: 'white',
+    fontSize: 9
+  },
+
+  large_contentText: {
+    flexBasis: 1,
+    flexGrow: .7,
+    paddingTop: 10,
+    paddingBottom: 10,
+  },
+
+  large_text_top_content: {
+    fontSize: 16,
+    fontWeight: 'bold'
+  },
+
+  text_missing_color: {
+    color: '#b71c1c',
+  },
+
+  text_found_color: {
+    color: '#4cb906',
+  },
+
+  large_text_bottom_content: {
+    marginBottom: 5,
+    color: '#767676',
+    fontSize: 16,
+    fontWeight: 'bold'
+  },
+
+  large_text_content: {
+    color: '#999999',
+    fontSize: 13,
+    fontWeight: 'bold',
+    marginBottom: 5,
+  },
+
+  large_text_verifed: {
+    backgroundColor: '#e8ffed',
+    padding: 5,
+    marginEnd: 'auto',
+    borderRadius: 3,
+    fontSize: 10,
+    color: '#74cb42'
+  },
+
+  large_text_account_first: {
+    color: '#999999',
+    fontSize: 9,
+  },
+
+  large_text_account_last: {
+    color: '#478cd1',
+    fontSize: 9,
+  },
+
+  verifed_img: {
+    width: Size(1),
+    height: Size(1),
+    overflow: 'hidden',
+    borderRadius: Size(.5),
+  },
+
+  large_settingImg: {
+    width: Size(.2),
+    height: Size(1),
+    marginTop: 10,
+    marginBottom: 'auto',
+    resizeMode: 'contain',
+    marginEnd: 10
+  },
+
+  uploadImg: {
+    marginStart: 'auto',
+    marginTop: 'auto',
+    marginBottom: 'auto',
+    marginEnd: 20,
+    width: Size(1),
+    height: Size(1),
+    resizeMode: 'contain',
+  },
+
+  uploadText: {
+    fontSize: 10,
+    color: '#478cd1',
+    marginTop: 'auto',
+    marginBottom: 'auto'
+  },
+
+  large_bottom_contentText: {
+    flexBasis: 1,
+    flexGrow: 1,
+    paddingTop: 10,
+    paddingBottom: 10,
+  },
+
+  large_bottom_verify_contentText: {
+    display: 'flex',
+    flexDirection: 'row',
+    marginTop: 'auto',
+    marginBottom: 'auto',
+    marginRight: 'auto',
+    marginLeft: 'auto'
+  },
+
+  bottom_uploadImg: {
+    width: Size(1),
+    height: Size(1),
+    resizeMode: 'contain',
+  },
+
+  bottom_uploadText: {
+    fontSize: 10,
+    color: '#478cd1',
+  },
+
+  share_content: {
+    margin: 10,
+    height: Size(3.5),
+    backgroundColor: '#e8ffed',
+    borderWidth: 1,
+    borderColor: '#73ca40',
+    borderStyle: 'solid',
+    borderRadius: 10,
+  },
+
+  share_vwImg: {
+    marginLeft: -20,
+    overflow: 'hidden',
+    borderWidth: 2,
+    borderRadius: Size(1.25),
+  },
+
+  shareImg: {
+    width: Size(2.5),
+    height: Size(2.5),
+    resizeMode: 'contain',
+  },
+
 });
 
 export default styles;
