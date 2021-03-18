@@ -66,46 +66,46 @@ const PostForm = ({
 
   return (
     <View style={p1}>
-      {post.post_type === 'MissingPerson' ? (
-        <View><Text>123</Text></View>
-      ) : (
-        <>
-          {attachments.length > 0 && 
-            <Controller 
-              control={control}
-              name="post_attachments"
-              render={props => (
-                <Carousel
-                  layout={"default"}
-                  ref={props.ref}
-                  data={attachments}
-                  sliderWidth={Size(23)}
-                  itemWidth={Size(17)}
-                  renderItem={_renderItem}
-                  onSnapToItem = { index => setActiveIndex(index) } 
-                />
-              )}
-              defaultValue={attachments}
-            />
-          }
-          <Controller
-            control={control}
-            name="description"
-            render={props => (
-              <TextInput 
-                multiline
-                numberOfLines={4}
-                value={props.value}
-                onChangeText={value => props.onChange(value)}
-                textAlignVertical="top"
-                placeholder="What would you like to share?"
-              />
-            )}
-          />
-        </>
-      )}
+      {/*{post.post_type === 'MissingPerson' ? (*/}
+      {/*  <View><Text>123</Text></View>*/}
+      {/*) : (*/}
+      {/*  <>*/}
+      {/*    {attachments.length > 0 && */}
+      {/*      <Controller */}
+      {/*        control={control}*/}
+      {/*        name="post_attachments"*/}
+      {/*        render={props => (*/}
+      {/*          <Carousel*/}
+      {/*            layout={"default"}*/}
+      {/*            ref={props.ref}*/}
+      {/*            data={attachments}*/}
+      {/*            sliderWidth={Size(23)}*/}
+      {/*            itemWidth={Size(17)}*/}
+      {/*            renderItem={_renderItem}*/}
+      {/*            onSnapToItem = { index => setActiveIndex(index) } */}
+      {/*          />*/}
+      {/*        )}*/}
+      {/*        defaultValue={attachments}*/}
+      {/*      />*/}
+      {/*    }*/}
+      {/*    <Controller*/}
+      {/*      control={control}*/}
+      {/*      name="description"*/}
+      {/*      render={props => (*/}
+      {/*        <TextInput */}
+      {/*          multiline*/}
+      {/*          numberOfLines={4}*/}
+      {/*          value={props.value}*/}
+      {/*          onChangeText={value => props.onChange(value)}*/}
+      {/*          textAlignVertical="top"*/}
+      {/*          placeholder="What would you like to share?"*/}
+      {/*        />*/}
+      {/*      )}*/}
+      {/*    />*/}
+      {/*  </>*/}
+      {/*)}*/}
 
-      <Button title="Update" onPress={handleSubmit(onSubmit)} />
+      {/*<Button title="Update" onPress={handleSubmit(onSubmit)} />*/}
     </View>
   )
 }

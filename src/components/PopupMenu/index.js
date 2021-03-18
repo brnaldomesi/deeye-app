@@ -39,7 +39,7 @@ const PopupMenu = ({
 }) => {
   
   const handleEdit = () => {
-    RootNavigation.navigate("PostEdit", {post});
+    RootNavigation.navigate(post.post_type === 'MissingPerson' ? 'MissingPostEdit' : 'PostEdit', {post});
   }
 
   const handleHide = () => {

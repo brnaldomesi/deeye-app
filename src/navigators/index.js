@@ -5,6 +5,7 @@ import Message from './Message';
 import MissingPerson from './MissingPerson';
 import OnBoarding from './OnBoarding';
 import PostCreate from './Post/PostCreate';
+import MissingPostEdit from './Post/MissingPostEdit';
 import PostDetail from './Post/PostDetail';
 import PostDetailForComment from './Post/PostDetailForComment';
 import PostEdit from './Post/PostEdit';
@@ -45,6 +46,13 @@ const StackNavigator = ({isAuthenticated}) => {
             component={PostCreate}
             options={{
               headerShown: false
+            }}
+          />
+          <Stack.Screen
+            name="MissingPostEdit"
+            component={MissingPostEdit}
+            options={{
+              headerShown: true
             }}
           />
           <Stack.Screen

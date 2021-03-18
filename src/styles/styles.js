@@ -198,6 +198,10 @@ export const secondaryColor = {
   color: Colors.secondary
 }
 
+export const grayColor = {
+  color: 'gray'
+}
+
 export const textDot5 = {
   fontSize: Size(.6)
 }
@@ -395,3 +399,19 @@ export const flexWrap = {
 export const opacity40 = {
   opacity: 0.4
 }
+
+/* flex */
+export const d_flex = {
+  display: 'flex',
+  flexDirection: 'row',
+}
+
+export const ml_auto = {
+  marginLeft: 'auto'
+}
+
+export const mr_auto = {
+  marginRight: 'auto'
+}
+
+

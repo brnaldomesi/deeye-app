@@ -5,7 +5,7 @@ import {
   Image,
   View
 } from 'react-native';
-import { Button } from 'react-native-elements';
+import {Button} from 'react-native-elements';
 import React from 'react';
 import styles from './styles';
 import * as gStyle from 'src/styles'
@@ -19,9 +19,9 @@ const Alert = () => {
         <View style={styles.simple_item}>
           <View style={styles.leftImg}>
             <View style={[styles.vwImg, styles.alert_color_green]}>
-              <Image style={styles.circleImg} source={IMAGES_PATH.avatar} />
+              <Image style={styles.circleImg} source={IMAGES_PATH.avatar}/>
             </View>
-            <Image style={styles.badgeImg} source={IMAGES_PATH.alert_request} />
+            <Image style={styles.badgeImg} source={IMAGES_PATH.alert_request}/>
           </View>
           <View style={styles.contentText}>
             <Text style={styles.text_content}><Text style={styles.name_primary}>Roy Adams</Text>{' '}supports your post</Text>
@@ -40,16 +40,17 @@ const Alert = () => {
         <View style={styles.simple_item}>
           <View style={styles.leftImg}>
             <View style={[styles.vwImg, styles.alert_color_red]}>
-              <Image style={styles.circleImg} source={IMAGES_PATH.avatar} />
+              <Image style={styles.circleImg} source={IMAGES_PATH.avatar}/>
             </View>
-            <Image style={styles.badgeImg} source={IMAGES_PATH.alert_support} />
+            <Image style={styles.badgeImg} source={IMAGES_PATH.alert_support}/>
           </View>
           <View style={styles.contentText}>
-            <Text style={styles.text_content}><Text style={styles.name_primary}>Roy Adams</Text>{' '}supports your post supports your post</Text>
+            <Text style={styles.text_content}><Text style={styles.name_primary}>Roy Adams</Text>{' '}supports your post
+              supports your post</Text>
           </View>
           <View style={styles.timeText}>
             <View style={styles.rightImg}>
-              <Image style={styles.settingImg} source={IMAGES_PATH.setting} />
+              <Image style={styles.settingImg} source={IMAGES_PATH.setting}/>
             </View>
             <View style={styles.d_flex}>
               <Text style={styles.text_min}>15min</Text>
@@ -61,9 +62,9 @@ const Alert = () => {
             <View style={styles.large_leftImg}>
               <View style={styles.m_auto}>
                 <View style={[styles.large_vwImg, styles.alert_color_large_default]}>
-                  <Image style={styles.circleImg} source={IMAGES_PATH.avatar} />
+                  <Image style={styles.circleImg} source={IMAGES_PATH.avatar}/>
                 </View>
-                <Image style={styles.large_badgeImg} source={IMAGES_PATH.alert_verify} />
+                <Image style={styles.large_badgeImg} source={IMAGES_PATH.alert_verify}/>
               </View>
               <View style={[styles.large_badgeBtn]}>
                 <Button
@@ -91,7 +92,7 @@ const Alert = () => {
             </View>
             <View style={styles.timeText}>
               <View style={styles.rightImg}>
-                <Image style={styles.large_settingImg} source={IMAGES_PATH.setting} />
+                <Image style={styles.large_settingImg} source={IMAGES_PATH.setting}/>
               </View>
               <View style={styles.d_flex}>
                 <Text style={styles.text_min}>15min</Text>
@@ -100,7 +101,7 @@ const Alert = () => {
           </View>
           <View style={styles.large_bottom_item}>
             <View style={styles.large_leftImg}>
-              <Image style={styles.uploadImg} source={IMAGES_PATH.bx_upload} />
+              <Image style={styles.uploadImg} source={IMAGES_PATH.bx_upload}/>
             </View>
             <View style={styles.large_bottom_contentText}>
               <Text style={styles.uploadText}>
@@ -114,9 +115,9 @@ const Alert = () => {
             <View style={styles.large_leftImg}>
               <View style={styles.m_auto}>
                 <View style={[styles.large_vwImg, styles.alert_color_large_default]}>
-                  <Image style={styles.circleImg} source={IMAGES_PATH.avatar} />
+                  <Image style={styles.circleImg} source={IMAGES_PATH.avatar}/>
                 </View>
-                <Image style={styles.large_badgeImg} source={IMAGES_PATH.alert_verify} />
+                <Image style={styles.large_badgeImg} source={IMAGES_PATH.alert_verify}/>
               </View>
               <View style={[styles.large_badgeBtn]}>
                 <Button
@@ -134,14 +135,14 @@ const Alert = () => {
               <View style={styles.d_flex}>
                 <Text style={styles.large_text_account_first}>Posted by </Text>
                 <View style={[styles.verifed_img]}>
-                  <Image style={styles.circleImg} source={IMAGES_PATH.avatar} />
+                  <Image style={styles.circleImg} source={IMAGES_PATH.avatar}/>
                 </View>
                 <Text style={styles.large_text_account_last}>{' '}@Laurel_Lawson</Text>
               </View>
             </View>
             <View style={styles.timeText}>
               <View style={styles.rightImg}>
-                <Image style={styles.large_settingImg} source={IMAGES_PATH.setting} />
+                <Image style={styles.large_settingImg} source={IMAGES_PATH.setting}/>
               </View>
               <View style={styles.d_flex}>
                 <Text style={styles.text_min}>15min</Text>
@@ -150,7 +151,8 @@ const Alert = () => {
           </View>
           <View style={styles.d_flex}>
             <View style={[styles.d_flex, styles.m_auto]}>
-              <Text style={[styles.m_auto, styles.large_text_top_content, styles.text_found_color]}>Thanks to Community Member</Text>
+              <Text style={[styles.m_auto, styles.large_text_top_content, styles.text_found_color]}>Thanks to Community
+                Member</Text>
             </View>
           </View>
           <View style={[styles.d_flex]}>
@@ -158,13 +160,13 @@ const Alert = () => {
               <View style={[styles.share_content, styles.d_flex]}>
                 <View style={[styles.m_auto, styles.d_flex]}>
                   <View style={[styles.share_vwImg, styles.alert_color_white]}>
-                    <Image style={styles.shareImg} source={IMAGES_PATH.avatar} />
+                    <Image style={styles.shareImg} source={IMAGES_PATH.avatar}/>
                   </View>
                   <View style={[styles.share_vwImg, styles.alert_color_white]}>
-                    <Image style={styles.shareImg} source={IMAGES_PATH.avatar} />
+                    <Image style={styles.shareImg} source={IMAGES_PATH.avatar}/>
                   </View>
                   <View style={[styles.share_vwImg, styles.alert_color_white]}>
-                    <Image style={styles.shareImg} source={IMAGES_PATH.avatar} />
+                    <Image style={styles.shareImg} source={IMAGES_PATH.avatar}/>
                   </View>
                 </View>
               </View>
@@ -172,7 +174,7 @@ const Alert = () => {
           </View>
           <View style={styles.large_bottom_item}>
             <View style={styles.large_bottom_verify_contentText}>
-              <Image style={styles.bottom_uploadImg} source={IMAGES_PATH.bx_share} />
+              <Image style={styles.bottom_uploadImg} source={IMAGES_PATH.bx_share}/>
               <Text style={styles.bottom_uploadText}>
                 {'   '}Share the good news
               </Text>

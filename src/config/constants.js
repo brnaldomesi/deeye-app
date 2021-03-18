@@ -22,6 +22,7 @@ export const IMAGES_PATH = {
   photoSizeSelect1: require('src/assets/images/Icon-material-photo-size-select-actual-1.png'),
   featherVideo1: require('src/assets/images/Icon-feather-video-1.png'),
   setting: require('src/assets/images/Symbol-28–187.png'),
+  setting_white: require('src/assets/images/Symbol-28–187-white.png'),
   comment: require('src/assets/images/Icon-feather-message-circle.png'),
   save: require('src/assets/images/Icon-feather-bookmark.png'),
   save1: require('src/assets/images/Icon-feather-bookmark-1.png'),
@@ -95,4 +96,9 @@ export const IMAGES_PATH = {
   bx_broadcast: require('src/assets/images/bx-broadcast.png'),
   bx_share: require('src/assets/images/bx-share-alt.png'),
   bx_user: require('src/assets/images/bx-user-x.png'),
+  bx_pencil: require('src/assets/images/pencil-square.png'),
+  popup_trash: require('src/assets/images/popup_trash.png'),
+  popup_inbox: require('src/assets/images/popup_inbox.png'),
+  popup_eye: require('src/assets/images/popup_eye.png'),
+  popup_circle: require('src/assets/images/popup_circle.png'),
 };

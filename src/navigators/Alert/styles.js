@@ -94,7 +94,6 @@ const styles = StyleSheet.create({
     height: Size(1.4),
     marginTop: 'auto',
     marginBottom: 5,
-    resizeMode: 'contain',
     marginEnd: 10,
     fontSize: 11
   },
