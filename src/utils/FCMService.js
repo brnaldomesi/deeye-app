@@ -45,7 +45,7 @@ class FCMService {
     .then(() => {
       this.getToken(onRegister);
     }).catch(error => {
-      console.log("[FCMService ", error);
+      console.log("[FCMService] Request Permission rejected", error);
     })
   }
 

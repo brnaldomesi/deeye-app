@@ -31,6 +31,8 @@ import MyTextInput from 'src/components/MyTextInput';
 import PropTypes from 'prop-types'
 import { authSignup } from 'src/redux/modules/auth';
 import { connect } from 'react-redux'
+import { createStructuredSelector } from 'reselect'
+import { fcmTokenSelector } from 'src/redux/modules/auth';
 import styles from './styles';
 import { useDeviceName } from 'react-native-device-info';
 
@@ -45,7 +47,8 @@ const rules = {
 const PasswordSet = ({ 
   route, 
   navigation, 
-  authSignup 
+  authSignup,
+  fcmToken 
 }) => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -60,7 +63,7 @@ const PasswordSet = ({
       alert('Passwords are incorrect');
     } else {
       authSignup({ 
-        data: { email, password, deviceName },
+        data: { email, password, deviceName, fcmToken },
         success: res => {
           const uid = 'user' + res.profile.user_id;
           const user = new CometChat.User(uid);
@@ -183,7 +186,11 @@ const actions = {
   authSignup
 }
 
+const selector = createStructuredSelector({
+  fcmToken: fcmTokenSelector
+})
+
 export default connect(
-  null,
+  selector,
   actions
 )(PasswordSet);

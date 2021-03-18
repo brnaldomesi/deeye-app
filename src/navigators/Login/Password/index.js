@@ -17,10 +17,17 @@ import MyTextInput from 'src/components/MyTextInput';
 import PropTypes from 'prop-types';
 import { authLogin } from 'src/redux/modules/auth';
 import { connect } from 'react-redux'
+import { createStructuredSelector } from 'reselect'
+import { fcmTokenSelector } from 'src/redux/modules/auth';
 import styles from './styles';
 import { useDeviceName } from 'react-native-device-info';
 
-const Password = ({ route, navigation, authLogin }) => {
+const Password = ({ 
+  route, 
+  navigation, 
+  authLogin,
+  fcmToken
+}) => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState(0);
   const { email } = route.params; 
@@ -28,7 +35,7 @@ const Password = ({ route, navigation, authLogin }) => {
 
   const handleConfirm = () => {
     authLogin({ 
-      data: { email, password, deviceName },
+      data: { email, password, deviceName, fcmToken },
       fail: err => {
         console.error('err', err)
         setError(1);
@@ -78,7 +85,11 @@ const actions = {
   authLogin
 }
 
+const selector = createStructuredSelector({
+  fcmToken: fcmTokenSelector
+})
+
 export default connect(
-  null,
+  selector,
   actions
 )(Password);

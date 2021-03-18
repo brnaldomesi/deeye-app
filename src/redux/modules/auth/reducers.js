@@ -6,7 +6,10 @@ import { handleActions } from 'redux-actions'
 const getInitialState = async () => {
   try {
     const token = await AsyncStorage.getItem('token');
-    return { token };
+    return { 
+      token,
+      fcmToken: null 
+    };
   } catch(e) {
     console.error(e);
   }
@@ -23,6 +26,10 @@ export default handleActions(
       ...state,
       profile: null,
       token: null
+    }),
+    [types.AUTH_SET_FCM_TOKEN]: (state, { payload }) => ({
+      ...state,
+      fcmToken: payload,
     })
   },
   getInitialState()

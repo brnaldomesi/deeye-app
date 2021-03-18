@@ -21,3 +21,5 @@ export const authForgotPassword = createAction(types.AUTH_FORGOT_PASSWORD)
 export const authValidateToken = createAction(types.AUTH_VALIDATE_TOKEN)
 
 export const authResetPassword = createAction(types.AUTH_RESET_PASSWORD)
+
+export const authSetFcmToken = createAction(types.AUTH_SET_FCM_TOKEN);

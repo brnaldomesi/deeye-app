@@ -9,6 +9,11 @@ export const tokenSelector = createSelector(
   fp.get('token')
 )
 
+export const fcmTokenSelector = createSelector(
+  authSelector,
+  fp.get('fcmToken')
+)
+
 export const profileSelector = createSelector(
   authSelector,
   fp.get('profile')

@@ -9,23 +9,19 @@
 import {
   ActivityIndicator,
   PermissionsAndroid,
-  SafeAreaView,
-  StatusBar
+  SafeAreaView
 } from 'react-native';
 import React, { useEffect } from 'react';
 import { persistor, store } from 'src/redux';
 
 import { COMETCHAT_CONSTANTS } from 'src/config/constants';
 import { CometChat } from '@cometchat-pro/react-native-chat';
-import { MenuProvider } from 'react-native-popup-menu';
-import { NavigationContainer } from '@react-navigation/native';
 import { PersistGate } from 'redux-persist/lib/integration/react';
 import { Provider } from 'react-redux';
+import Root from  'src';
 import SplashScreen from 'react-native-splash-screen';
-import StackNavigator from 'src/navigators';
 import { ThemeProvider } from 'react-native-elements';
 import { flexOne } from 'src/styles';
-import { navigationRef } from 'src/navigators/Ref';
 import theme from 'src/styles/theme';
 
 const getPermissions = async () => {
@@ -73,12 +69,7 @@ const App: () => React$Node = () => {
       <PersistGate loading={<ActivityIndicator />} persistor={persistor}>
         <ThemeProvider theme={theme}>
           <SafeAreaView style={flexOne}>
-            <NavigationContainer ref={navigationRef}>
-              <MenuProvider>
-                <StatusBar barStyle="dark-content" />
-                <StackNavigator />
-              </MenuProvider>
-            </NavigationContainer>
+            <Root />
           </SafeAreaView>
         </ThemeProvider>
       </PersistGate>
