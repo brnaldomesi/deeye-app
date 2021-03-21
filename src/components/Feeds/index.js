@@ -35,7 +35,7 @@ const Feeds = ({
 
   return (
     <ScrollView>
-      {feedsArr && feedsArr.map(post => 
+      {posts && feedsArr.map(post =>
         <Feed post={post} key={post.id} profileId={profile ? profile.id : undefined} />
       )}
       <View style={{ height: Size(5.7) }} />
