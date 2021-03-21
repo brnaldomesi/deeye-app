@@ -54,6 +54,7 @@ import { flexOne } from 'src/styles';
 import moment from 'moment';
 import styles from './styles';
 import { uploadFile } from 'src/redux/modules/posts';
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 
 const CircumstanceInfo = ({
   route, 
@@ -132,12 +133,24 @@ const CircumstanceInfo = ({
     <View style={flexOne}>
       <Header title="Circumstance Information" step={2} />
       <ScrollView>
+        {/*<GooglePlacesAutocomplete*/}
+        {/*  style={textInput}*/}
+        {/*  placeholder='Location'*/}
+        {/*  onPress={(data, details = null) => {*/}
+        {/*    // 'details' is provided when fetchDetails = true*/}
+        {/*    console.log(data, details);*/}
+        {/*  }}*/}
+        {/*  query={{*/}
+        {/*    key: 'AIzaSyDYEHfwDWSODV9bMApqbq8bohF_5ca0Q_s',*/}
+        {/*    language: 'en',*/}
+        {/*  }}*/}
+        {/*/>*/}
         <View style={p1}>
           <Text>Missing From</Text>
           <Text style={[textDot7, italic]}>Where the person went missing</Text>
           <View style={mtp5}>
-            <TextInput 
-              style={textInput} 
+            <TextInput
+              style={textInput}
               placeholder="Location"
               value={duoLocation}
               onChangeText = { text => setDuoLocation(text) }
@@ -148,7 +161,7 @@ const CircumstanceInfo = ({
             <Text style={[textDot7, italic]}>When the person went missing from</Text>
             <View style={flexRow}>
               <MyButton onPress={handleMissingSince} style={[mtp5]}>
-                <Image 
+                <Image
                   style={[styles.square, resizeContain]}
                   source={IMAGES_PATH.featherCalendar}
                 />
@@ -168,11 +181,11 @@ const CircumstanceInfo = ({
               />
             )}
           </View>
-          
+
           <View style={mt1}>
             <Text>Circumstance</Text>
             <Text style={[textDot7, italic]}>Description of disappears</Text>
-            <View 
+            <View
               style={[
                 rounded1,
                 borderPrimary,
@@ -181,7 +194,7 @@ const CircumstanceInfo = ({
                 styles.circumstance
               ]}
             >
-              <TextInput 
+              <TextInput
                 multiline
                 maxLength={100}
                 onChangeText={text => setCircumstance(text)}
@@ -191,24 +204,24 @@ const CircumstanceInfo = ({
             </View>
             <Text style={[textDot7, italic]}>Important information such as medical condition and tatto etc will be great help in the search</Text>
           </View>
-          
+
           <View style={[mt1, flexRow]}>
             <View style={flexOne}>
               <Text>Tattoo</Text>
               <View style={[flexRow, mtp5]}>
-                <Button 
-                  title="Yes" 
+                <Button
+                  title="Yes"
                   onPress={() => setHasTattoo(true)}
                   buttonStyle={[
                     roundedSm,
                     hasTattoo ? bgPrimary : [bgWhite, borderPrimary],
                   ]}
                   titleStyle={[
-                    hasTattoo ? textWhite : primaryColor 
-                  ]} 
+                    hasTattoo ? textWhite : primaryColor
+                  ]}
                 />
-                <Button 
-                  title="No" 
+                <Button
+                  title="No"
                   onPress={() => setHasTattoo(false)}
                   buttonStyle={[
                     roundedSm,
@@ -216,14 +229,14 @@ const CircumstanceInfo = ({
                     !hasTattoo ? bgPrimary : [bgWhite, borderPrimary],
                   ]}
                   titleStyle={[
-                    !hasTattoo ? textWhite : primaryColor 
-                  ]} 
+                    !hasTattoo ? textWhite : primaryColor
+                  ]}
                 />
               </View>
             </View>
             <View style={flexOne}>
               <Text>Language</Text>
-              <TextInput 
+              <TextInput
                 style={[textInput, mtp5]}
                 value={language}
                 onChangeText={text => setLanguage(text)}
@@ -232,7 +245,7 @@ const CircumstanceInfo = ({
             </View>
           </View>
 
-          <View 
+          <View
             style={[
               roundedSm,
               borderRed,
@@ -242,7 +255,7 @@ const CircumstanceInfo = ({
             ]}
           >
             <Text style={[textRed, fontWeightBold]}>In the company of who?</Text>
-            <TextInput 
+            <TextInput
               style={[textCenter, textInputRed, mtp5, w80P]}
               value={companyName}
               onChangeText={text => setCompanyName(text)}
@@ -260,7 +273,7 @@ const CircumstanceInfo = ({
             <Text style={[mtp5, textRed]}>Upload Photo</Text>
           </View>
           <View style={[mt1, itemsCenter]}>
-            <Button 
+            <Button
               title="Next Step(Contact Information)"
               onPress={handleNext}
               buttonStyle={[bgPrimary, roundedSm, px2]}

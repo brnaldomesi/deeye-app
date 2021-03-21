@@ -227,11 +227,9 @@ const styles = StyleSheet.create({
 
   large_badgeBtn: {
     height: Size(.8),
-    position: 'absolute',
-    bottom: Size(2),
-    left: Size(1.7),
     borderRadius: Size(.4),
     overflow: 'hidden',
+    marginTop: 5
   },
 
   large_badgeBtn_small: {

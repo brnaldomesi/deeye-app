@@ -3,14 +3,20 @@ import React, { useEffect } from 'react';
 import { MenuProvider } from 'react-native-popup-menu';
 import { NavigationContainer } from '@react-navigation/native';
 import StackNavigator from 'src/navigators';
-import { StatusBar } from 'react-native';
+import {Alert, StatusBar} from 'react-native';
 import { authSetFcmToken } from 'src/redux/modules/auth';
 import { connect } from 'react-redux';
 import { fcmService } from 'src/utils/FCMService';
 import { localNotificationService } from 'src/utils/LocalNotificationService';
 import { navigationRef } from 'src/navigators/Ref';
+import * as RootNavigation from 'src/navigators/Ref';
+import {badgeSelectors} from "./redux";
+import {badgeCountSelector, addBadgeCount} from "./redux/modules/alert";
+import {createStructuredSelector} from "reselect";
+import PropTypes from "prop-types";
 
-const Root = ({ authSetFcmToken }) => {
+const Root = ({ authSetFcmToken, addBadgeCount, badges }) => {
+
   useEffect(() => {
     fcmService.registerAppWithFCM();
     fcmService.register(onRegister, onNotification, onOpenNotification);
@@ -33,12 +39,14 @@ const Root = ({ authSetFcmToken }) => {
         notify.body,
         notify,
         options
-      ) 
+      )
     }
 
     function onOpenNotification(notify) {
       console.log("[App] onOpenNotification: ", notify);
       console.log('!!!!!!!!!!open')
+
+      addBadgeCount(1);
     }
 
     return () => {
@@ -58,6 +66,15 @@ const Root = ({ authSetFcmToken }) => {
   )
 }
 
-const actions = { authSetFcmToken };
+Root.propTypes = {
+  addBadgeCount: PropTypes.func,
+  badges: PropTypes.number,
+};
 
-export default connect(null, actions)(Root);
+const actions = { authSetFcmToken, addBadgeCount };
+
+const selector = createStructuredSelector({
+  badges: badgeCountSelector,
+});
+
+export default connect(selector, actions)(Root);

@@ -1,10 +1,10 @@
 import api from './api'
 import auth from './auth'
-import { combineReducers } from 'redux'
 import cometchat from './cometchat';
 import comments from './comments'
 import posts from './posts'
-import profiles from './posts'
+import profiles from './profiles'
+import alert from './alert'
 
 export default () =>
   ({
@@ -13,5 +13,6 @@ export default () =>
     posts,
     profiles,
     comments,
-    cometchat
+    cometchat,
+    alert
   })
