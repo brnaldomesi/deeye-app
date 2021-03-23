@@ -50,6 +50,10 @@ export const refineJSON = param => {
   if (dataArray.filter(x => x == '{').length == dataArray.filter(x => x == '}').length + 1) param += '}';
   if (dataArray.filter(x => x == '[').length == dataArray.filter(x => x == ']').length + 1) param += ']';
 
+  if(typeof param === 'object') {
+    return param;
+  }
+
   const length = param.length;
 
   if(param[0] == '{' && param[length - 1] != '}') {
@@ -60,6 +64,9 @@ export const refineJSON = param => {
     param += ']';
   }
 
-  if (typeof param === 'string') return JSON.parse(param);
+  if (typeof param === 'string') {
+    return JSON.parse(param);
+  }
+
   return param;
 }
