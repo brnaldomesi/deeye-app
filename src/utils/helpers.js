@@ -41,3 +41,25 @@ export const getDiffFromToday = (inputTime, isTimeStamp = false) => {
     return parseInt(seconds) + ' sec';
   }
 }
+
+export const refineJSON = param => {
+  if (param == null || param == undefined) {
+    return;
+  }
+  var dataArray = [...param];
+  if (dataArray.filter(x => x == '{').length == dataArray.filter(x => x == '}').length + 1) param += '}';
+  if (dataArray.filter(x => x == '[').length == dataArray.filter(x => x == ']').length + 1) param += ']';
+
+  const length = param.length;
+
+  if(param[0] == '{' && param[length - 1] != '}') {
+    param += '}';
+  }
+
+  if(param[0] == '[' && param[length - 1] != ']') {
+    param += ']';
+  }
+
+  if (typeof param === 'string') return JSON.parse(param);
+  return param;
+}

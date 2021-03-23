@@ -1,41 +1,33 @@
 {
   "project_info": {
-    "project_number": "843887476043",
-    "project_id": "glassy-tower-255216",
-    "storage_bucket": "glassy-tower-255216.appspot.com"
+    "project_number": "728991178282",
+    "project_id": "deeye-60c8e",
+    "storage_bucket": "deeye-60c8e.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:843887476043:android:a75f5324a1c8901ee1fcce",
+        "mobilesdk_app_id": "1:728991178282:android:26ecb9931fdf0211ef6d53",
         "android_client_info": {
           "package_name": "com.deeye"
         }
       },
       "oauth_client": [
         {
-          "client_id": "843887476043-7r5plvhs2qv5840k7ile90evu9sg0l5s.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.deeye",
-            "certificate_hash": "8f8563c3d49ea301aa4823361f56915a0172d421"
-          }
-        },
-        {
-          "client_id": "843887476043-mca39hao9ch778m18impkq5crikoe7ee.apps.googleusercontent.com",
+          "client_id": "728991178282-48suekheq6e01p2f978frksec751uv55.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBbU02XwV1IqjCesorpsDtrujhOjqD99Fc"
+          "current_key": "AIzaSyBAGwSD43rYE09rtmnVjytvJlZtB9dheKE"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "843887476043-mca39hao9ch778m18impkq5crikoe7ee.apps.googleusercontent.com",
+              "client_id": "728991178282-48suekheq6e01p2f978frksec751uv55.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

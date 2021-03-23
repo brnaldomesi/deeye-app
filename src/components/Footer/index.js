@@ -42,23 +42,23 @@ export default connect(
 
   const handleAdd = () => {
     RootNavigation.navigate('PostNew');
-  }
+  };
 
   const navigateFeeds = () => {
     RootNavigation.navigate('Home', { query: 'feeds' });
-  }
+  };
 
   const navigateMissing = () => {
     RootNavigation.navigate('Home', { query: 'missing' });
-  }
+  };
 
   const navigateAlert = () => {
     RootNavigation.navigate('Alert');
-  }
+  };
 
   const navigateMessage = () => {
     RootNavigation.navigate('Message');
-  }
+  };
 
   return (
     <View style={style}>

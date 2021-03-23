@@ -132,18 +132,28 @@ const CircumstanceInfo = ({
   return (
     <View style={flexOne}>
       <Header title="Circumstance Information" step={2} />
-      <ScrollView>
+      <ScrollView keyboardShouldPersistTaps = {'handled'}>
         {/*<GooglePlacesAutocomplete*/}
-        {/*  style={textInput}*/}
+        {/*  placeholder="Search"*/}
+        {/*  query={{*/}
+        {/*    key: 'AIzaSyALsdUTV4Z9KmBOg8bq8NZWZWjX7XMWfME',*/}
+        {/*    language: 'en', // language of the results*/}
+        {/*  }}*/}
+        {/*  onPress={(data, details = null) => console.log(data)}*/}
+        {/*  onFail={(error) => console.error(error)}*/}
+        {/*/>*/}
+        {/*<GooglePlacesAutocomplete*/}
+        {/*  nestedScrollEnabled={true}*/}
         {/*  placeholder='Location'*/}
         {/*  onPress={(data, details = null) => {*/}
         {/*    // 'details' is provided when fetchDetails = true*/}
         {/*    console.log(data, details);*/}
         {/*  }}*/}
         {/*  query={{*/}
-        {/*    key: 'AIzaSyDYEHfwDWSODV9bMApqbq8bohF_5ca0Q_s',*/}
+        {/*    key: 'AIzaSyAYLglyO70ECkI8kNCH6QMiT0rS-H-lM1I',*/}
         {/*    language: 'en',*/}
         {/*  }}*/}
+        {/*  onFail={(error) => console.log('error)))))',error)}*/}
         {/*/>*/}
         <View style={p1}>
           <Text>Missing From</Text>

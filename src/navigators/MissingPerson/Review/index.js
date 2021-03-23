@@ -34,6 +34,7 @@ import {profileSelector} from 'src/redux/modules/auth';
 import AsyncStorage from '@react-native-community/async-storage';
 import {ASSET_BASE_URL} from 'src/config/apipath';
 import AntIcon from 'react-native-vector-icons/AntDesign';
+import RNLocation from 'react-native-location';
 
 const Review = ({
                   route,

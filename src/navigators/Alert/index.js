@@ -38,24 +38,27 @@ const Alert = ({getAlertList, alerts, emptyBadgeCount}) => {
       <ScrollView style={styles.scroll_view}>
         {listArr && listArr.map((item, index) => {
 
-          const border_color = {like: styles.alert_color_red,
+          const border_color = {
+            like: styles.alert_color_red,
             comment: styles.alert_color_brown,
             save: styles.alert_color_blue,
             share: styles.alert_color_brown,
             hide: styles.alert_color_red,
             report: styles.alert_color_red,
             reply: styles.alert_color_sky,
-            };
-          const avatar_badge = {like: IMAGES_PATH.alert_support,
+          };
+          const avatar_badge = {
+            like: IMAGES_PATH.alert_support,
             comment: IMAGES_PATH.alert_comment,
             save: IMAGES_PATH.alert_save,
             share: IMAGES_PATH.alert_share,
             hide: IMAGES_PATH.alert_support,
             report: IMAGES_PATH.alert_support,
             reply: IMAGES_PATH.alert_reply
-            };
-          const content = {like: item.type === 'Post' ? item.post.missing_post_content === null ? 'support your post' : 'support your missing person post' : 'support your comment',
-            comment: item.post.missing_post_content === null ? 'comment your post' : 'comment your missing person post',
+          };
+          const content = {
+            like: item.type === 'Post' ? item.post.missing_post_content === null ? 'support your post' : 'support your missing person post' : 'support your comment',
+            comment: item.post === null ? 'comment your post' : 'comment your missing person post',
             save: item.type === 'Post' ? item.post.missing_post_content === null ? 'save your post' : 'save your missing person post' : 'save your comment',
             share: item.type === 'Post' ? item.post.missing_post_content === null ? 'share your post' : 'share your missing person post' : 'share your comment',
             hide: item.type === 'Post' ? item.post.missing_post_content === null ? 'hide your post' : 'hide your missing person post' : 'hide your comment',
@@ -65,13 +68,16 @@ const Alert = ({getAlertList, alerts, emptyBadgeCount}) => {
 
           return item.action_type !== 'create_missing' ? <View key={index} style={styles.simple_item}>
             <View style={styles.leftImg}>
-              <View style={[styles.vwImg, border_color[item.action_type]]}>
+              <View style={[styles.vwImg, border_color[item.action_type === 'comment' && item.type === 'Comment' ? 'reply' : item.action_type]]}>
                 <Image style={styles.circleImg} source={{uri: ASSET_BASE_URL + item.profile.avatar_path}}/>
               </View>
-              <Image style={styles.badgeImg} source={avatar_badge[item.action_type]}/>
+              <Image style={styles.badgeImg} source={avatar_badge[item.action_type === 'comment' && item.type === 'Comment' ? 'reply' : item.action_type]}/>
             </View>
             <View style={styles.contentText}>
-              <Text style={styles.text_content}><Text style={styles.name_primary}>{item.profile.first_name}</Text>{' '}{content[item.action_type]}</Text>
+              <Text style={styles.text_content}>
+                <Text style={styles.name_primary}>{item.profile.first_name}</Text>
+                {' '}{content[item.action_type === 'comment' && item.type === 'Comment' ? 'reply' : item.action_type]}
+              </Text>
             </View>
             <View style={styles.timeText}>
               <View style={styles.rightImg}>
@@ -82,62 +88,62 @@ const Alert = ({getAlertList, alerts, emptyBadgeCount}) => {
               </View>
             </View>
           </View> : <View key={index} style={styles.large_item}>
-              <View style={styles.large_top_item}>
-                <View style={styles.large_leftImg}>
+            <View style={styles.large_top_item}>
+              <View style={styles.large_leftImg}>
+                <View style={styles.m_auto}>
                   <View style={styles.m_auto}>
-                    <View style={styles.m_auto}>
-                      <View style={[styles.large_vwImg, styles.alert_color_large_default]}>
-                        <Image style={styles.circleImg} source={{uri: ASSET_BASE_URL + item.profile.avatar_path}}/>
-                      </View>
-                      <Image style={styles.large_badgeImg} source={IMAGES_PATH.alert_verify}/>
+                    <View style={[styles.large_vwImg, styles.alert_color_large_default]}>
+                      <Image style={styles.circleImg} source={{uri: ASSET_BASE_URL + item.profile.avatar_path}}/>
                     </View>
-                    <View style={[styles.large_badgeBtn]}>
-                      {/*<Button*/}
-                      {/*  title={'Verifed'}*/}
-                      {/*  titleStyle={styles.text_white}*/}
-                      {/*  buttonStyle={styles.large_badgeBtn_small}*/}
-                      {/*/>*/}
-                    </View>
+                    <Image style={styles.large_badgeImg} source={IMAGES_PATH.alert_verify}/>
                   </View>
-                </View>
-                <View style={styles.large_contentText}>
-                  <Text style={[styles.large_text_top_content, styles.text_missing_color]}>Missing Person Alert</Text>
-                  <Text style={styles.large_text_bottom_content}>{item.profile.first_name}</Text>
-                  <Text style={styles.large_text_content}>Missing
-                    Since: {item.post.missing_post_content === null ? '' : moment(item.post.missing_post_content.missing_since).format("dddd, MMMM D, YYYY")}</Text>
-                  <Text style={styles.large_text_content}>Missing
-                    From: {item.post.missing_post_content === null ? '' : item.post.missing_post_content.duo_location}</Text>
-                  {/*<View>*/}
-                  {/*  <Text style={styles.large_text_verifed}>Your post has been Verifed</Text>*/}
-                  {/*</View>*/}
-                  {/*<View style={styles.d_flex}>*/}
-                  {/*  <Text style={styles.large_text_account_first}>Posted by </Text>*/}
-                  {/*  <View style={[styles.verifed_img]}>*/}
-                  {/*    <Image style={styles.circleImg} source={IMAGES_PATH.avatar} />*/}
-                  {/*  </View>*/}
-                  {/*  <Text style={styles.large_text_account_last}>{' '}@Laurel_Lawson</Text>*/}
-                  {/*</View>*/}
-                </View>
-                <View style={styles.timeText}>
-                  <View style={styles.rightImg}>
-                    <Image style={styles.large_settingImg} source={IMAGES_PATH.setting}/>
-                  </View>
-                  <View style={styles.d_flex}>
-                    <Text style={styles.text_min}>{getDiffFromToday(item.updated_at)}</Text>
+                  <View style={[styles.large_badgeBtn]}>
+                    {/*<Button*/}
+                    {/*  title={'Verifed'}*/}
+                    {/*  titleStyle={styles.text_white}*/}
+                    {/*  buttonStyle={styles.large_badgeBtn_small}*/}
+                    {/*/>*/}
                   </View>
                 </View>
               </View>
-              <View style={styles.large_bottom_item}>
-                <View style={styles.large_leftImg}>
-                  <Image style={styles.uploadImg} source={IMAGES_PATH.bx_upload}/>
+              <View style={styles.large_contentText}>
+                <Text style={[styles.large_text_top_content, styles.text_missing_color]}>Missing Person Alert</Text>
+                <Text style={styles.large_text_bottom_content}>{item.profile.first_name}</Text>
+                <Text style={styles.large_text_content}>Missing
+                  Since: {item.post.missing_post_content === null ? '' : moment(item.post.missing_post_content.missing_since).format("dddd, MMMM D, YYYY")}</Text>
+                <Text style={styles.large_text_content}>Missing
+                  From: {item.post.missing_post_content === null ? '' : item.post.missing_post_content.duo_location}</Text>
+                {/*<View>*/}
+                {/*  <Text style={styles.large_text_verifed}>Your post has been Verifed</Text>*/}
+                {/*</View>*/}
+                {/*<View style={styles.d_flex}>*/}
+                {/*  <Text style={styles.large_text_account_first}>Posted by </Text>*/}
+                {/*  <View style={[styles.verifed_img]}>*/}
+                {/*    <Image style={styles.circleImg} source={IMAGES_PATH.avatar} />*/}
+                {/*  </View>*/}
+                {/*  <Text style={styles.large_text_account_last}>{' '}@Laurel_Lawson</Text>*/}
+                {/*</View>*/}
+              </View>
+              <View style={styles.timeText}>
+                <View style={styles.rightImg}>
+                  <Image style={styles.large_settingImg} source={IMAGES_PATH.setting}/>
                 </View>
-                <View style={styles.large_bottom_contentText}>
-                  <Text style={styles.uploadText}>
-                    Boost Your Missing Person Post for more reach
-                  </Text>
+                <View style={styles.d_flex}>
+                  <Text style={styles.text_min}>{getDiffFromToday(item.updated_at)}</Text>
                 </View>
               </View>
             </View>
+            <View style={styles.large_bottom_item}>
+              <View style={styles.large_leftImg}>
+                <Image style={styles.uploadImg} source={IMAGES_PATH.bx_upload}/>
+              </View>
+              <View style={styles.large_bottom_contentText}>
+                <Text style={styles.uploadText}>
+                  Boost Your Missing Person Post for more reach
+                </Text>
+              </View>
+            </View>
+          </View>
         })}
         {/*<View style={styles.simple_item}>*/}
         {/*  <View style={styles.leftImg}>*/}

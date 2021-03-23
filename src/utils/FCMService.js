@@ -20,7 +20,7 @@ class FCMService {
       if(enabled) {
         this.getToken(onRegister);
       } else {
-        this.rquestPermission(onRegister);
+        this.requestPermission(onRegister);
       }
     }).catch(error => {
       console.log("[FCMService] Permission rejected", error);

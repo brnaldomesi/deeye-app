@@ -23,6 +23,7 @@ import SplashScreen from 'react-native-splash-screen';
 import { ThemeProvider } from 'react-native-elements';
 import { flexOne } from 'src/styles';
 import theme from 'src/styles/theme';
+import RNLocation from 'react-native-location';
 
 const getPermissions = async () => {
   if (Platform.OS === 'android') {
@@ -31,6 +32,7 @@ const getPermissions = async () => {
       PermissionsAndroid.PERMISSIONS.RECORD_AUDIO,
       PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
       PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+      PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
     ]);
     if (granted !== PermissionsAndroid.RESULTS.GRANTED) {
       granted = await PermissionsAndroid.requestMultiple([
@@ -38,6 +40,7 @@ const getPermissions = async () => {
         PermissionsAndroid.PERMISSIONS.RECORD_AUDIO,
         PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
         PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
       ]);
     }
   }
@@ -50,6 +53,40 @@ const App: () => React$Node = () => {
     .build();
 
   useEffect(() => {
+    // setInterval(() => {
+    //   RNLocation.configure({
+    //     distanceFilter: 5.0
+    //   });
+    //
+    //   RNLocation.requestPermission({
+    //     ios: "whenInUse",
+    //     android: {
+    //       detail: "coarse"
+    //     }
+    //   }).then(granted => {
+    //     if (granted) {
+    //       // console.log('heyhey')
+    //       RNLocation.subscribeToLocationUpdates(locations => {
+    //         console.log(locations)
+    //         /* Example location returned
+    //         {
+    //           speed: -1,
+    //           longitude: -0.1337,
+    //           latitude: 51.50998,
+    //           accuracy: 5,
+    //           heading: -1,
+    //           altitude: 0,
+    //           altitudeAccuracy: -1
+    //           floor: 0
+    //           timestamp: 1446007304457.029,
+    //           fromMockProvider: false
+    //         }
+    //         */
+    //       })
+    //     }
+    //   })
+    // }, 2000);
+
     SplashScreen.hide();
     CometChat.init(COMETCHAT_CONSTANTS.APP_ID, appSetting).then(
       () => {

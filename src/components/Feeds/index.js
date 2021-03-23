@@ -29,7 +29,7 @@ const Feeds = ({
     } else {
       getPostsList();
     }
-  }, [])
+  }, []);
 
   const feedsArr = footerRoute === 'missing' ? posts.filter(post => post.post_type==="MissingPerson") : posts;
 
