@@ -101,4 +101,6 @@ export const IMAGES_PATH = {
   popup_inbox: require('src/assets/images/popup_inbox.png'),
   popup_eye: require('src/assets/images/popup_eye.png'),
   popup_circle: require('src/assets/images/popup_circle.png'),
+  search: require('src/assets/images/Path272.png'),
+  cancel: require('src/assets/images/Iconmaterialclose.png'),
 };

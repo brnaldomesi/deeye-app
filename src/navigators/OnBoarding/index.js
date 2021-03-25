@@ -36,7 +36,7 @@ const OnBoarding = ({ navigation }) => {
           headerRight: props => (
             <TouchableOpacity 
               {...props} 
-              onPress={() => navigation.navigate('RealTime')}
+              onPress={() => navigation.navigate('Login')}
             >
               <Text style={[fontWeightBold, primaryColor]}>SKIP</Text>
             </TouchableOpacity>

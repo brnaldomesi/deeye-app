@@ -23,6 +23,21 @@ const getAlertList = apiCallSaga({
   }
 });
 
+const setLocation = apiCallSaga({
+  type: types.SET_LOCATION,
+  method: 'put',
+  allowedParamKeys: [],
+  path: '/users',
+  selectorKey: 'setLocation',
+  success: function*(payload) {
+    yield put(setLocation(payload))
+  },
+  fail: function*(payload) {
+    console.log('err')
+  }
+});
+
 export default function* rootSaga() {
-  yield takeLatest(types.GET_ALERT_LIST, getAlertList)
+  yield takeLatest(types.GET_ALERT_LIST, getAlertList);
+  yield takeLatest(types.SET_LOCATION, setLocation);
 }

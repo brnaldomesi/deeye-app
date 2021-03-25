@@ -20,6 +20,7 @@ import { isAuthenticatedSelector } from 'src/redux/modules/auth';
 import AntIcon from "react-native-vector-icons/AntDesign";
 import {Colors} from "../styles";
 import MCIcon from "react-native-vector-icons/MaterialCommunityIcons";
+import Follow from "./Follow";
 
 const Stack = createStackNavigator();
 

@@ -78,7 +78,7 @@ const PostDetail = ({
         <FastImage
           style={[flexOne, !missingCollpase ? opacity40 : undefined]}
           source={{uri: bgImageUrl}}
-          resizeMode={FastImage.resizeMode.stretch}
+          resizeMode={FastImage.resizeMode.contain}
         />
         {postContent.post_type === 'MissingPerson' && 
           <>
