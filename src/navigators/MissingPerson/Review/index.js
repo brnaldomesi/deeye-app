@@ -1,40 +1,40 @@
+import * as gConstant from 'src/styles/constants';
+import * as gStyle from 'src/styles';
+
 import {
+  Dimensions,
   Image,
   Platform,
   ScrollView,
   Text,
   TextInput,
-  View,
-  Dimensions,
-  TouchableOpacity
+  TouchableOpacity,
+  View
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
-import * as gStyle from 'src/styles';
-import * as gConstant from 'src/styles/constants';
+import {createPost, uploadFile} from 'src/redux/modules/posts';
 
+import {ASSET_BASE_URL} from 'src/config/apipath';
+import AntIcon from 'react-native-vector-icons/AntDesign';
+import AsyncStorage from '@react-native-community/async-storage';
+import {Avatar} from 'react-native-elements';
 import {Button} from 'react-native-elements';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import {Divider} from 'react-native-elements';
 import DocumentPicker from 'react-native-document-picker';
+import FastImage from 'react-native-fast-image';
 import Header from '../components/Header';
 import {IMAGES_PATH} from 'src/config/constants';
+import LinearGradient from 'react-native-linear-gradient';
 import MyButton from 'src/components/MyButton';
 import PropTypes from 'prop-types';
 import {compose} from 'redux';
 import {connect} from 'react-redux';
-import moment from 'moment';
-import styles from './styles';
-import {createPost, uploadFile} from 'src/redux/modules/posts';
-import FastImage from 'react-native-fast-image';
-import LinearGradient from 'react-native-linear-gradient';
-import {getDiffFromToday} from 'src/utils/helpers';
-import {Avatar} from 'react-native-elements';
-import {Divider} from 'react-native-elements';
 import {createStructuredSelector} from 'reselect';
+import {getDiffFromToday} from 'src/utils/helpers';
+import moment from 'moment';
 import {profileSelector} from 'src/redux/modules/auth';
-import AsyncStorage from '@react-native-community/async-storage';
-import {ASSET_BASE_URL} from 'src/config/apipath';
-import AntIcon from 'react-native-vector-icons/AntDesign';
-import RNLocation from 'react-native-location';
+import styles from './styles';
 
 const Review = ({
                   route,

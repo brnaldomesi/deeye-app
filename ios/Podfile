@@ -22,8 +22,6 @@ target 'deeye' do
 
   pod 'react-native-video-cache', :path => '../node_modules/react-native-video-cache'
 
-  pod 'react-native-location', :path => '../node_modules/react-native-location'
-
   pod 'react-native-geolocation', :path => '../node_modules/@react-native-community/geolocation'
 
   target 'deeyeTests' do
