@@ -23,7 +23,6 @@ import SplashScreen from 'react-native-splash-screen';
 import { ThemeProvider } from 'react-native-elements';
 import { flexOne } from 'src/styles';
 import theme from 'src/styles/theme';
-import RNLocation from 'react-native-location';
 
 const getPermissions = async () => {
   if (Platform.OS === 'android') {

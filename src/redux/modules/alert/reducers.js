@@ -20,6 +20,11 @@ export default handleActions(
         alertList: []
       }
     },
+    [types.SET_LOCATION]: (state, { payload }) => {
+      return {
+        ...state,
+      }
+    },
     [types.ADD_BADGE_COUNT]: (state, { payload }) => {
       return {
         ...state,

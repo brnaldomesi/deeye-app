@@ -83,7 +83,7 @@ class AnimatedHeart extends Component {
 
   render() {
     return (
-      <Animated.View style={[styles.heartWrap, this.getHeartAnimationStyle(), this.props.style]}>
+      <Animated.View style={[styles.heartWrap, this.getHeartAnimationStyle(), this.props.styles]}>
         <Icon name={`${this.props.reactionName || 'heart'}`} size={30} color="#de3a39" />
       </Animated.View>
     );

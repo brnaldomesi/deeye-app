@@ -1,6 +1,7 @@
 import Home from 'src/navigators/Home';
 import Menu from 'src/navigators/Menu';
 import Profile from 'src/navigators/Profile';
+import Follow from 'src/navigators/Follow';
 import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
@@ -11,6 +12,7 @@ const Drawer = () => (
     <DrawerN.Screen name="Home" component={Home} />
     <DrawerN.Screen name="Profile" component={Profile} />
     <DrawerN.Screen name="Menu" component={Menu} />
+    <DrawerN.Screen name="Follow" component={Follow} />
   </DrawerN.Navigator>
 )
 

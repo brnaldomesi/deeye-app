@@ -15,6 +15,14 @@ const styles = StyleSheet.create({
     marginRight: -Size(),
     marginLeft: -Size(),
     marginBottom: -Size()
+  },
+  navigationContainer: {
+    backgroundColor: "#ecf0f1"
+  },
+  paragraph: {
+    padding: 16,
+    fontSize: 15,
+    textAlign: "center"
   }
 });
 
