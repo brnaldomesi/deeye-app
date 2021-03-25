@@ -13,6 +13,11 @@ const styles = StyleSheet.create({
   limitText: {
     bottom: 5,
     right: 10
+  },
+  missingFromInput: {
+    backgroundColor: 'transparent',
+    height: Size(2.5),
+    paddingHorizontal: 0
   }
 });
 

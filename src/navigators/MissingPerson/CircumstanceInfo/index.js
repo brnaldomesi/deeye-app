@@ -44,17 +44,18 @@ import {
 import { Button } from 'react-native-elements';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import DocumentPicker from 'react-native-document-picker';
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import Header from '../components/Header';
 import { IMAGES_PATH } from 'src/config/constants';
 import MyButton from 'src/components/MyButton';
 import PropTypes from 'prop-types';
+import VirtualizedView from 'src/components/VirtualizedView';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { flexOne } from 'src/styles';
 import moment from 'moment';
 import styles from './styles';
 import { uploadFile } from 'src/redux/modules/posts';
-import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 
 const CircumstanceInfo = ({
   route, 
@@ -69,6 +70,8 @@ const CircumstanceInfo = ({
   const [language, setLanguage] = useState('');
   const [companyName, setCompanyName] = useState('');
   const [selectedFileName, setSelectedFileName] = useState('');
+  const [lat, setLat] = useState(0);
+  const [lng, setLng] = useState(0);
 
   const { formData } = route.params;
 
@@ -79,6 +82,8 @@ const CircumstanceInfo = ({
     formData.missing_post.language = language;
     formData.missing_post.company_name = companyName;
     formData.missing_post.duo_location = duoLocation;
+    formData.missing_post.missing_location_latitude = lat;
+    formData.missing_post.missing_location_longitude = lng;
 
     navigation.navigate('ContactInfo', {formData});
   }
@@ -129,41 +134,34 @@ const CircumstanceInfo = ({
     }
   }
 
+  const handlePlacePick = (data, details) => {
+    setDuoLocation(data.description);
+    setLat(details.geometry.location.lat);
+    setLng(details.geometry.location.lng);
+  }
+
+
   return (
     <View style={flexOne}>
       <Header title="Circumstance Information" step={2} />
-      <ScrollView keyboardShouldPersistTaps = {'handled'}>
-        {/*<GooglePlacesAutocomplete*/}
-        {/*  placeholder="Search"*/}
-        {/*  query={{*/}
-        {/*    key: 'AIzaSyALsdUTV4Z9KmBOg8bq8NZWZWjX7XMWfME',*/}
-        {/*    language: 'en', // language of the results*/}
-        {/*  }}*/}
-        {/*  onPress={(data, details = null) => console.log(data)}*/}
-        {/*  onFail={(error) => console.error(error)}*/}
-        {/*/>*/}
-        {/*<GooglePlacesAutocomplete*/}
-        {/*  nestedScrollEnabled={true}*/}
-        {/*  placeholder='Location'*/}
-        {/*  onPress={(data, details = null) => {*/}
-        {/*    // 'details' is provided when fetchDetails = true*/}
-        {/*    console.log(data, details);*/}
-        {/*  }}*/}
-        {/*  query={{*/}
-        {/*    key: 'AIzaSyAYLglyO70ECkI8kNCH6QMiT0rS-H-lM1I',*/}
-        {/*    language: 'en',*/}
-        {/*  }}*/}
-        {/*  onFail={(error) => console.log('error)))))',error)}*/}
-        {/*/>*/}
+      <ScrollView keyboardShouldPersistTaps={'always'} listViewDisplayed={false}>
         <View style={p1}>
           <Text>Missing From</Text>
           <Text style={[textDot7, italic]}>Where the person went missing</Text>
           <View style={mtp5}>
-            <TextInput
-              style={textInput}
-              placeholder="Location"
-              value={duoLocation}
-              onChangeText = { text => setDuoLocation(text) }
+            <GooglePlacesAutocomplete
+              debounce={200}
+              onPress={handlePlacePick}
+              fetchDetails={true}
+              query={{
+                key: 'AIzaSyDXaEl76iuHpKDwozfyPsyVeObazX4ldyw',
+                language: 'en',
+              }}
+              enablePoweredByContainer={false}
+              styles={{
+                textInputContainer: textInput,
+                textInput: styles.missingFromInput
+              }}
             />
           </View>
           <View style={mt1}>
