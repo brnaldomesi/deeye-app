@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { ScrollView, View } from 'react-native';
+import { ScrollView, View, Text, SafeAreaView, Image, TextInput } from 'react-native';
 import {
   getPostsList,
   getPostsListForUnsigned,
@@ -13,6 +13,9 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { profileSelector } from 'src/redux/modules/auth';
+import Search from '../Search/index';
+import { IMAGES_PATH } from 'src/config/constants';
+import styles from './Feed/styles';
 
 const Feeds = ({
   getPostsList,
@@ -35,10 +38,12 @@ const Feeds = ({
 
   return (
     <ScrollView>
+      <View style={{ height: Size(5.7), marginTop: 10, marginBottom: -5 }}>
+        <Search></Search>
+      </View>
       {posts && feedsArr.map(post =>
         <Feed post={post} key={post.id} profileId={profile ? profile.id : undefined} />
       )}
-      <View style={{ height: Size(5.7) }} />
     </ScrollView>
   );
 };
