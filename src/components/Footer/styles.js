@@ -53,7 +53,9 @@ const styles = StyleSheet.create({
     aspectRatio: 41/44
   },
   message: {
-    aspectRatio: 102/73
+    aspectRatio: 102/73,
+    width: Size(1.5),
+    height: Size(1.65)
   }
 });
 

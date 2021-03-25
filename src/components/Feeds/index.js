@@ -38,7 +38,7 @@ const Feeds = ({
 
   return (
     <ScrollView>
-      <View style={{ height: Size(5.7), marginTop: 10, marginBottom: -5 }}>
+      <View style={{ height: Size(5.7), marginTop: 10, marginBottom: 0 }}>
         <Search></Search>
       </View>
       {posts && feedsArr.map(post =>

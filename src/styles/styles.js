@@ -1,3 +1,4 @@
+import { size } from 'lodash-es';
 import { Colors, Size } from './constants';
 
 export const gradientColors = [Colors.gradient.primary, Colors.gradient.secondary, Colors.gradient.third];
@@ -208,7 +209,7 @@ export const textDot5 = {
 
 export const textDot7 = {
   fontSize: Size(.7)
-} 
+}
 
 export const textBase = {
   fontSize: Size()
@@ -275,6 +276,11 @@ export const mx1 = {
 
 export const mb2= {
   marginBottom: Size(2)
+}
+
+export const mb_message= {
+  marginBottom: Size(-0.2),
+  paddingTop: Size(0.2)
 }
 
 export const p0 = {
