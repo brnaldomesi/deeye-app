@@ -1,12 +1,11 @@
 import {
   Image,
   Platform,
-  ScrollView,
   Text,
   TextInput,
   View
 } from 'react-native';
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import {
   absolute,
   bgPrimary,
@@ -75,7 +74,7 @@ const CircumstanceInfo = ({
 
   const { formData } = route.params;
 
-  const handleNext = () => {
+  const handleNext = useCallback(() => {
     formData.missing_post.missing_since = moment(missingSince).format("YYYY-MM-DD hh:mm:ss");
     formData.missing_post.circumstance = circumstance;
     formData.missing_post.has_tattoo = hasTattoo;
@@ -84,9 +83,19 @@ const CircumstanceInfo = ({
     formData.missing_post.duo_location = duoLocation;
     formData.missing_post.missing_location_latitude = lat;
     formData.missing_post.missing_location_longitude = lng;
-
     navigation.navigate('ContactInfo', {formData});
-  }
+  }, [
+    lat, 
+    lng, 
+    duoLocation, 
+    formData, 
+    missingSince, 
+    circumstance, 
+    hasTattoo, 
+    language, 
+    companyName, 
+    navigation
+  ])
 
   const handleUpload = (data) => {
     const formData = new FormData();
@@ -138,25 +147,24 @@ const CircumstanceInfo = ({
     setDuoLocation(data.description);
     setLat(details.geometry.location.lat);
     setLng(details.geometry.location.lng);
-  }
-
+  };
 
   return (
     <View style={flexOne}>
       <Header title="Circumstance Information" step={2} />
-      <ScrollView keyboardShouldPersistTaps={'always'} listViewDisplayed={false}>
+      <VirtualizedView>
         <View style={p1}>
           <Text>Missing From</Text>
           <Text style={[textDot7, italic]}>Where the person went missing</Text>
           <View style={mtp5}>
             <GooglePlacesAutocomplete
-              debounce={200}
               onPress={handlePlacePick}
               fetchDetails={true}
               query={{
                 key: 'AIzaSyDXaEl76iuHpKDwozfyPsyVeObazX4ldyw',
                 language: 'en',
               }}
+              enableHighAccuracyLocation={true}
               enablePoweredByContainer={false}
               styles={{
                 textInputContainer: textInput,
@@ -288,7 +296,7 @@ const CircumstanceInfo = ({
             />
           </View>
         </View>
-      </ScrollView>
+      </VirtualizedView>
     </View>
   )
 };

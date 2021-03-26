@@ -22,7 +22,7 @@ import {
 } from 'src/styles';
 
 const ActionFooter = ({
-  post, 
+  post,
   style,
   likePost,
   savePost,

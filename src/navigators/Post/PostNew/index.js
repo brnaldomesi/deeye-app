@@ -40,48 +40,59 @@ const PostNew = ({ navigation }) => {
     navigation.navigate('PostCreate', { postType: 'Image' });
   };
 
+  const handleCamera = () => {
+
+  }
+
   return (
     <View style={styles.root}>
       <View style={[flexOne, bgWhite]}>
         <Header handleClose={handleClose} buttonPrimary title="Share your post" />
         <View style={[p1, flexRow]}>
-          <Avatar
+          {/* <Avatar
             rounded
             source={{uri: avatarPath}}
-          />
+          /> */}
           <View style={[myAuto, mlp5]}>
-            <Text>What do you want to talk about?</Text>
+            <Text style={styles.subtitle}>What would you like to share?</Text>
           </View>
         </View>
       </View>
       <View style={styles.bottomMenu}>
         <View style={styles.bottomMenuHeader}>
           <View style={styles.bar} />
-          <Text style={textXl}>You can create</Text>
         </View>
         <View style={basicPadding}>
           <View style={p1}>
-            <IconButton 
-              onPress={handleMissing}
-              text='Add missing person post'
-              imageName="shapeActive3"
-              aspectRatio={31/42}
-            />
-          </View>
-          <View style={p1}>
-            <IconButton 
+            <IconButton
               onPress={handlePhoto}
-              text='Add photo post'
+              text='Add Photo'
               imageName="photoSizeSelect1"
               aspectRatio={52/43}
             />
           </View>
           <View style={p1}>
-            <IconButton 
+            <IconButton
               onPress={handleVideo}
-              text='Add video post'
+              text='Add Video'
               imageName="featherVideo1"
               aspectRatio={104/67}
+            />
+          </View>
+          <View style={p1}>
+            <IconButton
+              onPress={handleCamera}
+              text='Take a Photo'
+              imageName="camera"
+              aspectRatio={50/43}
+            />
+          </View>
+          <View style={p1}>
+            <IconButton
+              onPress={handleMissing}
+              text='Missing Person Post'
+              imageName="shapeActive3"
+              aspectRatio={31/42}
             />
           </View>
         </View>

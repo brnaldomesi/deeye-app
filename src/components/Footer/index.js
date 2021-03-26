@@ -6,6 +6,7 @@ import {
   fontWeightBold,
   itemsCenter,
   mtp5,
+  mb_message,
   primaryColor,
   secondaryColor,
   textDot7
@@ -88,8 +89,10 @@ export default connect(
           <Text style={[mtp5, textDot7, footerRoute === 'alert' ? [primaryColor, fontWeightBold] : secondaryColor ]}>ALERT</Text>
         </MyButton>
         <MyButton onPress={navigateMessage}>
-          <Image style={[styles.message, styles.icons]} source={footerRoute === 'message' ? IMAGES_PATH.messageActive : IMAGES_PATH.message} />
-          <Text style={[mtp5, textDot7, footerRoute === 'message' ? [primaryColor, fontWeightBold] : secondaryColor ]}>MESSAGES</Text>
+          <View>
+            <Image style={[styles.message]} source={footerRoute === 'message' ? IMAGES_PATH.messageActive : IMAGES_PATH.message} />
+          </View>
+          <Text style={[mtp5, textDot7, mb_message, footerRoute === 'message' ? [primaryColor, fontWeightBold] : secondaryColor ]}>MESSAGES</Text>
         </MyButton>
       </View>
       <View style={styles.addButtonView}>

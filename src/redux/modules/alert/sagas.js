@@ -33,7 +33,6 @@ const setLocation = apiCallSaga({
     yield put(setLocation(payload))
   },
   fail: function*(payload) {
-    console.log('err')
   }
 });
 
