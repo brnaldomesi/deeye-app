@@ -47,6 +47,17 @@ const styles = StyleSheet.create({
   divider: {
     marginTop: Size(0.5),
     backgroundColor: Colors.divider
+  },
+  btnFollow: {
+    borderWidth: 1,
+    borderRadius: 10,
+    borderColor: '#021744',
+    fontSize: 10,
+    paddingStart: 5,
+    paddingEnd: 5,
+    paddingTop: 2,
+    paddingBottom: 2,
+    textAlign: 'center'
   }
 });
 

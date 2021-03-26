@@ -21,6 +21,7 @@ import AntIcon from "react-native-vector-icons/AntDesign";
 import {Colors} from "../styles";
 import MCIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import Follow from "./Follow";
+import SharePost from "./Post/SharePost";
 
 const Stack = createStackNavigator();
 
@@ -45,6 +46,13 @@ const StackNavigator = ({isAuthenticated}) => {
           <Stack.Screen
             name="PostCreate"
             component={PostCreate}
+            options={{
+              headerShown: false
+            }}
+          />
+          <Stack.Screen
+            name="SharePost"
+            component={SharePost}
             options={{
               headerShown: false
             }}

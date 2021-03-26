@@ -5,6 +5,7 @@ import comments from './comments'
 import posts from './posts'
 import profiles from './profiles'
 import alert from './alert'
+import follow from './follow'
 
 export default () =>
   ({
@@ -14,5 +15,6 @@ export default () =>
     profiles,
     comments,
     cometchat,
-    alert
+    alert,
+    follow,
   })

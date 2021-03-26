@@ -6,26 +6,54 @@ import {
   View,
   TextInput
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useMemo} from 'react';
 import styles from './styles';
 import * as gStyle from 'src/styles'
 import {IMAGES_PATH} from "../../config/constants";
 import {ListItem, Avatar, BottomSheet} from 'react-native-elements'
-import {Size} from "src/styles";
-import {absolute} from "src/styles";
+import {Size, absolute} from "src/styles";
+import {
+  getFollowList,
+  setFollow,
+  followListSelector,
+} from 'src/redux/modules/follow';
+import {createStructuredSelector} from "reselect";
+import {compose} from "redux";
+import {connect} from "react-redux";
+import { ASSET_BASE_URL } from 'src/config/apipath';
+import AsyncStorage from "@react-native-community/async-storage";
+import axios from 'axios';
 
-const Follow = ({navigation}) => {
-
-  const list = new Array(15).fill(0);
+const Follow = ({navigation, getFollowList, setFollow, follows}) => {
 
   const [isDetail, setIsDetail] = useState(false);
   const [tap, setTap] = useState('left');
   const [isEdit, setIsEdit] = useState(false);
   const [searchText, setSearchText] = useState('');
+  const [avatarPath, setAvatarPath] = useState(null);
+  const [avatarName, setAvatarName] = useState('');
+  const [profile, setProfile] = useState({});
+
+  AsyncStorage.getItem('profile').then(profile => {
+    setAvatarPath(ASSET_BASE_URL + JSON.parse(profile).avatar_path);
+    setAvatarName(JSON.parse(profile).first_name)
+  });
+
+  React.useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      setTap('left')
+    });
+
+    return unsubscribe;
+  }, [navigation]);
 
   useEffect(() => {
-
+    setTap('left');
   }, [])
+
+  useMemo(() => {
+    getFollowList({params: {type: tap === 'left' ? 0 : 1, search: searchText}});
+  }, [tap, isEdit]);
 
   const handleChange = (object) => {
     setSearchText(object);
@@ -36,11 +64,15 @@ const Follow = ({navigation}) => {
   const handleCancel = () => {
     setSearchText('');
 
-    setIsEdit(false)
+    setIsEdit(false);
   };
 
   const onTap = type => () => {
     setTap(type);
+  };
+
+  const handleDetail = (id, type) => () => {
+    setFollow({data: {user_id: id, type: type}});
   };
 
   const tapStyle = function (type, tap) {
@@ -63,15 +95,17 @@ const Follow = ({navigation}) => {
   };
 
   return (
-    <View>
+    <View style={{backgroundColor: 'white', height: '100%'}}>
       <View style={[styles.navbar, styles.d_flex]}>
         <View style={[styles.m_auto, styles.d_flex]}>
           <View style={[styles.centerImg]}>
-            <Image style={styles.avatarImg} source={IMAGES_PATH.avatar}/>
+            <Image style={styles.avatarImg} source={{uri: avatarPath}}/>
           </View>
-          <Text style={styles.avatarText}>Jonny Estrada</Text>
+          <Text style={styles.avatarText}>{avatarName}</Text>
         </View>
-        <TouchableOpacity style={styles.cancelButton} onPress={() => {navigation.goBack()}}>
+        <TouchableOpacity style={styles.cancelButton} onPress={() => {
+          navigation.goBack()
+        }}>
           <Text>Cancel</Text>
         </TouchableOpacity>
       </View>
@@ -95,7 +129,7 @@ const Follow = ({navigation}) => {
             multiline={false}
             value={searchText}
             onSubmitEditing={() => {
-              console.log('okkk')
+              getFollowList({params: {type: tap === 'left' ? 0 : 1, search: searchText}});
             }}
           />
           {isEdit && <TouchableOpacity onPress={handleCancel} style={{marginLeft: 'auto'}}>
@@ -103,32 +137,34 @@ const Follow = ({navigation}) => {
           </TouchableOpacity>}
         </View>
       </View>
-      <ScrollView style={[gStyle.bgWhite]}>
-        {list.map((item, index) => {
+      <ScrollView>
+        {follows && follows.map((item, index) => {
           return tap === 'left' ? <ListItem key={index} bottomDivider>
             <Avatar onPress={() => {
               setIsDetail(true)
-            }} rounded source={IMAGES_PATH.avatar}></Avatar>
+              setProfile(item)
+            }} rounded source={{uri: ASSET_BASE_URL + item.avatar_path}}></Avatar>
             <ListItem.Content>
-              <ListItem.Title>John</ListItem.Title>
-              <ListItem.Subtitle>small jon</ListItem.Subtitle>
+              <ListItem.Title>{item.first_name}</ListItem.Title>
+              <ListItem.Subtitle>{item.last_name}</ListItem.Subtitle>
             </ListItem.Content>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={handleDetail(item.id, 'remove')}>
               <Text style={styles.itemBtnRemove}>remove</Text>
             </TouchableOpacity>
-            <TouchableOpacity>
-              <Text style={styles.itemBtnFollow}>Follow</Text>
+            <TouchableOpacity onPress={handleDetail(item.id, 'follow')}>
+              <Text style={styles.itemBtnFollow}>follow</Text>
             </TouchableOpacity>
           </ListItem> : <ListItem key={index} bottomDivider>
             <Avatar onPress={() => {
               setIsDetail(true)
-            }} rounded source={IMAGES_PATH.avatar}></Avatar>
+              setProfile(item)
+            }} rounded source={{uri: ASSET_BASE_URL + item.avatar_path}}></Avatar>
             <ListItem.Content>
-              <ListItem.Title>John</ListItem.Title>
-              <ListItem.Subtitle>small jon</ListItem.Subtitle>
+              <ListItem.Title>{item.first_name}</ListItem.Title>
+              <ListItem.Subtitle>{item.last_name}</ListItem.Subtitle>
             </ListItem.Content>
-            <TouchableOpacity>
-              <Text style={styles.itemBtnFollow}>Follow</Text>
+            <TouchableOpacity onPress={handleDetail(item.id, 'unfollow')}>
+              <Text style={styles.itemBtnFollow}>unfollow</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.itemBtnSettingParent}>
               <Image style={styles.itemBtnSetting} source={IMAGES_PATH.setting}/>
@@ -136,22 +172,24 @@ const Follow = ({navigation}) => {
           </ListItem>
         })}
       </ScrollView>
-      <BottomSheet isVisible={isDetail} onPress={() => {setIsDetail(true)}}>
+      <BottomSheet isVisible={isDetail}>
         <View>
           <View style={styles.bottomPopup}>
             <View>
-              <TouchableOpacity style={{width: Size(4)}} onPress={() => {setIsDetail(false)}}>
+              <TouchableOpacity style={{width: Size(4)}} onPress={() => {
+                setIsDetail(false)
+              }}>
                 <Text style={styles.bottomPopupCancel}>Cancel</Text>
               </TouchableOpacity>
             </View>
             <View style={styles.bottomPopupAvatarView}>
-              <Avatar style={[styles.bottomPopupAvatar]} rounded source={IMAGES_PATH.avatar}/>
+              <Avatar style={[styles.bottomPopupAvatar]} rounded source={{uri: ASSET_BASE_URL + profile.avatar_path}}/>
             </View>
             <View style={styles.bottomPopupTitle}>
               <View style={styles.bottomPopupDetail}>
-                <Text style={styles.bottomPopupName}>Dennis Barrett</Text>
-                <Text style={styles.bottomPopupEmail}>@DennisBarett</Text>
-                <Text style={styles.bottomPopupUnder}>Small bio of the profile</Text>
+                <Text style={styles.bottomPopupName}>{profile.first_name}</Text>
+                <Text style={styles.bottomPopupEmail}>{profile.last_name}</Text>
+                <Text style={styles.bottomPopupUnder}>{profile.first_name} of the profile</Text>
               </View>
             </View>
             <View style={[styles.bottomPopupParent]}>
@@ -192,4 +230,14 @@ const Follow = ({navigation}) => {
   )
 };
 
-export default Follow;
+const actions = {
+  getFollowList, setFollow
+};
+
+const selector = createStructuredSelector({
+  follows: followListSelector,
+});
+
+export default compose(
+  connect(selector, actions)
+)(Follow);

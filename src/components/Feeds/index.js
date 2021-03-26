@@ -39,10 +39,10 @@ const Feeds = ({
   return (
     <ScrollView>
       <View style={{ height: Size(5.7), marginTop: 10, marginBottom: -5 }}>
-        <Search></Search>
+        <Search/>
       </View>
       {posts && feedsArr.map(post =>
-        <Feed post={post} key={post.id} profileId={profile ? profile.id : undefined} />
+        <Feed post={post} key={post.id} profileId={profile ? profile.id : undefined} isShare={true} />
       )}
     </ScrollView>
   );

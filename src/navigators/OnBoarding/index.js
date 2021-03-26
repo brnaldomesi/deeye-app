@@ -58,7 +58,7 @@ const OnBoarding = ({ navigation }) => {
           headerRight: props => (
             <TouchableOpacity 
               {...props} 
-              onPress={() => navigation.navigate('Proximity')}
+              onPress={() => navigation.navigate('Login')}
             >
               <Text style={[fontWeightBold, primaryColor]}>SKIP</Text>
             </TouchableOpacity>
@@ -80,7 +80,7 @@ const OnBoarding = ({ navigation }) => {
           headerRight: props => (
             <TouchableOpacity 
               {...props} 
-              onPress={() => navigation.navigate('ExtendSearch')}
+              onPress={() => navigation.navigate('Login')}
             >
               <Text style={[fontWeightBold, primaryColor]}>SKIP</Text>
             </TouchableOpacity>

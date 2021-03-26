@@ -37,12 +37,6 @@ import {
   TouchableOpacity,
   View
 } from 'react-native';
-import {
-  Menu,
-  MenuOption,
-  MenuOptions,
-  MenuTrigger,
-} from 'react-native-popup-menu';
 import React, { useEffect, useState } from 'react';
 
 import { ASSET_BASE_URL } from 'src/config/apipath';
@@ -62,15 +56,21 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { getDiffFromToday } from 'src/utils/helpers';
 import styles from './styles';
+import {setFollow} from "../../../redux/modules/follow";
 
 const Feed = ({ 
   post, 
   profileId,
   commentsShow,
-  setCommentPosterInfo
+  setCommentPosterInfo,
+  isShare,
+  setFollow,
 }) => {
   const [missingCollpase, setMissingCollpase] =  useState(true);
   const [ thumbsize, setThumbsize ] = useState({ width: Dimensions.get('window').width, height: Size(13) });
+
+  const [followName, setFollowName] = useState(post.follow_state === 0 ? 'follow' : 'following');
+  const [followType, setFollowType] = useState(post.follow_state);
 
   const postType = post.post_type;
   const sourceType = postType === 'Share' ? post.post_source.post_type : postType
@@ -99,6 +99,25 @@ const Feed = ({
   const toggleMissingCollapse = () => {
     setMissingCollpase(missingCollpase => !missingCollpase);
   }
+
+  const handleFollow = () => {
+    const temp = 1 - followType;
+
+    setFollowType(temp);
+    setFollowName((temp) === 0 ? 'follow' : 'following');
+    console.log(post.profile_id);
+    console.log(temp === 0 ? 'unfollow' : 'follow')
+
+    setFollow({data: {user_id: post.profile_id, type: temp === 0 ? 'unfollow' : 'follow'}});
+  }
+
+  const imgFollow = function (type) {
+    return {
+      width: Size(.7),
+      height: Size(.7),
+      resizeMode: 'contain',
+    }
+  };
 
   return (
     <View style={[bgWhite, my1]}>
@@ -172,6 +191,11 @@ const Feed = ({
               <Text>{getDiffFromToday(updatedAt)}</Text>
             </View>
           </View>
+          {post.profile_id !== profileId && <TouchableOpacity onPress={handleFollow}>
+            <Text style={styles.btnFollow}>
+              <Image style={imgFollow('ok')} source={IMAGES_PATH.search}/>
+              {' '}{followName}</Text>
+          </TouchableOpacity>}
           <View>
             <PopupMenu post={post} isMyPost={post.profile_id === profileId} />
           </View>
@@ -199,7 +223,7 @@ const Feed = ({
           <CommentsHistoryInfoForPost post={post} />
         </View>
       </View>
-      <ActionFooter style={styles.footer} post={post} />
+      <ActionFooter style={styles.footer} post={post} isShare={isShare} />
     </View>
   );
 };
@@ -208,6 +232,10 @@ Feed.propTypes = {
   profileId: PropTypes.number
 }
 
+const actions = {
+  setFollow
+}
+
 export default compose(
-  connect(null, null)
+  connect(null, actions)
 )(Feed);

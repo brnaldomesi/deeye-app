@@ -27,7 +27,8 @@ const ActionFooter = ({
   likePost,
   savePost,
   sharePost,
-  fromDetail
+  fromDetail,
+  isShare
 }) => {
   const handleComment = () => {
     RootNavigation.navigate('PostDetailForComment', {id: post.id});
@@ -42,7 +43,10 @@ const ActionFooter = ({
   }
 
   const handleShare = () => {
-    sharePost({ id: post.id, data: { description: 'Share post description' } });
+    if (isShare) {
+      RootNavigation.navigate('SharePost', {post: post});
+    }
+    // sharePost({ id: post.id, data: { description: 'Share post description' } });
   }
 
   const handleSend = () => {
