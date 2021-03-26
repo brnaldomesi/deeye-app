@@ -23,16 +23,21 @@ const styles = StyleSheet.create({
       width: 0,
       height: 2
     },
-    shadowOpacity: 0.25,
-    elevation: 9
   },
   bar: {
-    backgroundColor: 'white',
+    backgroundColor: 'grey',
     borderRadius: Size(),
-    width: Size(2.7),
-    height: Size(0.3),
+    width: Size(3.7),
+    height: Size(0.1),
     marginVertical: Size(0.6),
+    marginTop: Size(1.2),
+    marginBottom: Size(-0.5),
     alignItems: 'center',
+  },
+  subtitle: {
+    marginTop: Size(0.3),
+    fontSize: 15,
+    color: 'grey'
   }
 });
 
