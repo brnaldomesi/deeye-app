@@ -1,26 +1,33 @@
-import React, { useEffect } from 'react';
+import * as RootNavigation from 'src/navigators/Ref';
 
+import { Alert, StatusBar } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import {
+  addBadgeCount,
+  badgeCountSelector,
+  setLocation
+} from "./redux/modules/alert";
+
+import Geolocation from '@react-native-community/geolocation';
 import { MenuProvider } from 'react-native-popup-menu';
 import { NavigationContainer } from '@react-navigation/native';
+import PropTypes from "prop-types";
 import StackNavigator from 'src/navigators';
-import { Alert, StatusBar } from 'react-native';
 import { authSetFcmToken } from 'src/redux/modules/auth';
+import { badgeSelectors } from "./redux";
 import { connect } from 'react-redux';
+import { createStructuredSelector } from "reselect";
 import { fcmService } from 'src/utils/FCMService';
 import { localNotificationService } from 'src/utils/LocalNotificationService';
 import { navigationRef } from 'src/navigators/Ref';
-import * as RootNavigation from 'src/navigators/Ref';
-import { badgeSelectors } from "./redux";
-import {
-  badgeCountSelector,
-  addBadgeCount, 
-  setLocation
-} from "./redux/modules/alert";
-import { createStructuredSelector } from "reselect";
-import PropTypes from "prop-types";
-import Geolocation from '@react-native-community/geolocation';
 
-const Root = ({ authSetFcmToken, addBadgeCount, badges, setLocation }) => {
+const Root = ({ 
+  authSetFcmToken, 
+  addBadgeCount, 
+  badges, 
+  setLocation 
+}) => {
+  const [watchID, setWatchID] = useState(null);
 
   const getPosition = () => new Promise(resolve =>
     Geolocation.getCurrentPosition(
@@ -43,8 +50,6 @@ const Root = ({ authSetFcmToken, addBadgeCount, badges, setLocation }) => {
   );
 
   useEffect(() => {
-    getPosition();
-
     fcmService.registerAppWithFCM();
     fcmService.register(onRegister, onNotification, onOpenNotification);
     localNotificationService.configure(onOpenNotification);
@@ -80,6 +85,36 @@ const Root = ({ authSetFcmToken, addBadgeCount, badges, setLocation }) => {
       localNotificationService.unregister();
     }
   }, [])
+
+  useEffect(() => {
+    if(watchID === null) {
+      const wID = Geolocation.watchPosition( position => {
+          setLocation({
+            data: {
+              longitude: position.coords.longitude,
+              latitude: position.coords.latitude
+            }
+          });
+        },
+        err => {
+          console.error(err);
+        },
+        {
+          enableHighAccuracy: true,
+          timeout: 20000,
+          maximumAge: 0,
+        },
+      );
+      
+      setWatchID(wID);
+    }
+
+    return () => {
+      if(watchID !== null) {
+        Geolocation.clearWatch(watchID)
+      }
+    }
+  }, [Geolocation, watchID])
 
   return (
     <NavigationContainer ref={navigationRef}>

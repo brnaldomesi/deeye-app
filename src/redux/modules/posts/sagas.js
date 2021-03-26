@@ -8,10 +8,9 @@ import {
   updatePostSuccess
 } from './actions'
 import { put, takeLatest } from 'redux-saga/effects'
-import { refineJSON } from 'src/utils/helpers'
+
 import { apiCallSaga } from '../api'
-
-
+import { refineJSON } from 'src/utils/helpers'
 
 const getPostsList = apiCallSaga({
   type: types.GET_POSTS_LIST,
@@ -37,7 +36,7 @@ const getPostsListForUnsigned = apiCallSaga({
     yield put(getPostsListSuccess(payload))
   },
   fail: function*(payload) {
-    yield put(getPostsListFail(payload))
+    yield put(getPostsListFail(refineJSON(payload)))
   }
 })
 

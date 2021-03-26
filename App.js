@@ -52,40 +52,6 @@ const App: () => React$Node = () => {
     .build();
 
   useEffect(() => {
-    // setInterval(() => {
-    //   RNLocation.configure({
-    //     distanceFilter: 5.0
-    //   });
-    //
-    //   RNLocation.requestPermission({
-    //     ios: "whenInUse",
-    //     android: {
-    //       detail: "coarse"
-    //     }
-    //   }).then(granted => {
-    //     if (granted) {
-    //       // console.log('heyhey')
-    //       RNLocation.subscribeToLocationUpdates(locations => {
-    //         console.log(locations)
-    //         /* Example location returned
-    //         {
-    //           speed: -1,
-    //           longitude: -0.1337,
-    //           latitude: 51.50998,
-    //           accuracy: 5,
-    //           heading: -1,
-    //           altitude: 0,
-    //           altitudeAccuracy: -1
-    //           floor: 0
-    //           timestamp: 1446007304457.029,
-    //           fromMockProvider: false
-    //         }
-    //         */
-    //       })
-    //     }
-    //   })
-    // }, 2000);
-
     SplashScreen.hide();
     CometChat.init(COMETCHAT_CONSTANTS.APP_ID, appSetting).then(
       () => {
@@ -98,6 +64,7 @@ const App: () => React$Node = () => {
       }
     );
     getPermissions();
+    navigator.geolocation = require('@react-native-community/geolocation');
   }, [])
 
   return (

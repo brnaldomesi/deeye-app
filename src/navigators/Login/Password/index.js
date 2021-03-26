@@ -37,7 +37,6 @@ const Password = ({
     authLogin({ 
       data: { email, password, deviceName, fcmToken },
       fail: err => {
-        console.error('err', err)
         setError(1);
       }
     });
