@@ -2,7 +2,7 @@ import * as types from './types'
 import { updateFollowSuccess} from '../posts/actions';
 import {
   getFollowListFail,
-  getFollowListSuccess,
+  getFollowListSuccess, removeFollow,
 } from './actions'
 import { put, takeLatest } from 'redux-saga/effects'
 
@@ -30,7 +30,13 @@ const setFollow = apiCallSaga({
   path: '/follow',
   selectorKey: 'setFollow',
   success: function*(payload, action) {
-    yield put(updateFollowSuccess(action.payload.follower_id));
+    if (action.payload.isFollow) {
+      if (!action.payload.isPin) {
+        yield put(removeFollow(action.payload.follower_id));
+      }
+    } else {
+      yield put(updateFollowSuccess(action.payload.follower_id));
+    }
   },
   fail: function*(payload) {
     console.log('payload error', payload)

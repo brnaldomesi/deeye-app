@@ -72,7 +72,11 @@ const Follow = ({navigation, getFollowList, setFollow, follows}) => {
   };
 
   const handleDetail = (id, type) => () => {
-    setFollow({data: {user_id: id, type: type}});
+    setFollow({
+      isPin: type === 'follow',
+      isFollow: true,
+      follower_id: id,
+      data: {user_id: id, type: type}});
   }
 
   const tapStyle = function (type, tap) {
@@ -140,10 +144,10 @@ const Follow = ({navigation, getFollowList, setFollow, follows}) => {
       <ScrollView>
         {follows && follows.map((item, index) => {
           return tap === 'left' ? <ListItem key={index} bottomDivider>
-            <Avatar onPress={() => {
+            {item.avatar_path && <Avatar onPress={() => {
               setIsDetail(true)
               setProfile(item)
-            }} rounded source={{uri: ASSET_BASE_URL + item.avatar_path}}></Avatar>
+            }} rounded source={{uri: ASSET_BASE_URL + item.avatar_path}}></Avatar>}
             <ListItem.Content>
               <ListItem.Title>{item.first_name}</ListItem.Title>
               <ListItem.Subtitle>{item.last_name}</ListItem.Subtitle>
@@ -155,10 +159,10 @@ const Follow = ({navigation, getFollowList, setFollow, follows}) => {
               <Text style={styles.itemBtnFollow}>follow</Text>
             </TouchableOpacity>
           </ListItem> : <ListItem key={index} bottomDivider>
-            <Avatar onPress={() => {
+            {item.avatar_path && <Avatar onPress={() => {
               setIsDetail(true)
               setProfile(item)
-            }} rounded source={{uri: ASSET_BASE_URL + item.avatar_path}}></Avatar>
+            }} rounded source={{uri: ASSET_BASE_URL + item.avatar_path}}></Avatar>}
             <ListItem.Content>
               <ListItem.Title>{item.first_name}</ListItem.Title>
               <ListItem.Subtitle>{item.last_name}</ListItem.Subtitle>

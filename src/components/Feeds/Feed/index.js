@@ -101,6 +101,8 @@ const Feed = ({
   const handleFollow = () => {
     if (postType !== 'Share') {
       setFollow({
+        isPin: false,
+        isFollow: false,
         follower_id: post.author.user_id,
         data: {
           user_id: post.author.user_id,

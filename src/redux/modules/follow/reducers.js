@@ -19,6 +19,10 @@ export default handleActions(
         followList: []
       }
     },
+    [types.REMOVE_FOLLOW]: (state, { payload }) => ({
+      ...state,
+      followList: state.followList.filter(item => item.id !== payload)
+    }),
   },
   getInitialState()
 );
