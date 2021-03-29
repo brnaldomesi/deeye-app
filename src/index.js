@@ -5,10 +5,10 @@ import React, { useEffect, useState } from 'react';
 import {
   addBadgeCount, addIntro,
   badgeCountSelector,
-  setLocation
+  setLocation,
+  addBadgeCount,
 } from "./redux/modules/alert";
 
-import Geolocation from '@react-native-community/geolocation';
 import { MenuProvider } from 'react-native-popup-menu';
 import { NavigationContainer } from '@react-navigation/native';
 import PropTypes from "prop-types";
@@ -23,13 +23,11 @@ import { navigationRef } from 'src/navigators/Ref';
 
 const Root = ({ 
   authSetFcmToken, 
-  addBadgeCount, 
+  addBadgeCount,
   badges, 
   setLocation,
-  addIntro
+  addIntro,
 }) => {
-  const [watchID, setWatchID] = useState(null);
-
   useEffect(() => {
     addIntro(false);
 
@@ -69,36 +67,6 @@ const Root = ({
     }
   }, [])
 
-  useEffect(() => {
-    if(watchID === null) {
-      const wID = Geolocation.watchPosition( position => {
-          setLocation({
-            data: {
-              longitude: position.coords.longitude,
-              latitude: position.coords.latitude
-            }
-          });
-        },
-        err => {
-          console.error(err);
-        },
-        {
-          enableHighAccuracy: true,
-          timeout: 20000,
-          maximumAge: 0,
-        },
-      );
-      
-      setWatchID(wID);
-    }
-
-    return () => {
-      if(watchID !== null) {
-        Geolocation.clearWatch(watchID)
-      }
-    }
-  }, [Geolocation, watchID])
-
   return (
     <NavigationContainer ref={navigationRef}>
       <MenuProvider>
@@ -116,9 +84,9 @@ Root.propTypes = {
 
 const actions = { 
   authSetFcmToken, 
-  addBadgeCount, 
+  addBadgeCount,
   setLocation,
-  addIntro
+  addIntro,
 };
 
 const selector = createStructuredSelector({
