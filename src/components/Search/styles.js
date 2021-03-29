@@ -17,11 +17,11 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
   input: {
-    alignSelf: 'center',
+    // alignSelf: 'center',
   },
   text: {
     marginLeft: 10,
-    fontSize: 22,
+    fontSize: 18,
     fontWeight: '900',
     color: '#05174f',
   },
