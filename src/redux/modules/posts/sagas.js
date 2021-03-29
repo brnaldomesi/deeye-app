@@ -33,10 +33,10 @@ const getPostsListForUnsigned = apiCallSaga({
   path: '/posts/unsigned',
   selectorKey: 'postsList',
   success: function*(payload) {
-    yield put(getPostsListSuccess(payload))
+    yield put(getPostsListSuccess(refineJSON(payload)))
   },
   fail: function*(payload) {
-    yield put(getPostsListFail(refineJSON(payload)))
+    yield put(getPostsListFail(payload))
   }
 })
 

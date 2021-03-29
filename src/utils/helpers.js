@@ -65,8 +65,6 @@ export const refineJSON = param => {
   }
 
   if (typeof param === 'string') {
-    console.log(param)
-    console.log(JSON.parse(param))
     return JSON.parse(param);
   }
 
