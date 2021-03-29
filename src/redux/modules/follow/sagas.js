@@ -1,5 +1,5 @@
 import * as types from './types'
-
+import { updateFollowSuccess} from '../posts/actions';
 import {
   getFollowListFail,
   getFollowListSuccess,
@@ -29,8 +29,8 @@ const setFollow = apiCallSaga({
   allowedParamKeys: [],
   path: '/follow',
   selectorKey: 'setFollow',
-  success: function*(payload) {
-    console.log('payload', payload)
+  success: function*(payload, action) {
+    yield put(updateFollowSuccess(action.payload.follower_id));
   },
   fail: function*(payload) {
     console.log('payload error', payload)

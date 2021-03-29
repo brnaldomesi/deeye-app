@@ -29,26 +29,6 @@ const Root = ({
 }) => {
   const [watchID, setWatchID] = useState(null);
 
-  const getPosition = () => new Promise(resolve =>
-    Geolocation.getCurrentPosition(
-      (...args) => {
-        resolve(true);
-
-        setLocation({
-          data: {longitude: args[0].coords.longitude,
-          latitude: args[0].coords.latitude}});
-      },
-      err => {
-        resolve(false);
-      },
-      {
-        enableHighAccuracy: true,
-        timeout: 20000,
-        maximumAge: 1000,
-      },
-    ),
-  );
-
   useEffect(() => {
     fcmService.registerAppWithFCM();
     fcmService.register(onRegister, onNotification, onOpenNotification);

@@ -32,6 +32,18 @@ export default handleActions(
         ...state,
         postsList: state.postsList.map(post => post.id === payload.id ? payload : post)
       }
+    },
+    [types.UPDATE_FOLLOW_SUCCESS]: (state, {payload}) => {
+      return {
+        ...state,
+        postsList: state.postsList.map(post => {
+          if (post.author.user_id === payload) {
+            return {...post, follow_state: 1 - post.follow_state};
+          } else {
+            return post;
+          }
+        })
+      }
     }
   },
   getInitialState()

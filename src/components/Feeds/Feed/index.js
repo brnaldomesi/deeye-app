@@ -37,45 +37,43 @@ import {
   TouchableOpacity,
   View
 } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 
-import { ASSET_BASE_URL } from 'src/config/apipath';
+import {ASSET_BASE_URL} from 'src/config/apipath';
 import ActionFooter from 'src/components/ActionFooter';
-import { Avatar } from 'react-native-elements';
+import {Avatar} from 'react-native-elements';
 import {Button} from 'react-native-elements';
 import CommentsHistoryInfoForPost from 'src/components/CommentsHistoryInfoForPost';
-import { Divider } from 'react-native-elements';
+import {Divider} from 'react-native-elements';
 import FastImage from 'react-native-fast-image';
-import { IMAGES_PATH } from 'src/config/constants';
+import {IMAGES_PATH} from 'src/config/constants';
 import LinearGradient from 'react-native-linear-gradient';
 import MissingDetailInfo from 'src/components/MissingDetailInfo'
 import PopupMenu from 'src/components/PopupMenu';
 import PropTypes from 'prop-types';
 import VideoPlayer from 'react-native-video-controls';
-import { compose } from 'redux';
-import { connect } from 'react-redux';
-import { getDiffFromToday } from 'src/utils/helpers';
+import {compose} from 'redux';
+import {connect} from 'react-redux';
+import {getDiffFromToday} from 'src/utils/helpers';
 import styles from './styles';
 import {setFollow} from "../../../redux/modules/follow";
 
-const Feed = ({ 
-  post, 
-  profileId,
-  commentsShow,
-  setCommentPosterInfo,
-  isShare,
-  setFollow,
-}) => {
-  const [missingCollpase, setMissingCollpase] =  useState(true);
-  const [ thumbsize, setThumbsize ] = useState({ width: Dimensions.get('window').width, height: Size(13) });
+const Feed = ({
+                post,
+                profileId,
+                commentsShow,
+                setCommentPosterInfo,
+                isShare,
+                setFollow,
+              }) => {
 
-  const [followName, setFollowName] = useState(post.follow_state === 0 ? 'follow' : 'following');
-  const [followType, setFollowType] = useState(post.follow_state);
+  const [missingCollpase, setMissingCollpase] = useState(true);
+  const [thumbsize, setThumbsize] = useState({width: Dimensions.get('window').width, height: Size(13)});
 
   const postType = post.post_type;
   const sourceType = postType === 'Share' ? post.post_source.post_type : postType
   const missingContent = postType === 'Share' ? post.post_source.missing_post_content : post.missing_post_content;
-  const authorName = postType === 'Share' ? post.post_source.author.first_name + ' ' + post.post_source.author.last_name : post.author.first_name + ' ' + post.author.last_name;
+  const authorName = postType === 'Share' ? (post.post_source.author.first_name + ' ' + post.post_source.author.last_name) : (post.author.first_name + ' ' + post.author.last_name);
   const postAttachment = postType === 'Share' ? post.post_source.post_attachments[0] : post.post_attachments[0];
   const uri = postAttachment ? ASSET_BASE_URL + postAttachment.path : undefined;
   const updatedAt = postType === 'Share' ? post.post_source.updated_at : post.updated_at;
@@ -83,7 +81,7 @@ const Feed = ({
   const avatarPath = postType === 'Share' ? ASSET_BASE_URL + post.post_source.author.avatar_path : ASSET_BASE_URL + post.author.avatar_path;
 
   useEffect(() => {
-    if(uri) {
+    if (uri) {
       Image.getSize(uri, (width, height) => {
         setThumbsize({width, height});
       }, (error) => {
@@ -101,14 +99,15 @@ const Feed = ({
   }
 
   const handleFollow = () => {
-    const temp = 1 - followType;
-
-    setFollowType(temp);
-    setFollowName((temp) === 0 ? 'follow' : 'following');
-    console.log(post.profile_id);
-    console.log(temp === 0 ? 'unfollow' : 'follow')
-
-    setFollow({data: {user_id: post.profile_id, type: temp === 0 ? 'unfollow' : 'follow'}});
+    if (postType !== 'Share') {
+      setFollow({
+        follower_id: post.author.user_id,
+        data: {
+          user_id: post.author.user_id,
+          type: post.follow_state === 1 ? 'unfollow' : 'follow'
+        }
+      });
+    }
   }
 
   const imgFollow = function (type) {
@@ -121,35 +120,35 @@ const Feed = ({
 
   return (
     <View style={[bgWhite, my1]}>
-      {postType === 'Share' && 
-        <View style={p1}>
-          <Button 
-            type="clear" 
-            title="Shared by" 
-            disabled
-            buttonStyle={[p0, m0, styles.sharedby]}
+      {postType === 'Share' &&
+      <View style={p1}>
+        <Button
+          type="clear"
+          title="Shared by"
+          disabled
+          buttonStyle={[p0, m0, styles.sharedby]}
+        />
+        <View style={[flexRow, mtp5]}>
+          <Avatar
+            rounded
+            source={{uri: ASSET_BASE_URL + post.author.avatar_path}}
           />
-          <View style={[flexRow, mtp5]}>
-            <Avatar
-              rounded
-              source={{uri: ASSET_BASE_URL + post.author.avatar_path}}
-            />
-            <View style={[mlp5, flexOne]}>
-              <TouchableOpacity onPress={navigatePostDetail(post.id)}>
-                <Text style={[primaryColor, fontWeightBold]}>{post.author.first_name + ' ' + post.author.last_name}</Text>
-                <Text>{getDiffFromToday(post.updated_at)}</Text>
-                <Text style={mt1}>{post.description}</Text>
-              </TouchableOpacity>
-            </View>
+          <View style={[mlp5, flexOne]}>
+            <TouchableOpacity onPress={navigatePostDetail(post.id)}>
+              <Text style={[primaryColor, fontWeightBold]}>{post.author.first_name + ' ' + post.author.last_name}</Text>
+              <Text>{getDiffFromToday(post.updated_at)}</Text>
+              <Text style={mt1}>{post.description}</Text>
+            </TouchableOpacity>
           </View>
         </View>
+      </View>
       }
       <View style={relative}>
         {sourceType === "Video" ? (
-          <VideoPlayer 
-            source={{uri}} 
+          <VideoPlayer
+            source={{uri}}
             style={[styles.thumbnail, resizeContain]}
-            paused={true} 
+            paused={true}
             disableBack
             disableFullscreen
           />
@@ -163,18 +162,18 @@ const Feed = ({
               source={{uri}}
               resizeMode={FastImage.resizeMode.contain}
             />
-            {sourceType === 'MissingPerson' && 
-              <>
-                <Image style={[styles.badge, resizeContain, absolute]} source={IMAGES_PATH.verifiedBadge} />
-                <LinearGradient 
-                  colors={gradientColors} 
-                  style={[absolute, styles.missingDays]}
-                  start={{x:0, y:0}}
-                  end={{x:1, y: 0}}
-                >
-                  <Text style={textWhite}>{'Missing ' + getDiffFromToday(missingContent.missing_since) + ' Now'}</Text>
-                </LinearGradient>
-              </>
+            {sourceType === 'MissingPerson' &&
+            <>
+              <Image style={[styles.badge, resizeContain, absolute]} source={IMAGES_PATH.verifiedBadge}/>
+              <LinearGradient
+                colors={gradientColors}
+                style={[absolute, styles.missingDays]}
+                start={{x: 0, y: 0}}
+                end={{x: 1, y: 0}}
+              >
+                <Text style={textWhite}>{'Missing ' + getDiffFromToday(missingContent.missing_since) + ' Now'}</Text>
+              </LinearGradient>
+            </>
             }
           </TouchableOpacity>
         )}
@@ -194,10 +193,10 @@ const Feed = ({
           {post.profile_id !== profileId && <TouchableOpacity onPress={handleFollow}>
             <Text style={styles.btnFollow}>
               <Image style={imgFollow('ok')} source={IMAGES_PATH.search}/>
-              {' '}{followName}</Text>
+              {' '}{post.follow_state === 0 ? 'follow' : 'following'}</Text>
           </TouchableOpacity>}
           <View>
-            <PopupMenu post={post} isMyPost={post.profile_id === profileId} />
+            <PopupMenu post={post} isMyPost={post.profile_id === profileId}/>
           </View>
         </View>
         <View style={[pl1, mtp5]}>
@@ -210,20 +209,22 @@ const Feed = ({
             <Text>{description}</Text>
           )}
         </View>
-        {sourceType === 'MissingPerson' && 
-          <MissingDetailInfo 
-            missingContent={missingContent} 
-            missingCollpase={missingCollpase}
-            onPress={toggleMissingCollapse}
-            style={p1}
-          />
+        {sourceType === 'MissingPerson' &&
+        <MissingDetailInfo
+          missingContent={missingContent}
+          missingCollpase={missingCollpase}
+          onPress={toggleMissingCollapse}
+          style={p1}
+        />
         }
-        <Divider style={styles.divider} />
+        <Divider style={styles.divider}/>
         <View style={mtp5}>
-          <CommentsHistoryInfoForPost post={post} />
+          <CommentsHistoryInfoForPost post={post}/>
         </View>
       </View>
-      <ActionFooter style={styles.footer} post={post} isShare={isShare} />
+
+
+      {isShare && <ActionFooter style={styles.footer} post={post} isShare={isShare}/>}
     </View>
   );
 };

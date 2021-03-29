@@ -22,6 +22,7 @@ export const deletePostSuccess = createAction(types.DELETE_POST_SUCCESS);
 
 export const updatePost = createAction(types.UPDATE_POST);
 export const updatePostSuccess = createAction(types.UPDATE_POST_SUCCESS);
+export const updateFollowSuccess = createAction(types.UPDATE_FOLLOW_SUCCESS);
 
 export const reportPost = createAction(types.REPORT_POST);
 export const savePost = createAction(types.SAVE_POST);

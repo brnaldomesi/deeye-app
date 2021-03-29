@@ -73,7 +73,7 @@ const Follow = ({navigation, getFollowList, setFollow, follows}) => {
 
   const handleDetail = (id, type) => () => {
     setFollow({data: {user_id: id, type: type}});
-  };
+  }
 
   const tapStyle = function (type, tap) {
     return {
