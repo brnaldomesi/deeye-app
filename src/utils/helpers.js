@@ -15,17 +15,17 @@ export const getDiffFromToday = (inputTime, isTimeStamp = false) => {
   const today = moment();
   //const today = moment().utc(moment());
   const duration = moment.duration(today.diff(ts));
-  
+
   const years = duration.asYears();
   //Get Days and subtract from duration
   const days = duration.asDays();
-  
+
   //Get hours and subtract from duration
   const hours = duration.hours();
-  
+
   //Get Minutes and subtract from duration
   const minutes = duration.minutes();
-  
+
   //Get seconds
   const seconds = duration.seconds();
 
@@ -46,9 +46,12 @@ export const refineJSON = param => {
   if (param == null || param == undefined) {
     return;
   }
-  var dataArray = [...param];
-  if (dataArray.filter(x => x == '{').length == dataArray.filter(x => x == '}').length + 1) param += '}';
-  if (dataArray.filter(x => x == '[').length == dataArray.filter(x => x == ']').length + 1) param += ']';
+
+  if(typeof param[Symbol.iterator] === 'function') {
+    var dataArray = [...param];
+    if (dataArray.filter(x => x == '{').length == dataArray.filter(x => x == '}').length + 1) param += '}';
+    if (dataArray.filter(x => x == '[').length == dataArray.filter(x => x == ']').length + 1) param += ']';
+  }
 
   if(typeof param === 'object') {
     return param;

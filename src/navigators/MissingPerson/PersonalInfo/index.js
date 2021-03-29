@@ -35,9 +35,8 @@ import {
   textWhite,
   w80P
 } from 'src/styles';
-
+import { refineJSON } from 'src/utils/helpers';
 import { Button } from 'react-native-elements';
-import { CheckBox } from 'react-native-elements'
 import DateTimePicker from '@react-native-community/datetimepicker';
 import DocumentPicker from 'react-native-document-picker';
 import Header from '../components/Header';
@@ -104,10 +103,12 @@ const PersonalInfo = ({navigation, uploadFile, route}) => {
       headers: { 'Content-Type': 'multipart/form-data' },
       data: formData,
       success: res => {
+        const refinedRes = refineJSON(res);
+
         setAttachments(attachments => attachments.concat([{
-          id: res.id,
-          uri: res.path,
-          type: res.file_type,
+          id: refinedRes.id,
+          uri: refinedRes.path,
+          type: refinedRes.file_type,
           attachment_type: 'General'
         }]));
       },
@@ -181,10 +182,10 @@ const PersonalInfo = ({navigation, uploadFile, route}) => {
       <Header title="Personal Information" step={1} />
       <ScrollView>
         <View style={p1}>
-          <View 
+          <View
             style={[
-              itemsCenter, 
-              justifyCenter, 
+              itemsCenter,
+              justifyCenter,
               relative,
               styles.pickView
             ]}
@@ -202,22 +203,22 @@ const PersonalInfo = ({navigation, uploadFile, route}) => {
             <Text>Full Name</Text>
           </View>
           <View style={mtp5}>
-            <TextInput 
-              value={fullname} 
-              onChangeText={ text => setFullname(text) } 
+            <TextInput
+              value={fullname}
+              onChangeText={ text => setFullname(text) }
               style={textInput}
-              placeholder="Name of the missing person" 
+              placeholder="Name of the missing person"
             />
           </View>
           <View style={mt1}>
             <Text>AKA</Text>
           </View>
           <View style={mtp5}>
-            <TextInput 
-              value={aka} 
-              onChangeText={ text => setAka(text) } 
+            <TextInput
+              value={aka}
+              onChangeText={ text => setAka(text) }
               style={textInput}
-              placeholder="Also Knows As" 
+              placeholder="Also Knows As"
             />
           </View>
 
@@ -226,7 +227,7 @@ const PersonalInfo = ({navigation, uploadFile, route}) => {
               <Text>Age (Date of Birthday)</Text>
               <View style={flexRow}>
                 <MyButton onPress={handleDob} style={[mtp5, itemsStart]}>
-                  <Image 
+                  <Image
                     style={[styles.square, resizeContain]}
                     source={IMAGES_PATH.featherCalendar}
                   />
@@ -249,30 +250,30 @@ const PersonalInfo = ({navigation, uploadFile, route}) => {
             <View style={flexOne}>
               <Text>Sex</Text>
               <View style={[flexRow, mtp5]}>
-                <View 
+                <View
                   style={[
-                    roundedSm, 
-                    borderPrimary, 
+                    roundedSm,
+                    borderPrimary,
                     gender === 'Female' ? bgPrimary : bgWhite
                   ]}
                 >
                   <MyButton onPress={() => setGender('Female')} style={styles.switchBtn}>
-                    <Image 
+                    <Image
                       style={[styles.genderImg, resizeContain]}
                       source={gender === 'Female' ? IMAGES_PATH.awesomeFemaleWhite : IMAGES_PATH.awesomeFemalePrimary}
                     />
                   </MyButton>
                 </View>
-                <View 
+                <View
                   style={[
-                    roundedSm, 
-                    borderPrimary, 
-                    mlSm, 
+                    roundedSm,
+                    borderPrimary,
+                    mlSm,
                     gender === 'Male' ? bgPrimary : bgWhite
                   ]}
                 >
                   <MyButton onPress={() => setGender('Male')} style={styles.switchBtn}>
-                    <Image 
+                    <Image
                       style={[styles.genderImg, resizeContain]}
                       source={gender === 'Male' ? IMAGES_PATH.awesomeMaleWhite : IMAGES_PATH.awesomeMalePrimary}
                     />
@@ -286,14 +287,14 @@ const PersonalInfo = ({navigation, uploadFile, route}) => {
             <View style={flexOne}>
               <Text>Height</Text>
               <View style={[flexRow, mtp5]}>
-                <TextInput 
-                  value={height} 
-                  onChangeText={ text => setHeight(text) } 
+                <TextInput
+                  value={height}
+                  onChangeText={ text => setHeight(text) }
                   style={textInput}
-                  keyboardType='numeric' 
+                  keyboardType='numeric'
                 />
-                <Button 
-                  title="ft" 
+                <Button
+                  title="ft"
                   onPress={handleHeightFt}
                   buttonStyle={[
                     roundedSm,
@@ -302,58 +303,58 @@ const PersonalInfo = ({navigation, uploadFile, route}) => {
                     styles.switchBtn
                   ]}
                   titleStyle={[
-                    heightUnit === 'ft' ? textWhite : primaryColor 
-                  ]} 
+                    heightUnit === 'ft' ? textWhite : primaryColor
+                  ]}
                 />
-                <Button 
-                  title="cm" 
+                <Button
+                  title="cm"
                   onPress={handleHeightCm}
                   buttonStyle={[
                     roundedSm,
                     mlSm,
                     heightUnit === 'cm' ? bgPrimary : [bgWhite, borderPrimary],
-                    styles.switchBtn 
+                    styles.switchBtn
                   ]}
                   titleStyle={[
-                    heightUnit === 'cm' ? textWhite : primaryColor 
-                  ]} 
+                    heightUnit === 'cm' ? textWhite : primaryColor
+                  ]}
                 />
               </View>
             </View>
             <View style={flexOne}>
               <Text>Weight</Text>
               <View style={[flexRow, mtp5]}>
-                <TextInput 
-                  value={weight} 
-                  onChangeText={ text => setWeight(text) } 
+                <TextInput
+                  value={weight}
+                  onChangeText={ text => setWeight(text) }
                   style={textInput}
-                  keyboardType='numeric' 
+                  keyboardType='numeric'
                 />
-                <Button 
-                  title="kg" 
+                <Button
+                  title="kg"
                   onPress={handleWeightKg}
                   buttonStyle={[
                     roundedSm,
                     ml1,
                     weightUnit === 'kg' ? bgPrimary : [bgWhite, borderPrimary],
-                    styles.switchBtn 
+                    styles.switchBtn
                   ]}
                   titleStyle={[
-                    weightUnit === 'kg' ? textWhite : primaryColor 
-                  ]} 
+                    weightUnit === 'kg' ? textWhite : primaryColor
+                  ]}
                 />
-                <Button 
-                  title="lb" 
+                <Button
+                  title="lb"
                   onPress={handleWeightLb}
                   buttonStyle={[
                     roundedSm,
                     mlSm,
                     weightUnit === 'lb' ? bgPrimary : [bgWhite, borderPrimary],
-                    styles.switchBtn 
+                    styles.switchBtn
                   ]}
                   titleStyle={[
-                    weightUnit === 'lb' ? textWhite : primaryColor 
-                  ]} 
+                    weightUnit === 'lb' ? textWhite : primaryColor
+                  ]}
                 />
               </View>
             </View>
@@ -397,7 +398,7 @@ const PersonalInfo = ({navigation, uploadFile, route}) => {
                   <Picker.Item label="Oceanian" value="Oceanian" />
                 </Picker>
               </View>
-            </View> 
+            </View>
           </View>
 
           <View style={[mt1, flexRow]}>
@@ -421,19 +422,19 @@ const PersonalInfo = ({navigation, uploadFile, route}) => {
             <View style={flexOne}>
               <Text>Medical condition</Text>
               <View style={[flexRow, mtp5]}>
-                <Button 
-                  title="Yes" 
+                <Button
+                  title="Yes"
                   onPress={() => setMedicalCondition(true)}
                   buttonStyle={[
                     roundedSm,
                     medicalCondition ? bgPrimary : [bgWhite, borderPrimary],
                   ]}
                   titleStyle={[
-                    medicalCondition ? textWhite : primaryColor 
-                  ]} 
+                    medicalCondition ? textWhite : primaryColor
+                  ]}
                 />
-                <Button 
-                  title="No" 
+                <Button
+                  title="No"
                   onPress={() => setMedicalCondition(false)}
                   buttonStyle={[
                     roundedSm,
@@ -441,15 +442,15 @@ const PersonalInfo = ({navigation, uploadFile, route}) => {
                     !medicalCondition ? bgPrimary : [bgWhite, borderPrimary],
                   ]}
                   titleStyle={[
-                    !medicalCondition ? textWhite : primaryColor 
-                  ]} 
+                    !medicalCondition ? textWhite : primaryColor
+                  ]}
                 />
               </View>
             </View>
           </View>
 
           <View style={[mt2, itemsCenter]}>
-            <Button 
+            <Button
               title="Next Step(Circumstance)"
               onPress={handleNext}
               buttonStyle={[bgPrimary, roundedSm, px2]}

@@ -57,7 +57,7 @@ import styles from './styles';
 import { uploadFile } from 'src/redux/modules/posts';
 
 const CircumstanceInfo = ({
-  route, 
+  route,
   navigation,
   uploadFile
 }) => {
@@ -85,15 +85,15 @@ const CircumstanceInfo = ({
     formData.missing_post.missing_location_longitude = lng;
     navigation.navigate('ContactInfo', {formData});
   }, [
-    lat, 
-    lng, 
-    duoLocation, 
-    formData, 
-    missingSince, 
-    circumstance, 
-    hasTattoo, 
-    language, 
-    companyName, 
+    lat,
+    lng,
+    duoLocation,
+    formData,
+    missingSince,
+    circumstance,
+    hasTattoo,
+    language,
+    companyName,
     navigation
   ])
 
@@ -106,7 +106,7 @@ const CircumstanceInfo = ({
       data: formData,
       success: res => {
         setAttachments(attachments => attachments.concat([{
-          id: res.id, 
+          id: res.id,
           attachment_type: 'General'
         }]));
       },
@@ -115,7 +115,7 @@ const CircumstanceInfo = ({
       }
     });
   }
-  
+
   const handleMissingSince = () => {
     setShowMissingSince(true)
   }
@@ -164,7 +164,8 @@ const CircumstanceInfo = ({
                 key: 'AIzaSyDXaEl76iuHpKDwozfyPsyVeObazX4ldyw',
                 language: 'en',
               }}
-              enableHighAccuracyLocation={true}
+              onFail={err => console.error(err)}
+              // enableHighAccuracyLocation={true}
               enablePoweredByContainer={false}
               styles={{
                 textInputContainer: textInput,

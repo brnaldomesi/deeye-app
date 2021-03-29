@@ -22,8 +22,7 @@ import {
   textDot7
 } from 'src/styles';
 import { createPost, uploadFile } from 'src/redux/modules/posts';
-
-import { Avatar } from 'react-native-elements';
+import { refineJSON } from 'src/utils/helpers';
 import Button from 'src/components/Button';
 import DocumentPicker from 'react-native-document-picker';
 import Header from '../components/Header';
@@ -46,10 +45,10 @@ const androidCameraPermissionOptions = {
 }
 
 const PostCreate = ({
-  route, 
+  route,
   navigation,
   uploadFile,
-  createPost 
+  createPost
 }) => {
   const [initState, setInitState] = useState(true);
   const [description, setDescription] = useState('');
@@ -69,8 +68,9 @@ const PostCreate = ({
       headers: { 'Content-Type': 'multipart/form-data' },
       data: formData,
       success: res => {
+        const refinedRes = refineJSON(res);
         setAttachments(attachments => attachments.concat([{
-          id: res.id, 
+          id: refinedRes.id,
           attachment_type: 'General',
           uri: data.uri
         }]));
@@ -159,7 +159,7 @@ const PostCreate = ({
       ),
     []
   )
-  
+
   const renderPost = ({ item: { type, uri }, index }) => (
     <View style={styles.post}>
       {type === DocumentPicker.types.images ? (
@@ -190,14 +190,14 @@ const PostCreate = ({
   return (
     <View style={styles.root}>
       <View style={[flexOne, bgWhite]}>
-        <Header 
+        <Header
           handleClose={handleClose}
-          handlePost={handlePost} 
-          title="Share Post" 
-          rightButton 
-          buttonPrimary={!initState} 
+          handlePost={handlePost}
+          title="Share Post"
+          rightButton
+          buttonPrimary={!initState}
         />
-        {posts.length > 0 && 
+        {posts.length > 0 &&
           <View style={styles.sliderView}>
             <Slider
               data={posts}
@@ -213,7 +213,7 @@ const PostCreate = ({
             />
           </View>
         }
-        
+
         {cameraView && (
           <View style={styles.container}>
             <RNCamera
@@ -234,7 +234,7 @@ const PostCreate = ({
         )}
 
         <View style={p1}>
-          <TextInput 
+          <TextInput
             multiline
             numberOfLines={4}
             onChangeText={text => setDescription(text)}
@@ -245,14 +245,14 @@ const PostCreate = ({
           />
         </View>
       </View>
-      {initState ? ( 
+      {initState ? (
         <View style={styles.bottomMenu}>
           <View style={styles.bottomMenuHeader}>
             <View style={styles.bar} />
           </View>
           <View style={basicPadding}>
             <View style={p1}>
-              <IconButton 
+              <IconButton
                 onPress={handleAddPostPress(DocumentPicker.types.images)}
                 text='Add Photo'
                 imageName="photoSizeSelect1"
@@ -260,7 +260,7 @@ const PostCreate = ({
               />
             </View>
             <View style={p1}>
-              <IconButton 
+              <IconButton
                 onPress={handleAddPostPress(DocumentPicker.types.video)}
                 text='Add Video'
                 imageName="featherVideo1"
@@ -268,7 +268,7 @@ const PostCreate = ({
               />
             </View>
             <View style={p1}>
-              <IconButton 
+              <IconButton
                 onPress={handleTakePhotoPress}
                 text='Take a Photo'
                 imageName="camera"
@@ -276,7 +276,7 @@ const PostCreate = ({
               />
             </View>
             <View style={p1}>
-              <IconButton 
+              <IconButton
                 onPress={handleMissing}
                 text='Missing Person Post'
                 imageName="shapeActive3"
@@ -311,7 +311,7 @@ const PostCreate = ({
               <Text style={textDot7}>Missing Person</Text>
             </MyButton>
           </View>
-        </View>                             
+        </View>
       )}
     </View>
   )
