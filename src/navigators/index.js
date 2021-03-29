@@ -31,13 +31,6 @@ const StackNavigator = ({isAuthenticated, isIntro}) => {
 
   return (
     <Stack.Navigator>
-      {!isIntro && <Stack.Screen
-        name="Init"
-        component={Init}
-        options={{
-          headerShown: false
-        }}
-      />}
       {isAuthenticated ? <>
           <Stack.Screen
             name="Drawer"

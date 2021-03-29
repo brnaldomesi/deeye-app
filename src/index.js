@@ -3,10 +3,10 @@ import * as RootNavigation from 'src/navigators/Ref';
 import { Alert, StatusBar } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import {
-  addBadgeCount, addIntro,
+  addBadgeCount,
+  addIntro,
   badgeCountSelector,
   setLocation,
-  addBadgeCount,
 } from "./redux/modules/alert";
 
 import { MenuProvider } from 'react-native-popup-menu';
@@ -26,7 +26,7 @@ const Root = ({
   addBadgeCount,
   badges, 
   setLocation,
-  addIntro,
+  addIntro
 }) => {
   useEffect(() => {
     addIntro(false);
