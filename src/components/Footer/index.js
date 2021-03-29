@@ -42,7 +42,8 @@ export default connect(
 }) => {
 
   const handleAdd = () => {
-    RootNavigation.navigate('PostNew');
+    // RootNavigation.navigate('PostNew');
+    RootNavigation.navigate('PostCreate', { postType: 'Image' });
   };
 
   const navigateFeeds = () => {

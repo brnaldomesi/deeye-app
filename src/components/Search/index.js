@@ -14,7 +14,7 @@ const Search = () => {
             size="medium"
             rounded
             source={require('src/assets/images/Ellipse-1.png')}
-            containerStyle={{borderWidth: 3, borderColor: '#05174f', marginTop: 5}}
+            containerStyle={{borderWidth: 2, borderColor: '#05174f', marginTop: 5, width: 40, height: 40}}
           />
         </View>
         <SafeAreaView style={styles.inputCorner}>
