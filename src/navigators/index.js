@@ -22,13 +22,23 @@ import {Colors} from "../styles";
 import MCIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import Follow from "./Follow";
 import SharePost from "./Post/SharePost";
+import Init from "./Init/Init";
+import {addIntroSelector} from "../redux/modules/alert";
 
 const Stack = createStackNavigator();
 
-const StackNavigator = ({isAuthenticated}) => { 
+const StackNavigator = ({isAuthenticated, isIntro}) => {
+
   return (
     <Stack.Navigator>
-      {isAuthenticated ? <> 
+      {!isIntro && <Stack.Screen
+        name="Init"
+        component={Init}
+        options={{
+          headerShown: false
+        }}
+      />}
+      {isAuthenticated ? <>
           <Stack.Screen
             name="Drawer"
             component={Drawer}
@@ -131,7 +141,8 @@ StackNavigator.propTypes = {
 }
 
 const selector = createStructuredSelector({
-  isAuthenticated: isAuthenticatedSelector
+  isAuthenticated: isAuthenticatedSelector,
+  isIntro: addIntroSelector,
 })
 
 export default compose(

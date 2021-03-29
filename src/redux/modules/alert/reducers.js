@@ -5,7 +5,8 @@ import { handleActions } from 'redux-actions'
 
 const getInitialState = () => ({
   alertList: [],
-  badgeCount: 0
+  badgeCount: 0,
+  isIntro: false,
 });
 
 export default handleActions(
@@ -35,6 +36,12 @@ export default handleActions(
       return {
         ...state,
         badgeCount: 0
+      }
+    },
+    [types.ADD_INTRO]: (state, { payload }) => {
+      return {
+        ...state,
+        isIntro: payload
       }
     },
   },

@@ -3,7 +3,7 @@ import * as RootNavigation from 'src/navigators/Ref';
 import { Alert, StatusBar } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import {
-  addBadgeCount,
+  addBadgeCount, addIntro,
   badgeCountSelector,
   setLocation
 } from "./redux/modules/alert";
@@ -25,11 +25,14 @@ const Root = ({
   authSetFcmToken, 
   addBadgeCount, 
   badges, 
-  setLocation 
+  setLocation,
+  addIntro
 }) => {
   const [watchID, setWatchID] = useState(null);
 
   useEffect(() => {
+    addIntro(false);
+
     fcmService.registerAppWithFCM();
     fcmService.register(onRegister, onNotification, onOpenNotification);
     localNotificationService.configure(onOpenNotification);
@@ -114,7 +117,8 @@ Root.propTypes = {
 const actions = { 
   authSetFcmToken, 
   addBadgeCount, 
-  setLocation 
+  setLocation,
+  addIntro
 };
 
 const selector = createStructuredSelector({
