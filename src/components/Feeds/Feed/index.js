@@ -55,8 +55,8 @@ import VideoPlayer from 'react-native-video-controls';
 import {compose} from 'redux';
 import {connect} from 'react-redux';
 import {getDiffFromToday} from 'src/utils/helpers';
-import styles from './styles';
 import {setFollow} from "../../../redux/modules/follow";
+import styles from './styles';
 
 const Feed = ({
                 post,

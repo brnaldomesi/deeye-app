@@ -16,6 +16,7 @@ import { put, takeLatest } from 'redux-saga/effects'
 
 import AsyncStorage from '@react-native-community/async-storage';
 import { apiCallSaga } from '../api';
+import { refineJSON } from 'src/utils/helpers';
 
 const authCheckUser = apiCallSaga({
   type: AUTH_CHECK_USER,
@@ -30,9 +31,10 @@ const authSignup = apiCallSaga({
   path: '/auth/signup',
   selectorKey: 'authSignup',
   success: function*(payload) {
-    AsyncStorage.setItem('token', payload['auth-token']);
-    AsyncStorage.setItem('profile', JSON.stringify(payload.profile));
-    yield put(authLoginSuccess(payload))
+    const refinedPayload = refineJSON(payload);
+    AsyncStorage.setItem('token', refinedPayload['auth-token']);
+    AsyncStorage.setItem('profile', JSON.stringify(refinedPayload.profile));
+    yield put(authLoginSuccess(refinedPayload))
   },
   fail: function*(payload) {
     yield put(authLoginFail(payload))
@@ -45,9 +47,10 @@ const authLogin = apiCallSaga({
   path: '/auth/login',
   selectorKey: 'authLogin',
   success: function*(payload) {
-    AsyncStorage.setItem('token', payload['auth-token']);
-    AsyncStorage.setItem('profile', JSON.stringify(payload.profile));
-    yield put(authLoginSuccess(payload));
+    const refinedPayload = refineJSON(payload);
+    AsyncStorage.setItem('token', refinedPayload['auth-token']);
+    AsyncStorage.setItem('profile', JSON.stringify(refinedPayload.profile));
+    yield put(authLoginSuccess(refinedPayload));
   },
   fail: function*(payload) {
     yield put(authLoginFail(payload))

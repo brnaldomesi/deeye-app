@@ -47,7 +47,7 @@ const createPost = apiCallSaga({
   path: '/posts',
   selectorKey: 'post',
   success: function*(payload, action) {
-    yield put(createPostSuccess(payload))
+    yield put(createPostSuccess(refineJSON(payload)))
   }
 })
 
@@ -58,7 +58,7 @@ const hidePost = apiCallSaga({
   path: ({payload}) => `/posts/${payload.id}/hide`,
   selectorKey: 'post',
   success: function*(payload, action) {
-    yield put(deletePostSuccess(payload))
+    yield put(deletePostSuccess(refineJSON(payload)))
   }
 })
 
@@ -69,7 +69,7 @@ const deletePost = apiCallSaga({
   path: ({payload}) => `/posts/${payload.id}`,
   selectorKey: 'post',
   success: function*(payload, action) {
-    yield put(deletePostSuccess(payload))
+    yield put(deletePostSuccess(refineJSON(payload)))
   }
 })
 
@@ -88,7 +88,7 @@ const updatePost = apiCallSaga({
   path: ({payload}) => `/posts/${payload.id}`,
   selectorKey: 'post',
   success: function*(payload, action) {
-    yield put(updatePostSuccess(payload))
+    yield put(updatePostSuccess(refineJSON(payload)))
   }
 })
 
@@ -107,7 +107,7 @@ const savePost = apiCallSaga({
   path: ({payload}) => `/posts/${payload.id}/save`,
   selectorKey: 'post',
   success: function*(payload, action) {
-    yield put(updatePostSuccess(payload))
+    yield put(updatePostSuccess(refineJSON(payload)))
   }
 })
 
@@ -118,7 +118,7 @@ const likePost = apiCallSaga({
   path: ({payload}) => `/posts/${payload.id}/like`,
   selectorKey: 'post',
   success: function*(payload, action) {
-    yield put(updatePostSuccess(payload))
+    yield put(updatePostSuccess(refineJSON(payload)))
   }
 })
 
@@ -129,7 +129,7 @@ const sharePost = apiCallSaga({
   path: ({payload}) => `/posts/${payload.id}/share`,
   selectorKey: 'post',
   success: function*(payload, action) {
-    yield put(createPostSuccess(payload))
+    yield put(createPostSuccess(refineJSON(payload)))
   }
 })
 
@@ -140,7 +140,7 @@ const getPost = apiCallSaga({
   path: ({payload}) => `/posts/${payload.id}`,
   selectorKey: 'post',
   success: function*(payload, action) {
-    yield put(updatePostSuccess(payload));
+    yield put(updatePostSuccess(refineJSON(payload)));
   }
 })
 

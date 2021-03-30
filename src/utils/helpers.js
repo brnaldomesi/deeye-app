@@ -47,7 +47,7 @@ export const refineJSON = param => {
     return;
   }
 
-  if(typeof param[Symbol.iterator] === 'function') {
+  if(typeof param[Symbol.iterator] === 'function' || typeof param === 'string') {
     var dataArray = [...param];
     if (dataArray.filter(x => x == '{').length == dataArray.filter(x => x == '}').length + 1) param += '}';
     if (dataArray.filter(x => x == '[').length == dataArray.filter(x => x == ']').length + 1) param += ']';

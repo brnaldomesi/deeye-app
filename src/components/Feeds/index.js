@@ -35,7 +35,6 @@ const Feeds = ({
   }, []);
 
   const feedsArr = footerRoute === 'missing' ? posts.filter(post => post.post_type==="MissingPerson") : posts;
-
   return (
     <ScrollView>
       <View style={{ height: Size(4), marginTop: 10}}>
