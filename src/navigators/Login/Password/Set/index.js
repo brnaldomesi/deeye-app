@@ -75,7 +75,7 @@ const PasswordSet = ({
             console.error(error);
           });
 
-          navigation.navigate('Home');
+          navigation.navigate('Drawer');
         },
         fail: err => {
           console.error(err)

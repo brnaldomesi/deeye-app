@@ -9,7 +9,9 @@
 import {
   ActivityIndicator,
   PermissionsAndroid,
-  SafeAreaView
+  SafeAreaView,
+  Alert,
+  BackHandler
 } from 'react-native';
 import React, { useEffect } from 'react';
 import { persistor, store } from 'src/redux';
@@ -65,6 +67,27 @@ const App: () => React$Node = () => {
     getPermissions();
     navigator.geolocation = require('@react-native-community/geolocation');
   }, [])
+
+  useEffect(() => {
+    // const backAction = () => {
+    //   Alert.alert("Hold on!", "Are you sure you want to go back?", [
+    //     {
+    //       text: "Cancel",
+    //       onPress: () => null,
+    //       style: "cancel"
+    //     },
+    //     { text: "YES", onPress: () => BackHandler.exitApp() }
+    //   ]);
+    //   return true;
+    // };
+    //
+    // const backHandler = BackHandler.addEventListener(
+    //   "hardwareBackPress",
+    //   backAction
+    // );
+    //
+    // return () => backHandler.remove();
+  }, []);
 
   return (
     <Provider store={store}>

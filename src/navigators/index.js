@@ -62,11 +62,12 @@ const StackNavigator = ({isAuthenticated}) => {
     </View>
   } else {
     return <Stack.Navigator>
-      {initData.missing_post_content !== null && <Stack.Screen
+      {initData.missing_post_content !== undefined && <Stack.Screen
         name="Init"
         component={Init}
+        initialParams={{data: initData}}
         options={{
-          headerShown: false
+          headerShown: false,
         }}
       />}
       {isAuthenticated ? <>
