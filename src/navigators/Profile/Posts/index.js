@@ -19,8 +19,10 @@ const Posts = ({
   useFocusEffect(
     useCallback(() => {
       AsyncStorage.getItem('profile').then(profile => getUserPostsList({id: JSON.parse(profile).id}));
-    }, [userPosts])
+    }, [getUserPostsList])
   );
+
+  console.log(typeof userPosts, userPosts);
 
   return (
     <>
