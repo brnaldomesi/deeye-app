@@ -6,26 +6,25 @@
  * @flow strict-local
  */
 
-import React, {useCallback, useState} from 'react';
+import * as RootNavigation from 'src/navigators/Ref';
 import * as gStyle from 'src/styles'
-import {Text, View, TouchableOpacity, ScrollView, Image} from 'react-native';
 
-import styles from './styles';
-import {useFocusEffect} from '@react-navigation/native';
-import * as RootNavigation from "../Ref";
-import {createStructuredSelector} from "reselect";
-import {isAuthenticatedSelector} from "../../redux/modules/auth";
+import {Image, ScrollView, Text, TouchableOpacity, View} from 'react-native';
+import React, {useCallback, useState} from 'react';
+
+import {IMAGES_PATH} from "../../config/constants";
+import {Size} from "../../styles";
 import {compose} from "redux";
 import {connect} from "react-redux";
-import {Size} from "../../styles";
-import {IMAGES_PATH} from "../../config/constants";
+import {createStructuredSelector} from "reselect";
+import {isAuthenticatedSelector} from "../../redux/modules/auth";
+import styles from './styles';
+import {useFocusEffect} from '@react-navigation/native';
 
-const Init = (props, {route, navigation, isAuthenticated}) => {
-
-  console.log(props)
+const Init = ({route, navigation, isAuthenticated}) => {
 
   const handleNext = () => {
-    navigation.navigate(isAuthenticated ? 'Drawer' : 'OnBoarding');
+    RootNavigation.navigate(isAuthenticated ? 'Drawer' : 'OnBoarding');
   };
 
   return (
