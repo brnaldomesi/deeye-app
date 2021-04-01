@@ -1,8 +1,8 @@
 export const COMETCHAT_CONSTANTS = {
-  APP_ID: "290700b5cce1c74",
+  APP_ID: "3153434566aa735",
   REGION: "us",
-  AUTH_KEY: "86bebe50eea1b23257f18f2dc267483a88392812",
-  API_KEY: "19741cd83412087e6a84b5c134979bc16a98a0bb",
+  AUTH_KEY: "8ec5112b5321879b8e5c2f09e6198701ee4bce4b",
+  API_KEY: "fd529423daf8ab28d16c7f856f0eb19e99e3727b",
 };
 
 export const IMAGES_PATH = {
@@ -104,4 +104,6 @@ export const IMAGES_PATH = {
   popup_circle: require('src/assets/images/popup_circle.png'),
   search: require('src/assets/images/Path272.png'),
   cancel: require('src/assets/images/Iconmaterialclose.png'),
+  chat: require('src/assets/images/init_msg.png'),
+  call: require('src/assets/images/init_call.png'),
 };

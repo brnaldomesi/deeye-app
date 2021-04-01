@@ -52,7 +52,6 @@ const App: () => React$Node = () => {
     .build();
 
   useEffect(() => {
-    SplashScreen.hide();
     CometChat.init(COMETCHAT_CONSTANTS.APP_ID, appSetting).then(
       () => {
         console.log("Initialization completed successfully");

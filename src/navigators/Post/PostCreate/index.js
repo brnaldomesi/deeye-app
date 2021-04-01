@@ -2,23 +2,25 @@ import {
   Alert,
   Image,
   Text,
-  TextInput,
+  TextInput, TouchableOpacity,
   View
 } from 'react-native';
 import React, {
   useCallback,
   useRef,
-  useState
+  useState,
+  useEffect,
+  useMemo
 } from 'react';
 import {
   basicPadding,
-  bgWhite,
+  bgWhite, d_flex,
   flexOne,
   flexRow,
-  itemsCenter,
+  itemsCenter, mt1,
   mx1,
   p1,
-  roundMediumSizeButtonStyle,
+  roundMediumSizeButtonStyle, Size,
   textDot7
 } from 'src/styles';
 import { createPost, uploadFile } from 'src/redux/modules/posts';
@@ -36,6 +38,9 @@ import VideoPlayer from 'react-native-video-controls';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import styles from './styles';
+import LinkPreview from "react-native-link-preview";
+import debouce from 'lodash.debounce';
+import { validURL } from 'src/utils/helpers'
 
 const androidCameraPermissionOptions = {
   title: 'Permission to use camera',
@@ -51,6 +56,7 @@ const PostCreate = ({
   createPost
 }) => {
   const [initState, setInitState] = useState(true);
+  const [initUrl, setInitUrl] = useState(false);
   const [description, setDescription] = useState('');
   const [slide, setSlide] = useState(0)
   const [cameraView, setCameraView] = useState(false)
@@ -59,6 +65,43 @@ const PostCreate = ({
   const camera = useRef(null)
   const slider = useRef(null)
   const { postType } = route.params;
+
+  //parse
+  const [title, setTitle] = useState('');
+  const [icon, setIcon] = useState(null);
+  const [thumbnail, setThumbnail] = useState(null);
+
+  const updateQuery = () => {
+
+    if (posts.length !== 0) {
+      if (title !== '') {
+        emptyUrlContent()
+      }
+      return;
+    }
+
+    const isUrl = validURL(description);
+
+    if (isUrl) {
+      handleParse();
+    } else {
+      emptyUrlContent()
+    }
+  };
+
+  const delayedQuery = useCallback(debouce(updateQuery, 500), [description, posts]);
+
+  useEffect(() => {
+    delayedQuery();
+
+    return delayedQuery.cancel;
+  }, [description, delayedQuery]);
+
+  const emptyUrlContent = () => {
+    setTitle('');
+    setThumbnail(null);
+    setIcon(null);
+  }
 
   const handleUpload = (data, type) => {
     const formData = new FormData();
@@ -187,6 +230,50 @@ const PostCreate = ({
     navigation.navigate('MissingPerson');
   };
 
+  const handleParse = () => {
+    LinkPreview.getPreview(description).then(data => {
+      switch (data.mediaType) {
+        case 'website':
+          setTitle(data.title);
+          setThumbnail(data.images.length !== 0 ? data.images[0] : null);
+          setIcon(data.favicons.length !== 0 ? data.favicons[0] : null);
+          break;
+        case 'video.other':
+          setTitle(data.title);
+          setThumbnail(data.images.length !== 0 ? data.images[0] : null);
+          setIcon(data.favicons.length !== 0 ? data.favicons[0] : null);
+          break;
+        case 'image':
+          setTitle('Image');
+          setThumbnail(data.url);
+          setIcon(data.favicons.length !== 0 ? data.favicons[0] : null);
+          break;
+        case 'audio':
+          setTitle('Audio');
+          setThumbnail(null);
+          setIcon(data.favicons.length !== 0 ? data.favicons[0] : null);
+          break;
+        case 'video':
+          setTitle('Video');
+          setThumbnail(null);
+          setIcon(data.favicons.length !== 0 ? data.favicons[0] : null);
+          break;
+        case 'application':
+          setTitle('Application');
+          setThumbnail(null);
+          setIcon(data.favicons.length !== 0 ? data.favicons[0] : null);
+          break;
+        default:
+          emptyUrlContent()
+          break;
+      }
+    });
+  };
+
+  const handleChange = (text) => {
+    setUrl(text);
+  };
+
   return (
     <View style={styles.root}>
       <View style={[flexOne, bgWhite]}>
@@ -195,7 +282,7 @@ const PostCreate = ({
           handlePost={handlePost}
           title="Share Post"
           rightButton
-          buttonPrimary={!initState}
+          buttonPrimary={description !== ''}
         />
         {posts.length > 0 &&
           <View style={styles.sliderView}>
@@ -241,51 +328,66 @@ const PostCreate = ({
             value={description}
             textAlignVertical="top"
             placeholder="What would you like to share?"
-            editable={!initState}
           />
         </View>
-      </View>
-      {initState ? (
-        <View style={styles.bottomMenu}>
-          <View style={styles.bottomMenuHeader}>
-            <View style={styles.bar} />
-          </View>
-          <View style={basicPadding}>
-            <View style={p1}>
-              <IconButton
-                onPress={handleAddPostPress(DocumentPicker.types.images)}
-                text='Add Photo'
-                imageName="photoSizeSelect1"
-                aspectRatio={52/43}
-              />
-            </View>
-            <View style={p1}>
-              <IconButton
-                onPress={handleAddPostPress(DocumentPicker.types.video)}
-                text='Add Video'
-                imageName="featherVideo1"
-                aspectRatio={104/67}
-              />
-            </View>
-            <View style={p1}>
-              <IconButton
-                onPress={handleTakePhotoPress}
-                text='Take a Photo'
-                imageName="camera"
-                aspectRatio={113/94}
-              />
-            </View>
-            <View style={p1}>
-              <IconButton
-                onPress={handleMissing}
-                text='Missing Person Post'
-                imageName="shapeActive3"
-                aspectRatio={31/42}
-              />
+
+        <View style={p1}>
+          {/*<TextInput placeholder={'url'} value={url} onChange={handleChange}/>*/}
+          {/*<TouchableOpacity*/}
+          {/*  onPress={handleParse}>*/}
+          {/*  <Text>Parse</Text>*/}
+          {/*</TouchableOpacity>*/}
+          <View style={[mt1]}>
+            <Image style={{width: '100%', height: Size(15), resizeMode: 'contain'}} source={{uri: thumbnail}}/>
+            <View style={d_flex}>
+              <Image style={{width: Size(1), height: Size(1), resizeMode: 'contain'}} source={{uri: icon}}/>
+              <Text>{' '}{title}</Text>
             </View>
           </View>
         </View>
-      ) : (
+
+      </View>
+      {/*{initState ? (*/}
+      {/*  <View style={styles.bottomMenu}>*/}
+      {/*    <View style={styles.bottomMenuHeader}>*/}
+      {/*      <View style={styles.bar} />*/}
+      {/*    </View>*/}
+      {/*    <View style={basicPadding}>*/}
+      {/*      <View style={p1}>*/}
+      {/*        <IconButton*/}
+      {/*          onPress={handleAddPostPress(DocumentPicker.types.images)}*/}
+      {/*          text='Add Photo'*/}
+      {/*          imageName="photoSizeSelect1"*/}
+      {/*          aspectRatio={52/43}*/}
+      {/*        />*/}
+      {/*      </View>*/}
+      {/*      <View style={p1}>*/}
+      {/*        <IconButton*/}
+      {/*          onPress={handleAddPostPress(DocumentPicker.types.video)}*/}
+      {/*          text='Add Video'*/}
+      {/*          imageName="featherVideo1"*/}
+      {/*          aspectRatio={104/67}*/}
+      {/*        />*/}
+      {/*      </View>*/}
+      {/*      <View style={p1}>*/}
+      {/*        <IconButton*/}
+      {/*          onPress={handleTakePhotoPress}*/}
+      {/*          text='Take a Photo'*/}
+      {/*          imageName="camera"*/}
+      {/*          aspectRatio={113/94}*/}
+      {/*        />*/}
+      {/*      </View>*/}
+      {/*      <View style={p1}>*/}
+      {/*        <IconButton*/}
+      {/*          onPress={handleMissing}*/}
+      {/*          text='Missing Person Post'*/}
+      {/*          imageName="shapeActive3"*/}
+      {/*          aspectRatio={31/42}*/}
+      {/*        />*/}
+      {/*      </View>*/}
+      {/*    </View>*/}
+      {/*  </View>*/}
+      {/*) : (*/}
         <View style={[flexRow, p1]}>
           <View style={flexOne}>
             <MyButton onPress={handleAddPostPress(DocumentPicker.types.images)}>
@@ -312,7 +414,7 @@ const PostCreate = ({
             </MyButton>
           </View>
         </View>
-      )}
+      {/*)}*/}
     </View>
   )
 }
