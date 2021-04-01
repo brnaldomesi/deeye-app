@@ -11,26 +11,63 @@ import PostDetailForComment from './Post/PostDetailForComment';
 import PostEdit from './Post/PostEdit';
 import PostNew from './Post/PostNew';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createStructuredSelector } from 'reselect'
 import { isAuthenticatedSelector } from 'src/redux/modules/auth';
-import AntIcon from "react-native-vector-icons/AntDesign";
-import {Colors} from "../styles";
 import MCIcon from "react-native-vector-icons/MaterialCommunityIcons";
-import Follow from "./Follow";
 import SharePost from "./Post/SharePost";
+import SplashScreen from "react-native-splash-screen";
+import axios from 'axios';
+import {BASE_URL} from "src/config/apipath";
+import {refineJSON} from "src/utils/helpers";
 import Init from "./Init/Init";
-import {addIntroSelector} from "../redux/modules/alert";
+import {ActivityIndicator, View} from "react-native";
+import * as gStyle from 'src/styles'
 
 const Stack = createStackNavigator();
 
-const StackNavigator = ({isAuthenticated, isIntro}) => {
+const StackNavigator = ({isAuthenticated}) => {
 
-  return (
-    <Stack.Navigator>
+  const [call, setCall] = useState(false);
+  const [initData, setInitData] = useState({});
+
+  useEffect(() => {
+    SplashScreen.hide();
+
+    const id = 0;
+
+    axios({
+      url: BASE_URL + '/missing/user_id=' + id,
+      method: 'get',
+    })
+      .then(function (data) {
+        const item = refineJSON(data.data);
+        setInitData(item);
+        setCall(true);
+
+      }).catch((error) => {
+      console.log('error')
+    });
+
+  }, []);
+
+  if (!call) {
+    return <View style={[gStyle.justifyCenter, gStyle.flexOne]}>
+      <ActivityIndicator size={"large"} color={'#0000ff'}/>
+    </View>
+  } else {
+    return <Stack.Navigator>
+      {initData.missing_post_content !== null && <Stack.Screen
+        name="Init"
+        component={Init}
+        options={{
+          headerShown: false,
+          data: initData
+        }}
+      />}
       {isAuthenticated ? <>
           <Stack.Screen
             name="Drawer"
@@ -104,7 +141,7 @@ const StackNavigator = ({isAuthenticated, isIntro}) => {
             component={Alert}
             options={{
               headerShown: true,
-              headerBackImage: () => <MCIcon name="format-align-left" size={25} />
+              headerBackImage: () => <MCIcon name="format-align-left" size={25}/>
             }}
           />
         </>
@@ -116,8 +153,8 @@ const StackNavigator = ({isAuthenticated, isIntro}) => {
               headerShown: false
             }}
           />
-          <Stack.Screen 
-            name="Login" 
+          <Stack.Screen
+            name="Login"
             component={Login}
             options={{
               headerShown: false
@@ -126,7 +163,7 @@ const StackNavigator = ({isAuthenticated, isIntro}) => {
         </>
       }
     </Stack.Navigator>
-  );
+  }
 };
 
 StackNavigator.propTypes = {
@@ -135,7 +172,6 @@ StackNavigator.propTypes = {
 
 const selector = createStructuredSelector({
   isAuthenticated: isAuthenticatedSelector,
-  isIntro: addIntroSelector,
 })
 
 export default compose(

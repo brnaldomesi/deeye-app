@@ -130,15 +130,13 @@ const styles = StyleSheet.create({
   bottomPopup: {
     backgroundColor: 'white',
     width: '100%',
-    height: Size(17),
-    marginTop: Size(3),
+    marginTop: Size(1),
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
   },
 
   bottomPopupAvatarView: {
     width: '100%',
-    position: 'absolute',
     display: 'flex',
     flexDirection: 'row',
     marginTop: Size(-2),

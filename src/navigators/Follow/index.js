@@ -6,7 +6,7 @@ import {
   View,
   TextInput
 } from 'react-native';
-import React, {useEffect, useState, useMemo} from 'react';
+import React, {useEffect, useState, useMemo, useRef} from 'react';
 import styles from './styles';
 import * as gStyle from 'src/styles'
 import {IMAGES_PATH} from "../../config/constants";
@@ -22,17 +22,18 @@ import {compose} from "redux";
 import {connect} from "react-redux";
 import { ASSET_BASE_URL } from 'src/config/apipath';
 import AsyncStorage from "@react-native-community/async-storage";
-import axios from 'axios';
+import RBSheet from 'react-native-raw-bottom-sheet';
 
 const Follow = ({navigation, getFollowList, setFollow, follows}) => {
 
-  const [isDetail, setIsDetail] = useState(false);
   const [tap, setTap] = useState('left');
   const [isEdit, setIsEdit] = useState(false);
   const [searchText, setSearchText] = useState('');
   const [avatarPath, setAvatarPath] = useState(null);
   const [avatarName, setAvatarName] = useState('');
   const [profile, setProfile] = useState({});
+
+  const refRBSheet = useRef();
 
   AsyncStorage.getItem('profile').then(profile => {
     setAvatarPath(ASSET_BASE_URL + JSON.parse(profile).avatar_path);
@@ -57,7 +58,6 @@ const Follow = ({navigation, getFollowList, setFollow, follows}) => {
 
   const handleChange = (object) => {
     setSearchText(object);
-
     setIsEdit(object !== '')
   };
 
@@ -69,6 +69,11 @@ const Follow = ({navigation, getFollowList, setFollow, follows}) => {
 
   const onTap = type => () => {
     setTap(type);
+  };
+
+  const handleOpen = (item) => () => {
+    setProfile(item);
+    refRBSheet.current.open();
   };
 
   const handleDetail = (id, type) => () => {
@@ -144,10 +149,10 @@ const Follow = ({navigation, getFollowList, setFollow, follows}) => {
       <ScrollView>
         {follows && follows.map((item, index) => {
           return tap === 'left' ? <ListItem key={index} bottomDivider>
-            {item.avatar_path && <Avatar onPress={() => {
-              setIsDetail(true)
-              setProfile(item)
-            }} rounded source={{uri: ASSET_BASE_URL + item.avatar_path}}></Avatar>}
+            {item.avatar_path && <Avatar
+              onPress={handleOpen(item)}
+              rounded
+              source={{uri: ASSET_BASE_URL + item.avatar_path}}/>}
             <ListItem.Content>
               <ListItem.Title>{item.first_name}</ListItem.Title>
               <ListItem.Subtitle>{item.last_name}</ListItem.Subtitle>
@@ -159,10 +164,10 @@ const Follow = ({navigation, getFollowList, setFollow, follows}) => {
               <Text style={styles.itemBtnFollow}>follow</Text>
             </TouchableOpacity>
           </ListItem> : <ListItem key={index} bottomDivider>
-            {item.avatar_path && <Avatar onPress={() => {
-              setIsDetail(true)
-              setProfile(item)
-            }} rounded source={{uri: ASSET_BASE_URL + item.avatar_path}}></Avatar>}
+            {item.avatar_path && <Avatar
+              onPress={handleOpen(item)}
+              rounded
+              source={{uri: ASSET_BASE_URL + item.avatar_path}}/>}
             <ListItem.Content>
               <ListItem.Title>{item.first_name}</ListItem.Title>
               <ListItem.Subtitle>{item.last_name}</ListItem.Subtitle>
@@ -176,16 +181,24 @@ const Follow = ({navigation, getFollowList, setFollow, follows}) => {
           </ListItem>
         })}
       </ScrollView>
-      <BottomSheet isVisible={isDetail}>
+      <RBSheet
+        ref={refRBSheet}
+        closeOnDragDown={true}
+        closeOnPressMask={false}
+        customStyles={{
+          wrapper: {
+            backgroundColor: '#00000060'
+          },
+          container: {
+            backgroundColor: 'transparent'
+          },
+          draggableIcon: {
+            backgroundColor: 'transparent'
+          },
+        }}
+        >
         <View>
           <View style={styles.bottomPopup}>
-            <View>
-              <TouchableOpacity style={{width: Size(4)}} onPress={() => {
-                setIsDetail(false)
-              }}>
-                <Text style={styles.bottomPopupCancel}>Cancel</Text>
-              </TouchableOpacity>
-            </View>
             <View style={styles.bottomPopupAvatarView}>
               <Avatar style={[styles.bottomPopupAvatar]} rounded source={{uri: ASSET_BASE_URL + profile.avatar_path}}/>
             </View>
@@ -201,7 +214,7 @@ const Follow = ({navigation, getFollowList, setFollow, follows}) => {
                 <Text style={styles.bottomPopupFollowing}>following</Text>
               </TouchableOpacity>
             </View>
-            <View style={[gStyle.mt2, styles.d_flex_row, {justifyContent: 'space-around'}]}>
+            <View style={[gStyle.mt1, styles.d_flex_row, {justifyContent: 'space-around'}]}>
               <TouchableOpacity>
                 <View style={styles.center}>
                   <Image style={[styles.bottomImg, styles.m_auto]} source={IMAGES_PATH.power}/>
@@ -209,6 +222,9 @@ const Follow = ({navigation, getFollowList, setFollow, follows}) => {
                 <Text style={styles.bottomImgText}>
                   View Profile
                 </Text>
+                <View style={{height: Size(1)}}>
+
+                </View>
               </TouchableOpacity>
               <TouchableOpacity>
                 <View style={styles.center}>
@@ -217,6 +233,9 @@ const Follow = ({navigation, getFollowList, setFollow, follows}) => {
                 <Text style={styles.bottomImgText}>
                   Mute Dennis
                 </Text>
+                <View style={{height: Size(1)}}>
+
+                </View>
               </TouchableOpacity>
               <TouchableOpacity>
                 <View style={styles.center}>
@@ -225,11 +244,14 @@ const Follow = ({navigation, getFollowList, setFollow, follows}) => {
                 <Text style={styles.bottomImgText}>
                   Chat Dennis
                 </Text>
+                <View style={{height: Size(1)}}>
+
+                </View>
               </TouchableOpacity>
             </View>
           </View>
         </View>
-      </BottomSheet>
+      </RBSheet>
     </View>
   )
 };

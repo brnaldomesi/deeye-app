@@ -13,7 +13,6 @@ import {
   pDot7,
   px1,
   px2,
-  py1,
   pyDot7,
   resizeContain,
   rounded1,
@@ -30,7 +29,7 @@ import {
   View
 } from 'react-native';
 import React, { useState } from 'react';
-import { createPost, uploadFile } from 'src/redux/modules/posts';
+import { uploadFile } from 'src/redux/modules/posts';
 
 import { Button } from 'react-native-elements';
 import { CheckBox } from 'react-native-elements'
@@ -46,7 +45,6 @@ import styles from './styles';
 const ContactInfo = ({
   route,
   navigation,
-  createPost,
   uploadFile
 }) => {
   const [contactPhoneNumber1, setContactPhoneNumber1] = useState('');
@@ -68,17 +66,7 @@ const ContactInfo = ({
     formData.missing_post.badge_awarded = "Pending";
 
     navigation.navigate('Review', {formData});
-
-    // createPost({
-    //   data: formData,
-    //   success: res => {
-    //     navigation.navigate('Home');
-    //   },
-    //   fail: err => {
-    //     console.error(err)
-    //   }
-    // })
-  }
+  };
 
   const handleUpload = (data) => {
     const formData = new FormData();
@@ -254,14 +242,12 @@ const ContactInfo = ({
 };
 
 ContactInfo.propTypes = {
-  createPost: PropTypes.func,
   uploadFile: PropTypes.func
-}
+};
 
 const actions = {
-  createPost,
   uploadFile
-}
+};
 
 export default compose(
   connect(null, actions)

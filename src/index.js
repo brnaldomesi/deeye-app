@@ -4,7 +4,6 @@ import { Alert, StatusBar } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import {
   addBadgeCount,
-  addIntro,
   badgeCountSelector,
   setLocation,
 } from "./redux/modules/alert";
@@ -26,11 +25,8 @@ const Root = ({
   addBadgeCount,
   badges, 
   setLocation,
-  addIntro
 }) => {
   useEffect(() => {
-    addIntro(false);
-
     fcmService.registerAppWithFCM();
     fcmService.register(onRegister, onNotification, onOpenNotification);
     localNotificationService.configure(onOpenNotification);
@@ -86,7 +82,6 @@ const actions = {
   authSetFcmToken, 
   addBadgeCount,
   setLocation,
-  addIntro,
 };
 
 const selector = createStructuredSelector({

@@ -11,8 +11,3 @@ export const badgeCountSelector = createSelector(
   alertsSelector,
   fp.get('badgeCount')
 );
-
-export const addIntroSelector = createSelector(
-  alertsSelector,
-  fp.get('isIntro')
-);
