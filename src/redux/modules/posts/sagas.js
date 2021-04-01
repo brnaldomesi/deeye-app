@@ -47,6 +47,8 @@ const createPost = apiCallSaga({
   path: '/posts',
   selectorKey: 'post',
   success: function*(payload, action) {
+    console.log("###############", typeof payload)
+    console.log("***************", refineJSON(payload))
     yield put(createPostSuccess(refineJSON(payload)))
   }
 })
