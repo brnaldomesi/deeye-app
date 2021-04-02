@@ -64,7 +64,7 @@ const PostCreate = ({
   const [attachments, setAttachments] = useState([]);
   const camera = useRef(null)
   const slider = useRef(null)
-  const { postType } = route.params;
+  const [postType, setPostType] = useState('text');
 
   //parse
   const [title, setTitle] = useState('');
@@ -83,8 +83,10 @@ const PostCreate = ({
     const isUrl = validURL(description);
 
     if (isUrl) {
+      setPostType('link');
       handleParse();
     } else {
+      setPostType('text');
       emptyUrlContent()
     }
   };
@@ -101,7 +103,7 @@ const PostCreate = ({
     setTitle('');
     setThumbnail(null);
     setIcon(null);
-  }
+  };
 
   const handleUpload = (data, type) => {
     const formData = new FormData();
@@ -111,6 +113,8 @@ const PostCreate = ({
       headers: { 'Content-Type': 'multipart/form-data' },
       data: formData,
       success: res => {
+        setPostType(type);
+
         const refinedRes = refineJSON(res);
         setAttachments(attachments => attachments.concat([{
           id: refinedRes.id,
@@ -129,7 +133,8 @@ const PostCreate = ({
       data: {
         post_type: postType,
         attachments,
-        description
+        description: postType === 'link' ? '' : description,
+        link: postType === 'link' ? description : ''
       },
       success: res => {
         navigation.navigate('Home');
@@ -157,7 +162,10 @@ const PostCreate = ({
     }
   }, [])
 
-  const handleTakePhotoPress = useCallback(() => setCameraView(true), [])
+  const handleTakePhotoPress = useCallback(() => {
+    setCameraView(true)
+  }, [])
+
   const handleTakePicture = useCallback(async () => {
     if (camera.current) {
       const options = { quality: 0.5, base64: true };
@@ -178,7 +186,10 @@ const PostCreate = ({
     }
   }, [])
 
-  const handleCancelCamera = useCallback(() => setCameraView(false), [])
+  const handleCancelCamera = useCallback(() => {
+    setCameraView(false);
+  }, [])
+
   const handleDeletePostPress = useCallback(
     (index, uri) => () =>
       Alert.alert(
@@ -191,6 +202,7 @@ const PostCreate = ({
           {
             text: 'Yes',
             onPress: () => {
+              setPostType('text');
               setPosts(posts => posts.filter((item, key) => key !== index ));
               setAttachments(attachments => attachments.filter(attachment => attachment.uri !== uri));
               if(slider.current) {
@@ -263,15 +275,16 @@ const PostCreate = ({
           setThumbnail(null);
           setIcon(data.favicons.length !== 0 ? data.favicons[0] : null);
           break;
+        case 'article':
+          setTitle(data.title);
+          setThumbnail(data.images.length !== 0 ? data.images[0] : null);
+          setIcon(data.favicons.length !== 0 ? data.favicons[0] : null);
+          break;
         default:
           emptyUrlContent()
           break;
       }
     });
-  };
-
-  const handleChange = (text) => {
-    setUrl(text);
   };
 
   return (

@@ -21,6 +21,7 @@ import { createStructuredSelector } from 'reselect'
 import { fcmTokenSelector } from 'src/redux/modules/auth';
 import styles from './styles';
 import { useDeviceName } from 'react-native-device-info';
+import * as RootNavigation from "../../Ref";
 
 const Password = ({ 
   route, 
@@ -36,6 +37,9 @@ const Password = ({
   const handleConfirm = () => {
     authLogin({ 
       data: { email, password, deviceName, fcmToken },
+      success: () => {
+        RootNavigation.navigate('Drawer');
+      },
       fail: err => {
         setError(1);
       }

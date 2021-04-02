@@ -28,14 +28,16 @@ import {
   textBase,
   textWhite,
   textXl,
-  textYellow100
+  textYellow100, d_flex
 } from 'src/styles';
 import {
   Dimensions,
   Image,
   Text,
   TouchableOpacity,
-  View
+  View,
+  Linking,
+  ActivityIndicator
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 
@@ -57,6 +59,8 @@ import {connect} from 'react-redux';
 import {getDiffFromToday} from 'src/utils/helpers';
 import {setFollow} from "../../../redux/modules/follow";
 import styles from './styles';
+import LinkPreview from "react-native-link-preview";
+import * as gStyle from "../../../styles";
 
 const Feed = ({
                 post,
@@ -69,6 +73,7 @@ const Feed = ({
 
   const [missingCollpase, setMissingCollpase] = useState(true);
   const [thumbsize, setThumbsize] = useState({width: Dimensions.get('window').width, height: Size(13)});
+  const [isLoading, setIsLoading] = useState(false);
 
   const postType = post.post_type;
   const sourceType = postType === 'Share' ? post.post_source.post_type : postType
@@ -78,17 +83,77 @@ const Feed = ({
   const uri = postAttachment ? ASSET_BASE_URL + postAttachment.path : undefined;
   const updatedAt = postType === 'Share' ? post.post_source.updated_at : post.updated_at;
   const description = postType === 'Share' ? post.post_source.description : post.description;
+  const link = postType === 'Share' ? post.post_source.link : post.link;
   const avatarPath = postType === 'Share' ? ASSET_BASE_URL + post.post_source.author.avatar_path : ASSET_BASE_URL + post.author.avatar_path;
+
+  //parse
+  const [title, setTitle] = useState('');
+  const [icon, setIcon] = useState(null);
+  const [thumbnail, setThumbnail] = useState(null);
+  const [isVideo, setIsVideo] = useState(false);
 
   useEffect(() => {
     if (uri) {
       Image.getSize(uri, (width, height) => {
         setThumbsize({width, height});
       }, (error) => {
-        console.error(error)
+        console.log(error)
       });
     }
+
+    if (link !== '') {
+      handleParse();
+    }
   }, [uri])
+
+  const handleParse = () => {
+    LinkPreview.getPreview(link).then(data => {
+      setIsLoading(true);
+      switch (data.mediaType) {
+        case 'website':
+          setTitle(data.title);
+          setThumbnail(data.images.length !== 0 ? data.images[0] : null);
+          setIcon(data.favicons.length !== 0 ? data.favicons[0] : null);
+          break;
+        case 'video.other':
+          setTitle(data.title);
+          setThumbnail(data.images.length !== 0 ? data.images[0] : null);
+          setIcon(data.favicons.length !== 0 ? data.favicons[0] : null);
+          break;
+        case 'image':
+          setTitle('Image');
+          setThumbnail(data.url);
+          setIcon(data.favicons.length !== 0 ? data.favicons[0] : null);
+          break;
+        case 'audio':
+          setTitle('Audio');
+          setThumbnail(null);
+          setIcon(data.favicons.length !== 0 ? data.favicons[0] : null);
+          break;
+        case 'video':
+          setIsVideo(true);
+          setTitle('Video');
+          setThumbnail(null);
+          setIcon(data.favicons.length !== 0 ? data.favicons[0] : null);
+          break;
+        case 'application':
+          setTitle('Application');
+          setThumbnail(null);
+          setIcon(data.favicons.length !== 0 ? data.favicons[0] : null);
+          break;
+        case 'article':
+          setTitle(data.title);
+          setThumbnail(data.images.length !== 0 ? data.images[0] : null);
+          setIcon(data.favicons.length !== 0 ? data.favicons[0] : null);
+          break;
+        default:
+          setTitle('');
+          setThumbnail(null);
+          setIcon(null);
+          break;
+      }
+    });
+  };
 
   const navigatePostDetail = id => () => {
     RootNavigation.navigate('PostDetail', {id});
@@ -145,7 +210,7 @@ const Feed = ({
         </View>
       </View>
       }
-      <View style={relative}>
+      {(postType !== 'link' && postType !== 'text') && <View style={relative}>
         {sourceType === "Video" ? (
           <VideoPlayer
             source={{uri}}
@@ -179,7 +244,7 @@ const Feed = ({
             }
           </TouchableOpacity>
         )}
-      </View>
+      </View>}
       <View style={p1}>
         <View style={[flexRow, justifyBetween]}>
           <View style={flexRow}>
@@ -201,14 +266,33 @@ const Feed = ({
             <PopupMenu post={post} isMyPost={post.profile_id === profileId}/>
           </View>
         </View>
-        <View style={[pl1, mtp5]}>
+        <View style={[mtp5]}>
           {sourceType === 'MissingPerson' ? (
             <>
               <Text style={[textXl, fontWeightBold, primaryColor]}>{missingContent.fullname}</Text>
               <Text>AKA {missingContent.aka}</Text>
             </>
           ) : (
-            <Text>{description}</Text>
+            postType !== 'link' ? <Text>{description}</Text> :
+              <TouchableOpacity onPress={() => {
+                Linking.openURL(link);
+              }
+              }>
+                <Text>{link}</Text>
+                {!isLoading ? <View style={[gStyle.justifyCenter, gStyle.flexOne, {height: Size(15)}]}>
+                  <ActivityIndicator color={'#00ff00'}/>
+                </View> : <View style={{marginTop: 10, marginBottom: 10}}>
+                  <View>
+                    {isVideo ? <VideoPlayer source={{uri: link}} style={{width: '100%', height: Size(15), resizeMode: 'contain'}}/> :
+                      <Image style={{width: '100%', height: Size(15), resizeMode: 'contain'}}
+                             source={{uri: thumbnail}}/>}
+                    <View style={d_flex}>
+                      <Image style={{width: Size(1), height: Size(1), resizeMode: 'contain'}} source={{uri: icon}}/>
+                      <Text>{' '}{title}</Text>
+                    </View>
+                  </View>
+                </View>}
+              </TouchableOpacity>
           )}
         </View>
         {sourceType === 'MissingPerson' &&

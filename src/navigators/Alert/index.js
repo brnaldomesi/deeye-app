@@ -46,6 +46,7 @@ const Alert = ({getAlertList, alerts, emptyBadgeCount}) => {
             hide: styles.alert_color_red,
             report: styles.alert_color_red,
             reply: styles.alert_color_sky,
+            follow: styles.alert_color_green,
           };
           const avatar_badge = {
             like: IMAGES_PATH.alert_support,
@@ -54,7 +55,7 @@ const Alert = ({getAlertList, alerts, emptyBadgeCount}) => {
             share: IMAGES_PATH.alert_share,
             hide: IMAGES_PATH.alert_support,
             report: IMAGES_PATH.alert_support,
-            reply: IMAGES_PATH.alert_reply
+            follow: IMAGES_PATH.alert_request
           };
           const content = {
             like: item.type === 'Post' ? item.post.missing_post_content === null ? 'support your post' : 'support your missing person post' : 'support your comment',
@@ -64,6 +65,7 @@ const Alert = ({getAlertList, alerts, emptyBadgeCount}) => {
             hide: item.type === 'Post' ? item.post.missing_post_content === null ? 'hide your post' : 'hide your missing person post' : 'hide your comment',
             report: item.type === 'Post' ? item.post.missing_post_content === null ? 'report your post' : 'report your missing person post' : 'report your comment',
             reply: item.type === 'Post' ? item.post.missing_post_content === null ? 'reply your post' : 'reply your missing person post' : 'reply your comment',
+            follow: 'is following you now',
           };
 
           return item.action_type !== 'create_missing' ? <View key={index} style={styles.simple_item}>
