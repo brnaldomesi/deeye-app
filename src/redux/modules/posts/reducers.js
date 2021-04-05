@@ -44,6 +44,21 @@ export default handleActions(
           }
         })
       }
+    },
+    [types.DELETE_FILE_SUCCESS]: (state, {payload}) => {
+      return {
+        ...state,
+        postsList: state.postsList.map(post => {
+          if (post.id === payload.post_id) {
+            return {...post, post_attachments: post.post_attachments.filter((item) => {
+              if (item.id !== payload.id) {
+                return item;
+              }})}
+          } else {
+            return post;
+          }
+        })
+      }
     }
   },
   getInitialState()

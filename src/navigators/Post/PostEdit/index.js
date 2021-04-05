@@ -41,6 +41,7 @@ import LinkPreview from "react-native-link-preview";
 import debouce from 'lodash.debounce';
 import { validURL } from 'src/utils/helpers'
 import {ASSET_BASE_URL, BASE_URL} from "../../../config/apipath";
+import FastImage from "react-native-fast-image";
 
 const androidCameraPermissionOptions = {
   title: 'Permission to use camera',
@@ -139,10 +140,9 @@ const PostEdit = ({
   }
 
   const handlePost = () => {
-    console.log(attachments);
     updatePost({
+      id: post.id,
       data: {
-        id: post.id,
         post_type: postType,
         attachments,
         description: postType === 'link' ? '' : description,
@@ -217,6 +217,7 @@ const PostEdit = ({
               if (id !== 0) {
                 deleteFile({
                   id: id,
+                  post_id: post.id,
                   success: res => {
                     setPostType(posts.length === 0 ? 'text' : postType);
                     setPosts(posts => posts.filter((item, key) => key !== index ));
@@ -226,7 +227,6 @@ const PostEdit = ({
                     }
                   },
                   fail: err => {
-
                     console.error(err)
                   }
                 })
@@ -248,9 +248,9 @@ const PostEdit = ({
   const renderPost = ({ item: { type, uri }, index }) => (
     <View style={styles.post}>
       {type === DocumentPicker.types.images ? (
-        <Image
+        <FastImage
           source={{ uri }}
-          resizeMode='contain'
+          resizeMode={FastImage.resizeMode.contain}
           style={styles.post}
         />
       ) : type === DocumentPicker.types.video && (

@@ -15,6 +15,7 @@ export const createPostSuccess = createAction(types.CREATE_POST_SUCCESS);
 
 export const uploadFile = createAction(types.UPLOAD_FILE);
 export const deleteFile = createAction(types.DELETE_FILE);
+export const deleteFileSuccess = createAction(types.DELETE_FILE_SUCCESS);
 
 export const hidePost = createAction(types.HIDE_POST);
 

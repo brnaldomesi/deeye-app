@@ -5,7 +5,8 @@ import {
   deletePostSuccess,
   getPostsListFail,
   getPostsListSuccess,
-  updatePostSuccess
+  updatePostSuccess,
+  deleteFileSuccess
 } from './actions'
 import { put, takeLatest } from 'redux-saga/effects'
 
@@ -86,14 +87,17 @@ const deleteFile = apiCallSaga({
   method: 'delete',
   allowedParamKeys: [],
   path: ({payload}) => `/attachments/${payload.id}`,
-  selectorKey: 'deleteFile'
+  selectorKey: 'deleteFile',
+  success: function*(response, {payload}) {
+    yield put(deleteFileSuccess(payload))
+  }
 })
 
 const updatePost = apiCallSaga({
   type: types.UPDATE_POST,
   method: 'put',
   allowedParamKeys: [],
-  path: ({payload}) => `/posts/${payload.data.id}`,
+  path: ({payload}) => `/posts/${payload.id}`,
   selectorKey: 'updatePost',
   success: function*(payload, action) {
     yield put(updatePostSuccess(refineJSON(payload)))
