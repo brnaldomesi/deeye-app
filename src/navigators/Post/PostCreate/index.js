@@ -202,7 +202,7 @@ const PostCreate = ({
           {
             text: 'Yes',
             onPress: () => {
-              setPostType('text');
+              setPostType(posts.length === 0 ? 'text' : postType);
               setPosts(posts => posts.filter((item, key) => key !== index ));
               setAttachments(attachments => attachments.filter(attachment => attachment.uri !== uri));
               if(slider.current) {

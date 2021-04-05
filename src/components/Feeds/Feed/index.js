@@ -131,7 +131,7 @@ const Feed = ({
           setIcon(data.favicons.length !== 0 ? data.favicons[0] : null);
           break;
         case 'video':
-          setIsVideo(true);
+          // setIsVideo(true);
           setTitle('Video');
           setThumbnail(null);
           setIcon(data.favicons.length !== 0 ? data.favicons[0] : null);
@@ -280,10 +280,10 @@ const Feed = ({
               }>
                 <Text>{link}</Text>
                 {!isLoading ? <View style={[gStyle.justifyCenter, gStyle.flexOne, {height: Size(15)}]}>
-                  <ActivityIndicator color={'#00ff00'}/>
+                  <ActivityIndicator color={'#0000ff'}/>
                 </View> : <View style={{marginTop: 10, marginBottom: 10}}>
                   <View>
-                    {isVideo ? <VideoPlayer source={{uri: link}} style={{width: '100%', height: Size(15), resizeMode: 'contain'}}/> :
+                    {isVideo ? <VideoPlayer source={{uri: link}} style={{width: '100%', height: Size(15)}}/> :
                       <Image style={{width: '100%', height: Size(15), resizeMode: 'contain'}}
                              source={{uri: thumbnail}}/>}
                     <View style={d_flex}>

@@ -58,13 +58,13 @@ const Alert = ({getAlertList, alerts, emptyBadgeCount}) => {
             follow: IMAGES_PATH.alert_request
           };
           const content = {
-            like: item.type === 'Post' ? item.post.missing_post_content === null ? 'support your post' : 'support your missing person post' : 'support your comment',
+            like: item.post === null ? '' : item.type === 'Post' ? item.post.missing_post_content === null ? 'support your post' : 'support your missing person post' : 'support your comment',
             comment: item.post === null ? 'comment your post' : 'comment your missing person post',
-            save: item.type === 'Post' ? item.post.missing_post_content === null ? 'save your post' : 'save your missing person post' : 'save your comment',
-            share: item.type === 'Post' ? item.post.missing_post_content === null ? 'share your post' : 'share your missing person post' : 'share your comment',
-            hide: item.type === 'Post' ? item.post.missing_post_content === null ? 'hide your post' : 'hide your missing person post' : 'hide your comment',
-            report: item.type === 'Post' ? item.post.missing_post_content === null ? 'report your post' : 'report your missing person post' : 'report your comment',
-            reply: item.type === 'Post' ? item.post.missing_post_content === null ? 'reply your post' : 'reply your missing person post' : 'reply your comment',
+            save: item.post === null ? '' : item.type === 'Post' ? item.post.missing_post_content === null ? 'save your post' : 'save your missing person post' : 'save your comment',
+            share: item.post === null ? '' : item.type === 'Post' ? item.post.missing_post_content === null ? 'share your post' : 'share your missing person post' : 'share your comment',
+            hide: item.post === null ? '' : item.type === 'Post' ? item.post.missing_post_content === null ? 'hide your post' : 'hide your missing person post' : 'hide your comment',
+            report: item.post === null ? '' : item.type === 'Post' ? item.post.missing_post_content === null ? 'report your post' : 'report your missing person post' : 'report your comment',
+            reply: item.post === null ? '' : item.type === 'Post' ? item.post.missing_post_content === null ? 'reply your post' : 'reply your missing person post' : 'reply your comment',
             follow: 'is following you now',
           };
 
@@ -112,9 +112,9 @@ const Alert = ({getAlertList, alerts, emptyBadgeCount}) => {
                 <Text style={[styles.large_text_top_content, styles.text_missing_color]}>Missing Person Alert</Text>
                 <Text style={styles.large_text_bottom_content}>{item.profile.first_name}</Text>
                 <Text style={styles.large_text_content}>Missing
-                  Since: {item.post.missing_post_content === null ? '' : moment(item.post.missing_post_content.missing_since).format("dddd, MMMM D, YYYY")}</Text>
+                  Since: {(item.post === null || item.post.missing_post_content === null) ? '' : moment(item.post.missing_post_content.missing_since).format("dddd, MMMM D, YYYY")}</Text>
                 <Text style={styles.large_text_content}>Missing
-                  From: {item.post.missing_post_content === null ? '' : item.post.missing_post_content.duo_location}</Text>
+                  From: {(item.post === null || item.post.missing_post_content === null) ? '' : item.post.missing_post_content.duo_location}</Text>
                 {/*<View>*/}
                 {/*  <Text style={styles.large_text_verifed}>Your post has been Verifed</Text>*/}
                 {/*</View>*/}

@@ -109,6 +109,9 @@ const StackNavigator = ({isAuthenticated}) => {
           <Stack.Screen
             name="PostEdit"
             component={PostEdit}
+            options={{
+              headerShown: false
+            }}
           />
           <Stack.Screen
             name="PostDetail"
