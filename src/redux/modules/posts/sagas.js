@@ -83,12 +83,20 @@ const uploadFile = apiCallSaga({
   selectorKey: 'uploadedFile',
 })
 
+const deleteFile = apiCallSaga({
+  type: types.DELETE_FILE,
+  method: 'delete',
+  allowedParamKeys: [],
+  path: ({payload}) => `/attachments/${payload.id}`,
+  selectorKey: 'deleteFile'
+})
+
 const updatePost = apiCallSaga({
   type: types.UPDATE_POST,
   method: 'put',
   allowedParamKeys: [],
-  path: ({payload}) => `/posts/${payload.id}`,
-  selectorKey: 'post',
+  path: ({payload}) => `/posts/${payload.data.id}`,
+  selectorKey: 'updatePost',
   success: function*(payload, action) {
     yield put(updatePostSuccess(refineJSON(payload)))
   }
@@ -159,4 +167,5 @@ export default function* rootSaga() {
   yield takeLatest(types.LIKE_POST, likePost)
   yield takeLatest(types.SHARE_POST, sharePost)
   yield takeLatest(types.GET_POST, getPost)
+  yield takeLatest(types.DELETE_FILE, deleteFile)
 }
