@@ -22,7 +22,7 @@ import {
   hasPunctuation,
   hasUpperCase
 } from 'src/utils/helpers';
-
+import { refineJSON } from 'src/utils/helpers';
 import { COMETCHAT_CONSTANTS } from 'src/config/constants';
 import { CometChat } from '@cometchat-pro/react-native-chat';
 import GradientButton from 'src/components/GradientButton';
@@ -44,11 +44,11 @@ const rules = {
   punctuationContain:  { value: false, label: 'Contains Punctuation' }
 }
 
-const PasswordSet = ({ 
-  route, 
-  navigation, 
+const PasswordSet = ({
+  route,
+  navigation,
   authSignup,
-  fcmToken 
+  fcmToken
 }) => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -62,10 +62,11 @@ const PasswordSet = ({
     if(pwdRuleError || pwdMismatcherror) {
       alert('Passwords are incorrect');
     } else {
-      authSignup({ 
+      authSignup({
         data: { email, password, deviceName, fcmToken },
         success: res => {
-          const uid = 'user' + res.profile.user_id;
+          const refinedRes = refineJSON(res);
+          const uid = 'user' + refinedRes.profile.user_id;
           const user = new CometChat.User(uid);
           user.setName(uid);
 
@@ -91,13 +92,13 @@ const PasswordSet = ({
     } else {
       rules.longerThanEight.value = false;
     }
-    
+
     rules.uppercaseContain.value = hasUpperCase(text);
     rules.lowercaseContain.value = hasLowerCase(text);
     rules.numberContain.value = hasNumber(text);
     rules.punctuationContain.value = hasPunctuation(text);
 
-    const pwdRuleErrorValue = !(rules.longerThanEight.value && 
+    const pwdRuleErrorValue = !(rules.longerThanEight.value &&
                               rules.uppercaseContain.value &&
                               rules.lowercaseContain.value &&
                               rules.numberContain.value &&
@@ -106,7 +107,7 @@ const PasswordSet = ({
     setPwdRuleError(pwdRuleErrorValue);
     setPwdMismatchError(text !== confirmPassword);
   };
-  
+
   const checkPasswordMatch = text => {
     setConfirmPassword(text);
     setPwdMismatchError(password !== text);
@@ -115,9 +116,9 @@ const PasswordSet = ({
   const ruleSection = Object.keys(pwdRules).map((rule, index) => (
     <View style={[flexRow, relative]} key={index}>
       <View style={marginVerticalAuto}>
-        <Image 
+        <Image
           style={styles.smallCheckCircle}
-          source={pwdRules[rule].value ? IMAGES_PATH.checked : IMAGES_PATH.unchecked} 
+          source={pwdRules[rule].value ? IMAGES_PATH.checked : IMAGES_PATH.unchecked}
         />
       </View>
       <View style={[{ marginLeft: Size() }, marginVerticalAuto]}>
@@ -125,18 +126,18 @@ const PasswordSet = ({
       </View>
     </View>
   ))
-  
+
   return (
     <View style={loginHorizontalPadding}>
       <Text style={styles.passwordLabel}>Password</Text>
-      <MyTextInput 
+      <MyTextInput
         placeholder="Enter Your Password"
         name="password"
         style={textInput}
         value={password}
         onChangeText={ text => validatePassword(text) }
         secureTextEntry
-        autoCompleteType="password" 
+        autoCompleteType="password"
         textContentType="password"
         autoFocus
         fullWidth
@@ -144,25 +145,25 @@ const PasswordSet = ({
       <View style={styles.ruleSection}>{ruleSection}</View>
       <Text style={styles.passwordLabel}>Confirm Password</Text>
       <View style={[flexRow, relative]}>
-        <MyTextInput 
+        <MyTextInput
           placeholder="Confirm your password"
           name="confirmPassword"
           style={textInput}
           value={confirmPassword}
           onChangeText={ text => checkPasswordMatch(text) }
           secureTextEntry
-          autoCompleteType="password" 
+          autoCompleteType="password"
           textContentType="password"
           fullWidth
         />
         {!pwdRuleError && !pwdMismatcherror &&
-          <Image 
+          <Image
             style={styles.checkCircle}
-            source={IMAGES_PATH.checked} 
+            source={IMAGES_PATH.checked}
           />
         }
       </View>
-      <GradientButton 
+      <GradientButton
         onPress={handleConfirm}
         gradientColors={!pwdRuleError && !pwdMismatcherror  ? gradientColors : ['white', 'white']}
         text="Confirm"

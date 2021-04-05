@@ -48,7 +48,14 @@ const styles = StyleSheet.create({
     fontSize: Size(1.5),
     top: 15,
     right: 20,
-  }
+  },
+  back: {
+    position: 'absolute',
+    alignSelf: 'flex-start',
+    fontSize: Size(1.5),
+    top: 15,
+    left: 20,
+  },
 });
 
 export default styles;

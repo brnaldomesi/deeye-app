@@ -18,32 +18,33 @@ import styles from './styles';
 const Others = ({
   post,
   hidePost,
-  reportPost
+  reportPost,
+  onMenuItemPress
 }) => {
 
   const handleHide = () => {
-    hidePost({id: post.id})
+    onMenuItemPress("hide");
+    // hidePost({id: post.id})
   }
 
   const handleReport = () => {
-      // this.props.onMenuItemPress(REPORT_THIS_POST, sdfsdf)
-      this.props.onMenuItemPress(0, 1);
+    onMenuItemPress("report");
   }
 
   const handleSave = () => {
-
+    onMenuItemPress("save");
   }
 
   const handleShare = () => {
-
+    onMenuItemPress("share");
   }
 
   const handleDownload = () => {
-
+    onMenuItemPress("down")
   }
 
   const handleFollow = () => {
-
+    onMenuItemPress("follow");
   }
 
   const list_others = [
@@ -58,7 +59,7 @@ const Others = ({
   return (
     <>
     {list_others.map((item, index) => (
-      <ListItem style={styles.list} key={index} bottomDivider onPress={() => item.onPress()} >
+      <ListItem style={styles.list} key={index} bottomDivider onPress={() => item.onPress()} onMenuItemPress={()=>item.onCallback()}>
         <Icon style={styles.icon} name={item.icon}/>
         <ListItem.Content>
           <ListItem.Title style={styles.title}>{item.title}</ListItem.Title>
