@@ -50,7 +50,7 @@ const ActionFooter = ({
   }
 
   const handleSend = () => {
-
+    RootNavigation.navigate('Send', {post: post});
   }
 
   return (

@@ -28,7 +28,8 @@
     "@react-navigation/bottom-tabs": "^5.11.2",
     "@react-navigation/native": "^5.8.10",
     "@react-navigation/stack": "^5.12.8",
-    "react-native-video-controls": "^2.7.1"
+    "react-native-video-controls": "^2.7.1",
+    "react-native-tab-view": "^3.0.1"
   },
   "author": "Inscripts",
   "license": "ISC",

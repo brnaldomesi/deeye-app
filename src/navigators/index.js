@@ -28,6 +28,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createStructuredSelector } from 'reselect'
 import { isAuthenticatedSelector } from 'src/redux/modules/auth';
 import {refineJSON} from "src/utils/helpers";
+import {Send} from "./Send";
 
 const Stack = createStackNavigator();
 
@@ -147,6 +148,13 @@ const StackNavigator = ({isAuthenticated}) => {
             options={{
               headerShown: true,
               headerBackImage: () => <MCIcon name="format-align-left" size={25}/>
+            }}
+          />
+          <Stack.Screen
+            name="Send"
+            component={Send}
+            options={{
+              headerShown: false
             }}
           />
         </>
