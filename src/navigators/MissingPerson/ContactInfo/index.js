@@ -30,7 +30,7 @@ import {
 } from 'react-native';
 import React, { useState } from 'react';
 import { uploadFile } from 'src/redux/modules/posts';
-
+import { refineJSON } from 'src/utils/helpers';
 import { Button } from 'react-native-elements';
 import { CheckBox } from 'react-native-elements'
 import DocumentPicker from 'react-native-document-picker';
@@ -76,8 +76,9 @@ const ContactInfo = ({
       headers: { 'Content-Type': 'multipart/form-data' },
       data: formData,
       success: res => {
+        const refinedRes = refineJSON(res);
         setAttachments(attachments => attachments.concat([{
-          id: res.id, 
+          id: refinedRes.id,
           attachment_type: 'General'
         }]));
       },
@@ -109,7 +110,7 @@ const ContactInfo = ({
       <Header title="Contact Information" step={3} />
       <ScrollView>
         <View style={p1}>
-          <View 
+          <View
             style={[
               rounded1,
               styles.contactImgView
@@ -124,12 +125,12 @@ const ContactInfo = ({
             </View>
           </View>
 
-          <TextInput 
-            value={contactPhoneNumber1} 
-            onChangeText={ text => setContactPhoneNumber1(text) } 
+          <TextInput
+            value={contactPhoneNumber1}
+            onChangeText={ text => setContactPhoneNumber1(text) }
             style={[textInput, mt1]}
             keyboardType='numeric'
-            placeholder="Phone number" 
+            placeholder="Phone number"
           />
 
           <View style={flexRow}>
@@ -153,12 +154,12 @@ const ContactInfo = ({
             />
           </View>
 
-          <TextInput 
-            value={contactPhoneNumber2} 
-            onChangeText={ text => setContactPhoneNumber2(text) } 
+          <TextInput
+            value={contactPhoneNumber2}
+            onChangeText={ text => setContactPhoneNumber2(text) }
             style={textInput}
             keyboardType='numeric'
-            placeholder="Phone number" 
+            placeholder="Phone number"
           />
 
           <View style={flexRow}>
@@ -182,7 +183,7 @@ const ContactInfo = ({
             />
           </View>
 
-          <View 
+          <View
             style={[
               roundedSm,
               mt1,
@@ -212,7 +213,7 @@ const ContactInfo = ({
               />
             </View>
 
-            {haveRerpot && 
+            {haveRerpot &&
               <View style={itemsCenter}>
                 <View>
                   <Text>{selectedFileName}</Text>
@@ -229,7 +230,7 @@ const ContactInfo = ({
           </View>
 
           <View style={[mt1, itemsCenter]}>
-            <Button 
+            <Button
               title="Finish for review"
               onPress={handleSubmit}
               buttonStyle={[bgPrimary, roundedSm, px2]}

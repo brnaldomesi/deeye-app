@@ -51,7 +51,7 @@ import FastImage from 'react-native-fast-image';
 import {IMAGES_PATH} from 'src/config/constants';
 import LinearGradient from 'react-native-linear-gradient';
 import MissingDetailInfo from 'src/components/MissingDetailInfo'
-import PopupMenu from 'src/components/PopupMenu';
+import PopupSheet from 'src/components/PopupSheet';
 import PropTypes from 'prop-types';
 import VideoPlayer from 'react-native-video-controls';
 import {compose} from 'redux';
@@ -263,7 +263,7 @@ const Feed = ({
               {' '}{post.follow_state === 0 ? 'follow' : 'following'}</Text>
           </TouchableOpacity>}
           <View>
-            <PopupMenu post={post} isMyPost={post.profile_id === profileId}/>
+            <PopupSheet post={post} isMyPost={post.profile_id === profileId}/>
           </View>
         </View>
         <View style={[mtp5]}>

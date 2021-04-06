@@ -31,13 +31,13 @@ import styles from './styles';
 
 const PopupMenu = ({
   post,
-  isMyPost, 
+  isMyPost,
   hidePost,
   deletePost,
   getUserPostsList,
   reportPost
 }) => {
-  
+
   const handleEdit = () => {
     RootNavigation.navigate(post.post_type === 'MissingPerson' ? 'MissingPostEdit' : 'PostEdit', {post});
   }
@@ -77,7 +77,7 @@ const PopupMenu = ({
       </MenuTrigger>
       <MenuOptions customStyles={{optionText: {fontSize: Size(1.2)}}}>
         {isMyPost ? (
-          <> 
+          <>
             <MenuOption onSelect={handleEdit} text='Edit' />
             <MenuOption onSelect={handleDelete} text='Delete' />
           </>

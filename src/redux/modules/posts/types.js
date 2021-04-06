@@ -27,3 +27,5 @@ export const SAVE_POST = 'DEEYE.SAVE_POST';
 export const LIKE_POST = 'DEEYE.LIKE_POST';
 
 export const SHARE_POST = 'DEEYE.SHARE_POST';
+
+export const REPORT_REASON = 'DEEYE.REPORT_REASON';
