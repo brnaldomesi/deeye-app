@@ -1,47 +1,22 @@
-import * as RootNavigation from 'src/navigators/Ref';
-
-import {
-  Alert,
-} from 'react-native';
 import {
   ListItem,
 } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/Feather';
 import React, {useCallback, useState, useRef} from 'react';
-import {
-  deletePost,
-} from 'src/redux/modules/posts';
 
-import { compose } from 'redux';
-import { connect } from 'react-redux';
 import styles from './styles';
 
 
 const Mine = ({
-  post,
-  deletePost,
+  onMenuItemPress,
 }) => {
 
   const handleDelete = () => {
-    Alert.alert(
-      'Delete',
-      'Are you sure to delete?',
-      [
-        {
-          text: 'No'
-        },
-        {
-          text: 'Yes',
-          onPress: () => {
-            deletePost({id: post.id});
-          }
-        }
-      ]
-    );
+    onMenuItemPress("delete");
   }
 
   const handleEdit = () => {
-    RootNavigation.navigate(post.post_type === 'MissingPerson' ? 'MissingPostEdit' : 'PostEdit', {post});
+    onMenuItemPress("edit");
   }
 
   const list_mine = [
@@ -52,7 +27,7 @@ const Mine = ({
   return (
     <>
     {list_mine.map((item, index) => (
-      <ListItem style={styles.list} key={index} bottomDivider onPress={() => item.onPress()} >
+      <ListItem style={styles.list} key={index} bottomDivider onPress={() => item.onPress()} onMenuItemPress={()=>item.onCallback()}>
         <Icon style={styles.icon} name={item.icon}/>
         <ListItem.Content>
           <ListItem.Title style={styles.title}>{item.title}</ListItem.Title>
@@ -64,10 +39,4 @@ const Mine = ({
   )
 }
 
-const actions = {
-  deletePost
-}
-
-export default compose(
-  connect(null, actions)
-)(Mine);
+export default Mine;

@@ -1,5 +1,6 @@
 import { Size } from 'src/styles';
 import { StyleSheet } from 'react-native';
+import { white } from 'react-native-paper/lib/typescript/styles/colors';
 
 const styles = StyleSheet.create({
   container: {
@@ -83,6 +84,10 @@ const styles = StyleSheet.create({
   },
   btn_text: {
     alignSelf: "center"
+  },
+  custom: {
+    backfaceVisibility: 'hidden',
+    backgroundColor: 'white'
   }
 });
 

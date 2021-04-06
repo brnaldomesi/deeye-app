@@ -19,7 +19,7 @@ import PostDetailForComment from './Post/PostDetailForComment';
 import PostEdit from './Post/PostEdit';
 import PostNew from './Post/PostNew';
 import PropTypes from 'prop-types';
-import NoSee from '../components/PopupSheet/Others/NoSee';
+import Hate from '../components/PopupSheet/Others/Hate';
 import SharePost from "./Post/SharePost";
 import SplashScreen from "react-native-splash-screen";
 import axios from 'axios';
@@ -101,8 +101,8 @@ const StackNavigator = ({isAuthenticated}) => {
             }}
           />
           <Stack.Screen
-            name="NoSee"
-            component={NoSee}
+            name="Hate"
+            component={Hate}
             options={{
               headerShown: false
             }}
