@@ -20,11 +20,11 @@ export default handleActions(
       }
     },
     [types.CREATE_POST_SUCCESS]: (state, { payload }) => ({
-      ...state, 
+      ...state,
       postsList: concat([payload], state.postsList)
     }),
     [types.DELETE_POST_SUCCESS]: (state, { payload }) => ({
-      ...state, 
+      ...state,
       postsList: state.postsList.filter(post => post.id != payload.id)
     }),
     [types.UPDATE_POST_SUCCESS]: (state, { payload }) => {
@@ -43,6 +43,12 @@ export default handleActions(
             return post;
           }
         })
+      }
+    },
+    [types.REPORT_REASON_SUCCESS]: (state, { payload }) => {
+      console.log("%%%%%%%%%%%%%%%%%", payload);
+      return {
+
       }
     }
   },

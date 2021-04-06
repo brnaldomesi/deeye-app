@@ -19,7 +19,7 @@ import styles from './styles';
 
 const Mine = ({
   post,
-  deletePost
+  deletePost,
 }) => {
 
   const handleDelete = () => {

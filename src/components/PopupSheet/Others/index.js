@@ -24,7 +24,6 @@ const Others = ({
 
   const handleHide = () => {
     onMenuItemPress("hide");
-    // hidePost({id: post.id})
   }
 
   const handleReport = () => {

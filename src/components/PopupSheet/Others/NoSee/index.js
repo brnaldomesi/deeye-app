@@ -5,18 +5,29 @@ import {
   TouchableOpacity,
   Text
 } from 'react-native';
-
+import {
+  reportPost,
+} from 'src/redux/modules/posts';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/Feather';
 import { RadioButton } from 'react-native-paper';
 import React, {useState} from 'react';
 import styles from './styles';
 
-const NoSee = () => {
+const NoSee = ({reportPost, ...props}) => {
 
-  const [value, setValue] = useState('1');
+  const [value, setValue] = useState('I am not interested in this post');
 
   const handleClose = () => {
     RootNavigation.navigate('Init');
+  }
+
+  const { route } = props;
+  const post_id = route.params.post;
+
+  const handleSubmit = () => {
+    reportPost({id: post_id, data: { reason: value}});
   }
 
   return (
@@ -32,27 +43,27 @@ const NoSee = () => {
       <View style={styles.content}>
         <RadioButton.Group onValueChange={newValue => setValue(newValue)} value={value}>
           <View style={styles.radio}>
-            <RadioButton style={styles.radio_btn} value="1" />
+            <RadioButton style={styles.radio_btn} value="I am not interested in this post" />
             <Text style={styles.radio_title}>I am not interested in this post</Text>
           </View>
           <View style={styles.radio}>
-            <RadioButton style={styles.radio_btn} value="2" />
+            <RadioButton style={styles.radio_btn} value="I've seen too many of this posts" />
             <Text style={styles.radio_title}>I've seen too many of this posts</Text>
           </View>
           <View style={styles.radio}>
-            <RadioButton style={styles.radio_btn} value="3" />
+            <RadioButton style={styles.radio_btn} value="I've seen too many posts from this author/user" />
             <Text style={styles.radio_title}>I've seen too many posts from this author/user</Text>
           </View>
           <View style={styles.radio}>
-            <RadioButton style={styles.radio_btn} value="4" />
+            <RadioButton style={styles.radio_btn} value="I've seen this post before" />
             <Text style={styles.radio_title}>I've seen this post before</Text>
           </View>
           <View style={styles.radio}>
-            <RadioButton style={styles.radio_btn} value="5" />
+            <RadioButton style={styles.radio_btn} value="This post is old" />
             <Text style={styles.radio_title}>This post is old</Text>
           </View>
           <View style={styles.radio}>
-            <RadioButton style={styles.radio_btn} value="6" />
+            <RadioButton style={styles.radio_btn} value="It's something else" />
             <Text style={styles.radio_title}>It's something else</Text>
           </View>
         </RadioButton.Group>
@@ -62,10 +73,16 @@ const NoSee = () => {
         <Text style={styles.footer_info}>Report this post</Text>
       </View>
       <View style={styles.btn_container}>
-        <TouchableOpacity style={styles.btn}><Text style={styles.btn_text}>Submit</Text></TouchableOpacity>
+        <TouchableOpacity style={styles.btn} onPress={handleSubmit}><Text style={styles.btn_text}>Submit</Text></TouchableOpacity>
       </View>
     </View>
   )
 };
 
-export default NoSee;
+const actions = {
+  reportPost,
+}
+
+export default compose(
+  connect(null, actions)
+)(NoSee);

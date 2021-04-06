@@ -15,7 +15,12 @@ import {
   itemsCenter,
   resizeCover
 } from 'src/styles';
-
+import {
+  hidePost,
+  savePost,
+  reportPost,
+} from 'src/redux/modules/posts';
+import {setFollow} from "src/redux/modules/follow";
 import { IMAGES_PATH } from 'src/config/constants';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
@@ -27,7 +32,11 @@ import Report from './Others/Report'
 const PopupSheet = ({
   post,
   isMyPost,
-  deletePost,
+  hidePost,
+  savePost,
+  reportPost,
+  setFollow,
+  isShare,
 }) => {
 
   const handleOpen = () => {
@@ -44,12 +53,33 @@ const PopupSheet = ({
   }
 
   const [reportPage, setReportPage] = useState();
-
+  const postType = post.post_type;
   const handlePress = (type) => {
     if(type === "report") {
       setReportPage(type);
     } else {
-
+      if(type === "hide") {
+        hidePost({id: post.id})
+      } else if(type === "save") {
+        savePost({ id: post.id });
+      } else if(type === "share") {
+        if (isShare) {
+          RootNavigation.navigate('SharePost', {post: post});
+        }
+      } else if (type === "down") {
+      } else if (type === "follow") {
+        if (postType !== 'Share') {
+          setFollow({
+            isPin: false,
+            isFollow: false,
+            follower_id: post.author.user_id,
+            data: {
+              user_id: post.author.user_id,
+              type: post.follow_state === 1 ? 'unfollow' : 'follow'
+            }
+          });
+        }
+      }
     }
   }
 
@@ -57,35 +87,12 @@ const PopupSheet = ({
     if(action === "reason1" || action === "reason2" || action === "reason3")
       setReportPage(action);
     else {
-      if(action === "fake") {
-        console.log("fake");
-      } else if(action === "found") {
-        console.log("found");
-      } else if(action === "nosee") {
+      if(action === "nosee") {
         setIsVisible(false);
-        RootNavigation.navigate('NoSee');
-      } else if(action === "reason1_1") {
-        console.log("reason1_1");
-      } else if(action === "reason1_2") {
-        console.log("reason1_2");
-      } else if(action === "reason1_3") {
-        console.log("reason1_3");
-      } else if(action === "reason2_1") {
-        console.log("reason2_1");
-      } else if(action === "reason2_2") {
-        console.log("reason2_2");
-      } else if(action === "reason2_3") {
-        console.log("reason2_3");
-      } else if(action === "reason2_4") {
-        console.log("reason2_4");
-      } else if(action === "reason3_1") {
-        console.log("reason3_1");
-      } else if(action === "reason3_2") {
-        console.log("reason3_2");
-      } else if(action === "reason3_3") {
-        console.log("reason3_3");
-      } else if(action === "reason3_4") {
-        console.log("reason3_4");
+        RootNavigation.navigate('NoSee', {post:post.id});
+      } else {
+        reportPost({id: post.id, data: { reason: action}});
+        setIsVisible(false);
       }
     }
   }
@@ -166,4 +173,13 @@ const PopupSheet = ({
   )
 };
 
-export default PopupSheet;
+const actions = {
+  hidePost,
+  savePost,
+  reportPost,
+  setFollow,
+}
+
+export default compose(
+  connect(null, actions)
+)(PopupSheet);

@@ -22,6 +22,7 @@ const getPostsList = apiCallSaga({
     yield put(getPostsListSuccess(refineJSON(payload)))
   },
   fail: function*(payload) {
+    console.log('23232323', payload)
     yield put(getPostsListFail(payload))
   }
 })
@@ -36,6 +37,7 @@ const getPostsListForUnsigned = apiCallSaga({
     yield put(getPostsListSuccess(refineJSON(payload)))
   },
   fail: function*(payload) {
+    console.log('123123', payload)
     yield put(getPostsListFail(payload))
   }
 })
@@ -47,8 +49,6 @@ const createPost = apiCallSaga({
   path: '/posts',
   selectorKey: 'post',
   success: function*(payload, action) {
-    console.log("###############", typeof payload)
-    console.log("***************", refineJSON(payload))
     yield put(createPostSuccess(refineJSON(payload)))
   }
 })
@@ -102,14 +102,6 @@ const updatePost = apiCallSaga({
   }
 })
 
-const reportPost = apiCallSaga({
-  type: types.REPORT_POST,
-  method: 'put',
-  allowedParamKeys: [],
-  path: ({payload}) => `/posts/${payload.id}/report`,
-  selectorKey: 'post'
-})
-
 const savePost = apiCallSaga({
   type: types.SAVE_POST,
   method: 'put',
@@ -150,6 +142,19 @@ const getPost = apiCallSaga({
   path: ({payload}) => `/posts/${payload.id}`,
   selectorKey: 'post',
   success: function*(payload, action) {
+    console.log("FFFFFFFFFFFFFFFF", payload);
+    yield put(updatePostSuccess(refineJSON(payload)));
+  }
+})
+
+const reportPost = apiCallSaga({
+  type: types.REPORT_POST,
+  method: 'put',
+  allowedParamKeys: [],
+  path: ({payload}) => `/posts/${payload.id}/report`,
+  selectorKey: 'post',
+  success: function*(payload, action) {
+    console.log("$$$$$$$$$$$$$$$",payload);
     yield put(updatePostSuccess(refineJSON(payload)));
   }
 })
