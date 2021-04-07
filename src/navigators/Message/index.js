@@ -7,7 +7,6 @@ import { cometChatLogin, cometchatSelector } from 'src/redux/modules/cometchat';
 
 import { COMETCHAT_CONSTANTS } from 'src/config/constants';
 import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons'
-import { View } from 'react-native';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -17,10 +16,10 @@ import { profileSelector } from 'src/redux/modules/auth';
 const MessageStack = createStackNavigator();
 
 const Message = ({ cometChatLogin, profile, cometChat }) => {
-  const { isLoggedIn } = cometChat;
+  const { isLoggedIn, user } = cometChat;
 
   useEffect(() => {
-    if(!isLoggedIn && profile) {
+    if((!isLoggedIn || typeof user.authToken === 'undefined')&& profile) {
       cometChatLogin({
         authKey: COMETCHAT_CONSTANTS.AUTH_KEY,
         uid: 'user' + profile.user_id

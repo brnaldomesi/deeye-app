@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
 
   searchBarParent: {
     marginVertical: 'auto',
-    marginHorizontal: 10,
+    marginHorizontal: 15,
     backgroundColor: '#f1f6fb',
     height: Size(2.5),
     borderRadius: Size(1.25),

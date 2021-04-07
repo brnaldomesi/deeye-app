@@ -1,54 +1,112 @@
-import * as React from 'react';
+import React, {useState, useMemo, useEffect} from 'react';
 import {View, useWindowDimensions, TouchableOpacity, Text, Image, TextInput, ScrollView} from 'react-native';
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
 import * as gStyle from "src/styles/styles";
-import {IMAGES_PATH} from "../../config/constants";
-import {useState} from "react";
+import {COMETCHAT_CONSTANTS, IMAGES_PATH} from "../../config/constants";
 import styles from './styles'
-import * as RootNavigation from 'src/navigators/Ref';
 import {Size} from "../../styles";
 import {Avatar, ListItem} from "react-native-elements";
 import {ASSET_BASE_URL} from "../../config/apipath";
+import {cometChatLogin, cometchatSelector} from "src/redux/modules/cometchat";
+import {createStructuredSelector} from "reselect";
+import {profileSelector} from "src/redux/modules/auth";
+import {compose} from "redux";
+import {connect} from "react-redux";
+import {CometChat} from "@cometchat-pro/react-native-chat";
+import {followListSelector, getFollowList} from "../../redux/modules/follow";
 
-const FirstRoute = () => (
-  <View style={{flex: 1, backgroundColor: '#ff4081'}}/>
-);
+const Send = ({route, profile, cometChat, navigation, getFollowList, follows }) => {
+  const { isLoggedIn, user } = cometChat;
+  const { post } = route.params;
 
-const SecondRoute = () => (
-  <View style={{flex: 1, backgroundColor: '#673ab7'}}/>
-);
+  //list
+  const [chat, setChat] = useState([]);
 
-export const Send = ({navigation}) => {
-
+  //search
   const [isEdit, setIsEdit] = useState(false);
   const [searchText, setSearchText] = useState('');
 
-  const layout = useWindowDimensions();
-
+  //viewpager
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
-    {key: 'first', title: 'First'},
-    {key: 'second', title: 'Second'},
+    {key: 'first', title: 'Recent Chats'},
+    {key: 'second', title: 'Followers list'},
   ]);
+
+  const layout = useWindowDimensions();
+
+  useEffect(() => {
+    if((!isLoggedIn || typeof user.authToken === 'undefined')&& profile) {
+      CometChat.login('user' + profile.user_id, COMETCHAT_CONSTANTS.AUTH_KEY)
+        .then(() => {
+          getRecentUser()
+        }).error(() => {
+          console.log('error')
+        }
+      );
+    } else {
+      getRecentUser()
+    }
+  }, [isLoggedIn, profile])
+
+  const getRecentUser = () => {
+    const conversationsRequest = new CometChat.ConversationsRequestBuilder()
+      .setLimit(50)
+      .build();
+
+    conversationsRequest.fetchNext().then(
+      conversationList => {
+        setChat(conversationList);
+      },
+      error => {
+        console.log("Conversations list fetching failed with error:", error);
+      }
+    );
+  };
+
+  useMemo(() => {
+    if (index === 1) {
+      getFollowList({params: {type: 0, search: searchText}});
+    }
+  }, [searchText, index]);
 
   const renderScene = SceneMap({
     first: () =>
       <ScrollView style={{flex: 1, backgroundColor: 'white'}}>
-        <ListItem bottomDivider>
-          <Avatar rounded/>
-          <ListItem.Content>
-            <ListItem.Title>dfgh</ListItem.Title>
-            <ListItem.Subtitle>dfgh</ListItem.Subtitle>
-          </ListItem.Content>
-          <TouchableOpacity>
-            <Text style={styles.itemSend}>Send</Text>
-          </TouchableOpacity>
-        </ListItem>
+        {chat.map((item, key) => {
+          let temp = user.name === item.lastMessage.receiverId ? item.lastMessage.sender : item.lastMessage.receiver;
+          // console.log('sdfsdfsdf', item.lastMessage)
+          // console.log('asddd', user)
+          // console.log('temp', temp)
+          return <ListItem key={key} bottomDivider>
+            <Avatar rounded/>
+            <ListItem.Content>
+              <ListItem.Title>{temp.name}</ListItem.Title>
+              <ListItem.Subtitle>{temp.status}</ListItem.Subtitle>
+            </ListItem.Content>
+            <TouchableOpacity onPress={handleSend(temp.uid)}>
+              <Text style={styles.itemSend}>Send</Text>
+            </TouchableOpacity>
+          </ListItem>
+        })}
       </ScrollView>
     ,
     second: () =>
       <ScrollView style={{flex: 1, backgroundColor: 'white'}}>
-
+        {follows && follows.map((item, key) => {
+          return <ListItem key={key} bottomDivider>
+            <Avatar
+              rounded
+              source={{uri: ASSET_BASE_URL + item.avatar_path}}/>
+            <ListItem.Content>
+              <ListItem.Title>{item.first_name}</ListItem.Title>
+              <ListItem.Subtitle>{item.last_name}</ListItem.Subtitle>
+            </ListItem.Content>
+            <TouchableOpacity onPress={handleSend((item.first_name + item.last_name).toLowerCase())}>
+              <Text style={styles.itemSend}>Send</Text>
+            </TouchableOpacity>
+          </ListItem>
+        })}
       </ScrollView>
   });
 
@@ -64,6 +122,36 @@ export const Send = ({navigation}) => {
   const handleCancel = () => {
     setSearchText('');
     setIsEdit(false);
+  };
+
+  const handleSend = (uid) => () => {
+    let receiverID = uid;
+    let customData = {
+      data: post
+    };
+
+    let customType = "data";
+    let receiverType = CometChat.RECEIVER_TYPE.USER;
+
+    let customMessage = new CometChat.CustomMessage(
+      receiverID,
+      receiverType,
+      customType,
+      customData
+    );
+
+    CometChat.sendCustomMessage(customMessage).then(
+      message => {
+        // Message sent successfully.
+        console.log("custom message sent successfully", message);
+
+        navigation.goBack();
+      },
+      error => {
+        console.log("custom message sending failed with error", error);
+        // Handle exception.
+      }
+    );
   };
 
   return (
@@ -107,3 +195,18 @@ export const Send = ({navigation}) => {
     </>
   );
 };
+
+const actions = {
+  cometChatLogin,
+  getFollowList,
+}
+
+const selector = createStructuredSelector({
+  profile: profileSelector,
+  cometChat: cometchatSelector,
+  follows: followListSelector,
+});
+
+export default compose(
+  connect(selector, actions)
+)(Send);

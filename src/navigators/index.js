@@ -29,7 +29,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createStructuredSelector } from 'reselect'
 import { isAuthenticatedSelector } from 'src/redux/modules/auth';
 import {refineJSON} from "src/utils/helpers";
-import {Send} from "./Send";
+import Send from "./Send";
 
 const Stack = createStackNavigator();
 

@@ -145,10 +145,9 @@ const PopupSheet = ({
   return (
     <View>
       <TouchableOpacity
-        style={styles.button}
         onPress={handleOpen}
       >
-        <Image style={[styles.settingImg, resizeCover]} source={IMAGES_PATH.setting} />
+        <Image style={[styles.settingImg]} source={IMAGES_PATH.setting} />
       </TouchableOpacity>
       <BottomSheet
         isVisible={isVisible}
