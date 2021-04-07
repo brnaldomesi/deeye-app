@@ -4,6 +4,7 @@ import {
   Image,
   View,
   TouchableOpacity,
+  Alert
 } from 'react-native';
 import {
   BottomSheet,
@@ -19,6 +20,7 @@ import {
   hidePost,
   savePost,
   reportPost,
+  deletePost,
 } from 'src/redux/modules/posts';
 import {setFollow} from "src/redux/modules/follow";
 import { IMAGES_PATH } from 'src/config/constants';
@@ -37,6 +39,7 @@ const PopupSheet = ({
   reportPost,
   setFollow,
   isShare,
+  deletePost,
 }) => {
 
   const handleOpen = () => {
@@ -58,17 +61,23 @@ const PopupSheet = ({
     if(type === "report") {
       setReportPage(type);
     } else {
-      if(type === "hide") {
-        hidePost({id: post.id})
+      if(type === "hate") {
+        setIsVisible(false);
+        RootNavigation.navigate('Hate', {post:post.id});
       } else if(type === "save") {
+        setIsVisible(false);
         savePost({ id: post.id });
       } else if(type === "share") {
+        setIsVisible(false);
         if (isShare) {
           RootNavigation.navigate('SharePost', {post: post});
         }
       } else if (type === "down") {
+        setIsVisible(false);
       } else if (type === "follow") {
+        setIsVisible(false);
         if (postType !== 'Share') {
+          setIsVisible(false);
           setFollow({
             isPin: false,
             isFollow: false,
@@ -79,6 +88,26 @@ const PopupSheet = ({
             }
           });
         }
+      } else if (type === "edit") {
+        setIsVisible(false);
+        RootNavigation.navigate(post.post_type === 'MissingPerson' ? 'MissingPostEdit' : 'PostEdit', {post});
+      } else if (type === "delete") {
+        setIsVisible(false);
+        Alert.alert(
+          'Delete',
+          'Are you sure to delete?',
+          [
+            {
+              text: 'No'
+            },
+            {
+              text: 'Yes',
+              onPress: () => {
+                deletePost({id: post.id});
+              }
+            }
+          ]
+        );
       }
     }
   }
@@ -87,9 +116,9 @@ const PopupSheet = ({
     if(action === "reason1" || action === "reason2" || action === "reason3")
       setReportPage(action);
     else {
-      if(action === "nosee") {
+      if(action === "hate") {
         setIsVisible(false);
-        RootNavigation.navigate('NoSee', {post:post.id});
+        RootNavigation.navigate('Hate', {post:post.id});
       } else {
         reportPost({id: post.id, data: { reason: action}});
         setIsVisible(false);
@@ -121,7 +150,7 @@ const PopupSheet = ({
       { title: 'Violence or physical ham', content: '', onCallback: "reason2" },
       { title: 'Adult content', content: '', onCallback: "reason1" },
       { title: 'Person has be found', content: '', onCallback: "found" },
-      { title: 'I do not want to see this', content: 'if none of these resons apply, let us know why you do not like this post', onCallback: "nosee" },
+      { title: 'I do not want to see this', content: 'if none of these resons apply, let us know why you do not like this post', onCallback: "hate" },
     ],
     reason1: [
       { title: 'Nudity or sexual content', content: 'Nudity, sexual scenes or Language, or sex trafficking', onCallback: "reason1_1" },
@@ -164,7 +193,7 @@ const PopupSheet = ({
           !isMyPost ? (
             <Others post={post} onMenuItemPress={handlePress} />
           ) : (
-            <Mine post={post} />
+            <Mine post={post} onMenuItemPress={handlePress} />
           )
         )}
       </BottomSheet>
@@ -177,6 +206,7 @@ const actions = {
   savePost,
   reportPost,
   setFollow,
+  deletePost,
 }
 
 export default compose(

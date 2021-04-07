@@ -57,6 +57,10 @@ const styles = StyleSheet.create({
     top: 15,
     left: 20,
   },
+  button: {
+    paddingLeft: Size(1),
+    paddingRight: Size(.5)
+  }
 });
 
 export default styles;
