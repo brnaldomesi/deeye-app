@@ -14,6 +14,10 @@ import CometChatReadReceipt from '../CometChatReadReceipt';
 import { CometChatAvatar } from '../../Shared';
 import style from './styles';
 import { CometChatMessageReactions } from '../../Messages/Extensions';
+import * as RootNavigation from "../../../../../navigators/Ref";
+import FastImage from "react-native-fast-image";
+import {Size} from "../../../../../styles";
+import {ASSET_BASE_URL} from "../../../../../config/apipath";
 
 const messageFrom = 'receiver';
 function usePrevious(value) {
@@ -148,6 +152,15 @@ export default (props) => {
       }
     }
   }
+
+  const handleGo = () => {
+    if (message.metadata.post !== undefined) {
+      let id = message.metadata.post.id;
+
+      RootNavigation.navigate('PostDetail', {id});
+    }
+  }
+
   return (
     <View style={{ marginBottom: 16 }}>
       <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
@@ -170,10 +183,30 @@ export default (props) => {
           ) : null}
           <View style={{ maxWidth: '81%', minWidth: '81%' }}>
             <TouchableWithoutFeedback
+              onPress={handleGo}
               onLongPress={() => {
                 props.actionGenerated('openMessageActions', message);
               }}>
-              <View
+              {message.metadata.post !== undefined ? <View
+                style={[
+                  style.postWrapperStyle,
+                  {
+                    backgroundColor: ViewTheme.backgroundColor.grey,
+                  },
+                ]}>
+                {messageText}
+                <View>
+                  {message.metadata.post.post_attachments.length === 0 ? <View>
+                  </View> : <View>
+                    <FastImage
+                      style={[{height: Size(5), width: Size(8), marginTop: 10, marginBottom: 10}]}
+                      source={{uri: ASSET_BASE_URL + message.metadata.post.post_attachments[0].path}}
+                      resizeMode={FastImage.resizeMode.contain}
+                    />
+                  </View>}
+                  <Text style={[{color: 'black', textAlign: 'center'}]}>{message.metadata.post.description}</Text>
+                </View>
+              </View> : <View
                 style={[
                   style.messageWrapperStyle,
                   {
@@ -181,7 +214,7 @@ export default (props) => {
                   },
                 ]}>
                 {messageText}
-              </View>
+              </View>}
             </TouchableWithoutFeedback>
           </View>
           <View style={[style.containerStyle]}>

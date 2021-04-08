@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {
   View,
   Text,
@@ -12,7 +12,11 @@ import Autolink from 'react-native-autolink';
 import CometChatThreadedMessageReplyCount from '../CometChatThreadedMessageReplyCount';
 import CometChatReadReceipt from '../CometChatReadReceipt';
 import style from './styles';
-import { CometChatMessageReactions } from '../../Messages/Extensions';
+import {CometChatMessageReactions} from '../../Messages/Extensions';
+import * as RootNavigation from 'src/navigators/Ref';
+import {flexOne, opacity40, Size} from "../../../../../styles";
+import FastImage from "react-native-fast-image";
+import {ASSET_BASE_URL} from "../../../../../config/apipath";
 
 const messageFrom = 'sender';
 
@@ -23,10 +27,11 @@ function usePrevious(value) {
   });
   return ref.current;
 }
+
 export default (props) => {
-  const [message, setMessage] = useState({ ...props.message, messageFrom });
+  const [message, setMessage] = useState({...props.message, messageFrom});
   const prevMessage = usePrevious(message);
-  const ViewTheme = { ...theme, ...props.theme };
+  const ViewTheme = {...theme, ...props.theme};
 
   const getMessageText = () => {
     // let showVariation = true;
@@ -46,10 +51,10 @@ export default (props) => {
     return (
       <Autolink
         text={message.text}
-        style={{ color: 'white', fontSize: 15 }}
-        textProps={{ selectable: true }}
-        linkProps={{ suppressHighlighting: true }}
-        linkStyle={{ textDecorationLine: 'underline', fontSize: 15 }}
+        style={{color: 'white', fontSize: 15}}
+        textProps={{selectable: true}}
+        linkProps={{suppressHighlighting: true}}
+        linkStyle={{textDecorationLine: 'underline', fontSize: 15}}
       />
     );
   };
@@ -58,13 +63,13 @@ export default (props) => {
     const currentMessageStr = JSON.stringify(props.message);
 
     if (previousMessageStr !== currentMessageStr) {
-      const newMessage = { ...props.message, messageFrom };
+      const newMessage = {...props.message, messageFrom};
       setMessage(newMessage);
     }
   }, [props]);
   let messageText = getMessageText();
   if (Object.prototype.hasOwnProperty.call(message, 'metadata')) {
-    const { metadata } = message;
+    const {metadata} = message;
     const injectedObject = metadata['@injected'];
     if (injectedObject && Object.prototype.hasOwnProperty.call(injectedObject, 'extensions')) {
       const extensionsObject = injectedObject.extensions;
@@ -86,16 +91,16 @@ export default (props) => {
             <View
               style={[
                 style.messagePreviewContainerStyle,
-                { backgroundColor: ViewTheme.backgroundColor.white },
+                {backgroundColor: ViewTheme.backgroundColor.white},
               ]}>
               <View style={style.messagePreviewWrapperStyle}>
                 <Image
                   style={linkObject.image ? style.previewImageStyle : style.previewImageIconStyle}
-                  source={{ uri: linkObject.image ? linkObject.image : linkObject.favicon }}
+                  source={{uri: linkObject.image ? linkObject.image : linkObject.favicon}}
                   resizeMode="contain"
                 />
                 <View
-                  style={[style.previewDataStyle, { borderColor: ViewTheme.borderColor.primary }]}>
+                  style={[style.previewDataStyle, {borderColor: ViewTheme.borderColor.primary}]}>
                   {linkObject.title ? (
                     <View style={style.previewTitleStyle}>
                       <Text
@@ -122,16 +127,16 @@ export default (props) => {
                   <View style={style.previewTextStyle}>
                     <Autolink
                       text={message.text}
-                      style={{ color: ViewTheme.color.helpText, textAlign: 'center' }}
-                      textProps={{ selectable: true }}
-                      linkProps={{ suppressHighlighting: true }}
+                      style={{color: ViewTheme.color.helpText, textAlign: 'center'}}
+                      textProps={{selectable: true}}
+                      linkProps={{suppressHighlighting: true}}
                     />
                   </View>
                 </View>
                 <TouchableOpacity
                   style={style.previewLinkStyle}
                   onPress={() => Linking.openURL(linkObject.url)}>
-                  <Text style={{ color: ViewTheme.color.blue, fontWeight: '700' }}>{linkText}</Text>
+                  <Text style={{color: ViewTheme.color.blue, fontWeight: '700'}}>{linkText}</Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -141,19 +146,41 @@ export default (props) => {
     }
   }
 
+  const handleGo = () => {
+    if (message.metadata.post !== undefined) {
+      let id = message.metadata.post.id;
+
+      RootNavigation.navigate('PostDetail', {id});
+    }
+  }
+
   return (
-    <View style={{ marginBottom: 16 }}>
+    <View style={{marginBottom: 16}}>
       <TouchableWithoutFeedback
+        onPress={handleGo}
         onLongPress={() => {
           props.actionGenerated('openMessageActions', message);
         }}>
-        <View style={style.messageWrapperStyle}>{messageText}</View>
+        {message.metadata.post !== undefined ? <View style={style.postWrapperStyle}>{messageText}
+          <View>
+            {message.metadata.post.post_attachments.length === 0 ? <View>
+            </View> : <View>
+              <FastImage
+                style={[{height: Size(5), width: Size(8), marginTop: 10, marginBottom: 10}]}
+                source={{uri: ASSET_BASE_URL + message.metadata.post.post_attachments[0].path}}
+                resizeMode={FastImage.resizeMode.contain}
+              />
+            </View>}
+            <Text style={[{color: 'white', textAlign: 'center'}]}>{message.metadata.post.description}</Text>
+          </View>
+        </View> : <View style={style.messageWrapperStyle}>{messageText}
+        </View>}
       </TouchableWithoutFeedback>
       <View style={style.messageInfoWrapperStyle}>
-        <CometChatThreadedMessageReplyCount theme={props.theme} {...props} message={message} />
-        <CometChatReadReceipt theme={props.theme} {...props} message={message} />
+        <CometChatThreadedMessageReplyCount theme={props.theme} {...props} message={message}/>
+        <CometChatReadReceipt theme={props.theme} {...props} message={message}/>
       </View>
-      <CometChatMessageReactions theme={props.theme} {...props} message={message} />
+      <CometChatMessageReactions theme={props.theme} {...props} message={message}/>
     </View>
   );
 };

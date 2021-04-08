@@ -14,6 +14,18 @@ export default StyleSheet.create({
     maxWidth: '100%',
     borderRadius: 12,
   },
+  postWrapperStyle: {
+    flexDirection: 'column',
+    alignItems: 'center',
+    backgroundColor: '#f6f6f6',
+    marginBottom: 4,
+    alignSelf: 'flex-start',
+    justifyContent: 'space-between',
+    paddingHorizontal: 12 * widthRatio,
+    paddingVertical: 8 * heightRatio,
+    maxWidth: '100%',
+    borderRadius: 12,
+  },
   messageInfoWrapperStyle: {
     flexDirection: 'row',
     alignItems: 'center',

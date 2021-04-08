@@ -15,9 +15,9 @@ import {connect} from "react-redux";
 import {CometChat} from "@cometchat-pro/react-native-chat";
 import {followListSelector, getFollowList} from "../../redux/modules/follow";
 
-const Send = ({route, profile, cometChat, navigation, getFollowList, follows }) => {
-  const { isLoggedIn, user } = cometChat;
-  const { post } = route.params;
+const Send = ({route, cometChatLogin, profile, cometChat, navigation, getFollowList, follows}) => {
+  const {isLoggedIn, user} = cometChat;
+  const {post} = route.params;
 
   //list
   const [chat, setChat] = useState([]);
@@ -35,20 +35,6 @@ const Send = ({route, profile, cometChat, navigation, getFollowList, follows }) 
 
   const layout = useWindowDimensions();
 
-  useEffect(() => {
-    if((!isLoggedIn || typeof user.authToken === 'undefined')&& profile) {
-      CometChat.login('user' + profile.user_id, COMETCHAT_CONSTANTS.AUTH_KEY)
-        .then(() => {
-          getRecentUser()
-        }).error(() => {
-          console.log('error')
-        }
-      );
-    } else {
-      getRecentUser()
-    }
-  }, [isLoggedIn, profile])
-
   const getRecentUser = () => {
     const conversationsRequest = new CometChat.ConversationsRequestBuilder()
       .setLimit(50)
@@ -63,6 +49,24 @@ const Send = ({route, profile, cometChat, navigation, getFollowList, follows }) 
       }
     );
   };
+
+  useEffect(() => {
+    if ((!isLoggedIn || typeof user.authToken === 'undefined') && profile) {
+      // CometChat.login('user' + profile.user_id, COMETCHAT_CONSTANTS.AUTH_KEY)
+      //   .then(() => {
+      //     getRecentUser()
+      //   }).error(() => {
+      //     console.log('error')
+      //   }
+      // );
+      cometChatLogin({
+        authKey: COMETCHAT_CONSTANTS.AUTH_KEY,
+        uid: 'user' + profile.user_id
+      });
+    } else {
+      getRecentUser()
+    }
+  }, [isLoggedIn, profile])
 
   useMemo(() => {
     if (index === 1) {
@@ -126,30 +130,25 @@ const Send = ({route, profile, cometChat, navigation, getFollowList, follows }) 
 
   const handleSend = (uid) => () => {
     let receiverID = uid;
-    let customData = {
-      data: post
-    };
-
-    let customType = "data";
+    let messageText = post.post_type === 'MissingPerson' ? 'MissingPerson' : 'Post';
     let receiverType = CometChat.RECEIVER_TYPE.USER;
 
-    let customMessage = new CometChat.CustomMessage(
-      receiverID,
-      receiverType,
-      customType,
-      customData
-    );
+    let textMessage = new CometChat.TextMessage(receiverID, messageText, receiverType);
 
-    CometChat.sendCustomMessage(customMessage).then(
+    let metadata = {
+      post: post
+    };
+
+    textMessage.setMetadata(metadata);
+
+    CometChat.sendMessage(textMessage).then(
       message => {
-        // Message sent successfully.
-        console.log("custom message sent successfully", message);
+        console.log("Message sent successfully:", message);
 
         navigation.goBack();
       },
       error => {
-        console.log("custom message sending failed with error", error);
-        // Handle exception.
+        console.log("Message sending failed with error:", error);
       }
     );
   };
