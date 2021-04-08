@@ -25,6 +25,7 @@ import SplashScreen from 'react-native-splash-screen';
 import { ThemeProvider } from 'react-native-elements';
 import { flexOne } from 'src/styles';
 import theme from 'src/styles/theme';
+import Loading from "./src/utils/Loading";
 
 const getPermissions = async () => {
   if (Platform.OS === 'android') {
@@ -95,6 +96,7 @@ const App: () => React$Node = () => {
         <ThemeProvider theme={theme}>
           <SafeAreaView style={flexOne}>
             <Root />
+            <Loading/>
           </SafeAreaView>
         </ThemeProvider>
       </PersistGate>

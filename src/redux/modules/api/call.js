@@ -7,6 +7,7 @@ import axios from 'axios'
 import get from 'lodash/get'
 import pick from 'lodash/pick'
 import { tokenSelector } from 'src/redux/modules/auth/selectors'
+import Loading from 'src/utils/Loading'
 
 const defaultHeaders = token => ({
   'Content-Type': 'application/json;charset=utf-8',
@@ -49,6 +50,8 @@ export default ({
     } = payload
 
     try {
+      Loading.show()
+
       if (!stealthy) {
         yield put(requestPending({ selectorKey, requestSelectorKey, method }))
       }
@@ -92,12 +95,14 @@ export default ({
       }
 
       if (success) {
+        Loading.hide();
         yield success(payload, action)
       }
       successCallback && successCallback(payload)
 
       return true
     } catch (err) {
+      Loading.hide();
       // console.error(err)
       const errRes = get(err, 'response', err)
       const payload = payloadOnFail ? payloadOnFail(errRes, action) : errRes
