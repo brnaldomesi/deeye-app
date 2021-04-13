@@ -36,6 +36,13 @@ const styles = StyleSheet.create({
     marginHorizontal: Size(.2),
     marginVertical: Size(.7)
   },
+  sliderView: {
+    height: Size(18),
+  },
+  post: {
+    height: '100%',
+    width: '100%'
+  },
 });
 
 export default styles;
