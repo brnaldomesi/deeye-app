@@ -47,11 +47,11 @@ export default connect(
   };
 
   const navigateFeeds = () => {
-    RootNavigation.navigate('Home', { query: 'feeds' });
+    RootNavigation.navigateAndSimpleReset('Home');
   };
 
   const navigateMissing = () => {
-    RootNavigation.navigate('Home', { query: 'missing' });
+    RootNavigation.navigateAndSimpleReset('MissingHome');
   };
 
   const navigateAlert = () => {

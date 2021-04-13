@@ -13,6 +13,10 @@ export default handleActions(
       ...state,
       postsList: payload
     }),
+    [types.GET_POSTS_LIST_MORE_SUCCESS]: (state, { payload }) => ({
+      ...state,
+      postsList: state.postsList.concat(payload)
+    }),
     [types.GET_POSTS_LIST_FAIL]: (state, { payload }) => {
       return {
         ...state,

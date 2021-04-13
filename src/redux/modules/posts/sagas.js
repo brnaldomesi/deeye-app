@@ -6,7 +6,7 @@ import {
   getPostsListFail,
   getPostsListSuccess,
   updatePostSuccess,
-  deleteFileSuccess
+  deleteFileSuccess, getPostsListMoreSuccess
 } from './actions'
 import { put, takeLatest } from 'redux-saga/effects'
 
@@ -16,14 +16,16 @@ import { refineJSON } from 'src/utils/helpers'
 const getPostsList = apiCallSaga({
   type: types.GET_POSTS_LIST,
   method: 'get',
-  allowedParamKeys: [],
+  allowedParamKeys: ['page', 'type', 'count'],
   path: '/posts',
   selectorKey: 'postsList',
-  success: function*(payload) {
-    yield put(getPostsListSuccess(refineJSON(payload)))
+  success: function*(payload, action) {
+    yield put(action.payload.params.page === 1 ?
+      getPostsListSuccess(refineJSON(payload.data)) :
+      getPostsListMoreSuccess(refineJSON(payload.data))
+    )
   },
   fail: function*(payload) {
-    console.log('23232323', payload)
     yield put(getPostsListFail(payload))
   }
 })
@@ -31,14 +33,13 @@ const getPostsList = apiCallSaga({
 const getPostsListForUnsigned = apiCallSaga({
   type: types.GET_POSTS_LIST_FOR_UNSIGNED,
   method: 'get',
-  allowedParamKeys: [],
+  allowedParamKeys: ['page', 'type', 'count'],
   path: '/posts/unsigned',
   selectorKey: 'postsList',
   success: function*(payload) {
-    yield put(getPostsListSuccess(refineJSON(payload)))
+    yield put(getPostsListSuccess(refineJSON(payload.data)))
   },
   fail: function*(payload) {
-    console.log('123123', payload)
     yield put(getPostsListFail(payload))
   }
 })
@@ -146,7 +147,6 @@ const getPost = apiCallSaga({
   path: ({payload}) => `/posts/${payload.id}`,
   selectorKey: 'post',
   success: function*(payload, action) {
-    console.log("FFFFFFFFFFFFFFFF", payload);
     yield put(updatePostSuccess(refineJSON(payload)));
   }
 })
@@ -158,7 +158,6 @@ const reportPost = apiCallSaga({
   path: ({payload}) => `/posts/${payload.id}/report`,
   selectorKey: 'post',
   success: function*(payload, action) {
-    console.log("$$$$$$$$$$$$$$$",payload);
     yield put(updatePostSuccess(refineJSON(payload)));
   }
 })

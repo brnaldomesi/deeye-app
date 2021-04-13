@@ -50,9 +50,9 @@ export default ({
     } = payload
 
     try {
-      Loading.show()
 
       if (!stealthy) {
+        Loading.show()
         yield put(requestPending({ selectorKey, requestSelectorKey, method }))
       }
 
@@ -95,11 +95,11 @@ export default ({
       }
 
       if (success) {
-        Loading.hide();
         yield success(payload, action)
       }
       successCallback && successCallback(payload)
 
+      Loading.hide();
       return true
     } catch (err) {
       Loading.hide();

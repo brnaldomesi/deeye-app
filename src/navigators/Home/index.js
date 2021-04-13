@@ -39,7 +39,7 @@ const Home = ({ route, navigation, setLocation }) => {
       if(route.params === undefined) {
         setFooterRoute('feeds');
       } else {
-        setFooterRoute(route.params.query);
+        setFooterRoute('feeds');
       }
     }, [route.params])
   );
