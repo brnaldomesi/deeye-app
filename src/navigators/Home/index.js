@@ -44,7 +44,6 @@ const Home = ({ route, navigation, setLocation }) => {
     }, [route.params])
   );
 
-
   useEffect(() => {
     if(watchID === null) {
       const wID = Geolocation.watchPosition( position => {

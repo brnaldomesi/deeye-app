@@ -59,7 +59,7 @@ const PostDetail = ({
 
   const [imgs, setImgs] = useState(postContent.post_attachments.map((item) => {
     return {
-      type: 'image/*', uri: ASSET_BASE_URL + item.path
+      type: postType === 'video' ? 'video/*' : 'image/*', uri: ASSET_BASE_URL + item.path
     };
   }));
 

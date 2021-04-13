@@ -32,14 +32,13 @@ const MissingHome = ({ route, navigation, setLocation }) => {
 
     useFocusEffect(useCallback(
       () => {
-          if(route.params === undefined) {
+        if(route.params === undefined) {
               setFooterRoute('missing');
           } else {
               setFooterRoute('missing');
           }
       }, [route.params])
     );
-
 
     useEffect(() => {
         if(watchID === null) {

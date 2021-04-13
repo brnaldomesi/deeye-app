@@ -26,7 +26,7 @@ const Feeds = ({
   getPostsListForUnsigned,
 }) => {
 
-  const [count, setCount] = React.useState(5);
+  const [count, setCount] = React.useState(10);
   const [page, setPage] = React.useState(1);
   const [isLoading, setIsLoading] = React.useState(false);
   const [scroll, setScroll] = React.useState(0);

@@ -77,7 +77,7 @@ const Alert = ({getAlertList, alerts, emptyBadgeCount}) => {
             </View>
             <View style={styles.contentText}>
               <Text style={styles.text_content}>
-                <Text style={styles.name_primary}>{item.profile.first_name}</Text>
+                <Text style={styles.name_primary}>{item.profile.first_name + ' ' + item.profile.last_name}</Text>
                 {' '}{content[item.action_type === 'comment' && item.type === 'Comment' ? 'reply' : item.action_type]}
               </Text>
             </View>
