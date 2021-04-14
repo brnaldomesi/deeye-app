@@ -68,7 +68,7 @@ const PasswordSet = ({
         data: { email, password, first_name, last_name, deviceName, fcmToken },
         success: res => {
           const refinedRes = res;
-          const uid = email;
+          const uid = email.replace('@', '-');
           const user = new CometChat.User(uid);
           user.setName(first_name + ' ' + last_name);
           CometChat.createUser(user, COMETCHAT_CONSTANTS.AUTH_KEY).then(user => {
