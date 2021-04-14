@@ -22,7 +22,6 @@ import {
   hasPunctuation,
   hasUpperCase
 } from 'src/utils/helpers';
-import { refineJSON } from 'src/utils/helpers';
 import { COMETCHAT_CONSTANTS } from 'src/config/constants';
 import { CometChat } from '@cometchat-pro/react-native-chat';
 import GradientButton from 'src/components/GradientButton';
@@ -35,6 +34,7 @@ import { createStructuredSelector } from 'reselect'
 import { fcmTokenSelector } from 'src/redux/modules/auth';
 import styles from './styles';
 import { useDeviceName } from 'react-native-device-info';
+import * as RootNavigation from "../../../Ref";
 
 const rules = {
   longerThanEight: { value: false, label: 'At least 8 Characters long' },
@@ -56,27 +56,28 @@ const PasswordSet = ({
   const [pwdMismatcherror, setPwdMismatchError] = useState(false);
   const [pwdRules, setPwdRules] = useState(rules);
   const { result: deviceName } = useDeviceName();
-  const { email } = route.params;
+  const {email, first, last} = route.params;
+  const first_name = first;
+  const last_name = last;
 
   const handleConfirm = () => {
     if(pwdRuleError || pwdMismatcherror) {
       alert('Passwords are incorrect');
     } else {
       authSignup({
-        data: { email, password, deviceName, fcmToken },
+        data: { email, password, first_name, last_name, deviceName, fcmToken },
         success: res => {
-          const refinedRes = refineJSON(res);
-          const uid = 'user' + refinedRes.profile.user_id;
+          const refinedRes = res;
+          const uid = email;
           const user = new CometChat.User(uid);
-          user.setName(uid);
-
+          user.setName(first_name + ' ' + last_name);
           CometChat.createUser(user, COMETCHAT_CONSTANTS.AUTH_KEY).then(user => {
             console.log("user created", user);
           }, error => {
             console.error(error);
           });
 
-          navigation.navigate('Drawer');
+          RootNavigation.navigate('Drawer');
         },
         fail: err => {
           console.error(err)

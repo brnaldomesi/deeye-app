@@ -97,7 +97,7 @@ const Feed = ({
       Image.getSize(uri, (width, height) => {
         setThumbsize({width, height});
       }, (error) => {
-        console.log(error)
+        console.log('Image getSize', error)
       });
     }
 

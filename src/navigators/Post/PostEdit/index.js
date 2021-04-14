@@ -2,7 +2,7 @@ import {
   Alert,
   Image,
   Text,
-  TextInput, TouchableOpacity,
+  TextInput,
   View
 } from 'react-native';
 import React, {
@@ -10,10 +10,8 @@ import React, {
   useRef,
   useState,
   useEffect,
-  useMemo
 } from 'react';
 import {
-  basicPadding,
   bgWhite, d_flex,
   flexOne,
   flexRow,
@@ -24,7 +22,6 @@ import {
   textDot7
 } from 'src/styles';
 import { updatePost, uploadFile, deleteFile } from 'src/redux/modules/posts';
-import { refineJSON } from 'src/utils/helpers';
 import Button from 'src/components/Button';
 import DocumentPicker from 'react-native-document-picker';
 import Header from '../components/Header';
@@ -126,7 +123,7 @@ const PostEdit = ({
       success: res => {
         setPostType(type);
 
-        const refinedRes = refineJSON(res);
+        const refinedRes = res;
         setAttachments(attachments => attachments.concat([{
           id: refinedRes.id,
           attachment_type: 'General',

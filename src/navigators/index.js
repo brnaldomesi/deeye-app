@@ -22,40 +22,34 @@ import PropTypes from 'prop-types';
 import Hate from '../components/PopupSheet/Others/Hate';
 import SharePost from "./Post/SharePost";
 import SplashScreen from "react-native-splash-screen";
-import axios from 'axios';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createStructuredSelector } from 'reselect'
 import { isAuthenticatedSelector } from 'src/redux/modules/auth';
-import {refineJSON} from "src/utils/helpers";
 import Send from "./Send";
+import {missingAlarm} from "../redux/modules/posts";
 
 const Stack = createStackNavigator();
 
-const StackNavigator = ({isAuthenticated}) => {
+const StackNavigator = ({isAuthenticated, missingAlarm}) => {
 
   const [call, setCall] = useState(false);
   const [initData, setInitData] = useState({});
 
   useEffect(() => {
     SplashScreen.hide();
+  }, []);
 
+  useEffect(() => {
     const id = 0;
 
-    axios({
-      url: BASE_URL + '/missing/user_id=' + id,
-      method: 'get',
-    })
-      .then(function (data) {
-        const item = refineJSON(data.data);
-        setInitData(item);
+    console.log(missingAlarm)
+
+    missingAlarm({id: id, success: (res) => {
+        setInitData(res);
         setCall(true);
-
-      }).catch((error) => {
-      console.log('error')
-    });
-
+    }});
   }, []);
 
   if (!call) {
@@ -187,14 +181,14 @@ const StackNavigator = ({isAuthenticated}) => {
   }
 };
 
-StackNavigator.propTypes = {
-  isAuthenticated: PropTypes.bool
-}
-
 const selector = createStructuredSelector({
   isAuthenticated: isAuthenticatedSelector,
 })
 
+const actions = {
+  missingAlarm
+}
+
 export default compose(
-  connect(selector)
+  connect(selector, actions)
 )(StackNavigator);

@@ -61,6 +61,7 @@ const Review = ({
       Image.getSize(uri, (width, height) => {
         setThumbsize({width, height});
       }, (error) => {
+        console.log('Image getSize', error)
       });
     }
   }, [uri])

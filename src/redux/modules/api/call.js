@@ -2,12 +2,12 @@ import { call, put, select } from 'redux-saga/effects'
 import { requestPending, requestRejected, requestSuccess } from './actions'
 
 import { BASE_URL } from 'src/config/apipath'
-import Config from "react-native-config";
 import axios from 'axios'
 import get from 'lodash/get'
 import pick from 'lodash/pick'
 import { tokenSelector } from 'src/redux/modules/auth/selectors'
 import Loading from 'src/utils/Loading'
+import {refineJSON} from "../../../utils/helpers";
 
 const defaultHeaders = token => ({
   'Content-Type': 'application/json;charset=utf-8',
@@ -79,7 +79,7 @@ export default ({
         onDownloadProgress
       })
 
-      const payload = payloadOnSuccess ? payloadOnSuccess(res.data, action) : res.data
+      const payload = payloadOnSuccess ? payloadOnSuccess(refineJSON(refineJSON(res).data), action) : refineJSON(refineJSON(res).data)
       yield put(
         requestSuccess({
           selectorKey,

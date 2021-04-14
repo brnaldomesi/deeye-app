@@ -30,7 +30,6 @@ import {
 } from 'react-native';
 import React, { useState } from 'react';
 import { uploadFile } from 'src/redux/modules/posts';
-import { refineJSON } from 'src/utils/helpers';
 import { Button } from 'react-native-elements';
 import { CheckBox } from 'react-native-elements'
 import DocumentPicker from 'react-native-document-picker';
@@ -76,7 +75,7 @@ const ContactInfo = ({
       headers: { 'Content-Type': 'multipart/form-data' },
       data: formData,
       success: res => {
-        const refinedRes = refineJSON(res);
+        const refinedRes = res;
         setAttachments(attachments => attachments.concat([{
           id: refinedRes.id,
           attachment_type: 'General'

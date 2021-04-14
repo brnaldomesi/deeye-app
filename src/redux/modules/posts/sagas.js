@@ -11,7 +11,6 @@ import {
 import { put, takeLatest } from 'redux-saga/effects'
 
 import { apiCallSaga } from '../api'
-import { refineJSON } from 'src/utils/helpers'
 
 const getPostsList = apiCallSaga({
   type: types.GET_POSTS_LIST,
@@ -21,8 +20,8 @@ const getPostsList = apiCallSaga({
   selectorKey: 'postsList',
   success: function*(payload, action) {
     yield put(action.payload.params.page === 1 ?
-      getPostsListSuccess(refineJSON(payload.data)) :
-      getPostsListMoreSuccess(refineJSON(payload.data))
+      getPostsListSuccess(payload.data) :
+      getPostsListMoreSuccess(payload.data)
     )
   },
   fail: function*(payload) {
@@ -37,7 +36,7 @@ const getPostsListForUnsigned = apiCallSaga({
   path: '/posts/unsigned',
   selectorKey: 'postsList',
   success: function*(payload) {
-    yield put(getPostsListSuccess(refineJSON(payload.data)))
+    yield put(getPostsListSuccess(payload.data))
   },
   fail: function*(payload) {
     yield put(getPostsListFail(payload))
@@ -51,7 +50,7 @@ const createPost = apiCallSaga({
   path: '/posts',
   selectorKey: 'post',
   success: function*(payload, action) {
-    yield put(createPostSuccess(refineJSON(payload)))
+    yield put(createPostSuccess(payload))
   }
 })
 
@@ -62,7 +61,7 @@ const hidePost = apiCallSaga({
   path: ({payload}) => `/posts/${payload.id}/hide`,
   selectorKey: 'post',
   success: function*(payload, action) {
-    yield put(deletePostSuccess(refineJSON(payload)))
+    yield put(deletePostSuccess(payload))
   }
 })
 
@@ -73,7 +72,7 @@ const deletePost = apiCallSaga({
   path: ({payload}) => `/posts/${payload.id}`,
   selectorKey: 'post',
   success: function*(payload, action) {
-    yield put(deletePostSuccess(refineJSON(payload)))
+    yield put(deletePostSuccess(payload))
   }
 })
 
@@ -103,7 +102,7 @@ const updatePost = apiCallSaga({
   path: ({payload}) => `/posts/${payload.id}`,
   selectorKey: 'updatePost',
   success: function*(payload, action) {
-    yield put(updatePostSuccess(refineJSON(payload)))
+    yield put(updatePostSuccess(payload))
   }
 })
 
@@ -114,7 +113,7 @@ const savePost = apiCallSaga({
   path: ({payload}) => `/posts/${payload.id}/save`,
   selectorKey: 'post',
   success: function*(payload, action) {
-    yield put(updatePostSuccess(refineJSON(payload)))
+    yield put(updatePostSuccess(payload))
   }
 })
 
@@ -125,7 +124,7 @@ const likePost = apiCallSaga({
   path: ({payload}) => `/posts/${payload.id}/like`,
   selectorKey: 'post',
   success: function*(payload, action) {
-    yield put(updatePostSuccess(refineJSON(payload)))
+    yield put(updatePostSuccess(payload))
   }
 })
 
@@ -136,7 +135,7 @@ const sharePost = apiCallSaga({
   path: ({payload}) => `/posts/${payload.id}/share`,
   selectorKey: 'post',
   success: function*(payload, action) {
-    yield put(createPostSuccess(refineJSON(payload)))
+    yield put(createPostSuccess(payload))
   }
 })
 
@@ -147,7 +146,7 @@ const getPost = apiCallSaga({
   path: ({payload}) => `/posts/${payload.id}`,
   selectorKey: 'post',
   success: function*(payload, action) {
-    yield put(updatePostSuccess(refineJSON(payload)));
+    yield put(updatePostSuccess(payload));
   }
 })
 
@@ -158,8 +157,16 @@ const reportPost = apiCallSaga({
   path: ({payload}) => `/posts/${payload.id}/report`,
   selectorKey: 'post',
   success: function*(payload, action) {
-    yield put(updatePostSuccess(refineJSON(payload)));
+    yield put(updatePostSuccess(payload));
   }
+})
+
+const missingAlarm = apiCallSaga({
+  type: types.MISSING_ALARM,
+  method: 'get',
+  allowedParamKeys: [],
+  path: ({payload}) => `/missing/user_id=${payload.id}`,
+  selectorKey: 'missing'
 })
 
 export default function* rootSaga() {
@@ -176,4 +183,5 @@ export default function* rootSaga() {
   yield takeLatest(types.SHARE_POST, sharePost)
   yield takeLatest(types.GET_POST, getPost)
   yield takeLatest(types.DELETE_FILE, deleteFile)
+  yield takeLatest(types.MISSING_ALARM, missingAlarm)
 }

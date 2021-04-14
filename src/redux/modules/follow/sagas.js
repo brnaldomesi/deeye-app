@@ -7,7 +7,6 @@ import {
 import { put, takeLatest } from 'redux-saga/effects'
 
 import { apiCallSaga } from '../api'
-import { refineJSON } from "src/utils/helpers";
 
 const getFollowList = apiCallSaga({
   type: types.GET_FOLLOW_LIST,
@@ -16,7 +15,7 @@ const getFollowList = apiCallSaga({
   path: '/followers',
   selectorKey: 'followList',
   success: function*(payload) {
-    yield put(getFollowListSuccess(refineJSON(payload)))
+    yield put(getFollowListSuccess(payload))
   },
   fail: function*(payload) {
     yield put(getFollowListFail(payload))

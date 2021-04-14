@@ -32,3 +32,4 @@ export const savePost = createAction(types.SAVE_POST);
 export const likePost = createAction(types.LIKE_POST);
 
 export const sharePost = createAction(types.SHARE_POST);
+export const missingAlarm = createAction(types.MISSING_ALARM);

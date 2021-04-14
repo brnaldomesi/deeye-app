@@ -38,10 +38,11 @@ const Email = ({ navigation, authCheckUser }) => {
           if(res.status === 200) {
             navigation.navigate('Password', {email});
           } else if(res.status === 404) {
-            navigation.navigate('PasswordSet', {email});
+            navigation.navigate('UserInfo', {email});
           }
         },
         fail: err => {
+          console.log('check user erorrrrrrrrr', err);
           setError(1);
         }
       });

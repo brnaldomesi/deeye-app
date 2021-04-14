@@ -1,13 +1,11 @@
-import { Image, SafeAreaView, ScrollView, Text, TextInput, View } from 'react-native';
-import React, { useEffect, useCallback, useMemo } from 'react';
+import { ScrollView, View } from 'react-native';
+import React, { useEffect } from 'react';
 import {
   getPostsList,
   getPostsListForUnsigned,
   postsListSelector
 } from 'src/redux/modules/posts';
-
 import Feed from './Feed'
-import { IMAGES_PATH } from 'src/config/constants';
 import PropTypes from 'prop-types';
 import Search from '../Search/index';
 import { Size } from 'src/styles';
@@ -15,7 +13,6 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { profileSelector } from 'src/redux/modules/auth';
-import { useFocusEffect } from '@react-navigation/native';
 
 const Feeds = ({
   getPostsList,
@@ -74,7 +71,7 @@ const Feeds = ({
         <Search/>
       </View>
       {posts && posts.map(post => {
-          return post === undefined ? <></> : <Feed post={post} key={post.id} profileId={profile ? profile.id : undefined} isShare={true} />
+          return typeof post === 'undefined' ? <></> : <Feed post={post} key={post.id} profileId={profile ? profile.id : undefined} isShare={true} />
         }
       )}
       <View style={{ height: Size(6)}}/>

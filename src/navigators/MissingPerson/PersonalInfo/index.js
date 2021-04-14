@@ -26,8 +26,6 @@ import {
   p1,
   primaryColor,
   px2,
-  pxDot7,
-  pyXs,
   relative,
   resizeContain,
   roundedSm,
@@ -35,7 +33,6 @@ import {
   textWhite,
   w80P
 } from 'src/styles';
-import { refineJSON } from 'src/utils/helpers';
 import { Button } from 'react-native-elements';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import DocumentPicker from 'react-native-document-picker';
@@ -103,7 +100,7 @@ const PersonalInfo = ({navigation, uploadFile, route}) => {
       headers: { 'Content-Type': 'multipart/form-data' },
       data: formData,
       success: res => {
-        const refinedRes = refineJSON(res);
+        const refinedRes = res;
 
         setAttachments(attachments => attachments.concat([{
           id: refinedRes.id,

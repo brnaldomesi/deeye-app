@@ -19,6 +19,7 @@ import Phone from './Phone';
 import React from 'react'
 import { Size } from 'src/styles';
 import { createStackNavigator } from '@react-navigation/stack';
+import UserInfo from "./UserInfo";
 
 const LoginStack = createStackNavigator();
 
@@ -71,6 +72,13 @@ const Login = () => {
             component={OtpCode}
             options={{
               title: 'OTP CODE',
+            }}
+          />
+          <LoginStack.Screen
+            name="UserInfo"
+            component={UserInfo}
+            options={{
+              title: 'UserInfo',
             }}
           />
           <LoginStack.Screen

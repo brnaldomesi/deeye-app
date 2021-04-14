@@ -7,7 +7,6 @@ import {
 import { put, takeLatest } from 'redux-saga/effects'
 
 import { apiCallSaga } from '../api'
-import {refineJSON} from "src/utils/helpers";
 
 const getAlertList = apiCallSaga({
   type: types.GET_ALERT_LIST,
@@ -16,7 +15,7 @@ const getAlertList = apiCallSaga({
   path: '/alerts',
   selectorKey: 'alertsList',
   success: function*(payload) {
-    yield put(getAlertListSuccess(refineJSON(payload)))
+    yield put(getAlertListSuccess(payload))
   },
   fail: function*(payload) {
     yield put(getAlertListFail(payload))

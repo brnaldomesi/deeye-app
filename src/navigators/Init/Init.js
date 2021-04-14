@@ -39,7 +39,7 @@ const Init = ({route, isAuthenticated}) => {
       Image.getSize(uri, (width, height) => {
         setThumbsize({width, height});
       }, (error) => {
-        console.error(error)
+        console.log('Image getSize', error)
       });
     }
   }, [uri])

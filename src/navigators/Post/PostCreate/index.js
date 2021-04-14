@@ -2,7 +2,7 @@ import {
   Alert,
   Image,
   Text,
-  TextInput, TouchableOpacity,
+  TextInput,
   View
 } from 'react-native';
 import React, {
@@ -10,10 +10,8 @@ import React, {
   useRef,
   useState,
   useEffect,
-  useMemo
 } from 'react';
 import {
-  basicPadding,
   bgWhite, d_flex,
   flexOne,
   flexRow,
@@ -24,12 +22,10 @@ import {
   textDot7
 } from 'src/styles';
 import { createPost, uploadFile } from 'src/redux/modules/posts';
-import { refineJSON } from 'src/utils/helpers';
 import Button from 'src/components/Button';
 import DocumentPicker from 'react-native-document-picker';
 import Header from '../components/Header';
 import { IMAGES_PATH } from 'src/config/constants';
-import IconButton from 'src/components/IconButton';
 import MyButton from 'src/components/MyButton';
 import PropTypes from 'prop-types';
 import { RNCamera } from 'react-native-camera';
@@ -56,7 +52,6 @@ const PostCreate = ({
   createPost
 }) => {
   const [initState, setInitState] = useState(true);
-  const [initUrl, setInitUrl] = useState(false);
   const [description, setDescription] = useState('');
   const [slide, setSlide] = useState(0)
   const [cameraView, setCameraView] = useState(false)
@@ -115,7 +110,7 @@ const PostCreate = ({
       success: res => {
         setPostType(type);
 
-        const refinedRes = refineJSON(res);
+        const refinedRes = res;
         setAttachments(attachments => attachments.concat([{
           id: refinedRes.id,
           attachment_type: 'General',

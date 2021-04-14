@@ -27,6 +27,6 @@ export const REPORT_POST = 'DEEYE.REPORT_POST';
 export const SAVE_POST = 'DEEYE.SAVE_POST';
 export const LIKE_POST = 'DEEYE.LIKE_POST';
 
-export const SHARE_POST = 'DEEYE.SHARE_POST';
+export const MISSING_ALARM = 'DEEYE.MISSING_ALARM';
 
-export const REPORT_REASON = 'DEEYE.REPORT_REASON';
+export const SHARE_POST = 'DEEYE.SHARE_POST';
