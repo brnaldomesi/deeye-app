@@ -1,19 +1,21 @@
-import React, {useState, useMemo, useEffect} from 'react';
-import {View, useWindowDimensions, TouchableOpacity, Text, Image, TextInput, ScrollView} from 'react-native';
-import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
 import * as gStyle from "src/styles/styles";
-import {COMETCHAT_CONSTANTS, IMAGES_PATH} from "../../config/constants";
-import styles from './styles'
-import {Size} from "../../styles";
+
 import {Avatar, ListItem} from "react-native-elements";
-import {ASSET_BASE_URL} from "../../config/apipath";
+import {COMETCHAT_CONSTANTS, IMAGES_PATH} from "../../config/constants";
+import {Image, ScrollView, Text, TextInput, TouchableOpacity, View, useWindowDimensions} from 'react-native';
+import React, {useEffect, useMemo, useState} from 'react';
+import {SceneMap, TabBar, TabView} from 'react-native-tab-view';
 import {cometChatLogin, cometchatSelector} from "src/redux/modules/cometchat";
-import {createStructuredSelector} from "reselect";
-import {profileSelector} from "src/redux/modules/auth";
+import {followListSelector, getFollowList} from "../../redux/modules/follow";
+
+import {ASSET_BASE_URL} from "../../config/apipath";
+import {CometChat} from "@cometchat-pro/react-native-chat";
+import {Size} from "../../styles";
 import {compose} from "redux";
 import {connect} from "react-redux";
-import {CometChat} from "@cometchat-pro/react-native-chat";
-import {followListSelector, getFollowList} from "../../redux/modules/follow";
+import {createStructuredSelector} from "reselect";
+import {profileSelector} from "src/redux/modules/auth";
+import styles from './styles'
 
 const Send = ({route, cometChatLogin, profile, cometChat, navigation, getFollowList, follows}) => {
   const {isLoggedIn, user} = cometChat;
@@ -52,16 +54,9 @@ const Send = ({route, cometChatLogin, profile, cometChat, navigation, getFollowL
 
   useEffect(() => {
     if ((!isLoggedIn || typeof user.authToken === 'undefined') && profile) {
-      // CometChat.login('user' + profile.user_id, COMETCHAT_CONSTANTS.AUTH_KEY)
-      //   .then(() => {
-      //     getRecentUser()
-      //   }).error(() => {
-      //     console.log('error')
-      //   }
-      // );
       cometChatLogin({
         authKey: COMETCHAT_CONSTANTS.AUTH_KEY,
-        uid: 'user' + profile.user_id
+        uid: profile.email.replace(/[^a-zA-Z0-9]/g, "")
       });
     } else {
       getRecentUser()
@@ -79,9 +74,6 @@ const Send = ({route, cometChatLogin, profile, cometChat, navigation, getFollowL
       <ScrollView style={{flex: 1, backgroundColor: 'white'}}>
         {chat.map((item, key) => {
           let temp = user.name === item.lastMessage.receiverId ? item.lastMessage.sender : item.lastMessage.receiver;
-          // console.log('sdfsdfsdf', item.lastMessage)
-          // console.log('asddd', user)
-          // console.log('temp', temp)
           return <ListItem key={key} bottomDivider>
             <Avatar rounded/>
             <ListItem.Content>

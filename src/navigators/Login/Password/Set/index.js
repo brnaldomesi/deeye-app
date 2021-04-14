@@ -1,3 +1,5 @@
+import * as RootNavigation from "../../../Ref";
+
 import {
   Colors,
   Size,
@@ -22,6 +24,7 @@ import {
   hasPunctuation,
   hasUpperCase
 } from 'src/utils/helpers';
+
 import { COMETCHAT_CONSTANTS } from 'src/config/constants';
 import { CometChat } from '@cometchat-pro/react-native-chat';
 import GradientButton from 'src/components/GradientButton';
@@ -34,7 +37,6 @@ import { createStructuredSelector } from 'reselect'
 import { fcmTokenSelector } from 'src/redux/modules/auth';
 import styles from './styles';
 import { useDeviceName } from 'react-native-device-info';
-import * as RootNavigation from "../../../Ref";
 
 const rules = {
   longerThanEight: { value: false, label: 'At least 8 Characters long' },
@@ -68,9 +70,10 @@ const PasswordSet = ({
         data: { email, password, first_name, last_name, deviceName, fcmToken },
         success: res => {
           const refinedRes = res;
-          const uid = email.replace('@', '-');
+          const uid = email.replace(/[^a-zA-Z0-9]/g, "")
           const user = new CometChat.User(uid);
           user.setName(first_name + ' ' + last_name);
+
           CometChat.createUser(user, COMETCHAT_CONSTANTS.AUTH_KEY).then(user => {
             console.log("user created", user);
           }, error => {

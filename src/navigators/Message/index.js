@@ -19,10 +19,10 @@ const Message = ({ cometChatLogin, profile, cometChat }) => {
   const { isLoggedIn, user } = cometChat;
 
   useEffect(() => {
-    if((!isLoggedIn || typeof user.authToken === 'undefined')&& profile) {
+    if((!isLoggedIn || typeof user.authToken === 'undefined') && profile) {
       cometChatLogin({
         authKey: COMETCHAT_CONSTANTS.AUTH_KEY,
-        uid: 'user' + profile.user_id
+        uid: profile.email.replace(/[^a-zA-Z0-9]/g, "")
       });
     }
   }, [isLoggedIn, profile])
