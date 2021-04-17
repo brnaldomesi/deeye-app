@@ -30,6 +30,8 @@ const Feeds = ({
   const [type, setType] = React.useState(footerRoute === 'missing'? 0 : 1);
 
   useEffect(() => {
+    let unmounted = false;
+
     if (isLoading) {
       return;
     }
@@ -39,14 +41,18 @@ const Feeds = ({
         {params: {type: type, page: page, count: count}}
       );
     } else {
-      getPostsList(
-        {params: {type: type, page: page, count: count},
-          success: (res) => {
-            setPage(page + 1);
-            setIsLoading(res.data.length === 0);
-          }}
-      );
+      if (!unmounted) {
+        getPostsList(
+          {params: {type: type, page: page, count: count},
+            success: (res) => {
+              setPage(page + 1);
+              setIsLoading(res.data.length === 0);
+            }}
+        );
+      }
     }
+
+    return () => { unmounted = true };
   }, [scroll]);
 
   const isCloseToBottom = ({layoutMeasurement, contentOffset, contentSize}) => {

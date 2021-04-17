@@ -48,11 +48,7 @@ const Follow = ({navigation, getFollowList, setFollow, follows}) => {
     return unsubscribe;
   }, [navigation]);
 
-  useEffect(() => {
-    setTap('left');
-  }, [])
-
-  useMemo(() => {
+  React.useEffect(() => {
     getFollowList({params: {type: tap === 'left' ? 0 : 1, search: searchText}});
   }, [tap, isEdit]);
 
