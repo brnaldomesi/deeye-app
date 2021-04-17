@@ -147,7 +147,7 @@ const PostCreate = ({
       });
       setPosts(posts => posts.concat([{ type: mediaType, uri: res.uri }]));
       setInitState(false);
-      handleUpload(res, mediaType === 'image/*' ? 'Image' : 'Video');
+      handleUpload(res, mediaType === 'image/*' || mediaType === 'public.image' ? 'Image' : 'Video');
     } catch (err) {
       if (DocumentPicker.isCancel(err)) {
         // User cancelled the picker, exit any dialogs or menus and move on
@@ -214,11 +214,11 @@ const PostCreate = ({
     <View style={styles.post}>
       {type === DocumentPicker.types.images ? (
         <Image
-          source={{ uri }}
-          resizeMode='contain'
-          style={styles.post}
+        source={{ uri }}
+        resizeMode='contain'
+        style={styles.post}
         />
-      ) : type === DocumentPicker.types.video && (
+        ) : type === DocumentPicker.types.video && (
         <VideoPlayer source={{ uri }} style={styles.post} paused={true} />
       )}
       <Button

@@ -93,21 +93,23 @@ const PopupSheet = ({
         RootNavigation.navigate(post.post_type === 'MissingPerson' ? 'MissingPostEdit' : 'PostEdit', {post});
       } else if (type === "delete") {
         setIsVisible(false);
-        Alert.alert(
-          'Delete',
-          'Are you sure to delete?',
-          [
-            {
-              text: 'No'
-            },
-            {
-              text: 'Yes',
-              onPress: () => {
-                deletePost({id: post.id});
+        setTimeout(() => {
+          Alert.alert(
+            'Delete',
+            'Are you sure to delete?',
+            [
+              {
+                text: 'No'
+              },
+              {
+                text: 'Yes',
+                onPress: () => {
+                  deletePost({id: post.id});
+                }
               }
-            }
-          ]
-        );
+            ]
+          );
+        }, 100);
       }
     }
   }

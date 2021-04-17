@@ -1,4 +1,10 @@
 rootProject.name = 'deeye'
+include ':react-native-vector-icons'
+project(':react-native-vector-icons').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-vector-icons/android')
+include ':react-native-vector-icons'
+project(':react-native-vector-icons').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-vector-icons/android')
+include ':react-native-cometchat-rtc'
+project(':react-native-cometchat-rtc').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-cometchat-rtc/android')
 include ':@react-native-community_geolocation'
 project(':@react-native-community_geolocation').projectDir = new File(rootProject.projectDir, '../node_modules/@react-native-community/geolocation/android')
 include ':@react-native-async-storage_async-storage'

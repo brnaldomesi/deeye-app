@@ -17,12 +17,14 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
   input: {
+    marginTop: 13,
+    fontSize: 20,
     // alignSelf: 'center',
   },
   text: {
     marginLeft: 10,
     fontSize: 18,
-    fontWeight: '900',
+    fontWeight: '500',
     color: '#05174f',
   },
   search: {

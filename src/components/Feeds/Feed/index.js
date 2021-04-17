@@ -1,10 +1,8 @@
 import * as RootNavigation from 'src/navigators/Ref';
 
 import {
-  Colors,
   Size,
   absolute,
-  bgSecodary,
   bgWhite,
   flexOne,
   flexRow,
@@ -20,15 +18,11 @@ import {
   p1,
   pl1,
   primaryColor,
-  px1,
-  py1,
   relative,
   resizeContain,
-  roundedFull,
-  textBase,
   textWhite,
   textXl,
-  textYellow100, d_flex
+  d_flex
 } from 'src/styles';
 import {
   Dimensions,
@@ -263,7 +257,7 @@ const Feed = ({
               {' '}{post.follow_state === 0 ? 'follow' : 'following'}</Text>
           </TouchableOpacity>}
           <View>
-            <PopupSheet post={post} isMyPost={post.profile_id === profileId}/>
+            <PopupSheet post={post} isMyPost={post.profile_id === profileId} isShare={isShare}/>
           </View>
         </View>
         <View style={[mtp5]}>
