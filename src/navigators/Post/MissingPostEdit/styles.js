@@ -21,6 +21,10 @@ const styles = StyleSheet.create({
 
   f_name: {
     fontSize: Size(1.6),
+    backgroundColor: '#eeeeee',
+    borderRadius: 5,
+    paddingHorizontal: 10,
+    marginBottom: 5
   },
 
   f_title: {
@@ -32,7 +36,15 @@ const styles = StyleSheet.create({
   },
 
   f_content: {
-    fontSize: Size(.6)
+    fontSize: Size(.6),
+    backgroundColor: '#eeeeee',
+    borderRadius: 5,
+    paddingHorizontal: 10,
+    width: '100%'
+  },
+
+  f_report: {
+    fontSize: Size(.6),
   },
 
   mt5: {
@@ -70,6 +82,9 @@ const styles = StyleSheet.create({
     minHeight: Size(1),
     padding: 0,
     margin: 0,
+    width: '90%',
+    backgroundColor: '#eeeeee',
+    paddingHorizontal: 10
   }
 });
 
