@@ -104,7 +104,7 @@ const Feed = ({
     if (link !== '') {
       handleParse();
     }
-  }, [uri])
+  }, [uri, link])
 
   const handleParse = () => {
     LinkPreview.getPreview(link).then(data => {

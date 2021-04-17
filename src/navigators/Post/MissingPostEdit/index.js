@@ -131,7 +131,7 @@ const MissingPostEdit = ({
           </View>
           <View style={g.p1}>
             <View style={[g.flexRow, g.justifyBetween]}>
-              <View style={styles.w_70}>
+              <View style={{width: '90%'}}>
                 <TextInput onChangeText={text => {
                   setName(text)
                 }}
@@ -198,9 +198,9 @@ const MissingPostEdit = ({
             </View>
             <Divider style={[g.bgDivider, styles.bottom_divider]}/>
             <View style={[g.flexRow, g.justifyBetween]}>
-              <View style={[{flexShrink: .7}]}>
-                <View>
-                  <Text style={[g.primaryColor, styles.f_title]}>Circumstance</Text>
+              <View style={[{width: '90%'}]}>
+                <Text style={[g.primaryColor, styles.f_title]}>Circumstance</Text>
+                <View style={{width: '100%'}}>
                   <TextInput onChangeText={text => {
                     setCir(text)
                   }}
@@ -268,7 +268,7 @@ const MissingPostEdit = ({
                   </View>
                 </View>
                 <View>
-                  <Text style={[styles.w_70, g.secondaryColor, styles.mt5, styles.f_content]}>missing post is very good
+                  <Text style={[styles.w_70, g.secondaryColor, styles.mt5, styles.f_report]}>missing post is very good
                     missing post is very good missing post is very good missing post is very good</Text>
                 </View>
               </View>

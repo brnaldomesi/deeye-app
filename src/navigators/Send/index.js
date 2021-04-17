@@ -98,7 +98,7 @@ const Send = ({route, cometChatLogin, profile, cometChat, navigation, getFollowL
               <ListItem.Title>{item.first_name}</ListItem.Title>
               <ListItem.Subtitle>{item.last_name}</ListItem.Subtitle>
             </ListItem.Content>
-            <TouchableOpacity onPress={handleSend((item.first_name + item.last_name).toLowerCase())}>
+            <TouchableOpacity onPress={handleSend(item.email.replace('@', '').replace('.', ''))}>
               <Text style={styles.itemSend}>Send</Text>
             </TouchableOpacity>
           </ListItem>

@@ -4,7 +4,8 @@ import {
   ScrollView,
   Text,
   TextInput,
-  View
+  View,
+  Picker
 } from 'react-native';
 import React, { useState } from 'react';
 import {
@@ -39,7 +40,6 @@ import DocumentPicker from 'react-native-document-picker';
 import Header from '../components/Header';
 import { IMAGES_PATH } from 'src/config/constants';
 import MyButton from 'src/components/MyButton';
-import { Picker } from '@react-native-picker/picker';
 import PropTypes from 'prop-types';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
@@ -366,7 +366,8 @@ const PersonalInfo = ({navigation, uploadFile, route}) => {
                   onValueChange={(itemValue, itemIndex) =>
                     setHair(itemValue)
                   }
-                  style={{ height: Size(2.5) }}
+                  style={{height: Size(2.5)}}
+                  itemStyle={{maxHeight: Size(2.5), minHeight: Size(2.5), alignItems: 'center'}}
                 >
                   <Picker.Item label="Yellow" value="Yellow" />
                   <Picker.Item label="Wave" value="Wave" />
@@ -384,7 +385,8 @@ const PersonalInfo = ({navigation, uploadFile, route}) => {
                   onValueChange={(itemValue, itemIndex) =>
                     setRace(itemValue)
                   }
-                  style={{ height: Size(2.5) }}
+                  style={{height: Size(2.5)}}
+                  itemStyle={{maxHeight: Size(2.5), minHeight: Size(2.5), alignItems: 'center'}}
                 >
                   <Picker.Item label="Black" value="Black" />
                   <Picker.Item label="White" value="White" />
@@ -407,7 +409,8 @@ const PersonalInfo = ({navigation, uploadFile, route}) => {
                   onValueChange={(itemValue, itemIndex) =>
                     setEye(itemValue)
                   }
-                  style={{ height: Size(2.5) }}
+                  style={{height: Size(2.5)}}
+                  itemStyle={{maxHeight: Size(2.5), minHeight: Size(2.5), alignItems: 'center'}}
                 >
                   <Picker.Item label="Yellow" value="Yellow" />
                   <Picker.Item label="Brown" value="Brown" />
