@@ -49,15 +49,17 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.divider
   },
   btnFollow: {
+    borderRadius: Size(),
+    marginRight: Size(),
+    paddingHorizontal: Size(),
     borderWidth: 1,
-    borderRadius: 10,
-    borderColor: '#021744',
-    fontSize: 10,
-    paddingStart: 5,
-    paddingEnd: 5,
-    paddingTop: 2,
-    paddingBottom: 2,
-    textAlign: 'center'
+    paddingVertical: Size(.2)
+  },
+  followIcon: {
+    width: Size(.7),
+    height: Size(.7),
+    resizeMode: 'contain',
+    marginHorizontal: Size(.5)
   }
 });
 
