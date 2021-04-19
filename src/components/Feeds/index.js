@@ -32,16 +32,16 @@ const Feeds = ({
   useEffect(() => {
     let unmounted = false;
 
-    if (isLoading) {
-      return;
-    }
+    if (!unmounted) {
+      if (isLoading) {
+        return;
+      }
 
-    if(unsigned) {
-      getPostsListForUnsigned(
-        {params: {type: type, page: page, count: count}}
-      );
-    } else {
-      if (!unmounted) {
+      if(unsigned) {
+        getPostsListForUnsigned(
+          {params: {type: type, page: page, count: count}}
+        );
+      } else {
         getPostsList(
           {params: {type: type, page: page, count: count},
             success: (res) => {
@@ -77,7 +77,9 @@ const Feeds = ({
         <Search/>
       </View>
       {posts && posts.map(post => {
-          return typeof post === 'undefined' ? <></> : <Feed post={post} key={post.id} profileId={profile ? profile.id : undefined} isShare={true} />
+          return typeof post === 'undefined'
+            ? <></>
+            : <Feed post={post} key={post.id} profileId={profile ? profile.id : undefined} isShare={true} />
         }
       )}
       <View style={{ height: Size(6)}}/>

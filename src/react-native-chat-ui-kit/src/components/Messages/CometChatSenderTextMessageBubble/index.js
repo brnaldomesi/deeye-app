@@ -17,6 +17,7 @@ import * as RootNavigation from 'src/navigators/Ref';
 import {flexOne, opacity40, Size} from "../../../../../styles";
 import FastImage from "react-native-fast-image";
 import {ASSET_BASE_URL} from "../../../../../config/apipath";
+import LinkPreview from "react-native-link-preview";
 
 const messageFrom = 'sender';
 
@@ -32,6 +33,11 @@ export default (props) => {
   const [message, setMessage] = useState({...props.message, messageFrom});
   const prevMessage = usePrevious(message);
   const ViewTheme = {...theme, ...props.theme};
+
+  const [title, setTitle] = useState('');
+  const [icon, setIcon] = useState(null);
+  const [thumbnail, setThumbnail] = useState(null);
+  const [isVideo, setIsVideo] = useState(false);
 
   const getMessageText = () => {
     // let showVariation = true;
@@ -152,6 +158,10 @@ export default (props) => {
 
       RootNavigation.navigate('PostDetail', {id});
     }
+  };
+
+  const handleUrl = () => {
+    Linking.openURL(message.metadata.post.link);
   }
 
   return (
@@ -171,7 +181,11 @@ export default (props) => {
                 resizeMode={FastImage.resizeMode.contain}
               />
             </View>}
-            <Text style={[{color: 'white', textAlign: 'center'}]}>{message.metadata.post.description}</Text>
+            {
+              message.metadata.post.post_type === 'link' ? <TouchableOpacity onPress={handleUrl}>
+                <Text style={[{color: 'black', textAlign: 'center'}]}>{message.metadata.post.post_type === 'link' ? message.metadata.post.link : message.metadata.post.description}</Text>
+              </TouchableOpacity> : <Text style={[{color: 'black', textAlign: 'center'}]}>{message.metadata.post.post_type === 'link' ? message.metadata.post.link : message.metadata.post.description}</Text>
+            }
           </View>
         </View> : <View style={style.messageWrapperStyle}>{messageText}
         </View>}

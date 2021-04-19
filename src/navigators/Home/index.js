@@ -30,7 +30,7 @@ import styles from './styles';
 import { useFocusEffect } from '@react-navigation/native';
 
 const Home = ({ route, navigation, setLocation }) => {
-   
+
   const [footerRoute, setFooterRoute] = useState('feeds');
   const [watchID, setWatchID] = useState(null);
 

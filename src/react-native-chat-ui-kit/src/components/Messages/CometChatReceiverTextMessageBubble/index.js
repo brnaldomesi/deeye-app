@@ -161,6 +161,10 @@ export default (props) => {
     }
   }
 
+  const handleUrl = () => {
+    Linking.openURL(message.metadata.post.link);
+  }
+
   return (
     <View style={{ marginBottom: 16 }}>
       <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
@@ -204,7 +208,11 @@ export default (props) => {
                       resizeMode={FastImage.resizeMode.contain}
                     />
                   </View>}
-                  <Text style={[{color: 'black', textAlign: 'center'}]}>{message.metadata.post.description}</Text>
+                  {
+                    message.metadata.post.post_type === 'link' ? <TouchableOpacity onPress={handleUrl}>
+                      <Text style={[{color: 'black', textAlign: 'center'}]}>{message.metadata.post.post_type === 'link' ? message.metadata.post.link : message.metadata.post.description}</Text>
+                    </TouchableOpacity> : <Text style={[{color: 'black', textAlign: 'center'}]}>{message.metadata.post.post_type === 'link' ? message.metadata.post.link : message.metadata.post.description}</Text>
+                  }
                 </View>
               </View> : <View
                 style={[

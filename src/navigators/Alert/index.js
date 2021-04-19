@@ -58,26 +58,26 @@ const Alert = ({getAlertList, alerts, emptyBadgeCount}) => {
             follow: IMAGES_PATH.alert_request
           };
           const content = {
-            like: item.post === null ? '' : item.type === 'Post' ? item.post.missing_post_content === null ? 'support your post' : 'support your missing person post' : 'support your comment',
+            like: item.post === null ? '' : item.type === 'Post' ? item.missing_since === null ? 'support your post' : 'support your missing person post' : 'support your comment',
             comment: item.post === null ? 'comment your post' : 'comment your missing person post',
-            save: item.post === null ? '' : item.type === 'Post' ? item.post.missing_post_content === null ? 'save your post' : 'save your missing person post' : 'save your comment',
-            share: item.post === null ? '' : item.type === 'Post' ? item.post.missing_post_content === null ? 'share your post' : 'share your missing person post' : 'share your comment',
-            hide: item.post === null ? '' : item.type === 'Post' ? item.post.missing_post_content === null ? 'hide your post' : 'hide your missing person post' : 'hide your comment',
-            report: item.post === null ? '' : item.type === 'Post' ? item.post.missing_post_content === null ? 'report your post' : 'report your missing person post' : 'report your comment',
-            reply: item.post === null ? '' : item.type === 'Post' ? item.post.missing_post_content === null ? 'reply your post' : 'reply your missing person post' : 'reply your comment',
+            save: item.post === null ? '' : item.type === 'Post' ? item.missing_since === null ? 'save your post' : 'save your missing person post' : 'save your comment',
+            share: item.post === null ? '' : item.type === 'Post' ? item.missing_since === null ? 'share your post' : 'share your missing person post' : 'share your comment',
+            hide: item.post === null ? '' : item.type === 'Post' ? item.missing_since === null ? 'hide your post' : 'hide your missing person post' : 'hide your comment',
+            report: item.post === null ? '' : item.type === 'Post' ? item.missing_since === null ? 'report your post' : 'report your missing person post' : 'report your comment',
+            reply: item.post === null ? '' : item.type === 'Post' ? item.missing_since === null ? 'reply your post' : 'reply your missing person post' : 'reply your comment',
             follow: 'is following you now',
           };
 
           return item.action_type !== 'create_missing' ? <View key={index} style={styles.simple_item}>
             <View style={styles.leftImg}>
               <View style={[styles.vwImg, border_color[item.action_type === 'comment' && item.type === 'Comment' ? 'reply' : item.action_type]]}>
-                <Image style={styles.circleImg} source={{uri: ASSET_BASE_URL + item.profile.avatar_path}}/>
+                <Image style={styles.circleImg} source={{uri: ASSET_BASE_URL + item.avatar_path}}/>
               </View>
               <Image style={styles.badgeImg} source={avatar_badge[item.action_type === 'comment' && item.type === 'Comment' ? 'reply' : item.action_type]}/>
             </View>
             <View style={styles.contentText}>
               <Text style={styles.text_content}>
-                <Text style={styles.name_primary}>{item.profile.first_name + ' ' + item.profile.last_name}</Text>
+                <Text style={styles.name_primary}>{item.first_name + ' ' + item.last_name}</Text>
                 {' '}{content[item.action_type === 'comment' && item.type === 'Comment' ? 'reply' : item.action_type]}
               </Text>
             </View>
@@ -95,7 +95,7 @@ const Alert = ({getAlertList, alerts, emptyBadgeCount}) => {
                 <View style={styles.m_auto}>
                   <View style={styles.m_auto}>
                     <View style={[styles.large_vwImg, styles.alert_color_large_default]}>
-                      <Image style={styles.circleImg} source={{uri: ASSET_BASE_URL + item.profile.avatar_path}}/>
+                      <Image style={styles.circleImg} source={{uri: ASSET_BASE_URL + item.avatar_path}}/>
                     </View>
                     <Image style={styles.large_badgeImg} source={IMAGES_PATH.alert_verify}/>
                   </View>
@@ -110,11 +110,11 @@ const Alert = ({getAlertList, alerts, emptyBadgeCount}) => {
               </View>
               <View style={styles.large_contentText}>
                 <Text style={[styles.large_text_top_content, styles.text_missing_color]}>Missing Person Alert</Text>
-                <Text style={styles.large_text_bottom_content}>{item.profile.first_name}</Text>
+                <Text style={styles.large_text_bottom_content}>{item.first_name}</Text>
                 <Text style={styles.large_text_content}>Missing
-                  Since: {(item.post === null || item.post.missing_post_content === null) ? '' : moment(item.post.missing_post_content.missing_since).format("dddd, MMMM D, YYYY")}</Text>
+                  Since: {(item.missing_since === null) ? '' : moment(item.missing_since).format("dddd, MMMM D, YYYY")}</Text>
                 <Text style={styles.large_text_content}>Missing
-                  From: {(item.post === null || item.post.missing_post_content === null) ? '' : item.post.missing_post_content.duo_location}</Text>
+                  From: {(item.duo_location === null) ? '' : item.duo_location}</Text>
                 {/*<View>*/}
                 {/*  <Text style={styles.large_text_verifed}>Your post has been Verifed</Text>*/}
                 {/*</View>*/}

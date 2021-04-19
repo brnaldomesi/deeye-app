@@ -73,7 +73,7 @@ const Send = ({route, cometChatLogin, profile, cometChat, navigation, getFollowL
     first: () =>
       <ScrollView style={{flex: 1, backgroundColor: 'white'}}>
         {chat.map((item, key) => {
-          let temp = user.name === item.lastMessage.receiverId ? item.lastMessage.sender : item.lastMessage.receiver;
+          let temp = item.conversationWith;
           return <ListItem key={key} bottomDivider>
             <Avatar rounded/>
             <ListItem.Content>
