@@ -22,7 +22,9 @@ import {
   resizeContain,
   textWhite,
   textXl,
-  d_flex
+  d_flex,
+  textDot7,
+  bgSecodary
 } from 'src/styles';
 import {
   Dimensions,
@@ -171,14 +173,6 @@ const Feed = ({
     }
   }
 
-  const imgFollow = function (type) {
-    return {
-      width: Size(.7),
-      height: Size(.7),
-      resizeMode: 'contain',
-    }
-  };
-
   return (
     <View style={[bgWhite, my1]}>
       {postType === 'Share' &&
@@ -251,11 +245,16 @@ const Feed = ({
               <Text>{getDiffFromToday(updatedAt)}</Text>
             </View>
           </View>
-          {post.profile_id !== profileId && <TouchableOpacity onPress={handleFollow}>
-            <Text style={styles.btnFollow}>
-              <Image style={imgFollow('ok')} source={IMAGES_PATH.search}/>
-              {' '}{post.follow_state === 0 ? 'follow' : 'following'}</Text>
-          </TouchableOpacity>}
+          {post.profile_id !== profileId && 
+            <Button 
+              title={post.follow_state === 0 ? 'follow' : 'following'}
+              type="outline"
+              buttonStyle={[styles.btnFollow, bgSecodary]}
+              titleStyle={[textDot7]}
+              icon={<Image style={styles.followIcon} source={IMAGES_PATH.search}/>}
+              onPress={handleFollow}
+            />
+          }
           <View>
             <PopupSheet post={post} isMyPost={post.profile_id === profileId} isShare={isShare}/>
           </View>
