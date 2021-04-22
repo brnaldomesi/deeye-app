@@ -6,7 +6,7 @@ import {Avatar, ListItem} from "react-native-elements";
 import {ASSET_BASE_URL} from "../../../config/apipath";
 import * as gStyle from 'src/styles';
 import styles from './styles';
-import AsyncStorage from "@react-native-community/async-storage";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import Feed from "../../../components/Feeds/Feed";
 import {likePost, savePost, sharePost} from "../../../redux/modules/posts";
 import {compose} from "redux";

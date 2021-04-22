@@ -75,7 +75,7 @@ These packages help make the ui-kit smooth and functioning
 [@react-navigation/native](https://reactnavigation.org/docs/getting-started)</br>
 [@react-navigation/stack](https://reactnavigation.org/docs/stack-navigator/)</br>
 [@react-native-picker/picker](https://github.com/react-native-picker/picker)</br>
-[@react-native-community/async-storage](https://github.com/react-native-async-storage/async-storage)</br>
+[@react-native-async-storage/async-storage](https://github.com/react-native-async-storage/async-storage)</br>
 <br/>
 
 ## 2. Configure CometChat inside your app

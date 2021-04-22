@@ -16,7 +16,7 @@ import {createPost, uploadFile} from 'src/redux/modules/posts';
 
 import {ASSET_BASE_URL} from 'src/config/apipath';
 import AntIcon from 'react-native-vector-icons/AntDesign';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Avatar} from 'react-native-elements';
 import {Button} from 'react-native-elements';
 import DateTimePicker from '@react-native-community/datetimepicker';
