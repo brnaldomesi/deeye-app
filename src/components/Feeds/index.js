@@ -1,5 +1,5 @@
 import { ScrollView, View } from 'react-native';
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import {
   getPostsList,
   getPostsListForUnsigned,
@@ -30,30 +30,41 @@ const Feeds = ({
   const [type, setType] = React.useState(footerRoute === 'missing'? 0 : 1);
 
   useEffect(() => {
-    let unmounted = false;
+    let unmounted = true;
 
-    if (!unmounted) {
-      if (isLoading) {
-        return;
-      }
-
-      if(unsigned) {
-        getPostsListForUnsigned(
-          {params: {type: type, page: page, count: count}}
-        );
-      } else {
-        getPostsList(
-          {params: {type: type, page: page, count: count},
-            success: (res) => {
-              setPage(page + 1);
-              setIsLoading(res.data.length === 0);
-            }}
-        );
-      }
+    if (isLoading) {
+      return;
     }
 
-    return () => { unmounted = true };
+    if(unsigned) {
+      getPostsListForUnsigned(
+        {params: {type: type, page: page, count: count}}
+      );
+    } else {
+      getPostsList(
+        {params: {type: type, page: page, count: count},
+          success: (res) => {
+            if (unmounted) {
+              setPage(page + 1);
+              setIsLoading(res.data.length === 0);
+            }
+          }}
+      );
+    }
+
+    return () => { unmounted = false };
   }, [scroll]);
+
+  const list = useMemo(() => {
+    return posts && posts.map((post, index) => {
+        return typeof post === 'undefined'
+          ? <></>
+          : <Feed post={post} key={index}
+                  profileId={profile ? profile.id : 'undefined'}
+                  isShare={true} />
+      }
+    )
+  }, [posts]);
 
   const isCloseToBottom = ({layoutMeasurement, contentOffset, contentSize}) => {
     const paddingToBottom = 20;
@@ -76,12 +87,7 @@ const Feeds = ({
       <View style={{ height: Size(4), marginTop: 10}}>
         <Search/>
       </View>
-      {posts && posts.map(post => {
-          return typeof post === 'undefined'
-            ? <></>
-            : <Feed post={post} key={post.id} profileId={profile ? profile.id : undefined} isShare={true} />
-        }
-      )}
+      {list}
       <View style={{ height: Size(6)}}/>
     </ScrollView>
   );

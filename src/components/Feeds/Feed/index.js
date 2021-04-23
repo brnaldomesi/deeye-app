@@ -35,7 +35,7 @@ import {
   Linking,
   ActivityIndicator
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useMemo} from 'react';
 
 import {ASSET_BASE_URL} from 'src/config/apipath';
 import ActionFooter from 'src/components/ActionFooter';
@@ -89,67 +89,74 @@ const Feed = ({
   const [isVideo, setIsVideo] = useState(false);
 
   useEffect(() => {
-    if (uri) {
-      Image.getSize(uri, (width, height) => {
-        setThumbsize({width, height});
-      }, (error) => {
-        console.log('Image getSize', error)
+    let unmounted = true;
+
+    if (unmounted) {
+      if (uri) {
+        Image.getSize(uri, (width, height) => {
+          setThumbsize({width, height});
+        }, (error) => {
+          console.log('Image getSize', error)
+        });
+      }
+    }
+
+    return () => { unmounted = false };
+
+  }, [uri, link])
+
+  useMemo(() => {
+    if (link !== '') {
+      LinkPreview.getPreview(link).then(data => {
+        setIsLoading(true);
+        switch (data.mediaType) {
+          case 'website':
+            setTitle(data.title);
+            setThumbnail(data.images.length !== 0 ? data.images[0] : null);
+            setIcon(data.favicons.length !== 0 ? data.favicons[0] : null);
+            break;
+          case 'video.other':
+            setTitle(data.title);
+            setThumbnail(data.images.length !== 0 ? data.images[0] : null);
+            setIcon(data.favicons.length !== 0 ? data.favicons[0] : null);
+            break;
+          case 'image':
+            setTitle('Image');
+            setThumbnail(data.url);
+            setIcon(data.favicons.length !== 0 ? data.favicons[0] : null);
+            break;
+          case 'audio':
+            setTitle('Audio');
+            setThumbnail(null);
+            setIcon(data.favicons.length !== 0 ? data.favicons[0] : null);
+            break;
+          case 'video':
+            // setIsVideo(true);
+            setTitle('Video');
+            setThumbnail(null);
+            setIcon(data.favicons.length !== 0 ? data.favicons[0] : null);
+            break;
+          case 'application':
+            setTitle('Application');
+            setThumbnail(null);
+            setIcon(data.favicons.length !== 0 ? data.favicons[0] : null);
+            break;
+          case 'article':
+            setTitle(data.title);
+            setThumbnail(data.images.length !== 0 ? data.images[0] : null);
+            setIcon(data.favicons.length !== 0 ? data.favicons[0] : null);
+            break;
+          default:
+            setTitle('');
+            setThumbnail(null);
+            setIcon(null);
+            break;
+        }
       });
     }
 
-    if (link !== '') {
-      handleParse();
-    }
-  }, [uri, link])
-
-  const handleParse = () => {
-    LinkPreview.getPreview(link).then(data => {
-      setIsLoading(true);
-      switch (data.mediaType) {
-        case 'website':
-          setTitle(data.title);
-          setThumbnail(data.images.length !== 0 ? data.images[0] : null);
-          setIcon(data.favicons.length !== 0 ? data.favicons[0] : null);
-          break;
-        case 'video.other':
-          setTitle(data.title);
-          setThumbnail(data.images.length !== 0 ? data.images[0] : null);
-          setIcon(data.favicons.length !== 0 ? data.favicons[0] : null);
-          break;
-        case 'image':
-          setTitle('Image');
-          setThumbnail(data.url);
-          setIcon(data.favicons.length !== 0 ? data.favicons[0] : null);
-          break;
-        case 'audio':
-          setTitle('Audio');
-          setThumbnail(null);
-          setIcon(data.favicons.length !== 0 ? data.favicons[0] : null);
-          break;
-        case 'video':
-          // setIsVideo(true);
-          setTitle('Video');
-          setThumbnail(null);
-          setIcon(data.favicons.length !== 0 ? data.favicons[0] : null);
-          break;
-        case 'application':
-          setTitle('Application');
-          setThumbnail(null);
-          setIcon(data.favicons.length !== 0 ? data.favicons[0] : null);
-          break;
-        case 'article':
-          setTitle(data.title);
-          setThumbnail(data.images.length !== 0 ? data.images[0] : null);
-          setIcon(data.favicons.length !== 0 ? data.favicons[0] : null);
-          break;
-        default:
-          setTitle('');
-          setThumbnail(null);
-          setIcon(null);
-          break;
-      }
-    });
-  };
+    return '';
+  }, [link]);
 
   const navigatePostDetail = id => () => {
     RootNavigation.navigate('PostDetail', {id});
@@ -245,8 +252,8 @@ const Feed = ({
               <Text>{getDiffFromToday(updatedAt)}</Text>
             </View>
           </View>
-          {post.profile_id !== profileId && 
-            <Button 
+          {post.profile_id !== profileId &&
+            <Button
               title={post.follow_state === 0 ? 'follow' : 'following'}
               type="outline"
               buttonStyle={[styles.btnFollow, bgSecodary]}
@@ -307,10 +314,6 @@ const Feed = ({
     </View>
   );
 };
-
-Feed.propTypes = {
-  profileId: PropTypes.number
-}
 
 const actions = {
   setFollow
