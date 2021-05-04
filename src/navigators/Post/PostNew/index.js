@@ -14,7 +14,7 @@ import {
 } from 'src/styles';
 
 import { ASSET_BASE_URL } from 'src/config/apipath';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Avatar } from 'react-native-elements';
 import Header from '../components/Header';
 import IconButton from 'src/components/IconButton';

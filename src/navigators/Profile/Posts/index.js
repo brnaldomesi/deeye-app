@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { getUserPostsList, userPostsListSelector } from 'src/redux/modules/profiles';
 
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Feed from 'src/components/Feeds/Feed'
 import PropTypes from 'prop-types';
 import { Size } from 'src/styles';
@@ -26,7 +26,7 @@ const Posts = ({
 
   return (
     <>
-      {userPosts && userPosts.map(post => 
+      {userPosts && userPosts.map(post =>
         <Feed post={post} key={post.id} profileId={profile.id} />
       )}
     </>

@@ -14,7 +14,7 @@ import {
 } from './actions';
 import { put, takeLatest } from 'redux-saga/effects'
 
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { apiCallSaga } from '../api';
 
 const authCheckUser = apiCallSaga({
