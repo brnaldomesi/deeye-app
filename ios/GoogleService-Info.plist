@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>1004555434213-s60sh0ufbjs09andnu6ejia0ujlmsh4h.apps.googleusercontent.com</string>
+	<string>1004555434213-vao15tu0n057igjeg2ebo4uotk11nbma.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.1004555434213-s60sh0ufbjs09andnu6ejia0ujlmsh4h</string>
+	<string>com.googleusercontent.apps.1004555434213-vao15tu0n057igjeg2ebo4uotk11nbma</string>
 	<key>API_KEY</key>
 	<string>AIzaSyCYzz3GMwt0budow8Z7KfHff_p0m7WEtdk</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +13,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.deeye</string>
+	<string>com.deeye.deeye</string>
 	<key>PROJECT_ID</key>
 	<string>deeye-b4ce4</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:1004555434213:ios:44dadc707ef861db627c0c</string>
+	<string>1:1004555434213:ios:d4932a3f60188196627c0c</string>
 </dict>
 </plist>

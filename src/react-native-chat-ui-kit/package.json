@@ -12,7 +12,7 @@
     "url": "git@git.geekyants.com:cometchat/react-native.git"
   },
   "peerDependencies": {
-    "@react-native-async-storage/async-storage": "^1.12.1",
+    "@react-native-community/async-storage": "^1.12.1",
     "react-native-sound": "^0.11.0",
     "react-native-vector-icons": "^7.1.0",
     "react-native-elements": "^3.0.0-alpha.1",
@@ -51,7 +51,7 @@
   "dependencies": {
     "@cometchat-pro/react-native-calls": "2.0.1",
     "@cometchat-pro/react-native-chat": "2.3.0",
-    "@react-native-async-storage/async-storage": "^1.12.1",
+    "@react-native-community/async-storage": "^1.12.1",
     "lodash": "^4.17.20",
     "react-native-autolink": "^3.0.0",
     "redux": "^4.0.5",

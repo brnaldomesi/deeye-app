@@ -21,7 +21,7 @@ import {createStructuredSelector} from "reselect";
 import {compose} from "redux";
 import {connect} from "react-redux";
 import { ASSET_BASE_URL } from 'src/config/apipath';
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import AsyncStorage from "@react-native-community/async-storage";
 import RBSheet from 'react-native-raw-bottom-sheet';
 
 const Follow = ({navigation, getFollowList, setFollow, follows}) => {
