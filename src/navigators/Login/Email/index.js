@@ -30,9 +30,9 @@ const Email = ({ navigation, authCheckUser }) => {
 
   const handleConfirm = () => {
     const hasError = validateEmail(email);
-    
+
     if(!hasError) {
-      authCheckUser({ 
+      authCheckUser({
         data: { email },
         success: res => {
           if(res.status === 200) {
@@ -42,7 +42,6 @@ const Email = ({ navigation, authCheckUser }) => {
           }
         },
         fail: err => {
-          console.log('check user erorrrrrrrrr', err);
           setError(1);
         }
       });
@@ -58,13 +57,13 @@ const Email = ({ navigation, authCheckUser }) => {
       setError(-1);
       return false;
     }
-  } 
-  
+  }
+
   return (
     <View style={loginHorizontalPadding}>
       <Text style={styles.emailLabel}>Email Address</Text>
       <View style={[flexRow, relative]}>
-        <MyTextInput 
+        <MyTextInput
           placeholder="Enter your email address"
           name="email"
           style={textInput}
@@ -72,18 +71,18 @@ const Email = ({ navigation, authCheckUser }) => {
           onChangeText={ text => setEmail(text) }
           error={error}
           keyboardType="email-address"
-          autoCompleteType="email" 
+          autoCompleteType="email"
           textContentType="emailAddress"
           autoFocus
           fullWidth
         />
 
-        <Image 
+        <Image
           style={styles.checkCircle}
-          source={error === -1 ? IMAGES_PATH.checked : IMAGES_PATH.unchecked} 
+          source={error === -1 ? IMAGES_PATH.checked : IMAGES_PATH.unchecked}
         />
       </View>
-      <GradientButton 
+      <GradientButton
         onPress={handleConfirm}
         gradientColors={error === -1 ? gradientColors : ['white', 'white']}
         text="Confirm"

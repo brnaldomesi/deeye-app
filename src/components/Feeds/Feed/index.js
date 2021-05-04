@@ -67,10 +67,6 @@ const Feed = ({
                 setFollow,
               }) => {
 
-  const [missingCollpase, setMissingCollpase] = useState(true);
-  const [thumbsize, setThumbsize] = useState({width: Dimensions.get('window').width, height: Size(13)});
-  const [isLoading, setIsLoading] = useState(false);
-
   const postType = post.post_type;
   const sourceType = postType === 'Share' ? post.post_source.post_type : postType
   const missingContent = postType === 'Share' ? post.post_source.missing_post_content : post.missing_post_content;
@@ -87,6 +83,9 @@ const Feed = ({
   const [icon, setIcon] = useState(null);
   const [thumbnail, setThumbnail] = useState(null);
   const [isVideo, setIsVideo] = useState(false);
+  const [missingCollpase, setMissingCollpase] = useState(true);
+  const [thumbsize, setThumbsize] = useState({width: Dimensions.get('window').width, height: Size(13)});
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     let unmounted = true;
@@ -103,10 +102,10 @@ const Feed = ({
 
     return () => { unmounted = false };
 
-  }, [uri, link])
+  }, [uri])
 
   useMemo(() => {
-    if (link !== '') {
+    if (link !== '' || link !== undefined) {
       LinkPreview.getPreview(link).then(data => {
         setIsLoading(true);
         switch (data.mediaType) {
