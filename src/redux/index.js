@@ -1,7 +1,7 @@
 import {applyMiddleware, combineReducers, compose, createStore} from 'redux';
 import { persistCombineReducers, persistStore } from 'redux-persist';
 
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import authMiddleware from './middlewares/auth';
 import { createLogger } from 'redux-logger';
 import createSagaMiddleware from 'redux-saga';

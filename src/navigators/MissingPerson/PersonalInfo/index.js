@@ -7,7 +7,7 @@ import {
   View,
   Picker
 } from 'react-native';
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import {
   Size,
   absolute,
@@ -21,6 +21,7 @@ import {
   justifyCenter,
   ml1,
   mlSm,
+  mlXs,
   mt1,
   mt2,
   mtp5,
@@ -53,6 +54,7 @@ const PersonalInfo = ({navigation, uploadFile, route}) => {
   const [gender, setGender] = useState('Male');
   const [height, setHeight] = useState(null);
   const [weight, setWeight] = useState(null);
+  const [markinfo, setMarkinfo] = useState('');
   const [heightUnit, setHeightUnit] = useState('ft');
   const [weightUnit, setWeightUnit] = useState('kg');
   const [hair, setHair] = useState('Black');
@@ -72,6 +74,7 @@ const PersonalInfo = ({navigation, uploadFile, route}) => {
     formData.missing_post.fullname = fullname;
     formData.missing_post.aka = aka;
     formData.missing_post.sex = gender;
+    formData.missing_post.markinfo = markinfo;
     if(heightUnit === 'ft') {
       formData.missing_post.height_ft = height;
     } else {
@@ -147,30 +150,30 @@ const PersonalInfo = ({navigation, uploadFile, route}) => {
   }
 
   const handleHeightCm = () => {
-    if(heightUnit === 'ft' & height !== null) {
-      setHeight((height * 30.48).toFixed(0))
-    }
+    // if(heightUnit === 'ft' & height !== null) {
+    //   setHeight((height * 30.48).toFixed(0))
+    // }
     setHeightUnit('cm')
   }
 
   const handleHeightFt = () => {
-    if(heightUnit === 'cm' & height !== null) {
-      setHeight((height / 30.48).toFixed(1))
-    }
+    // if(heightUnit === 'cm' & height !== null) {
+    //   setHeight((height / 30.48).toFixed(1))
+    // }
     setHeightUnit('ft')
   }
 
   const handleWeightKg = () => {
-    if(weightUnit === 'lb' & weight !== null) {
-      setWeight((weight * 0.45).toFixed(0))
-    }
+    // if(weightUnit === 'lb' & weight !== null) {
+    //   setWeight((weight * 0.45).toFixed(0))
+    // }
     setWeightUnit('kg')
   }
 
   const handleWeightLb = () => {
-    if(weightUnit === 'kg' & weight !== null) {
-      setWeight((weight / 0.45).toFixed(1))
-    }
+    // if(weightUnit === 'kg' & weight !== null) {
+    //   setWeight((weight / 0.45).toFixed(1))
+    // }
     setWeightUnit('lb')
   }
 
@@ -230,7 +233,16 @@ const PersonalInfo = ({navigation, uploadFile, route}) => {
                   />
                 </MyButton>
                 <View style={[justifyCenter, ml1]}>
-                  <Text>{dob.getFullYear()}/{dob.getMonth() + 1}/{dob.getDate()}</Text>
+                  <TextInput 
+                    onChangeText={text => {
+                      const Y = Number(text.split('/', 3)[0]);
+                      const M = Number(text.split('/', 3)[1]) - 1;
+                      const D = Number(text.split('/', 3)[2]);
+                      if(text.split('/', 3)[0] !== '' && text.split('/', 3)[1] !== '' && text.split('/', 3)[2] !== '')
+                      setDob(new Date(Y, M, D));
+                    }} 
+                    placeholder="Unknown">{dob.getFullYear()}/{dob.getMonth() + 1}/{dob.getDate()}
+                  </TextInput>
                 </View>
               </View>
               {showDatePicker && (
@@ -287,15 +299,16 @@ const PersonalInfo = ({navigation, uploadFile, route}) => {
                 <TextInput
                   value={height}
                   onChangeText={ text => setHeight(text) }
-                  style={textInput}
+                  style={styles.textInput}
                   keyboardType='numeric'
+                  placeholder="Unknown"
                 />
                 <Button
                   title="ft"
                   onPress={handleHeightFt}
                   buttonStyle={[
                     roundedSm,
-                    ml1,
+                    mlXs,
                     heightUnit === 'ft' ? bgPrimary : [bgWhite, borderPrimary],
                     styles.switchBtn
                   ]}
@@ -308,7 +321,7 @@ const PersonalInfo = ({navigation, uploadFile, route}) => {
                   onPress={handleHeightCm}
                   buttonStyle={[
                     roundedSm,
-                    mlSm,
+                    mlXs,
                     heightUnit === 'cm' ? bgPrimary : [bgWhite, borderPrimary],
                     styles.switchBtn
                   ]}
@@ -324,15 +337,16 @@ const PersonalInfo = ({navigation, uploadFile, route}) => {
                 <TextInput
                   value={weight}
                   onChangeText={ text => setWeight(text) }
-                  style={textInput}
+                  style={styles.textInput}
                   keyboardType='numeric'
+                  placeholder="Unknown"
                 />
                 <Button
                   title="kg"
                   onPress={handleWeightKg}
                   buttonStyle={[
                     roundedSm,
-                    ml1,
+                    mlXs,
                     weightUnit === 'kg' ? bgPrimary : [bgWhite, borderPrimary],
                     styles.switchBtn
                   ]}
@@ -345,7 +359,7 @@ const PersonalInfo = ({navigation, uploadFile, route}) => {
                   onPress={handleWeightLb}
                   buttonStyle={[
                     roundedSm,
-                    mlSm,
+                    mlXs,
                     weightUnit === 'lb' ? bgPrimary : [bgWhite, borderPrimary],
                     styles.switchBtn
                   ]}
@@ -374,6 +388,8 @@ const PersonalInfo = ({navigation, uploadFile, route}) => {
                   <Picker.Item label="Blond" value="Blond" />
                   <Picker.Item label="White" value="White" />
                   <Picker.Item label="Black" value="Black" />
+                  <Picker.Item label="Brown" value="Brown" />
+                  <Picker.Item label="Gray" value="Gray" />
                 </Picker>
               </View>
             </View>
@@ -390,7 +406,7 @@ const PersonalInfo = ({navigation, uploadFile, route}) => {
                 >
                   <Picker.Item label="Black" value="Black" />
                   <Picker.Item label="White" value="White" />
-                  <Picker.Item label="Yellow" value="Yellow" />
+                  <Picker.Item label="Hispanic" value="Hispanic" />
                   <Picker.Item label="American" value="American" />
                   <Picker.Item label="Asian" value="Asian" />
                   <Picker.Item label="European" value="European" />
@@ -416,6 +432,8 @@ const PersonalInfo = ({navigation, uploadFile, route}) => {
                   <Picker.Item label="Brown" value="Brown" />
                   <Picker.Item label="Blue" value="Blue" />
                   <Picker.Item label="Black" value="Black" />
+                  <Picker.Item label="Hazel" value="Hazel" />
+                  <Picker.Item label="Green" value="Green" />
                 </Picker>
               </View>
             </View>
@@ -444,6 +462,20 @@ const PersonalInfo = ({navigation, uploadFile, route}) => {
                   titleStyle={[
                     !medicalCondition ? textWhite : primaryColor
                   ]}
+                />
+              </View>
+            </View>
+          </View>
+
+          <View style={[mt1, flexRow]}>
+            <View style={flexOne}>
+              <Text>Marks</Text>
+              <View style={mtp5}>
+                <TextInput
+                  value={markinfo}
+                  onChangeText={ text => setMarkinfo(text) }
+                  style={textInput}
+                  placeholder="identifying mark info"
                 />
               </View>
             </View>

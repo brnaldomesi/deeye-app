@@ -1,6 +1,6 @@
 import * as types from './types'
 
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { handleActions } from 'redux-actions'
 
 const getInitialState = async () => {

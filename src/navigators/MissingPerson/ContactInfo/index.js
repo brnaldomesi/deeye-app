@@ -28,7 +28,7 @@ import {
   TextInput,
   View
 } from 'react-native';
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { uploadFile } from 'src/redux/modules/posts';
 import { Button } from 'react-native-elements';
 import { CheckBox } from 'react-native-elements'
@@ -48,8 +48,11 @@ const ContactInfo = ({
 }) => {
   const [contactPhoneNumber1, setContactPhoneNumber1] = useState('');
   const [contactPhoneNumber2, setContactPhoneNumber2] = useState('');
-  const [phoneNumber1Type, setPhoneNumber1Type] = useState(false);
-  const [phoneNumber2Type, setPhoneNumber2Type] = useState(false);
+  const [contactAgencyName, setContactAgencyName] = useState('');
+  const [agencyName, setAgencyName] = useState('');
+  const [phoneNumber1Type, setPhoneNumber1Type] = useState({'police': true, 'fbi': false, 'detective': false});
+  const [phoneNumber2Type, setPhoneNumber2Type] = useState({'police': true, 'fbi': false, 'detective': false});
+  const [caseUpload, setCaseUpload] = useState('');
   const [haveRerpot, setHaveRerpot] = useState(false);
   const [selectedFileName, setSelectedFileName] = useState('');
   const [attachments, setAttachments] = useState([]);
@@ -59,6 +62,9 @@ const ContactInfo = ({
   const handleSubmit = () => {
     formData.missing_post.contact_phone_number1 = contactPhoneNumber1;
     formData.missing_post.contact_phone_number2 = contactPhoneNumber2;
+    formData.missing_post.contactAgencyName = contactAgencyName;
+    formData.missing_post.caseUpload = caseUpload;
+    
     if(attachments[0]) {
       formData.missing_post.verification_report_path = attachments[0].uri;
     }
@@ -104,6 +110,24 @@ const ContactInfo = ({
     }
   }
 
+  const handleType1 = useCallback((type) => (e) => {
+    if(type === 'police')
+      setPhoneNumber1Type({'police': true, 'fbi': false, 'detective': false});
+    else if(type === 'fbi')
+      setPhoneNumber1Type({'police': false, 'fbi': true, 'detective': false});
+    else
+      setPhoneNumber1Type({'police': false, 'fbi': false, 'detective': true});
+  }, []);
+  
+  const handleType2 = useCallback((type) => (e) => {
+    if(type === 'police')
+      setPhoneNumber2Type({'police': true, 'fbi': false, 'detective': false});
+    else if(type === 'fbi')
+      setPhoneNumber2Type({'police': false, 'fbi': true, 'detective': false});
+    else
+      setPhoneNumber2Type({'police': false, 'fbi': false, 'detective': true});
+  }, []);
+  
   return (
     <View style={flexOne}>
       <Header title="Contact Information" step={3} />
@@ -137,18 +161,27 @@ const ContactInfo = ({
               title='Police Department'
               checkedIcon='dot-circle-o'
               uncheckedIcon='circle-o'
-              checked={phoneNumber1Type}
-              onPress={() => setPhoneNumber1Type(true)}
-              containerStyle={{ backgroundColor: 'transparent'}}
+              checked={phoneNumber1Type.police}
+              onPress={handleType1('police')}
+              containerStyle={{ backgroundColor: 'transparent', marginLeft: -10, marginRight: -10}}
               checkedColor={Colors.primary}
             />
             <CheckBox
-              title='Personal'
+              title='FBI'
               checkedIcon='dot-circle-o'
               uncheckedIcon='circle-o'
-              checked={!phoneNumber1Type}
-              onPress={() => setPhoneNumber1Type(false)}
-              containerStyle={{backgroundColor: 'transparent'}}
+              checked={phoneNumber1Type.fbi}
+              onPress={handleType1('fbi')}
+              containerStyle={{backgroundColor: 'transparent', marginLeft: -10, marginRight: -10}}
+              checkedColor={Colors.primary}
+            />
+            <CheckBox
+              title='Detective'
+              checkedIcon='dot-circle-o'
+              uncheckedIcon='circle-o'
+              checked={phoneNumber1Type.detective}
+              onPress={handleType1('detective')}
+              containerStyle={{backgroundColor: 'transparent', marginLeft: -10}}
               checkedColor={Colors.primary}
             />
           </View>
@@ -166,21 +199,67 @@ const ContactInfo = ({
               title='Police Department'
               checkedIcon='dot-circle-o'
               uncheckedIcon='circle-o'
-              checked={phoneNumber2Type}
-              onPress={() => setPhoneNumber2Type(true)}
+              checked={phoneNumber2Type.police}
+              onPress={handleType2('police')}
+              containerStyle={{ backgroundColor: 'transparent', marginLeft: -10, marginRight: -10}}
+              checkedColor={Colors.primary}
+            />
+            <CheckBox
+              title='FBI'
+              checkedIcon='dot-circle-o'
+              uncheckedIcon='circle-o'
+              checked={phoneNumber2Type.fbi}
+              onPress={handleType2('fbi')}
+              containerStyle={{backgroundColor: 'transparent', marginLeft: -10, marginRight: -10}}
+              checkedColor={Colors.primary}
+            />
+            <CheckBox
+              title='Detective'
+              checkedIcon='dot-circle-o'
+              uncheckedIcon='circle-o'
+              checked={phoneNumber2Type.detective}
+              onPress={handleType2('detective')}
+              containerStyle={{backgroundColor: 'transparent', marginLeft: -10}}
+              checkedColor={Colors.primary}
+            />
+          </View>
+
+          <TextInput
+            value={contactAgencyName}
+            onChangeText={ text => setContactAgencyName(text) }
+            style={textInput}
+            keyboardType='default'
+            placeholder="Agency Name"
+          />
+
+          <View style={flexRow}>
+            <CheckBox
+              title='Agency Name'
+              checkedIcon='dot-circle-o'
+              uncheckedIcon='circle-o'
+              checked={!agencyName}
+              onPress={() => setAgencyName(false)}
               containerStyle={{ backgroundColor: 'transparent'}}
               checkedColor={Colors.primary}
             />
             <CheckBox
-              title='Personal'
+              title='Detective Name'
               checkedIcon='dot-circle-o'
               uncheckedIcon='circle-o'
-              checked={!phoneNumber2Type}
-              onPress={() => setPhoneNumber2Type(false)}
+              checked={agencyName}
+              onPress={() => setAgencyName(true)}
               containerStyle={{backgroundColor: 'transparent'}}
               checkedColor={Colors.primary}
             />
           </View>
+ 
+          <TextInput
+            value={caseUpload}
+            onChangeText={ text => setCaseUpload(text) }
+            style={textInput}
+            keyboardType='default'
+            placeholder="Case Info"
+          />
 
           <View
             style={[

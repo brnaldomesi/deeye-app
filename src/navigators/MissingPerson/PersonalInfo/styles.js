@@ -28,7 +28,16 @@ const styles = StyleSheet.create({
     borderColor: Colors.primary,
     borderWidth: 1,
     borderRadius: Size(.5),
-  }
+  },
+  textInput: {
+    width: Size(4.5),
+    borderColor: Colors.primary,
+    borderWidth: 1,
+    borderRadius: Size(.5),
+    paddingHorizontal: Size(),
+    height: Size(2.5),
+    textAlign: 'center'
+  },
 });
 
 export default styles;

@@ -213,11 +213,11 @@ const CircumstanceInfo = ({
             >
               <TextInput
                 multiline
-                maxLength={100}
+                // maxLength={100}
                 onChangeText={text => setCircumstance(text)}
                 value={circumstance}
               />
-              <Text style={[absolute, italic, styles.limitText]}>100</Text>
+              {/* <Text style={[absolute, italic, styles.limitText]}>100</Text> */}
             </View>
             <Text style={[textDot7, italic]}>Important information such as medical condition and tatto etc will be great help in the search</Text>
           </View>
