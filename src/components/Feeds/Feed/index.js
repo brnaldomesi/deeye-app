@@ -57,6 +57,7 @@ import {setFollow} from "../../../redux/modules/follow";
 import styles from './styles';
 import LinkPreview from "react-native-link-preview";
 import * as gStyle from "../../../styles";
+import HyperlinkedText from 'react-native-hyperlinked-text';
 
 const Feed = ({
                 post,
@@ -105,9 +106,9 @@ const Feed = ({
   }, [uri])
 
   useMemo(() => {
-    if (link !== '' || link !== undefined) {
+    if (link !== '' && link !== null) {
+      setIsLoading(true);
       LinkPreview.getPreview(link).then(data => {
-        setIsLoading(true);
         switch (data.mediaType) {
           case 'website':
             setTitle(data.title);
@@ -272,12 +273,14 @@ const Feed = ({
               <Text>AKA {missingContent.aka}</Text>
             </>
           ) : (
-            postType !== 'link' ? <Text>{description}</Text> :
+            postType !== 'link' ? <HyperlinkedText
+                linkStyle={{color: 'blue'}}
+                >{description === null ? '' : description}</HyperlinkedText> :
               <TouchableOpacity onPress={() => {
                 Linking.openURL(link);
               }
               }>
-                <Text>{link}</Text>
+                {/*<Text>{link}</Text>*/}
                 {!isLoading ? <View style={[gStyle.justifyCenter, gStyle.flexOne, {height: Size(15)}]}>
                   <ActivityIndicator color={'#0000ff'}/>
                 </View> : <View style={{marginTop: 10, marginBottom: 10}}>
