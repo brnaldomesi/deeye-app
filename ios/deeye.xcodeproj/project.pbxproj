@@ -15,8 +15,10 @@
 		18A699BF07E64110B419E94D /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1747A234003E48D98769CEB4 /* FontAwesome5_Solid.ttf */; };
 		18C7301AB3C649A6BE8086AB /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EAB2CCD1F0FB4C1EB20F4A33 /* MaterialIcons.ttf */; };
 		235DD93A2F4E45E695690FDD /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EF34098DF6424A358CD3ABF2 /* EvilIcons.ttf */; };
+		240551362636FC7E00D4CAC9 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 240551352636FC7E00D4CAC9 /* main.jsbundle */; };
 		243FCA216AD143EA9E413810 /* Fontisto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8990D9B4EABE49638C8F588B /* Fontisto.ttf */; };
 		2465C1A1262A15690071D887 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2465C1A0262A15690071D887 /* LaunchScreen.storyboard */; };
+		2470CEA426371D3D0004D68D /* assets in Resources */ = {isa = PBXBuildFile; fileRef = 2470CEA326371D3D0004D68D /* assets */; };
 		248A3FDD2626968600CE3281 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 248A3FDC2626968600CE3281 /* GoogleService-Info.plist */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
@@ -68,7 +70,9 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = deeye/main.m; sourceTree = "<group>"; };
 		1747A234003E48D98769CEB4 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
 		2361E12DE95C462B927F3189 /* libPods-deeye-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-deeye-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		240551352636FC7E00D4CAC9 /* main.jsbundle */ = {isa = PBXFileReference; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		2465C1A0262A15690071D887 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		2470CEA326371D3D0004D68D /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = assets; sourceTree = "<group>"; };
 		248A3FDC2626968600CE3281 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		24FE0A0326306443000A8E66 /* deeye.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = deeye.entitlements; path = deeye/deeye.entitlements; sourceTree = "<group>"; };
 		2C614E6873C0434D9EF036E6 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
@@ -216,6 +220,8 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				2470CEA326371D3D0004D68D /* assets */,
+				240551352636FC7E00D4CAC9 /* main.jsbundle */,
 				2465C1A0262A15690071D887 /* LaunchScreen.storyboard */,
 				13B07FAE1A68108700A75B9A /* deeye */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
@@ -403,6 +409,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				240551362636FC7E00D4CAC9 /* main.jsbundle in Resources */,
+				2470CEA426371D3D0004D68D /* assets in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				248A3FDD2626968600CE3281 /* GoogleService-Info.plist in Resources */,
 				2465C1A1262A15690071D887 /* LaunchScreen.storyboard in Resources */,
@@ -828,12 +836,13 @@
 				CODE_SIGN_ENTITLEMENTS = deeye/deeye.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = K823RJ47KN;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = deeye/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -857,11 +866,12 @@
 				CODE_SIGN_ENTITLEMENTS = deeye/deeye.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = K823RJ47KN;
 				INFOPLIST_FILE = deeye/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",

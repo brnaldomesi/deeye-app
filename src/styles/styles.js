@@ -262,6 +262,10 @@ export const mlSm = {
   marginLeft: Size(.5)
 }
 
+export const mlXs = {
+  marginLeft: Size(0.2)
+}
+
 export const my1 = {
   marginVertical: Size()
 }

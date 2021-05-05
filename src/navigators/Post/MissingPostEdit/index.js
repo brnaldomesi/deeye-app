@@ -44,6 +44,13 @@ const MissingPostEdit = ({
   const [isNumber, setIsNumber] = useState(false);
   const [number1, setNumber1] = useState(missingContent.contact_phone_number1);
   const [number2, setNumber2] = useState(missingContent.contact_phone_number2);
+  const [sex, setSex] = useState(missingContent.sex);
+  const [age, setAge] = useState(isNaN(moment().year() - moment(missingContent.dob).year()) ? '' : moment().year() - moment(missingContent.dob).year());
+  const [race, setRace] = useState(missingContent.race);
+  const [height, setHeight] = useState(missingContent.height_cm ? missingContent.height_cm + ' cm' : missingContent.height_ft + ' ft');
+  const [weight, setWeight] = useState(missingContent.weight_kg ? missingContent.weight_kg + ' kg' : missingContent.weight_lb + ' lb');
+  const [eye, setEye] = useState(missingContent.eye);
+  const [hair, setHair] = useState(missingContent.hair);
 
   useEffect(() => {
     if (uri) {
@@ -58,7 +65,19 @@ const MissingPostEdit = ({
   const handlePush = () => {
     updatePost({
       id: post.id,
-      data: {fullname: name, circumstance: cir, contact_phone_number1: number1, contact_phone_number2: number2},
+      data: {
+        fullname: name, 
+        circumstance: cir, 
+        contact_phone_number1: number1, 
+        contact_phone_number2: number2, 
+        sex: sex, 
+        age: age, 
+        race: race, 
+        height: height, 
+        weight: weight, 
+        eye: eye, 
+        hair: hair
+      },
       success: () => {
         RootNavigation.navigate('Home');
       }
@@ -154,23 +173,23 @@ const MissingPostEdit = ({
               <View style={g.flexRow}>
                 <View>
                   <Text style={[g.textYellow100, g.fontWeightBold]}>Sex</Text>
-                  <Text>{missingContent.sex}</Text>
+                  <TextInput onChangeText={text => setSex(text)}>{sex}</TextInput>
                 </View>
                 <View style={g.ml1}>
                   <Text style={[g.textYellow100, g.fontWeightBold]}>Age</Text>
-                  <Text>{isNaN(moment().year() - moment(missingContent.dob).year()) ? '' : moment().year() - moment(missingContent.dob).year()} Yrs</Text>
+                  <TextInput onChangeText={text => setAge(text)}>{age} Yrs</TextInput>
                 </View>
                 <View style={g.ml1}>
                   <Text style={[g.textYellow100, g.fontWeightBold]}>Race</Text>
-                  <Text>{missingContent.race}</Text>
+                  <TextInput onChangeText={text => setRace(text)}>{race}</TextInput>
                 </View>
                 <View style={g.ml1}>
                   <Text style={[g.textYellow100, g.fontWeightBold]}>Height</Text>
-                  <Text>{missingContent.height_cm ? missingContent.height_cm + ' cm' : missingContent.height_ft + ' ft'}</Text>
+                  <TextInput onChangeText={text => setHeight(text)}>{height}</TextInput>
                 </View>
                 <View style={g.ml1}>
                   <Text style={[g.textYellow100, g.fontWeightBold]}>Weight</Text>
-                  <Text>{missingContent.weight_kg ? missingContent.weight_kg + ' kg' : missingContent.weight_lb + ' lb'}</Text>
+                  <TextInput onChangeText={text => setWeight(text)}>{weight}</TextInput>
                 </View>
               </View>
             </View>
@@ -179,11 +198,11 @@ const MissingPostEdit = ({
                 <View style={g.flexRow}>
                   <View>
                     <Text style={[g.textYellow100, g.fontWeightBold]}>Eye</Text>
-                    <Text>{missingContent.eye}</Text>
+                    <TextInput onChangeText={text => setEye(text)}>{eye}</TextInput>
                   </View>
                   <View style={g.ml1}>
                     <Text style={[g.textYellow100, g.fontWeightBold]}>Hair</Text>
-                    <Text>{missingContent.hair}</Text>
+                    <TextInput onChangeText={text => setHair(text)}>{hair}</TextInput>
                   </View>
                   <View style={g.ml1}>
                     <Text style={[g.textYellow100, g.fontWeightBold]}>Tattoo</Text>

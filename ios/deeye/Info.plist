@@ -37,14 +37,14 @@
 			</dict>
 		</dict>
 	</dict>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Location Info is required to set missing person location</string>
 	<key>NSCalendarsUsageDescription</key>
 	<string>Calender is required to set missing day</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Photo is required to find missing person</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Camera is required to set missing person info</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Location Info is required to set missing person location</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Photo is required to find missing person</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AntDesign.ttf</string>
