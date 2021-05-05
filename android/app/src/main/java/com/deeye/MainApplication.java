@@ -7,7 +7,6 @@ import com.facebook.react.ReactApplication;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.reactlibrary.CometchatRtcPackage;
 import com.reactnativecommunity.geolocation.GeolocationPackage;
-import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import com.lugg.ReactNativeConfig.ReactNativeConfigPackage;
 import com.cmcewen.blurview.BlurViewPackage;

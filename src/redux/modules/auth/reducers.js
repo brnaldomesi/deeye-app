@@ -6,9 +6,9 @@ import { handleActions } from 'redux-actions'
 const getInitialState = async () => {
   try {
     const token = await AsyncStorage.getItem('token');
-    return { 
+    return {
       token,
-      fcmToken: null 
+      fcmToken: null
     };
   } catch(e) {
     console.error(e);

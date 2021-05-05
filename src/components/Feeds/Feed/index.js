@@ -35,7 +35,7 @@ import {
   Linking,
   ActivityIndicator
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useMemo} from 'react';
 
 import {ASSET_BASE_URL} from 'src/config/apipath';
 import ActionFooter from 'src/components/ActionFooter';
@@ -67,10 +67,6 @@ const Feed = ({
                 setFollow,
               }) => {
 
-  const [missingCollpase, setMissingCollpase] = useState(true);
-  const [thumbsize, setThumbsize] = useState({width: Dimensions.get('window').width, height: Size(13)});
-  const [isLoading, setIsLoading] = useState(false);
-
   const postType = post.post_type;
   const sourceType = postType === 'Share' ? post.post_source.post_type : postType
   const missingContent = postType === 'Share' ? post.post_source.missing_post_content : post.missing_post_content;
@@ -87,69 +83,79 @@ const Feed = ({
   const [icon, setIcon] = useState(null);
   const [thumbnail, setThumbnail] = useState(null);
   const [isVideo, setIsVideo] = useState(false);
+  const [missingCollpase, setMissingCollpase] = useState(true);
+  const [thumbsize, setThumbsize] = useState({width: Dimensions.get('window').width, height: Size(13)});
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    if (uri) {
-      Image.getSize(uri, (width, height) => {
-        setThumbsize({width, height});
-      }, (error) => {
-        console.log('Image getSize', error)
+    let unmounted = true;
+
+    if (unmounted) {
+      if (uri) {
+        Image.getSize(uri, (width, height) => {
+          setThumbsize({width, height});
+        }, (error) => {
+          console.log('Image getSize', error)
+        });
+      }
+    }
+
+    return () => { unmounted = false };
+
+  }, [uri])
+
+  useMemo(() => {
+    if (link !== '' || link !== undefined) {
+      LinkPreview.getPreview(link).then(data => {
+        setIsLoading(true);
+        switch (data.mediaType) {
+          case 'website':
+            setTitle(data.title);
+            setThumbnail(data.images.length !== 0 ? data.images[0] : null);
+            setIcon(data.favicons.length !== 0 ? data.favicons[0] : null);
+            break;
+          case 'video.other':
+            setTitle(data.title);
+            setThumbnail(data.images.length !== 0 ? data.images[0] : null);
+            setIcon(data.favicons.length !== 0 ? data.favicons[0] : null);
+            break;
+          case 'image':
+            setTitle('Image');
+            setThumbnail(data.url);
+            setIcon(data.favicons.length !== 0 ? data.favicons[0] : null);
+            break;
+          case 'audio':
+            setTitle('Audio');
+            setThumbnail(null);
+            setIcon(data.favicons.length !== 0 ? data.favicons[0] : null);
+            break;
+          case 'video':
+            // setIsVideo(true);
+            setTitle('Video');
+            setThumbnail(null);
+            setIcon(data.favicons.length !== 0 ? data.favicons[0] : null);
+            break;
+          case 'application':
+            setTitle('Application');
+            setThumbnail(null);
+            setIcon(data.favicons.length !== 0 ? data.favicons[0] : null);
+            break;
+          case 'article':
+            setTitle(data.title);
+            setThumbnail(data.images.length !== 0 ? data.images[0] : null);
+            setIcon(data.favicons.length !== 0 ? data.favicons[0] : null);
+            break;
+          default:
+            setTitle('');
+            setThumbnail(null);
+            setIcon(null);
+            break;
+        }
       });
     }
 
-    if (link !== '') {
-      handleParse();
-    }
-  }, [uri, link])
-
-  const handleParse = () => {
-    LinkPreview.getPreview(link).then(data => {
-      setIsLoading(true);
-      switch (data.mediaType) {
-        case 'website':
-          setTitle(data.title);
-          setThumbnail(data.images.length !== 0 ? data.images[0] : null);
-          setIcon(data.favicons.length !== 0 ? data.favicons[0] : null);
-          break;
-        case 'video.other':
-          setTitle(data.title);
-          setThumbnail(data.images.length !== 0 ? data.images[0] : null);
-          setIcon(data.favicons.length !== 0 ? data.favicons[0] : null);
-          break;
-        case 'image':
-          setTitle('Image');
-          setThumbnail(data.url);
-          setIcon(data.favicons.length !== 0 ? data.favicons[0] : null);
-          break;
-        case 'audio':
-          setTitle('Audio');
-          setThumbnail(null);
-          setIcon(data.favicons.length !== 0 ? data.favicons[0] : null);
-          break;
-        case 'video':
-          // setIsVideo(true);
-          setTitle('Video');
-          setThumbnail(null);
-          setIcon(data.favicons.length !== 0 ? data.favicons[0] : null);
-          break;
-        case 'application':
-          setTitle('Application');
-          setThumbnail(null);
-          setIcon(data.favicons.length !== 0 ? data.favicons[0] : null);
-          break;
-        case 'article':
-          setTitle(data.title);
-          setThumbnail(data.images.length !== 0 ? data.images[0] : null);
-          setIcon(data.favicons.length !== 0 ? data.favicons[0] : null);
-          break;
-        default:
-          setTitle('');
-          setThumbnail(null);
-          setIcon(null);
-          break;
-      }
-    });
-  };
+    return '';
+  }, [link]);
 
   const navigatePostDetail = id => () => {
     RootNavigation.navigate('PostDetail', {id});
@@ -245,15 +251,15 @@ const Feed = ({
               <Text>{getDiffFromToday(updatedAt)}</Text>
             </View>
           </View>
-          {post.profile_id !== profileId && 
-            <Button 
-              title={post.follow_state === 0 ? 'follow' : 'following'}
-              type="outline"
-              buttonStyle={[styles.btnFollow, bgSecodary]}
-              titleStyle={[textDot7]}
-              icon={<Image style={styles.followIcon} source={IMAGES_PATH.search}/>}
-              onPress={handleFollow}
-            />
+          {post.profile_id !== profileId &&
+          <Button
+            title={post.follow_state === 0 ? 'follow' : 'following'}
+            type="outline"
+            buttonStyle={[styles.btnFollow, bgSecodary]}
+            titleStyle={[textDot7]}
+            icon={<Image style={styles.followIcon} source={IMAGES_PATH.search}/>}
+            onPress={handleFollow}
+          />
           }
           <View>
             <PopupSheet post={post} isMyPost={post.profile_id === profileId} isShare={isShare}/>
@@ -307,10 +313,6 @@ const Feed = ({
     </View>
   );
 };
-
-Feed.propTypes = {
-  profileId: PropTypes.number
-}
 
 const actions = {
   setFollow

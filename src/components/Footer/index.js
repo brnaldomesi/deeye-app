@@ -1,10 +1,7 @@
 import * as RootNavigation from 'src/navigators/Ref';
 
 import {
-  Colors,
-  Size,
   fontWeightBold,
-  itemsCenter,
   mtp5,
   mb_message,
   primaryColor,
@@ -13,7 +10,6 @@ import {
 } from 'src/styles'
 import {
   Image,
-  StyleSheet,
   Text,
   View
 } from 'react-native'
@@ -21,25 +17,62 @@ import {
 import AddIcon from 'src/components/icons/add'
 import Button from 'src/components/Button'
 import Footer from 'src/components/icons/footer'
-import { IMAGES_PATH } from 'src/config/constants';
+import {COMETCHAT_CONSTANTS, IMAGES_PATH} from 'src/config/constants';
 import MyButton from 'src/components/MyButton';
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import styles from './styles';
 import {createStructuredSelector} from "reselect";
 import {badgeCountSelector} from "src/redux/modules/alert";
 import {connect} from "react-redux";
-import PropTypes from "prop-types";
+import {profileSelector} from '../../redux/modules/auth';
+import {cometChatLogin, cometchatSelector} from '../../redux/modules/cometchat';
+import {CometChat} from "@cometchat-pro/react-native-chat";
+
+const actions = {
+  cometChatLogin,
+}
 
 const selector = createStructuredSelector({
   badges: badgeCountSelector,
+  profile: profileSelector,
+  cometChat: cometchatSelector,
 });
 
 export default connect(
-  selector, null)(({
+  selector, actions)(({
   style,
   footerRoute,
-  badges
+  badges,
+  cometChat,
+  profile
 }) => {
+
+  const [msgCount, setMsgCount] = useState(0);
+  const {isLoggedIn, user} = cometChat;
+
+  useEffect(() => {
+    getCount();
+  }, [isLoggedIn]);
+
+  const getCount = () => {
+    let UID = profile.email.replace(/[^a-zA-Z0-9]/g, "");
+
+    if ((!isLoggedIn || typeof user.authToken === 'undefined') && profile) {
+      cometChatLogin({
+        authKey: COMETCHAT_CONSTANTS.AUTH_KEY,
+        uid: UID
+      });
+    } else {
+      CometChat.getUnreadMessageCountForUser(UID).then(
+        array => {
+          console.log("Message count fetched", array);
+        },
+        error => {
+          console.log("Error in getting message count", error);
+        }
+      );
+    }
+  };
 
   const handleAdd = () => {
     // RootNavigation.navigate('PostNew');
@@ -92,6 +125,9 @@ export default connect(
         <MyButton onPress={navigateMessage}>
           <View>
             <Image style={[styles.message]} source={footerRoute === 'message' ? IMAGES_PATH.messageActive : IMAGES_PATH.message} />
+            {msgCount !== 0 && <Text style={{position: 'absolute', color: 'white', fontSize: 9, top: 0, right: -5, minWidth: 10, paddingStart: 5, paddingEnd: 5, paddingTop: 2, paddingBottom: 2, minHeight: 10, backgroundColor: 'red', borderRadius: 8}} >
+              {msgCount}
+            </Text>}
           </View>
           <Text style={[mtp5, textDot7, mb_message, footerRoute === 'message' ? [primaryColor, fontWeightBold] : secondaryColor ]}>MESSAGES</Text>
         </MyButton>

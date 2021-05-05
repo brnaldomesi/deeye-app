@@ -26,7 +26,7 @@ const Posts = ({
 
   return (
     <>
-      {userPosts && userPosts.map(post => 
+      {userPosts && userPosts.map(post =>
         <Feed post={post} key={post.id} profileId={profile.id} />
       )}
     </>
