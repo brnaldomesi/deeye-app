@@ -20,11 +20,14 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import styles from './styles';
 
-const PopupMenu = ({}) => {  
-  const handleAction1 = () => {
+const PopupMenu = ({}) => {
+  const handleMute = () => {
   }
 
-  const handleAction2 = () => {
+  const handleView = () => {
+  }
+
+  const handleRead = () => {
   }
 
   return (
@@ -35,8 +38,9 @@ const PopupMenu = ({}) => {
         </View>
       </MenuTrigger>
       <MenuOptions customStyles={{optionText: {fontSize: Size(1.2)}}}>
-        <MenuOption onSelect={handleAction1} text='Action1' />
-        <MenuOption onSelect={handleAction2} text='Action2' />
+        <MenuOption onSelect={handleMute} text='Mute' />
+        <MenuOption onSelect={handleView} text='View Profile' />
+        <MenuOption onSelect={handleRead} text='Make Read' />
       </MenuOptions>
     </Menu>
   )

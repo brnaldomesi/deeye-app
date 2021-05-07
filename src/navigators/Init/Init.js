@@ -9,7 +9,7 @@
 import * as RootNavigation from 'src/navigators/Ref';
 import * as gStyle from 'src/styles'
 
-import {Dimensions, Image, ScrollView, Text, TouchableOpacity, View} from 'react-native';
+import {Dimensions, Image, ScrollView, Text, TouchableOpacity, View, Clipboard, Linking, Platform} from 'react-native';
 import React, {useCallback, useState, useEffect} from 'react';
 
 import {IMAGES_PATH} from "../../config/constants";
@@ -19,7 +19,6 @@ import {connect} from "react-redux";
 import {createStructuredSelector} from "reselect";
 import {isAuthenticatedSelector} from "../../redux/modules/auth";
 import styles from './styles';
-import {useFocusEffect} from '@react-navigation/native';
 import {ASSET_BASE_URL} from "../../config/apipath";
 import FastImage from "react-native-fast-image";
 import moment from "moment";
@@ -61,6 +60,22 @@ const Init = ({route, isAuthenticated}) => {
     RootNavigation.navigateAndSimpleReset(isAuthenticated ? 'Drawer' : 'OnBoarding');
   };
 
+  const handlePhone = () => {
+    let phoneNumber = '';
+
+    if (Platform.OS === 'android') {
+      phoneNumber = 'tel:${' + '012-345-6789' + '}';
+    } else {
+      phoneNumber = 'telprompt:${' + '012-345-6789' + '}';
+    }
+
+    Linking.openURL(phoneNumber);
+  };
+
+  const handleClip = () => {
+    Clipboard.setString('012-345-6789')
+  };
+
   return (
     <View style={gStyle.flexOne}>
       <View style={styles.header}>
@@ -71,7 +86,7 @@ const Init = ({route, isAuthenticated}) => {
         </View>
         <View style={styles.mb1}>
           <Text style={styles.headerTitle}>M I S S I N G</Text>
-          <Text style={styles.headerUnderTitle}>P E R S O N</Text>
+          <Text style={styles.headerUnderTitle}>{missingContent.missing_type.replace('_', ' ')}</Text>
         </View>
       </View>
       <ScrollView>
@@ -84,8 +99,8 @@ const Init = ({route, isAuthenticated}) => {
           resizeMode={FastImage.resizeMode.contain}
         />
         <View style={[styles.mb1, styles.middle]}>
-          <Text style={styles.middleTitle}>Carmen Lee</Text>
-          <Text style={styles.middleUnderTitle}>AKA Admin</Text>
+          <Text style={styles.middleTitle}>{missingContent.fullname}</Text>
+          <Text style={styles.middleUnderTitle}>AKA</Text>
         </View>
         <View style={gStyle.p1}>
           <View style={[gStyle.d_flex]}>
@@ -102,7 +117,7 @@ const Init = ({route, isAuthenticated}) => {
             <View style={[styles.vp1, gStyle.d_flex, gStyle.flexWrap, styles.flexShrink, gStyle.flexGrowOne]}>
               <View style={styles.hr1}>
                 <Text style={styles.yellowColor}>Sex</Text>
-                <Text style={styles.cirText}>{missingContent.sex}</Text>
+                <Text style={styles.cirText}>{missingContent.sex !== null ? missingContent.sex : ''}</Text>
               </View>
               <View style={styles.hr1}>
                 <Text style={styles.yellowColor}>Age</Text>
@@ -110,19 +125,19 @@ const Init = ({route, isAuthenticated}) => {
               </View>
               <View style={styles.hr1}>
                 <Text style={styles.yellowColor}>Race</Text>
-                <Text style={styles.cirText}>{missingContent.race}</Text>
+                <Text style={styles.cirText}>{missingContent.race !== null ? missingContent.race : ''}</Text>
               </View>
               <View style={styles.hr1}>
                 <Text style={styles.yellowColor}>Height</Text>
-                <Text style={styles.cirText}>{missingContent.height_cm ? missingContent.height_cm + ' cm' : missingContent.height_ft + ' ft'}</Text>
+                <Text style={styles.cirText}>{missingContent.height_cm ? (missingContent.height_cm === null ? '0' : missingContent.height_cm) + ' cm' : (missingContent.height_ft === null ? '0' : missingContent.height_ft) + ' ft'}</Text>
               </View>
               <View style={styles.hr1}>
                 <Text style={styles.yellowColor}>Weight</Text>
-                <Text style={styles.cirText}>{missingContent.weight_kg ? missingContent.weight_kg + ' kg' : missingContent.weight_lb + ' lb'}</Text>
+                <Text style={styles.cirText}>{missingContent.weight_kg ? (missingContent.weight_kg === null ? '0' : missingContent.weight_kg) + ' kg' : (missingContent.weight_lb === null ? '0' : missingContent.weight_lb) + ' lb'}</Text>
               </View>
             </View>
             <View style={[gStyle.selfCenter, styles.wr1]}>
-              <Image style={styles.centerImg} source={IMAGES_PATH.call}/>
+              {/*<Image style={styles.centerImg} source={IMAGES_PATH.call}/>*/}
             </View>
           </View>
           <View style={[styles.grow1, styles.mr1]}>
@@ -132,16 +147,20 @@ const Init = ({route, isAuthenticated}) => {
         </View>
       </ScrollView>
       <View style={[styles.footer, gStyle.d_flex, styles.hp1]}>
-        <View style={[gStyle.selfCenter]}>
-          <Image style={styles.centerImg} source={IMAGES_PATH.chat}/>
-        </View>
+        <TouchableOpacity style={gStyle.d_flex} onPress={handleClip}>
+          <View style={[gStyle.selfCenter]}>
+            <Image style={styles.centerImg} source={IMAGES_PATH.chat}/>
+          </View>
+        </TouchableOpacity>
         <View style={styles.grow1}>
           <Text style={styles.middleUnderTitle}>With any information Call</Text>
           <Text style={styles.middleTitle}>012-345-6789</Text>
         </View>
-        <View style={[gStyle.selfCenter]}>
-          <Image style={styles.centerImg} source={IMAGES_PATH.call}/>
-        </View>
+        <TouchableOpacity style={gStyle.d_flex} onPress={handlePhone}>
+          <View style={[gStyle.selfCenter]}>
+            <Image style={styles.centerImg} source={IMAGES_PATH.call}/>
+          </View>
+        </TouchableOpacity>
       </View>
     </View>
   );

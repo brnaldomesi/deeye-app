@@ -24,7 +24,7 @@ import {
   textXl,
   d_flex,
   textDot7,
-  bgSecodary
+  bgSecodary,
 } from 'src/styles';
 import {
   Dimensions,
@@ -33,7 +33,7 @@ import {
   TouchableOpacity,
   View,
   Linking,
-  ActivityIndicator
+  ActivityIndicator,
 } from 'react-native';
 import React, {useEffect, useState, useMemo} from 'react';
 
@@ -46,18 +46,19 @@ import {Divider} from 'react-native-elements';
 import FastImage from 'react-native-fast-image';
 import {IMAGES_PATH} from 'src/config/constants';
 import LinearGradient from 'react-native-linear-gradient';
-import MissingDetailInfo from 'src/components/MissingDetailInfo'
+import MissingDetailInfo from 'src/components/MissingDetailInfo';
 import PopupSheet from 'src/components/PopupSheet';
 import PropTypes from 'prop-types';
 import VideoPlayer from 'react-native-video-controls';
 import {compose} from 'redux';
 import {connect} from 'react-redux';
 import {getDiffFromToday} from 'src/utils/helpers';
-import {setFollow} from "../../../redux/modules/follow";
+import {setFollow} from '../../../redux/modules/follow';
 import styles from './styles';
-import LinkPreview from "react-native-link-preview";
-import * as gStyle from "../../../styles";
+import LinkPreview from 'react-native-link-preview';
+import * as gStyle from '../../../styles';
 import HyperlinkedText from 'react-native-hyperlinked-text';
+import {validURL} from 'src/utils/helpers';
 
 const Feed = ({
                 post,
@@ -69,7 +70,7 @@ const Feed = ({
               }) => {
 
   const postType = post.post_type;
-  const sourceType = postType === 'Share' ? post.post_source.post_type : postType
+  const sourceType = postType === 'Share' ? post.post_source.post_type : postType;
   const missingContent = postType === 'Share' ? post.post_source.missing_post_content : post.missing_post_content;
   const authorName = postType === 'Share' ? (post.post_source.author.first_name + ' ' + post.post_source.author.last_name) : (post.author.first_name + ' ' + post.author.last_name);
   const postAttachment = postType === 'Share' ? post.post_source.post_attachments[0] : post.post_attachments[0];
@@ -87,6 +88,35 @@ const Feed = ({
   const [missingCollpase, setMissingCollpase] = useState(true);
   const [thumbsize, setThumbsize] = useState({width: Dimensions.get('window').width, height: Size(13)});
   const [isLoading, setIsLoading] = useState(false);
+  const [firstUrl, setFirstUrl] = useState('');
+  const [isUrl, setIsUrl] = useState(false);
+
+  useEffect(() => {
+    if (postType === 'text') {
+      let bRet = false;
+      const arrEnter = description !== null ? description.split('\n') : [];
+      const arrSpace = description !== null ? description.split(' ') : [];
+
+      for (let i = 0; i < arrEnter.length; i++) {
+        if (validURL(arrEnter[i])) {
+          bRet = true;
+          setIsUrl(true);
+          setFirstUrl(arrEnter[i]);
+          break;
+        }
+      }
+
+      if (!bRet) {
+        for (let i = 0; i < arrSpace.length; i++) {
+          if (validURL(arrSpace[i])) {
+            setIsUrl(true);
+            setFirstUrl(arrEnter[i]);
+            break;
+          }
+        }
+      }
+    }
+  }, []);
 
   useEffect(() => {
     let unmounted = true;
@@ -96,75 +126,88 @@ const Feed = ({
         Image.getSize(uri, (width, height) => {
           setThumbsize({width, height});
         }, (error) => {
-          console.log('Image getSize', error)
+          console.log('Image getSize', error);
         });
       }
     }
 
-    return () => { unmounted = false };
+    return () => {
+      unmounted = false;
+    };
 
-  }, [uri])
+  }, [uri]);
 
   useMemo(() => {
     if (link !== '' && link !== null) {
       setIsLoading(true);
-      LinkPreview.getPreview(link).then(data => {
-        switch (data.mediaType) {
-          case 'website':
-            setTitle(data.title);
-            setThumbnail(data.images.length !== 0 ? data.images[0] : null);
-            setIcon(data.favicons.length !== 0 ? data.favicons[0] : null);
-            break;
-          case 'video.other':
-            setTitle(data.title);
-            setThumbnail(data.images.length !== 0 ? data.images[0] : null);
-            setIcon(data.favicons.length !== 0 ? data.favicons[0] : null);
-            break;
-          case 'image':
-            setTitle('Image');
-            setThumbnail(data.url);
-            setIcon(data.favicons.length !== 0 ? data.favicons[0] : null);
-            break;
-          case 'audio':
-            setTitle('Audio');
-            setThumbnail(null);
-            setIcon(data.favicons.length !== 0 ? data.favicons[0] : null);
-            break;
-          case 'video':
-            // setIsVideo(true);
-            setTitle('Video');
-            setThumbnail(null);
-            setIcon(data.favicons.length !== 0 ? data.favicons[0] : null);
-            break;
-          case 'application':
-            setTitle('Application');
-            setThumbnail(null);
-            setIcon(data.favicons.length !== 0 ? data.favicons[0] : null);
-            break;
-          case 'article':
-            setTitle(data.title);
-            setThumbnail(data.images.length !== 0 ? data.images[0] : null);
-            setIcon(data.favicons.length !== 0 ? data.favicons[0] : null);
-            break;
-          default:
-            setTitle('');
-            setThumbnail(null);
-            setIcon(null);
-            break;
-        }
-      });
+
+      drawUI(link);
+    }
+
+    if (postType === 'text' && isUrl) {
+      setIsLoading(true);
+
+      drawUI(firstUrl);
     }
 
     return '';
-  }, [link]);
+  }, [link, isUrl]);
+
+  function drawUI(url) {
+    LinkPreview.getPreview(url).then(data => {
+      switch (data.mediaType) {
+        case 'website':
+          setTitle(data.title);
+          setThumbnail(data.images.length !== 0 ? data.images[0] : null);
+          setIcon(data.favicons.length !== 0 ? data.favicons[0] : null);
+          break;
+        case 'video.other':
+          setTitle(data.title);
+          setThumbnail(data.images.length !== 0 ? data.images[0] : null);
+          setIcon(data.favicons.length !== 0 ? data.favicons[0] : null);
+          break;
+        case 'image':
+          setTitle('Image');
+          setThumbnail(data.url);
+          setIcon(data.favicons.length !== 0 ? data.favicons[0] : null);
+          break;
+        case 'audio':
+          setTitle('Audio');
+          setThumbnail(null);
+          setIcon(data.favicons.length !== 0 ? data.favicons[0] : null);
+          break;
+        case 'video':
+          // setIsVideo(true);
+          setTitle('Video');
+          setThumbnail(null);
+          setIcon(data.favicons.length !== 0 ? data.favicons[0] : null);
+          break;
+        case 'application':
+          setTitle('Application');
+          setThumbnail(null);
+          setIcon(data.favicons.length !== 0 ? data.favicons[0] : null);
+          break;
+        case 'article':
+          setTitle(data.title);
+          setThumbnail(data.images.length !== 0 ? data.images[0] : null);
+          setIcon(data.favicons.length !== 0 ? data.favicons[0] : null);
+          break;
+        default:
+          setTitle('');
+          setThumbnail(null);
+          setIcon(null);
+          break;
+      }
+    });
+  }
 
   const navigatePostDetail = id => () => {
     RootNavigation.navigate('PostDetail', {id});
-  }
+  };
 
   const toggleMissingCollapse = () => {
     setMissingCollpase(missingCollpase => !missingCollpase);
-  }
+  };
 
   const handleFollow = () => {
     if (postType !== 'Share') {
@@ -174,11 +217,11 @@ const Feed = ({
         follower_id: post.author.user_id,
         data: {
           user_id: post.author.user_id,
-          type: post.follow_state === 1 ? 'unfollow' : 'follow'
-        }
+          type: post.follow_state === 1 ? 'unfollow' : 'follow',
+        },
       });
     }
-  }
+  };
 
   return (
     <View style={[bgWhite, my1]}>
@@ -188,6 +231,7 @@ const Feed = ({
           type="clear"
           title="Shared by"
           disabled
+          titleStyle={{fontSize: Size(.9)}}
           buttonStyle={[p0, m0, styles.sharedby]}
         />
         <View style={[flexRow, mtp5]}>
@@ -206,7 +250,7 @@ const Feed = ({
       </View>
       }
       {(postType !== 'link' && postType !== 'text') && <View style={relative}>
-        {sourceType === "Video" ? (
+        {sourceType === 'Video' ? (
           <VideoPlayer
             source={{uri}}
             style={[styles.thumbnail, resizeContain]}
@@ -219,7 +263,7 @@ const Feed = ({
             <FastImage
               style={{
                 width: Dimensions.get('window').width,
-                height: thumbsize.height * Dimensions.get('window').width / thumbsize.width
+                height: thumbsize.height * Dimensions.get('window').width / thumbsize.width,
               }}
               source={{uri}}
               resizeMode={FastImage.resizeMode.contain}
@@ -273,28 +317,31 @@ const Feed = ({
               <Text>AKA {missingContent.aka}</Text>
             </>
           ) : (
-            postType !== 'link' ? <HyperlinkedText
+            postType !== 'link' && (postType !== 'text' && !isUrl) ? <HyperlinkedText
                 linkStyle={{color: 'blue'}}
-                >{description === null ? '' : description}</HyperlinkedText> :
-              <TouchableOpacity onPress={() => {
-                Linking.openURL(link);
-              }
-              }>
-                {/*<Text>{link}</Text>*/}
-                {!isLoading ? <View style={[gStyle.justifyCenter, gStyle.flexOne, {height: Size(15)}]}>
-                  <ActivityIndicator color={'#0000ff'}/>
-                </View> : <View style={{marginTop: 10, marginBottom: 10}}>
-                  <View>
-                    {isVideo ? <VideoPlayer source={{uri: link}} style={{width: '100%', height: Size(15)}}/> :
-                      <Image style={{width: '100%', height: Size(15), resizeMode: 'contain'}}
-                             source={{uri: thumbnail}}/>}
-                    <View style={d_flex}>
-                      <Image style={{width: Size(1), height: Size(1), resizeMode: 'contain'}} source={{uri: icon}}/>
-                      <Text>{' '}{title}</Text>
+              >{description === null ? '' : description}</HyperlinkedText> :
+              <>
+                {postType !== 'text' && !isUrl ? <></> : <HyperlinkedText
+                  linkStyle={{color: 'blue'}}
+                >{description === null ? '' : description}</HyperlinkedText>}
+                <TouchableOpacity onPress={() => {
+                  Linking.openURL(link);
+                }
+                }>
+                  {!isLoading ? <View style={[gStyle.justifyCenter, gStyle.flexOne, {height: Size(15)}]}>
+                    <ActivityIndicator color={'#0000ff'}/>
+                  </View> : <View style={{marginTop: 10, marginBottom: 10}}>
+                    <View>
+                      {isVideo ? <VideoPlayer source={{uri: link}} style={{width: '100%', height: Size(15)}}/> :
+                        <Image style={{width: '100%', height: Size(15), resizeMode: 'contain'}}
+                               source={{uri: thumbnail}}/>}
+                      <View style={d_flex}>
+                        <Image style={{width: Size(1), height: Size(1), resizeMode: 'contain'}} source={{uri: icon}}/>
+                        <Text>{' '}{title}</Text>
+                      </View>
                     </View>
-                  </View>
-                </View>}
-              </TouchableOpacity>
+                  </View>}
+                </TouchableOpacity></>
           )}
         </View>
         {sourceType === 'MissingPerson' &&
@@ -302,7 +349,7 @@ const Feed = ({
           missingContent={missingContent}
           missingCollpase={missingCollpase}
           onPress={toggleMissingCollapse}
-          style={p1}
+          style={{paddingTop: Size(), paddingBottom: Size()}}
         />
         }
         <Divider style={styles.divider}/>
@@ -318,9 +365,9 @@ const Feed = ({
 };
 
 const actions = {
-  setFollow
-}
+  setFollow,
+};
 
 export default compose(
-  connect(null, actions)
+  connect(null, actions),
 )(Feed);

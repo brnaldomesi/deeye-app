@@ -34,7 +34,6 @@ const Message = ({ cometChatLogin, profile, cometChat }) => {
         component={CometChatUserListWithMessages}
         options={{
           title: 'Messages',
-          headerBackImage: () => <MCIcon name="format-align-left" size={25} />
         }}
       />
       <MessageStack.Screen

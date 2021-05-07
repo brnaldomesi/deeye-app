@@ -149,7 +149,6 @@ const StackNavigator = ({isAuthenticated, missingAlarm}) => {
             component={Alert}
             options={{
               headerShown: true,
-              headerBackImage: () => <MCIcon name="format-align-left" size={25}/>
             }}
           />
           <Stack.Screen
