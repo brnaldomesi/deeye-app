@@ -1,13 +1,13 @@
 import {
   Image,
+  Picker,
   Platform,
   ScrollView,
   Text,
   TextInput,
-  View,
-  Picker
+  View
 } from 'react-native';
-import React, { useState, useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import {
   Size,
   absolute,
@@ -35,6 +35,7 @@ import {
   textWhite,
   w80P
 } from 'src/styles';
+
 import { Button } from 'react-native-elements';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import DocumentPicker from 'react-native-document-picker';
@@ -377,8 +378,10 @@ const PersonalInfo = ({navigation, uploadFile, route}) => {
               <View style={[styles.dropdown, mtp5, w80P]}>
                 <Picker
                   selectedValue={hair}
-                  onValueChange={(itemValue, itemIndex) =>
-                    setHair(itemValue)
+                  onValueChange={(itemValue, itemIndex) => 
+                    {
+                      setHair(itemValue)
+                    }
                   }
                   style={{height: Size(2.5)}}
                   itemStyle={{maxHeight: Size(2.5), minHeight: Size(2.5), alignItems: 'center'}}
@@ -398,8 +401,9 @@ const PersonalInfo = ({navigation, uploadFile, route}) => {
               <View style={[styles.dropdown, mtp5, w80P]}>
                 <Picker
                   selectedValue={race}
-                  onValueChange={(itemValue, itemIndex) =>
-                    setRace(itemValue)
+                  onValueChange={(itemValue, itemIndex) =>{
+                      setRace(itemValue)
+                    }
                   }
                   style={{height: Size(2.5)}}
                   itemStyle={{maxHeight: Size(2.5), minHeight: Size(2.5), alignItems: 'center'}}
@@ -422,8 +426,9 @@ const PersonalInfo = ({navigation, uploadFile, route}) => {
               <View style={[styles.dropdown, mtp5, w80P]}>
                 <Picker
                   selectedValue={eye}
-                  onValueChange={(itemValue, itemIndex) =>
-                    setEye(itemValue)
+                  onValueChange={(itemValue, itemIndex) => {
+                      setEye(itemValue)
+                    }
                   }
                   style={{height: Size(2.5)}}
                   itemStyle={{maxHeight: Size(2.5), minHeight: Size(2.5), alignItems: 'center'}}
