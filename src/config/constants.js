@@ -58,7 +58,7 @@ export const IMAGES_PATH = {
   avatar: require('src/assets/images/Ellipse-1.png'),
   addCircle: require('src/assets/images/Group1305.png'),
   power: require('src/assets/images/power.png'),
-  banner: require('src/assets/images/banner.jpg'),
+  banner: require('src/assets/images/missing_banner.jpg'),
   patchCheckSmall: require('src/assets/images/patch-check-fll_menu_small.png'),
   activityBadge: require('src/assets/images/Group1340.png'),
   people: require('src/assets/images/people.png'),

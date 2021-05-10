@@ -325,7 +325,7 @@ const Feed = ({
                   linkStyle={{color: 'blue'}}
                 >{description === null ? '' : description}</HyperlinkedText>}
                 <TouchableOpacity onPress={() => {
-                  Linking.openURL(link);
+                  Linking.openURL(firstUrl);
                 }
                 }>
                   {!isLoading ? <View style={[gStyle.justifyCenter, gStyle.flexOne, {height: Size(15)}]}>

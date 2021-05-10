@@ -78,6 +78,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#05174f',
     position: 'absolute',
     bottom: 0,
+    fontSize: 11
   },
 
   image_flex: {

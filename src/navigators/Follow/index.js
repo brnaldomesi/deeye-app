@@ -145,9 +145,10 @@ const Follow = ({navigation, getFollowList, setFollow, follows}) => {
       <ScrollView>
         {follows && follows.map((item, index) => {
           return tap === 'left' ? <ListItem key={index} bottomDivider>
-            {item.avatar_path && <Avatar
+            {<Avatar
               onPress={handleOpen(item)}
               rounded
+              title={item.first_name[0]}
               source={{uri: ASSET_BASE_URL + item.avatar_path}}/>}
             <ListItem.Content>
               <ListItem.Title>{item.first_name}</ListItem.Title>
@@ -160,9 +161,10 @@ const Follow = ({navigation, getFollowList, setFollow, follows}) => {
               <Text style={styles.itemBtnFollow}>follow</Text>
             </TouchableOpacity>
           </ListItem> : <ListItem key={index} bottomDivider>
-            {item.avatar_path && <Avatar
+            {<Avatar
               onPress={handleOpen(item)}
               rounded
+              title={item.first_name[0]}
               source={{uri: ASSET_BASE_URL + item.avatar_path}}/>}
             <ListItem.Content>
               <ListItem.Title>{item.first_name}</ListItem.Title>
