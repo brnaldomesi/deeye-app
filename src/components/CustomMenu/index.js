@@ -1,4 +1,7 @@
+import * as RootNavigation from 'src/navigators/Ref';
+
 import {
+  Alert,
   Image,
   View
 } from 'react-native';
@@ -8,26 +11,32 @@ import {
   MenuOptions,
   MenuTrigger,
 } from 'react-native-popup-menu';
+import React, {useCallback, useState} from 'react';
 import {
   Size,
   itemsCenter,
   resizeCover
 } from 'src/styles';
+import {
+  deletePost,
+  hidePost,
+  reportPost
+} from 'src/redux/modules/posts';
 
 import { IMAGES_PATH } from 'src/config/constants';
-import React from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
+import { navigationRef } from 'src/navigators/Ref';
 import styles from './styles';
 
-const PopupMenu = ({}) => {
-  const handleMute = () => {
-  }
+const CustomMenu = ({
+  list,
+  callback,
+  data
+}) => {
 
-  const handleView = () => {
-  }
-
-  const handleRead = () => {
+  const handleItem = (index) => () => {
+    callback(index, data);
   }
 
   return (
@@ -38,17 +47,12 @@ const PopupMenu = ({}) => {
         </View>
       </MenuTrigger>
       <MenuOptions customStyles={{optionText: {fontSize: Size(1)}}}>
-        <MenuOption onSelect={handleMute} text='Mute' />
-        <MenuOption onSelect={handleView} text='View Profile' />
-        <MenuOption onSelect={handleRead} text='Make Read' />
+           {list.map((item, key) => {
+             return <MenuOption key={key} onSelect={handleItem(key)} text={item}/>
+           })}
       </MenuOptions>
     </Menu>
   )
 };
 
-const actions = {
-}
-
-export default compose(
-  connect(null, actions)
-)(PopupMenu);
+export default CustomMenu;

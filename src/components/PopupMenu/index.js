@@ -75,7 +75,7 @@ const PopupMenu = ({
           <Image style={[styles.settingImg, resizeCover]} source={IMAGES_PATH.setting} />
         </View>
       </MenuTrigger>
-      <MenuOptions customStyles={{optionText: {fontSize: Size(1.2)}}}>
+      <MenuOptions customStyles={{optionText: {fontSize: Size(1)}}}>
         {isMyPost ? (
           <>
             <MenuOption onSelect={handleEdit} text='Edit' />

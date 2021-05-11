@@ -23,6 +23,7 @@ import {connect} from "react-redux";
 import { ASSET_BASE_URL } from 'src/config/apipath';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import RBSheet from 'react-native-raw-bottom-sheet';
+import CustomMenu from '../../components/CustomMenu';
 
 const Follow = ({navigation, getFollowList, setFollow, follows}) => {
 
@@ -96,6 +97,19 @@ const Follow = ({navigation, getFollowList, setFollow, follows}) => {
       height: 6,
       backgroundColor: type === tap ? '#05174f' : '#f1f6fb',
       bottom: 0,
+    }
+  };
+
+  const callbackMenu = (index, data) => {
+    if (index === 0) {
+      //profile
+    } else {
+      //unfollow
+      setFollow({
+        isPin: false,
+        isFollow: true,
+        follower_id: data.id,
+        data: {user_id: data.id, type: 'unfollow'}});
     }
   };
 
@@ -173,9 +187,7 @@ const Follow = ({navigation, getFollowList, setFollow, follows}) => {
             <TouchableOpacity onPress={handleDetail(item.id, 'unfollow')}>
               <Text style={styles.itemBtnFollow}>unfollow</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.itemBtnSettingParent}>
-              <Image style={styles.itemBtnSetting} source={IMAGES_PATH.setting}/>
-            </TouchableOpacity>
+            <CustomMenu data={{id: item.id}} list={["profile", "unfollow"]} callback={callbackMenu}/>
           </ListItem>
         })}
       </ScrollView>

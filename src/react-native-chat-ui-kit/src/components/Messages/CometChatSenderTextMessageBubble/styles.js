@@ -5,7 +5,7 @@ export default StyleSheet.create({
   messageWrapperStyle: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#3399FF',
+    backgroundColor: '#0f0ed4',
     marginBottom: 4,
     alignSelf: 'flex-end',
     justifyContent: 'space-between',
@@ -17,7 +17,7 @@ export default StyleSheet.create({
   postWrapperStyle: {
     flexDirection: 'column',
     alignItems: 'center',
-    backgroundColor: '#3399FF',
+    backgroundColor: '#0f0ed4',
     marginBottom: 4,
     alignSelf: 'flex-end',
     justifyContent: 'space-between',

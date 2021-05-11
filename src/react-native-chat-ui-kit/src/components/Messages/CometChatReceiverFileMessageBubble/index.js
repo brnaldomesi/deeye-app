@@ -79,7 +79,7 @@ export default (props) => {
                     {props.message.data.attachments[0].name}
                   </Text>
                 </View>
-                <Icon name="file-download-outline" size={25} color="#3399FF" />
+                <Icon name="file-download-outline" size={25} color="#0f0ed4" />
               </View>
             </TouchableWithoutFeedback>
           </View>

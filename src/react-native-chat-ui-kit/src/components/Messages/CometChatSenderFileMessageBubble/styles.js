@@ -5,7 +5,7 @@ export default StyleSheet.create({
   messageWrapperStyle: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#3399FF',
+    backgroundColor: '#0f0ed4',
     marginBottom: 8,
     alignSelf: 'flex-end',
     justifyContent: 'space-between',

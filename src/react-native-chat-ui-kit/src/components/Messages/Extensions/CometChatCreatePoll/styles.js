@@ -123,7 +123,7 @@ export default StyleSheet.create({
     marginTop: 10 * heightRatio,
   },
   CreateButtonContainer: {
-    backgroundColor: '#3399FF',
+    backgroundColor: '#0f0ed4',
     height: 36 * heightRatio,
     flexDirection: 'row',
     justifyContent: 'center',
