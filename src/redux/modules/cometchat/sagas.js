@@ -21,6 +21,7 @@ const cometChatLogin = function*(action) {
   yield put(cometChatLoginStart());
   const { payload } = action;
   const res = yield call(login(payload.uid, payload.authKey));
+  console.log('!!!!!!!!!!!!!!!', res)
   if(res) {
     yield put(cometChatLoginSuccess(res));
   } else {

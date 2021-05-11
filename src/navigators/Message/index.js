@@ -1,7 +1,7 @@
 import {
   CometChatMessages,
   CometChatUserListWithMessages
-} from 'src/react-native-chat-ui-kit';
+} from 'src/cometchat-pro-react-native-ui-kit';
 import React, { useEffect } from 'react';
 import { cometChatLogin, cometchatSelector } from 'src/redux/modules/cometchat';
 
