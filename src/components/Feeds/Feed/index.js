@@ -277,7 +277,7 @@ const Feed = ({
                 start={{x: 0, y: 0}}
                 end={{x: 1, y: 0}}
               >
-                <Text style={textWhite}>{'Missing ' + getDiffFromToday(missingContent.missing_since) + ' Now'}</Text>
+                <Text style={textWhite}>{'Missing ' + getDiffFromToday(missingContent.missing_since === undefined ? '' : missingContent.missing_since) + ' Now'}</Text>
               </LinearGradient>
             </>
             }
