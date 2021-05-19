@@ -12,27 +12,36 @@ import React, {
   useState
 } from 'react';
 import {
-  Size,
   flexOne,
-  gradientColors,
-  itemsCenter,
-  roundMediumSizeButtonStyle
 } from 'src/styles'
-import { Text, View } from 'react-native';
+import {Dimensions, Text, View} from 'react-native';
 
 import Feeds from 'src/components/Feeds';
 import Footer from 'src/components/Footer';
 import Geolocation from '@react-native-community/geolocation';
-import GradientButton from 'src/components/GradientButton';
 import { connect } from 'react-redux';
 import { setLocation } from "src/redux/modules/alert";
 import styles from './styles';
 import { useFocusEffect } from '@react-navigation/native';
 
+const drawerStyles = {
+  drawer: {
+    shadowColor: "#000000",
+    shadowOpacity: 0.8,
+    shadowRadius: 0,
+  }
+};
+
+import Drawer from 'react-native-drawer';
+import MyControlPanel from '../Panel/ControlPanel';
+
 const Home = ({ route, navigation, setLocation }) => {
 
   const [footerRoute, setFooterRoute] = useState('feeds');
   const [watchID, setWatchID] = useState(null);
+
+  const [open, setOpen] = useState(false);
+  const drawer = React.useRef(null);
 
   useFocusEffect(useCallback(
     () => {
@@ -63,7 +72,7 @@ const Home = ({ route, navigation, setLocation }) => {
           maximumAge: 0,
         },
       );
-      
+
       setWatchID(wID);
     }
 
@@ -74,24 +83,54 @@ const Home = ({ route, navigation, setLocation }) => {
     }
   }, [Geolocation, watchID])
 
-  const handleViewMore = () => {
-    
-  };
+  let controlPanel = <MyControlPanel closeDrawer={() => {
+    if (drawer.current !== null) {
+      drawer.current.close();
+    }
+  }} />
+
+  const openDraw = () => {
+    if (drawer.current !== null) {
+      drawer.current.open();
+    }
+  }
 
   return (
-    <View style={flexOne}>
-      <Feeds footerRoute={footerRoute} />
-      {/* <GradientButton 
-        onPress={handleViewMore}
-        gradientColors={gradientColors}
-        buttonStyle={roundMediumSizeButtonStyle}
-        text="View More Post"
-        textColor="white"
-        fontSize={Size()}
-        style={styles.gradientButton}
-      /> */}
-      <Footer style={styles.footer} footerRoute={footerRoute} />
-    </View>
+
+    <Drawer
+      ref={c => drawer.current = c}
+      type={'overlay'}
+      onOpen={() => {
+        setOpen(true);
+      }}
+      onClose={() => {
+        setOpen(false);
+      }}
+      openDrawerOffset={0}
+      closedDrawerOffset={0}
+      panOpenMask={.1}
+      panCloseMask={.9}
+      relativeDrag={false}
+      panThreshold={.25}
+      content={controlPanel}
+      styles={drawerStyles}
+      disabled={open}
+      tweenHandler={null}
+      tweenDuration={350}
+      tweenEasing={'linear'}
+      acceptDoubleTap={false}
+      acceptTap={false}
+      acceptPan={true}
+      tapToClose={false}
+      negotiatePan={true}
+
+      side={'left'}
+    >
+      <View style={flexOne}>
+        <Feeds footerRoute={footerRoute} open={openDraw} />
+        <Footer style={styles.footer} footerRoute={footerRoute} />
+      </View>
+    </Drawer>
   );
 };
 

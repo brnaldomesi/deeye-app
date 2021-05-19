@@ -27,6 +27,7 @@ const Init = ({route, isAuthenticated}) => {
 
   const [thumbsize, setThumbsize] = useState({width: Dimensions.get('window').width, height: Size(20)});
   const [time, setTime] = useState(5);
+
   let i = 0;
 
   const missingContent = route.params.data.missing_post_content;
@@ -47,7 +48,7 @@ const Init = ({route, isAuthenticated}) => {
     let myInterval = setInterval(() => {
       if (i === 4) {
         clearInterval(myInterval);
-        RootNavigation.navigateAndSimpleReset(isAuthenticated ? 'Drawer' : 'OnBoarding');
+        RootNavigation.navigateAndSimpleReset(isAuthenticated ? 'Home' : 'OnBoarding');
       } else {
         i++;
         setTime(5 - i);
@@ -57,7 +58,7 @@ const Init = ({route, isAuthenticated}) => {
   }, []);
 
   const handleNext = () => {
-    RootNavigation.navigateAndSimpleReset(isAuthenticated ? 'Drawer' : 'OnBoarding');
+    RootNavigation.navigateAndSimpleReset(isAuthenticated ? 'Home' : 'OnBoarding');
   };
 
   const handlePhone = () => {

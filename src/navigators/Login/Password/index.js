@@ -23,22 +23,22 @@ import styles from './styles';
 import { useDeviceName } from 'react-native-device-info';
 import * as RootNavigation from "../../Ref";
 
-const Password = ({ 
-  route, 
-  navigation, 
+const Password = ({
+  route,
+  navigation,
   authLogin,
   fcmToken
 }) => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState(0);
-  const { email } = route.params; 
+  const { email } = route.params;
   const { result: deviceName } = useDeviceName();
 
   const handleConfirm = () => {
-    authLogin({ 
+    authLogin({
       data: { email, password, deviceName, fcmToken },
       success: () => {
-        RootNavigation.navigate('Drawer');
+        RootNavigation.navigate('Home');
       },
       fail: err => {
         setError(1);
@@ -50,7 +50,7 @@ const Password = ({
     <View style={[loginHorizontalPadding, styles.root]}>
       <View>
         <Text style={styles.passwordLabel}>Password</Text>
-        <MyTextInput 
+        <MyTextInput
           placeholder="Enter your password"
           name="password"
           style={textInput}
@@ -58,13 +58,13 @@ const Password = ({
           onChangeText={ text => setPassword(text) }
           error={error}
           secureTextEntry
-          autoCompleteType="password" 
+          autoCompleteType="password"
           textContentType="password"
           autoFocus
           fullWidth
         />
       </View>
-      <GradientButton 
+      <GradientButton
         onPress={handleConfirm}
         gradientColors={gradientColors}
         text="Confirm"
