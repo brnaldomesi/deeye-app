@@ -22,6 +22,7 @@ import {
   resizeContain,
   textWhite,
   textXl,
+  textXX,
   d_flex,
   textDot7,
   bgSecodary
@@ -57,6 +58,7 @@ import {setFollow} from "../../../redux/modules/follow";
 import styles from './styles';
 import LinkPreview from "react-native-link-preview";
 import * as gStyle from "../../../styles";
+import { ml1 } from '../../../styles';
 
 const Feed = ({
                 post,
@@ -257,7 +259,7 @@ const Feed = ({
             type="outline"
             buttonStyle={[styles.btnFollow, bgSecodary]}
             titleStyle={[textDot7]}
-            icon={<Image style={styles.followIcon} source={IMAGES_PATH.search}/>}
+            icon={<Image style={styles.followIcon} source={post.follow_state === 0 ? IMAGES_PATH.follow : IMAGES_PATH.unfollow}/>}
             onPress={handleFollow}
           />
           }
@@ -268,11 +270,11 @@ const Feed = ({
         <View style={[mtp5]}>
           {sourceType === 'MissingPerson' ? (
             <>
-              <Text style={[textXl, fontWeightBold, primaryColor]}>{missingContent.fullname}</Text>
-              <Text>AKA {missingContent.aka}</Text>
+              <Text style={[textXX, fontWeightBold, primaryColor, ml1]}>{missingContent.fullname}</Text>
+              <Text style={ml1}>AKA {missingContent.aka}</Text>
             </>
           ) : (
-            postType !== 'link' ? <Text>{description}</Text> :
+            postType !== 'link' ? <Text style={ml1}>{description}</Text> :
               <TouchableOpacity onPress={() => {
                 Linking.openURL(link);
               }

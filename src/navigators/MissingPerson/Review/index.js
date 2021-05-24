@@ -42,7 +42,7 @@ const Review = ({
                   createPost,
                   profile
                 }) => {
-  const {formData} = route.params;
+  const formData = route.params;
   const sourceType = formData.post_type;
   const uri = formData.attachments.length !== 0 ? ASSET_BASE_URL + formData.attachments[0].uri : '';
 

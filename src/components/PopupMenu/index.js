@@ -66,6 +66,7 @@ const PopupMenu = ({
 
   const handleReport = () => {
     reportPost({id: post.id});
+    hidePost({id: post.id});
   }
 
   return (

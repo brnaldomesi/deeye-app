@@ -8,7 +8,9 @@ import {
   justifyBetween,
   ml1,
   mt1,
+  mt2,
   mtp5,
+  textDot7,
   myAuto,
   primaryColor,
   selfCenter,
@@ -29,6 +31,7 @@ import { IMAGES_PATH } from 'src/config/constants';
 import React from 'react';
 import moment from 'moment';
 import styles from './styles';
+import { TouchableOpacity } from 'react-native';
 
 const MissingDetailInfo = ({
   style,
@@ -37,10 +40,22 @@ const MissingDetailInfo = ({
   missingCollpase,
   fromDetail
 }) => {
-  
+
+  const handlePoliceCall = () => {
+
+  }
+
+  const handlePersonCall = () => {
+
+  }
+
+  const handlePersonSms = () => {
+
+  }
+
   return (
     <View style={style}>
-      <Text style={[fromDetail ? textWhite : primaryColor, fontWeightBold]}>Missing From: {missingContent.duo_location}</Text>
+      <Text style={[fromDetail ? textWhite : primaryColor, fontWeightBold]}>Missing From: {missingContent.duo_location? missingContent.duo_location : ' - '}</Text>
       <Text style={[fromDetail ? textWhite : primaryColor, fontWeightBold]}>Missing Since: {moment(missingContent.missing_since).format("dddd, MMMM D, YYYY")}</Text>
       <View style={[flexRow, justifyBetween, mt1]}>
         <View style={flexRow}>
@@ -58,11 +73,11 @@ const MissingDetailInfo = ({
           </View>
           <View style={ml1}>
             <Text style={[fromDetail ? textWhite : textYellow100, fontWeightBold]}>Height</Text>
-            <Text style={fromDetail ? textWhite : undefined}>{missingContent.height_cm ? missingContent.height_cm + ' cm' : missingContent.height_ft + ' ft'}</Text>
+            <Text style={fromDetail ? textWhite : undefined}>{!missingContent.height_cm ? ' - ' : missingContent.height_ft + ' cm'}</Text>
           </View>
           <View style={ml1}>
             <Text style={[fromDetail ? textWhite : textYellow100, fontWeightBold]}>Weight</Text>
-            <Text style={fromDetail ? textWhite : undefined}>{missingContent.weight_kg ? missingContent.weight_kg + ' kg' : missingContent.weight_lb + ' lb'}</Text>
+            <Text style={fromDetail ? textWhite : undefined}>{!missingContent.weight_kg ? '- ' : missingContent.weight_lb + ' kg'}</Text>
           </View>
         </View>
         <Button
@@ -88,35 +103,42 @@ const MissingDetailInfo = ({
             </View>
             <View style={ml1}>
               <Text style={[fromDetail ? textWhite : textYellow100, fontWeightBold]}>Language</Text>
-              <Text style={fromDetail ? textWhite : undefined}>{missingContent.language}</Text>
+              <Text style={fromDetail ? textWhite : undefined}>{missingContent.language? missingContent.language : ' - '}</Text>
             </View>
           </View>
           <Divider style={[fromDetail ? bgWhite : bgDivider, styles.divider]} />
           <View>
             <Text style={[textXl, fromDetail ? textWhite : primaryColor]}>Circumstances</Text>
             <View style={mtp5}>
-              <Text style={fromDetail ? textWhite : undefined}>{missingContent.circumstance}</Text>
+              <Text style={fromDetail ? textWhite : undefined}>{missingContent.circumstance? missingContent.circumstance : ' - '}</Text>
             </View>
           </View>
           <Divider style={[fromDetail ? bgWhite : bgDivider, styles.divider]} />
           <View style={[flexRow, justifyBetween]}>
             <View>
               <Text style={[textXl, fromDetail ? textWhite : primaryColor]}>Contact</Text>
-              <Text style={fromDetail ? textWhite : undefined}>If you have any information about{"\n"}the whomabout of {missingContent.fullname}</Text>
-            </View>
-            <View style={flexRow}>
-              <View>
-                <Image style={[styles.contactImg, selfCenter]} source={IMAGES_PATH.phoneCall} />
-                <View style={mtp5}>
-                  <Text>Call</Text>
+              <View style={mt2, flexRow}>
+                <View>
+                  <Text>Police Contact</Text>
+                  <Text>{missingContent.contact_phone_number1? missingContent.contact_phone_number1 : ' - '}</Text>
                 </View>
+                <TouchableOpacity onPress={handlePoliceCall}>
+                  <Image style={[styles.contactImg, styles.police_call]} source={IMAGES_PATH.phoneCall} />
+                </TouchableOpacity>
               </View>
-              <View style={ml1}>
-                <Image style={[styles.contactImg, selfCenter]} source={IMAGES_PATH.openChat} />
-                <View style={mtp5}>
-                  <Text>Message</Text>
+              <View style={flexRow}>
+                <View>
+                  <Text>Personal Contact</Text>
+                  <Text>{missingContent.contact_phone_number2? missingContent.contact_phone_number2 : ' - '}</Text>
                 </View>
+                <TouchableOpacity onPress={handlePersonCall}>
+                  <Image style={[styles.contactImg, styles.person_call]} source={IMAGES_PATH.phoneCall}/>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={handlePersonSms}>
+                  <Image style={[styles.contactImg, styles.person_sms]} source={IMAGES_PATH.openChat} />  
+                </TouchableOpacity>
               </View>
+              <Text style={[fromDetail ? textWhite : undefined, textDot7]}>If you have any information about{"\n"}the whomabout of {missingContent.fullname}</Text>
             </View>
           </View>
         </> 

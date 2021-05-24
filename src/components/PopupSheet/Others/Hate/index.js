@@ -6,6 +6,7 @@ import {
   Text
 } from 'react-native';
 import {
+  hidePost,
   reportPost,
 } from 'src/redux/modules/posts';
 import { compose } from 'redux';
@@ -15,7 +16,7 @@ import React, {useState} from 'react';
 import styles from './styles';
 import RadioGroup from 'src/components/RadioGroup';
 
-const Hate = ({reportPost, ...props}) => {
+const Hate = ({reportPost, hidePost, ...props}) => {
 
   const [value, setValue] = useState('I am not interested in this post');
 
@@ -44,6 +45,7 @@ const Hate = ({reportPost, ...props}) => {
   const handleSubmit = () => {
     reportPost({id: post_id, data: { reason: reason}});
     RootNavigation.navigate('Home', { query: 'feeds' });
+    hidePost({id: post_id});
   }
 
   return (
@@ -70,6 +72,7 @@ const Hate = ({reportPost, ...props}) => {
 
 const actions = {
   reportPost,
+  hidePost
 }
 
 export default compose(

@@ -48,7 +48,7 @@ export default ({
       resolve,
       reject
     } = payload
-
+    console.log("data", data);
     try {
 
       if (!stealthy) {
@@ -57,7 +57,7 @@ export default ({
       }
 
       const queryParams = { ...defaultParams, ...params }
-      console.log("^^^^^^^^^^^", data, "************");
+
       const token = yield select(tokenSelector)
 
       console.log(token)

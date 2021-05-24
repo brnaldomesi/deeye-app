@@ -211,12 +211,20 @@ export const textDot7 = {
   fontSize: Size(.7)
 }
 
+export const textDot9 = {
+  fontSize: Size(.9)
+}
+
 export const textBase = {
   fontSize: Size()
 }
 
 export const textXl = {
   fontSize: Size(1.2)
+}
+
+export const textXX = {
+  fontSize: Size(1.5)
 }
 
 //Margin & Padding

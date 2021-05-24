@@ -58,31 +58,26 @@ const ActionFooter = ({
       <View>
         <MyButton onPress={handleComment}>
           <Image style={styles.commentImg} source={IMAGES_PATH.comment} />
-          <Text style={fromDetail ? textWhite : undefined}>Comment</Text>
         </MyButton>
       </View>
       <View>
         <MyButton onPress={handleSave}>
           <Image style={styles.saveImg} source={post.saved ? IMAGES_PATH.save1 : IMAGES_PATH.save} />
-          <Text style={fromDetail ? textWhite : undefined}>Save</Text>
         </MyButton>
       </View>
       <View>
         <MyButton onPress={handleLike}>
           <Image style={styles.suppportImg} source={post.liked ? IMAGES_PATH.support1 : IMAGES_PATH.support} />
-          <Text style={fromDetail ? textWhite : undefined}>Support</Text>
         </MyButton>
       </View>
       <View>
         <MyButton onPress={handleShare}>
           <Image style={styles.shareImg} source={IMAGES_PATH.share} />
-          <Text style={fromDetail ? textWhite : undefined}>Share</Text>
         </MyButton>
       </View>
       <View>
         <MyButton onPress={handleSend}>
           <Image style={styles.sendImg} source={IMAGES_PATH.send} />
-          <Text style={fromDetail ? textWhite : undefined}>Send</Text>
         </MyButton>
       </View>
     </View>

@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: Size(),
     shadowOffset: {
       width: 0,
-      height: 2
+      height: 1
     },
     shadowOpacity: 0.25,
     elevation: 9,

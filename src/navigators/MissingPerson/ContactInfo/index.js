@@ -30,6 +30,7 @@ import {
 } from 'react-native';
 import React, { useState, useCallback } from 'react';
 import { uploadFile } from 'src/redux/modules/posts';
+import { updatePost } from 'src/redux/modules/posts';
 import { Button } from 'react-native-elements';
 import { CheckBox } from 'react-native-elements'
 import DocumentPicker from 'react-native-document-picker';
@@ -40,25 +41,61 @@ import PropTypes from 'prop-types';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import styles from './styles';
+import moment from 'moment';
 
 const ContactInfo = ({
   route,
   navigation,
-  uploadFile
+  uploadFile,
+  updatePost
 }) => {
-  const [contactPhoneNumber1, setContactPhoneNumber1] = useState('');
-  const [contactPhoneNumber2, setContactPhoneNumber2] = useState('');
-  const [contactAgencyName, setContactAgencyName] = useState('');
+  const formData = route.params;
+  const btn_type = !route.params.post_type? 'update' : 'next';
+  const i_fullname = !route.params.post_type? formData.missing_post.fullname : '';
+  const i_gender = !route.params.post_type? formData.missing_post.sex : '';
+  const i_height = !route.params.post_type? formData.missing_post.height_cm : '';
+  const i_weight = !route.params.post_type? formData.missing_post.weight_kg : '';
+  const i_hair = !route.params.post_type? formData.missing_post.hair : 'Black';
+  const i_race = !route.params.post_type? formData.missing_post.race : 'Black';
+  const i_eye = !route.params.post_type? formData.missing_post.eye : 'Black';
+  const i_circumstance = !route.params.post_type? formData.missing_post.circumstance : '';
+  const i_phone1 = !route.params.post_type? formData.missing_post.contact_phone_number1 : '';
+  const i_phone2 = !route.params.post_type? formData.missing_post.contact_phone_number2 : '';
+  const i_aka = !route.params.post_type? formData.missing_post.aka : '';
+  const i_mark = !route.params.post_type? formData.missing_post.mark: '';
+  const i_dob = !route.params.post_type? new Date(formData.missing_post.dob): new Date(1598051730000);
+  const i_medicalCondition = !route.params.post_type? formData.missing_post.medicalCondition: '';
+  const i_tatoo = !route.params.post_type? formData.missing_post.tatoo: '';
+  const i_language = !route.params.post_type? formData.missing_post.language: '';
+  const i_contactAgencyName = !route.params.post_type? formData.missing_post.contactAgencyName: '';
+  const i_caseUpload = !route.params.post_type? formData.missing_post.caseUpload: '';
+  const i_duoLocation = !route.params.post_type? formData.missing_post.duoLocation: '';
+  const post_id = !route.params.post_type? formData.missing_post.id : '';
+  const [aka, setAka] = useState(i_aka);
+  const [markinfo, setMarkinfo] = useState(i_mark);
+  const [dob, setDob] = useState(i_dob);
+  const [medicalCondition, setMedicalCondition] = useState(i_medicalCondition);
+  const [language, setLanguage] = useState(i_language);
+  const [contactAgencyName, setContactAgencyName] = useState(i_contactAgencyName);
+  const [caseUpload, setCaseUpload] = useState(i_caseUpload);
+  const [hasTattoo, setHasTattoo] = useState(i_tatoo);
+  const [duoLocation, setDuoLocation] = useState(i_duoLocation);
+  const [gender, setGender] = useState(i_gender);
+  const [height, setHeight] = useState(i_height);
+  const [weight, setWeight] = useState(i_weight);
+  const [hair, setHair] = useState(i_hair);
+  const [race, setRace] = useState(i_race);
+  const [eye, setEye] = useState(i_eye);
+  const [circumstance, setCircumstance] = useState(i_circumstance);
+  const [fullname, setFullname] = useState(i_fullname);
+  const [contactPhoneNumber1, setContactPhoneNumber1] = useState(i_phone1);
+  const [contactPhoneNumber2, setContactPhoneNumber2] = useState(i_phone2);
   const [agencyName, setAgencyName] = useState('');
   const [phoneNumber1Type, setPhoneNumber1Type] = useState({'police': true, 'fbi': false, 'detective': false});
   const [phoneNumber2Type, setPhoneNumber2Type] = useState({'police': true, 'fbi': false, 'detective': false});
-  const [caseUpload, setCaseUpload] = useState('');
   const [haveRerpot, setHaveRerpot] = useState(false);
   const [selectedFileName, setSelectedFileName] = useState('');
   const [attachments, setAttachments] = useState([]);
-
-  const { formData } = route.params;
-
   const handleSubmit = () => {
     formData.missing_post.contact_phone_number1 = contactPhoneNumber1;
     formData.missing_post.contact_phone_number2 = contactPhoneNumber2;
@@ -70,7 +107,7 @@ const ContactInfo = ({
     }
     formData.missing_post.badge_awarded = "Pending";
 
-    navigation.navigate('Review', {formData});
+    navigation.navigate('Review', formData);
   };
 
   const handleUpload = (data) => {
@@ -91,6 +128,37 @@ const ContactInfo = ({
         console.error(err)
       }
     });
+  }
+
+  const handleUpdate = () => {
+    updatePost({
+      id: post_id,
+      data: {
+        fullname: fullname, 
+        sex: gender, 
+        race: race, 
+        height: height, 
+        weight: weight, 
+        eye: eye, 
+        hair: hair,
+        circumstance: circumstance,
+        contact_phone_number1: contactPhoneNumber1,
+        contact_phone_number2: contactPhoneNumber2,
+        aka: aka,
+        mark: markinfo,
+        dob: moment(dob).format("YYYY-MM-DD hh:mm:ss"),
+        medicalCondition: medicalCondition,
+        tatoo: hasTattoo,
+        language: language,
+        contactAgencyName: contactAgencyName,
+        caseUpload: caseUpload,
+        duoLocation: duoLocation
+      },
+      success: () => {
+        RootNavigation.navigate('Home');
+      }
+    });
+    navigation.navigate('Home');
   }
 
   const handleUploadPick = async () => {
@@ -308,11 +376,18 @@ const ContactInfo = ({
           </View>
 
           <View style={[mt1, itemsCenter]}>
-            <Button
-              title="Finish for review"
-              onPress={handleSubmit}
-              buttonStyle={[bgPrimary, roundedSm, px2]}
-            />
+            {btn_type === 'next'?
+              <Button
+                title="Finish for review"
+                onPress={handleSubmit}
+                buttonStyle={[bgPrimary, roundedSm, px2]}
+              /> : 
+              <Button
+                title="Update Post"
+                onPress={handleUpdate}
+                buttonStyle={[bgPrimary, roundedSm, px2]}
+              />
+            }
           </View>
         </View>
       </ScrollView>
@@ -325,7 +400,8 @@ ContactInfo.propTypes = {
 };
 
 const actions = {
-  uploadFile
+  uploadFile,
+  updatePost
 };
 
 export default compose(

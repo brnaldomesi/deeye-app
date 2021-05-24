@@ -25,7 +25,6 @@ const MissingPostEdit = ({
                            updatePost
                          }) => {
   const {post} = route.params;
-
   const postType = post.post_type;
   const sourceType = postType === 'Share' ? post.post_source.post_type : postType
   const missingContent = postType === 'Share' ? post.post_source.missing_post_content : post.missing_post_content;
@@ -34,9 +33,7 @@ const MissingPostEdit = ({
   const updatedAt = postType === 'Share' ? post.post_source.updated_at : post.updated_at;
   const description = postType === 'Share' ? post.post_source.description : post.description;
   const avatarPath = postType === 'Share' ? ASSET_BASE_URL + post.post_source.author.avatar_path : ASSET_BASE_URL + post.author.avatar_path;
-
   const [thumbsize, setThumbsize] = useState({width: Dimensions.get('window').width, height: g.Size(13)});
-
   const [isName, setIsName] = useState(false);
   const [name, setName] = useState(missingContent.fullname);
   const [isCir, setIsCir] = useState(false);
@@ -51,6 +48,15 @@ const MissingPostEdit = ({
   const [weight, setWeight] = useState(missingContent.weight_kg ? missingContent.weight_kg + ' kg' : missingContent.weight_lb + ' lb');
   const [eye, setEye] = useState(missingContent.eye);
   const [hair, setHair] = useState(missingContent.hair);
+  const [aka, setAka] = useState(missingContent.aka);
+  const [mark, setMark] = useState(missingContent.markinfo);
+  const [dob, setDob] = useState(missingContent.dob);
+  const [medicalCondition, setMedicalCondition] = useState(missingContent.medical_condition);
+  const [tatoo, setTatoo] = useState(missingContent.has_tattoo);
+  const [language, setLanguage] = useState(missingContent.language);
+  const [contactAgencyName, setContactAgencyName] = useState(missingContent.contactAgencyName);
+  const [caseUpload, setCaseUpload] = useState(missingContent.caseUpload);
+  const [duoLocation, setDuoLocation] = useState(post.missing_post_content.duo_location);
 
   useEffect(() => {
     if (uri) {
@@ -82,6 +88,34 @@ const MissingPostEdit = ({
         RootNavigation.navigate('Home');
       }
     });
+  }
+
+  const handleEditNavigation = (nav) => {
+    const formData = {}
+    formData.missing_post = {};
+    formData.missing_post.fullname = name;
+    formData.missing_post.sex = sex;
+    formData.missing_post.height_ft = height.replace(' ft', '').replace(' cm', '');
+    formData.missing_post.height_cm = height.replace(' cm', '').replace(' ft', '');
+    formData.missing_post.weight_kg = weight.replace(' kg', '').replace(' lb', '');
+    formData.missing_post.weight_lb = weight.replace(' lb', '').replace(' kg', '');
+    formData.missing_post.hair = hair;
+    formData.missing_post.race = race;
+    formData.missing_post.eye = eye;
+    formData.missing_post.id = post.id;
+    formData.missing_post.circumstance = cir;
+    formData.missing_post.contact_phone_number1 = number1;
+    formData.missing_post.contact_phone_number2 = number2;
+    formData.missing_post.aka = aka;
+    formData.missing_post.dob = dob;
+    formData.missing_post.mark = mark;
+    formData.missing_post.medicalCondition = medicalCondition;
+    formData.missing_post.tatoo = tatoo;
+    formData.missing_post.language = language;
+    formData.missing_post.contactAgencyName = contactAgencyName;
+    formData.missing_post.caseUpload = caseUpload;
+    formData.missing_post.duoLocation = duoLocation;
+    RootNavigation.navigate(nav, formData);
   }
 
   return (
@@ -164,7 +198,8 @@ const MissingPostEdit = ({
                   Since: {moment(missingContent.missing_since).format("dddd, MMMM D, YYYY")}</Text>
               </View>
               <TouchableOpacity onPress={() => {
-                setIsName(!isName)
+                setIsName(!isName);
+                handleEditNavigation('PersonalInfo');
               }}>
                 <Image style={[styles.settingImg, g.resizeCover]} source={IMAGES_PATH.bx_pencil}/>
               </TouchableOpacity>
@@ -232,6 +267,7 @@ const MissingPostEdit = ({
               </View>
               <TouchableOpacity onPress={() => {
                 setIsCir(!isCir)
+                handleEditNavigation('CircumstanceInfo');
               }}>
                 <Image style={[styles.settingImg, g.resizeCover]} source={IMAGES_PATH.bx_pencil}/>
               </TouchableOpacity>
@@ -272,6 +308,7 @@ const MissingPostEdit = ({
               </View>
               <TouchableOpacity onPress={() => {
                 setIsNumber(!isNumber)
+                handleEditNavigation('ContactInfo');
               }}>
                 <Image style={[styles.settingImg, g.resizeCover]} source={IMAGES_PATH.bx_pencil}/>
               </TouchableOpacity>
@@ -295,11 +332,11 @@ const MissingPostEdit = ({
             <Divider style={[g.bgDivider, styles.bottom_divider]}/>
           </View>
           <View style={[g.mb2, styles.selfCenter]}>
-            <Button
-              title="Update Post"
-              onPress={handlePush}
-              buttonStyle={[g.bgPrimary, g.roundedSm, g.wFull]}
-            />
+            {/* // <Button
+            //   title="Update Post"
+            //   onPress={handlePush}
+            //   buttonStyle={[g.bgPrimary, g.roundedSm, g.wFull]}
+            // /> */}
           </View>
         </View>
       </ScrollView>

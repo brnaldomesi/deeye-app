@@ -29,6 +29,10 @@ import { createStructuredSelector } from 'reselect'
 import { isAuthenticatedSelector } from 'src/redux/modules/auth';
 import Send from "./Send";
 import {missingAlarm} from "../redux/modules/posts";
+import CircumstanceInfo from 'src/navigators/MissingPerson/CircumstanceInfo';
+import ContactInfo from 'src/navigators/MissingPerson/ContactInfo';
+import Review from 'src/navigators/MissingPerson/Review';
+import PersonalInfo from 'src/navigators/MissingPerson/PersonalInfo';
 
 const Stack = createStackNavigator();
 
@@ -158,6 +162,22 @@ const StackNavigator = ({isAuthenticated, missingAlarm}) => {
             options={{
               headerShown: false
             }}
+          />
+          <Stack.Screen
+            name="CircumstanceInfo"
+            component={CircumstanceInfo}
+          />
+          <Stack.Screen
+            name="ContactInfo"
+            component={ContactInfo}
+          />
+          <Stack.Screen
+            name="Review"
+            component={Review}
+          />
+          <Stack.Screen
+            name="PersonalInfo"
+            component={PersonalInfo}
           />
         </>
         : <>

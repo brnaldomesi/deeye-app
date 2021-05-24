@@ -3,14 +3,21 @@ import * as RootNavigation from 'src/navigators/Ref';
 import {
   Image,
   View,
+  Text,
   TouchableOpacity,
   Alert
 } from 'react-native';
+import * as gStyle from 'src/styles';
 import {
   BottomSheet,
 } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/Feather';
 import React, {useCallback, useState, useRef} from 'react';
+import RBSheet from 'react-native-raw-bottom-sheet';
+import { 
+  exportComponentAsJPEG, 
+  exportComponentAsPDF, 
+  exportComponentAsPNG } from 'react-component-export-image';
 import {
   Size,
   itemsCenter,
@@ -31,6 +38,10 @@ import Mine from './Mine';
 import Others from './Others';
 import Report from './Others/Report'
 
+const ComponentToPrint = React.forwardRef((props, ref) => (
+  <View ref={ref}><Text>Comming soon...</Text></View>
+));
+
 const PopupSheet = ({
   post,
   isMyPost,
@@ -42,13 +53,16 @@ const PopupSheet = ({
   deletePost,
 }) => {
 
+  const componentRef = useRef();
   const handleOpen = () => {
     setIsVisible(true);
+    refRBSheet.current.open();
   }
 
   const handleClose = () => {
     setReportPage('');
     setIsVisible(false);
+    refRBSheet.current.close();
   }
 
   const handleBack = () => {
@@ -57,42 +71,52 @@ const PopupSheet = ({
 
   const [reportPage, setReportPage] = useState();
   const postType = post.post_type;
-  const handlePress = (type) => {
+  const handlePress = (type, data) => {
     if(type === "report") {
       setReportPage(type);
     } else {
       if(type === "hate") {
         setIsVisible(false);
+        refRBSheet.current.close();
         RootNavigation.navigate('Hate', {post:post.id});
       } else if(type === "save") {
         setIsVisible(false);
+        refRBSheet.current.close();
         savePost({ id: post.id });
       } else if(type === "share") {
         setIsVisible(false);
+        refRBSheet.current.close();
         if (isShare) {
           RootNavigation.navigate('SharePost', {post: post});
         }
       } else if (type === "down") {
         setIsVisible(false);
-      } else if (type === "follow") {
+        refRBSheet.current.close();
+        // const missingContent = data.post_source.missing_post_content;
+        // exportComponentAsJPEG(componentRef);
+      } else if (type === "follow" || type === "unfollow") {
         setIsVisible(false);
+        refRBSheet.current.close();
         if (postType !== 'Share') {
           setIsVisible(false);
+          refRBSheet.current.close();
           setFollow({
             isPin: false,
             isFollow: false,
             follower_id: post.author.user_id,
             data: {
               user_id: post.author.user_id,
-              type: post.follow_state === 1 ? 'unfollow' : 'follow'
+              type: type === "follow" ? 'follow' : 'unfollow'
             }
           });
         }
       } else if (type === "edit") {
         setIsVisible(false);
+        refRBSheet.current.close();
         RootNavigation.navigate(post.post_type === 'MissingPerson' ? 'MissingPostEdit' : 'PostEdit', {post});
       } else if (type === "delete") {
         setIsVisible(false);
+        refRBSheet.current.close();
         setTimeout(() => {
           Alert.alert(
             'Delete',
@@ -120,10 +144,13 @@ const PopupSheet = ({
     else {
       if(action === "hate") {
         setIsVisible(false);
+        refRBSheet.current.close();
         RootNavigation.navigate('Hate', {post:post.id});
       } else {
         reportPost({id: post.id, data: { reason: action}});
+        hidePost({id: post.id});
         setIsVisible(false);
+        refRBSheet.current.close();
       }
     }
   }
@@ -173,33 +200,56 @@ const PopupSheet = ({
     ]
   }
 
+  const refRBSheet = useRef();
+  const [height, setHeight] = useState(30);
   return (
+    <React.Fragment>
+
     <View>
+      {/* <ComponentToPrint ref={componentRef} /> */}
       <TouchableOpacity
         onPress={handleOpen}
       >
         <Image style={[styles.settingImg]} source={IMAGES_PATH.setting} />
       </TouchableOpacity>
-      <BottomSheet
-        isVisible={isVisible}
-        containerStyle={{ marginTop: Size(0), backgroundColor: 'rgba(0.5, 0.25, 0, 0.2)' }}
+      <RBSheet
+        ref={refRBSheet}
+        closeOnDragDown={true}
+        closeOnPressMask={false}
+        customStyles={{
+          container: {
+            borderTopLeftRadius: 30,
+            borderTopRightRadius: 30,
+            height: height + 60,
+          },
+          wrapper: {
+            backgroundColor: "transparent"
+          },
+          draggableIcon: {
+            backgroundColor: "gray",
+            width: 80,
+            height: 10
+          }
+        }}
       >
-        <View style={styles.top}>
-          <View style={styles.topStyle}></View>
-          <Icon style={styles.close} name="x-circle" onPress={handleClose}></Icon>
-          {(reportPage === 'reason1' || reportPage === 'reason2' || reportPage === 'reason3') ? <Icon style={styles.back} name="arrow-left-circle" onPress={handleBack}></Icon> : <></>}
+        <View onLayout={(e) => setHeight(e.nativeEvent.layout.height)}>
+          <View style={styles.top}>
+            <Icon style={styles.close} name="x-circle" onPress={handleClose}></Icon>
+            {(reportPage === 'reason1' || reportPage === 'reason2' || reportPage === 'reason3') ? <Icon style={styles.back} name="arrow-left-circle" onPress={handleBack}></Icon> : <></>}
+          </View>
+          {reportPage ? (
+            <Report data={data[reportPage]} title={title[reportPage]} onMenuItemSelect={handleSelect}/>
+          ):(
+            !isMyPost ? (
+              <Others post={post} onMenuItemPress={handlePress} />
+            ) : (
+              <Mine post={post} onMenuItemPress={handlePress} />
+            )
+          )}
         </View>
-        {reportPage ? (
-          <Report data={data[reportPage]} title={title[reportPage]} onMenuItemSelect={handleSelect}/>
-        ):(
-          !isMyPost ? (
-            <Others post={post} onMenuItemPress={handlePress} />
-          ) : (
-            <Mine post={post} onMenuItemPress={handlePress} />
-          )
-        )}
-      </BottomSheet>
+      </RBSheet>
     </View>
+    </React.Fragment>
   )
 };
 

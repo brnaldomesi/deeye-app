@@ -44,16 +44,16 @@ const styles = StyleSheet.create({
     height: Size(2)
   },
   feeds: {
-    aspectRatio: 115/86
+    aspectRatio: 43/33
   },
   missing: {
-    aspectRatio: 31/42
+    aspectRatio: 24/32
   },
   alert: {
-    aspectRatio: 41/44
+    aspectRatio: 31/33
   },
   message: {
-    aspectRatio: 102/73,
+    aspectRatio: 39/28,
     width: Size(1.5),
     height: Size(1.65)
   }

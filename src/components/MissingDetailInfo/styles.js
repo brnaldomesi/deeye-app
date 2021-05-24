@@ -11,6 +11,15 @@ const styles = StyleSheet.create({
     width: Size(),
     height: Size()
   },
+  police_call: {
+    marginLeft: 150
+  },
+  person_call: {
+    marginLeft: 135
+  },
+  person_sms: {
+    marginLeft: 20
+  }
 });
 
 export default styles;
