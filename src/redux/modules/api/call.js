@@ -78,7 +78,6 @@ export default ({
         onUploadProgress,
         onDownloadProgress
       })
-
       const payload = payloadOnSuccess ? payloadOnSuccess(refineJSON(refineJSON(res).data), action) : refineJSON(refineJSON(res).data)
       yield put(
         requestSuccess({

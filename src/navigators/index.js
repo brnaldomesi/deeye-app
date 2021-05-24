@@ -220,6 +220,13 @@ const StackNavigator = ({isAuthenticated, missingAlarm}) => {
             name="PersonalInfo"
             component={PersonalInfo}
           />
+          <Stack.Screen
+            name="Login"
+            component={Login}
+            options={{
+              headerShown: false,
+            }}
+          />
         </>
         : <>
           <Stack.Screen
