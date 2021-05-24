@@ -5,7 +5,6 @@ import {
   Image,
   View
 } from 'react-native';
-import {Button} from 'react-native-elements';
 import React, {useEffect} from 'react';
 import styles from './styles';
 import * as gStyle from 'src/styles'
