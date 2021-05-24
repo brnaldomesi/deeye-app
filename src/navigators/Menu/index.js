@@ -62,25 +62,25 @@ import styles from './styles';
 
 const Menu = ({ navigation }) => {
   const [tempState, setTempState] = useState(true)
-  
+
   const handleClose = () => {
     navigation.goBack()
   }
 
   const handleAdd = () => {
-    
+
   }
 
   const handleLogout = () => {
-    
+
   }
 
   const handleLink = () => {
-    
+
   }
 
   const switchCollapse = () => {
-    
+
   }
 
   const handleSwitch = () => {
@@ -101,9 +101,9 @@ const Menu = ({ navigation }) => {
             onPress={handleClose}
             buttonStyle={bgTransparent}
             icon={
-              <Image 
-                style={[styles.sizeTwo, resizeContain]} 
-                source={IMAGES_PATH.close} 
+              <Image
+                style={[styles.sizeTwo, resizeContain]}
+                source={IMAGES_PATH.close}
               />
             }
           />
@@ -114,28 +114,28 @@ const Menu = ({ navigation }) => {
           <View style={[pxp5, itemsCenter]}>
             <Text style={[textDot5, primaryColor, fontWeightBold]}>Switch Account</Text>
             <View style={pyp5}>
-              <Avatar 
-                rounded 
+              <Avatar
+                rounded
                 source={IMAGES_PATH.avatar}
                 style={styles.avatar}
               />
             </View>
             <View style={pyp5}>
-              <Avatar 
-                rounded 
+              <Avatar
+                rounded
                 source={IMAGES_PATH.avatar}
                 style={styles.avatar}
               />
             </View>
             <View style={pyp5}>
-              <Avatar 
-                rounded 
+              <Avatar
+                rounded
                 source={IMAGES_PATH.avatar}
                 style={styles.avatar}
               />
             </View>
           </View>
-          <View style={mb2}> 
+          <View style={mb2}>
             <Divider style={bgPrimary} />
             <MyButton onPress={handleAdd} style={pyDot7}>
               <Image style={[styles.avatar, resizeContain]} source={IMAGES_PATH.addCircle} />
@@ -150,13 +150,13 @@ const Menu = ({ navigation }) => {
           </View>
         </View>
         <View style={[flexOne, relative]}>
-          <Avatar 
-            rounded 
+          <Avatar
+            rounded
             source={IMAGES_PATH.avatar}
             style={[absolute, styles.avatarBig]}
           />
           <View style={itemsEnd}>
-            <Button 
+            <Button
               title="View Profile"
               type="outline"
               buttonStyle={[styles.menuBtn, bgWhite]}
@@ -171,7 +171,7 @@ const Menu = ({ navigation }) => {
               </View>
             </View>
             <View style={myp5}>
-              <Button 
+              <Button
                 title="@PatricAdams"
                 buttonStyle={[p0, mrAuto, bgTransparent]}
                 titleStyle={[primaryColor, textDot7]}
@@ -188,91 +188,91 @@ const Menu = ({ navigation }) => {
               <Text style={[primaryColor, fontWeightBold, mxAuto]}>2</Text>
             </ImageBackground>
             <View style={[pDot7, mtp5, bgWhite]}>
-              <View style={[flexRow, justifyBetween]}>
-                <View style={flexRow}>
-                  <Image source={IMAGES_PATH.people} style={[resizeContain, styles.settings]} />
-                  <Text style={[fontWeightBold, textBase, ml1, myAuto]}>Groups</Text>
-                </View>
-                <Button
-                  onPress={switchCollapse}
-                  buttonStyle={bgTransparent} 
-                  icon={
-                    <Image source={IMAGES_PATH.plusSquare} style={[resizeContain, styles.sizeOne]} />
-                  } 
-                />
-              </View>
+              {/*<View style={[flexRow, justifyBetween]}>*/}
+              {/*  <View style={flexRow}>*/}
+              {/*    <Image source={IMAGES_PATH.people} style={[resizeContain, styles.settings]} />*/}
+              {/*    <Text style={[fontWeightBold, textBase, ml1, myAuto]}>Groups</Text>*/}
+              {/*  </View>*/}
+              {/*  <Button*/}
+              {/*    onPress={switchCollapse}*/}
+              {/*    buttonStyle={bgTransparent} */}
+              {/*    icon={*/}
+              {/*      <Image source={IMAGES_PATH.plusSquare} style={[resizeContain, styles.sizeOne]} />*/}
+              {/*    } */}
+              {/*  />*/}
+              {/*</View>*/}
 
-              <View style={[flexRow, pyp5, mlp5]}>
-                <Image source={IMAGES_PATH.building} style={[resizeContain, styles.settings]} />
-                <View style={flexOne}>
-                  <View style={[flexRow, justifyBetween]}>
-                    <Text style={[fontWeightBold, textBase, ml1, myAuto]}>Organizations</Text>
-                    <Button
-                      onPress={switchCollapse}
-                      buttonStyle={bgTransparent} 
-                      icon={
-                        <Image source={IMAGES_PATH.minisSquare} style={[resizeContain, styles.sizeOne]} />
-                      } 
-                    />
-                  </View>
-                  <View style={ml1}>
-                    <View style={[flexRow, pyp5]}>
-                      <Avatar
-                        rounded
-                        source={{
-                          uri:
-                            'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
-                        }}
-                        style={styles.settings}
-                      />
-                      <Text style={[myAuto, styles.subtitle]}>Peas In Their Pods, Inc.</Text>
-                      <Image source={IMAGES_PATH.patchCheckSmall} style={[styles.sizeOne, resizeContain, myAuto]} />
-                    </View>
-                    <View style={[flexRow, pyp5]}>
-                      <Avatar
-                        rounded
-                        source={{
-                          uri:
-                            'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
-                        }}
-                        style={styles.settings}
-                      />
-                      <Text style={[myAuto, styles.subtitle]}>National Center for Missing & Exploited Children</Text>
-                      <Image source={IMAGES_PATH.patchCheckSmall} style={[styles.sizeOne, resizeContain, myAuto]} />
-                    </View>
-                    <View style={[flexRow, pyp5]}>
-                      <Avatar
-                        rounded
-                        source={{
-                          uri:
-                            'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
-                        }}
-                        style={styles.settings}
-                      />
-                      <Text style={[myAuto, styles.subtitle]}>TIPSTER App</Text>
-                      <Image source={IMAGES_PATH.patchCheckSmall} style={[styles.sizeOne, resizeContain, myAuto]} />
-                    </View>
-                    <View style={[flexRow, pyp5]}>
-                      <Avatar
-                        rounded
-                        source={{
-                          uri:
-                            'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
-                        }}
-                        style={styles.settings}
-                      />
-                      <Text style={[myAuto, styles.subtitle]}>Black and Missing, Inc.</Text>
-                      <Image source={IMAGES_PATH.patchCheckSmall} style={[styles.sizeOne, resizeContain, myAuto]} />
-                    </View>
-                  </View>
-                  <Button 
-                    title="Create Your Organization"
-                    type="outline"
-                    buttonStyle={[styles.menuBtn, mxAuto, my1]}
-                    titleStyle={[textDot7]}
-                  />
-                </View>
-              </View>
+              {/*<View style={[flexRow, pyp5, mlp5]}>*/}
+              {/*  <Image source={IMAGES_PATH.building} style={[resizeContain, styles.settings]} />*/}
+              {/*  <View style={flexOne}>*/}
+              {/*    <View style={[flexRow, justifyBetween]}>*/}
+              {/*      <Text style={[fontWeightBold, textBase, ml1, myAuto]}>Organizations</Text>*/}
+              {/*      <Button*/}
+              {/*        onPress={switchCollapse}*/}
+              {/*        buttonStyle={bgTransparent}*/}
+              {/*        icon={*/}
+              {/*          <Image source={IMAGES_PATH.minisSquare} style={[resizeContain, styles.sizeOne]} />*/}
+              {/*        }*/}
+              {/*      />*/}
+              {/*    </View>*/}
+              {/*    <View style={ml1}>*/}
+              {/*      <View style={[flexRow, pyp5]}>*/}
+              {/*        <Avatar*/}
+              {/*          rounded*/}
+              {/*          source={{*/}
+              {/*            uri:*/}
+              {/*              'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',*/}
+              {/*          }}*/}
+              {/*          style={styles.settings}*/}
+              {/*        />*/}
+              {/*        <Text style={[myAuto, styles.subtitle]}>Peas In Their Pods, Inc.</Text>*/}
+              {/*        <Image source={IMAGES_PATH.patchCheckSmall} style={[styles.sizeOne, resizeContain, myAuto]} />*/}
+              {/*      </View>*/}
+              {/*      <View style={[flexRow, pyp5]}>*/}
+              {/*        <Avatar*/}
+              {/*          rounded*/}
+              {/*          source={{*/}
+              {/*            uri:*/}
+              {/*              'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',*/}
+              {/*          }}*/}
+              {/*          style={styles.settings}*/}
+              {/*        />*/}
+              {/*        <Text style={[myAuto, styles.subtitle]}>National Center for Missing & Exploited Children</Text>*/}
+              {/*        <Image source={IMAGES_PATH.patchCheckSmall} style={[styles.sizeOne, resizeContain, myAuto]} />*/}
+              {/*      </View>*/}
+              {/*      <View style={[flexRow, pyp5]}>*/}
+              {/*        <Avatar*/}
+              {/*          rounded*/}
+              {/*          source={{*/}
+              {/*            uri:*/}
+              {/*              'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',*/}
+              {/*          }}*/}
+              {/*          style={styles.settings}*/}
+              {/*        />*/}
+              {/*        <Text style={[myAuto, styles.subtitle]}>TIPSTER App</Text>*/}
+              {/*        <Image source={IMAGES_PATH.patchCheckSmall} style={[styles.sizeOne, resizeContain, myAuto]} />*/}
+              {/*      </View>*/}
+              {/*      <View style={[flexRow, pyp5]}>*/}
+              {/*        <Avatar*/}
+              {/*          rounded*/}
+              {/*          source={{*/}
+              {/*            uri:*/}
+              {/*              'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',*/}
+              {/*          }}*/}
+              {/*          style={styles.settings}*/}
+              {/*        />*/}
+              {/*        <Text style={[myAuto, styles.subtitle]}>Black and Missing, Inc.</Text>*/}
+              {/*        <Image source={IMAGES_PATH.patchCheckSmall} style={[styles.sizeOne, resizeContain, myAuto]} />*/}
+              {/*      </View>*/}
+              {/*    </View>*/}
+              {/*    <Button*/}
+              {/*      title="Create Your Organization"*/}
+              {/*      type="outline"*/}
+              {/*      buttonStyle={[styles.menuBtn, mxAuto, my1]}*/}
+              {/*      titleStyle={[textDot7]}*/}
+              {/*    />*/}
+              {/*  </View>*/}
+              {/*</View>*/}
 
               <View style={flexRow}>
                 <Image source={IMAGES_PATH.gear} style={[resizeContain, styles.settings]} />
@@ -286,10 +286,10 @@ const Menu = ({ navigation }) => {
                     <Text style={[fontWeightBold, textBase, ml1]}>Preference</Text>
                     <Button
                       onPress={switchCollapse}
-                      buttonStyle={bgTransparent} 
+                      buttonStyle={bgTransparent}
                       icon={
                         <Image source={IMAGES_PATH.minisSquare} style={[resizeContain, styles.sizeOne]} />
-                      } 
+                      }
                     />
                   </View>
 
@@ -310,7 +310,7 @@ const Menu = ({ navigation }) => {
                         backgroundInactive={'red'}
                         circleActiveColor={'white'}
                         circleInActiveColor={'white'}
-                        changeValueImmediately={true}             
+                        changeValueImmediately={true}
                         switchLeftPx={Size(.32)}
                         switchRightPx={Size()}
                         switchWidthMultiplier={Size(.18)}
@@ -402,10 +402,10 @@ const Menu = ({ navigation }) => {
                     <Text style={[fontWeightBold, textBase, ml1]}>Help</Text>
                     <Button
                       onPress={switchCollapse}
-                      buttonStyle={bgTransparent} 
+                      buttonStyle={bgTransparent}
                       icon={
                         <Image source={IMAGES_PATH.minisSquare} style={[resizeContain, styles.sizeOne]} />
-                      } 
+                      }
                     />
                   </View>
 
@@ -430,10 +430,10 @@ const Menu = ({ navigation }) => {
                     <Text style={[fontWeightBold, textBase, ml1]}>Privacy</Text>
                     <Button
                       onPress={switchCollapse}
-                      buttonStyle={bgTransparent} 
+                      buttonStyle={bgTransparent}
                       icon={
                         <Image source={IMAGES_PATH.minisSquare} style={[resizeContain, styles.sizeOne]} />
-                      } 
+                      }
                     />
                   </View>
 
@@ -458,10 +458,10 @@ const Menu = ({ navigation }) => {
                     <Text style={[fontWeightBold, textBase, ml1]}>About</Text>
                     <Button
                       onPress={switchCollapse}
-                      buttonStyle={bgTransparent} 
+                      buttonStyle={bgTransparent}
                       icon={
                         <Image source={IMAGES_PATH.minisSquare} style={[resizeContain, styles.sizeOne]} />
-                      } 
+                      }
                     />
                   </View>
 

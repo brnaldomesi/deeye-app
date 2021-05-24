@@ -1,14 +1,13 @@
-import * as gStyle from 'src/styles'
+import * as gStyle from 'src/styles';
 
-import {ActivityIndicator, View} from "react-native";
-import React, { useEffect, useState } from 'react';
+import {ActivityIndicator, View} from 'react-native';
+import React, {useEffect, useState} from 'react';
 
 import Alert from './Alert';
-import {BASE_URL} from "src/config/apipath";
-import Drawer from './Drawer';
-import Init from "./Init/Init";
+import {BASE_URL} from 'src/config/apipath';
+import Init from './Init/Init';
 import Login from './Login';
-import MCIcon from "react-native-vector-icons/MaterialCommunityIcons";
+import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Message from './Message';
 import MissingPerson from './MissingPerson';
 import MissingPostEdit from './Post/MissingPostEdit';
@@ -33,6 +32,12 @@ import CircumstanceInfo from 'src/navigators/MissingPerson/CircumstanceInfo';
 import ContactInfo from 'src/navigators/MissingPerson/ContactInfo';
 import Review from 'src/navigators/MissingPerson/Review';
 import PersonalInfo from 'src/navigators/MissingPerson/PersonalInfo';
+import Home from './Home';
+import MissingHome from './MissingHome';
+import Profile from './Profile';
+import Menu from './Menu';
+import Follow from './Follow';
+import Setting from './Profile/Setting';
 
 const Stack = createStackNavigator();
 
@@ -48,18 +53,20 @@ const StackNavigator = ({isAuthenticated, missingAlarm}) => {
   useEffect(() => {
     const id = 0;
 
-    console.log(missingAlarm)
+    console.log(missingAlarm);
 
-    missingAlarm({id: id, success: (res) => {
+    missingAlarm({
+      id: id, success: (res) => {
         setInitData(res);
         setCall(true);
-    }});
+      },
+    });
   }, []);
 
   if (!call) {
     return <View style={[gStyle.justifyCenter, gStyle.flexOne]}>
-      <ActivityIndicator size={"large"} color={'#0000ff'}/>
-    </View>
+      <ActivityIndicator size={'large'} color={'#0000ff'}/>
+    </View>;
   } else {
     return <Stack.Navigator>
       {initData.missing_post_content !== undefined && <Stack.Screen
@@ -72,95 +79,129 @@ const StackNavigator = ({isAuthenticated, missingAlarm}) => {
       />}
       {isAuthenticated ? <>
           <Stack.Screen
-            name="Drawer"
-            component={Drawer}
+            name="Home"
+            component={Home}
             options={{
-              headerShown: false
+              headerShown: false,
             }}
           />
           <Stack.Screen
-            name="PostNew"
+            name='MissingHome'
+            component={MissingHome}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="Profile"
+            component={Profile}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name='Menu'
+            component={Menu}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="Follow"
+            component={Follow}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name='PostNew'
             component={PostNew}
             options={{
-              headerShown: false
+              headerShown: false,
             }}
           />
           <Stack.Screen
             name="PostCreate"
             component={PostCreate}
             options={{
-              headerShown: false
+              headerShown: false,
             }}
           />
           <Stack.Screen
-            name="SharePost"
+            name='SharePost'
             component={SharePost}
             options={{
-              headerShown: false
+              headerShown: false,
             }}
           />
           <Stack.Screen
             name="Hate"
             component={Hate}
             options={{
-              headerShown: false
+              headerShown: false,
             }}
           />
           <Stack.Screen
-            name="MissingPostEdit"
+            name='MissingPostEdit'
             component={MissingPostEdit}
             options={{
-              headerShown: true
+              headerShown: true,
             }}
           />
           <Stack.Screen
             name="PostEdit"
             component={PostEdit}
             options={{
-              headerShown: false
+              headerShown: false,
             }}
           />
           <Stack.Screen
-            name="PostDetail"
+            name='PostDetail'
             component={PostDetail}
             options={{
-              headerShown: false
+              headerShown: false,
             }}
           />
           <Stack.Screen
             name="PostDetailForComment"
             component={PostDetailForComment}
             options={{
-              headerTitle: ''
+              headerTitle: '',
             }}
           />
           <Stack.Screen
-            name="MissingPerson"
+            name='MissingPerson'
             component={MissingPerson}
             options={{
-              headerShown: false
+              headerShown: false,
             }}
           />
           <Stack.Screen
             name="Message"
             component={Message}
             options={{
-              headerShown: false
+              headerShown: false,
             }}
           />
           <Stack.Screen
-            name="Alert"
+            name='Alert'
             component={Alert}
             options={{
               headerShown: true,
-              headerBackImage: () => <MCIcon name="format-align-left" size={25}/>
+            }}
+          />
+          <Stack.Screen
+            name='Profile Setting'
+            component={Setting}
+            options={{
+              headerShown: true,
             }}
           />
           <Stack.Screen
             name="Send"
             component={Send}
             options={{
-              headerShown: false
+              headerShown: false,
             }}
           />
           <Stack.Screen
@@ -185,30 +226,30 @@ const StackNavigator = ({isAuthenticated, missingAlarm}) => {
             name="OnBoarding"
             component={OnBoarding}
             options={{
-              headerShown: false
+              headerShown: false,
             }}
           />
           <Stack.Screen
             name="Login"
             component={Login}
             options={{
-              headerShown: false
+              headerShown: false,
             }}
           />
         </>
       }
-    </Stack.Navigator>
+    </Stack.Navigator>;
   }
 };
 
 const selector = createStructuredSelector({
   isAuthenticated: isAuthenticatedSelector,
-})
+});
 
 const actions = {
-  missingAlarm
-}
+  missingAlarm,
+};
 
 export default compose(
-  connect(selector, actions)
+  connect(selector, actions),
 )(StackNavigator);

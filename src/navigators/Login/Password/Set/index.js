@@ -80,7 +80,7 @@ const PasswordSet = ({
             console.error(error);
           });
 
-          RootNavigation.navigate('Drawer');
+          RootNavigation.navigate('Home');
         },
         fail: err => {
           console.error(err)

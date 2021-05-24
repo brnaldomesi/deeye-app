@@ -7,6 +7,7 @@ const styles = StyleSheet.create({
   feed: {
     display: 'flex',
     flexDirection: 'row',
+    marginTop: 5,
   },
   feedImgCorner: {
     marginLeft: 10,
@@ -17,7 +18,6 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
   input: {
-    marginTop: 13,
     fontSize: 20,
     // alignSelf: 'center',
   },

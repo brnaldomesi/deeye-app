@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     borderRadius: Size(),
     borderColor: Colors.secondary,
     borderWidth: 1,
-    width: Size(6)
+    width: Size(5),
   },
   divider: {
     marginTop: Size(0.5),

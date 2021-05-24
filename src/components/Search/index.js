@@ -1,22 +1,24 @@
 import React from 'react';
-import { View, Text, SafeAreaView, TextInput } from 'react-native';
+import {View, Text, SafeAreaView, TextInput, TouchableOpacity} from 'react-native';
 import { Avatar } from 'react-native-elements';
 import styles from './styles';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-const Search = () => {
+const Search = ({open}) => {
   return (
     <View>
       <Text style={styles.text}>DeEye</Text>
       <View style={styles.feed}>
-        <View style={styles.feedImgCorner}>
+        <TouchableOpacity onPress={() => {
+          open()
+        }} style={styles.feedImgCorner}>
           <Avatar
             size="medium"
             rounded
             source={require('src/assets/images/Ellipse-1.png')}
-            containerStyle={{borderWidth: 2, borderColor: '#05174f', marginTop: 5, width: 40, height: 40}}
+            containerStyle={{borderWidth: 1, borderColor: '#05174f', marginTop: 5, width: 40, height: 40}}
           />
-        </View>
+        </TouchableOpacity>
         <SafeAreaView style={styles.inputCorner}>
           <TextInput
             style={styles.input}

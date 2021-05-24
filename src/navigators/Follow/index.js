@@ -23,6 +23,7 @@ import {connect} from "react-redux";
 import { ASSET_BASE_URL } from 'src/config/apipath';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import RBSheet from 'react-native-raw-bottom-sheet';
+import CustomMenu from '../../components/CustomMenu';
 
 const Follow = ({navigation, getFollowList, setFollow, follows}) => {
 
@@ -99,6 +100,19 @@ const Follow = ({navigation, getFollowList, setFollow, follows}) => {
     }
   };
 
+  const callbackMenu = (index, data) => {
+    if (index === 0) {
+      //profile
+    } else {
+      //unfollow
+      setFollow({
+        isPin: false,
+        isFollow: true,
+        follower_id: data.id,
+        data: {user_id: data.id, type: 'unfollow'}});
+    }
+  };
+
   return (
     <View style={{backgroundColor: 'white', height: '100%'}}>
       <View style={[styles.navbar, styles.d_flex]}>
@@ -145,9 +159,10 @@ const Follow = ({navigation, getFollowList, setFollow, follows}) => {
       <ScrollView>
         {follows && follows.map((item, index) => {
           return tap === 'left' ? <ListItem key={index} bottomDivider>
-            {item.avatar_path && <Avatar
+            {<Avatar
               onPress={handleOpen(item)}
               rounded
+              title={item.first_name[0]}
               source={{uri: ASSET_BASE_URL + item.avatar_path}}/>}
             <ListItem.Content>
               <ListItem.Title>{item.first_name}</ListItem.Title>
@@ -160,9 +175,10 @@ const Follow = ({navigation, getFollowList, setFollow, follows}) => {
               <Text style={styles.itemBtnFollow}>follow</Text>
             </TouchableOpacity>
           </ListItem> : <ListItem key={index} bottomDivider>
-            {item.avatar_path && <Avatar
+            {<Avatar
               onPress={handleOpen(item)}
               rounded
+              title={item.first_name[0]}
               source={{uri: ASSET_BASE_URL + item.avatar_path}}/>}
             <ListItem.Content>
               <ListItem.Title>{item.first_name}</ListItem.Title>
@@ -171,9 +187,7 @@ const Follow = ({navigation, getFollowList, setFollow, follows}) => {
             <TouchableOpacity onPress={handleDetail(item.id, 'unfollow')}>
               <Text style={styles.itemBtnFollow}>unfollow</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.itemBtnSettingParent}>
-              <Image style={styles.itemBtnSetting} source={IMAGES_PATH.setting}/>
-            </TouchableOpacity>
+            <CustomMenu data={{id: item.id}} list={["profile", "unfollow"]} callback={callbackMenu}/>
           </ListItem>
         })}
       </ScrollView>

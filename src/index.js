@@ -20,10 +20,10 @@ import { fcmService } from 'src/utils/FCMService';
 import { localNotificationService } from 'src/utils/LocalNotificationService';
 import { navigationRef } from 'src/navigators/Ref';
 
-const Root = ({ 
-  authSetFcmToken, 
+const Root = ({
+  authSetFcmToken,
   addBadgeCount,
-  badges, 
+  badges,
   setLocation,
 }) => {
   useEffect(() => {
@@ -37,6 +37,7 @@ const Root = ({
     }
 
     function onNotification(notify) {
+      //avatar_path, name
       console.log("[App] onNotification: ", notify);
       const options = {
         soundName: 'default',
@@ -78,8 +79,8 @@ Root.propTypes = {
   badges: PropTypes.number,
 };
 
-const actions = { 
-  authSetFcmToken, 
+const actions = {
+  authSetFcmToken,
   addBadgeCount,
   setLocation,
 };

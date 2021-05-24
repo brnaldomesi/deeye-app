@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
   headerTitle: {
     color: 'white',
     textAlign: 'center',
-    fontSize: Size(3.5),
+    fontSize: Size(3),
   },
 
   headerUnderTitle: {
@@ -55,6 +55,7 @@ const styles = StyleSheet.create({
     color: 'white',
     textAlign: 'center',
     fontSize: Size(1),
+    marginBottom: 5
   },
 
   mb1: {

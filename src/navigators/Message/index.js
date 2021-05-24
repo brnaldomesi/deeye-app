@@ -1,7 +1,7 @@
 import {
   CometChatMessages,
   CometChatUserListWithMessages
-} from 'src/react-native-chat-ui-kit';
+} from 'src/cometchat-pro-react-native-ui-kit';
 import React, { useEffect } from 'react';
 import { cometChatLogin, cometchatSelector } from 'src/redux/modules/cometchat';
 
@@ -34,7 +34,6 @@ const Message = ({ cometChatLogin, profile, cometChat }) => {
         component={CometChatUserListWithMessages}
         options={{
           title: 'Messages',
-          headerBackImage: () => <MCIcon name="format-align-left" size={25} />
         }}
       />
       <MessageStack.Screen

@@ -20,6 +20,7 @@ const Feeds = ({
   profile,
   footerRoute,
   unsigned,
+  open,
   getPostsListForUnsigned,
 }) => {
 
@@ -74,7 +75,7 @@ const Feeds = ({
       }}
       scrollEventThrottle={400}>
       <View style={{ height: Size(4), marginTop: 10}}>
-        <Search/>
+        <Search open={open}/>
       </View>
       {posts && posts.map(post => {
           return typeof post === 'undefined'

@@ -57,7 +57,7 @@ export default ({
       }
 
       const queryParams = { ...defaultParams, ...params }
-
+      
       const token = yield select(tokenSelector)
 
       console.log(token)
