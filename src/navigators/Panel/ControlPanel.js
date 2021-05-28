@@ -26,6 +26,7 @@ import {
 
 import {ASSET_BASE_URL} from '../../config/apipath';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useFocusEffect } from '@react-navigation/native';
 
 const ControlPanel = ({closeDrawer, authLogout, getUserInfoCounter, setUserSupport, setUserNotification}) => {
 
@@ -54,21 +55,40 @@ const ControlPanel = ({closeDrawer, authLogout, getUserInfoCounter, setUserSuppo
   });
 
   React.useEffect(() => {
-    getUserInfoCounter({
-      id: avatarId,
-      success: (res) => {
-        setInfo(res.user);
-        serFollower(res.follower);
-        setFollowing(res.followes);
-        setSupports(res.supports);
-
-        setProxy(res.normalAlert !== 0);
-        setFound(res.foundAlert !== 0);
-        setMissing(res.proximityAlert !== 0);
-      },
-    });
+    // getUserInfoCounter({
+    //   id: avatarId,
+    //   success: (res) => {
+    //     setInfo(res.user);
+    //     serFollower(res.follower);
+    //     setFollowing(res.followes);
+    //     setSupports(res.supports);
+    //
+    //     setProxy(res.normalAlert !== 0);
+    //     setFound(res.foundAlert !== 0);
+    //     setMissing(res.proximityAlert !== 0);
+    //   },
+    // });
 
   }, [avatarId]);
+
+  useFocusEffect(
+    React.useCallback(
+    () => {
+      getUserInfoCounter({
+        id: avatarId,
+        success: (res) => {
+          setInfo(res.user);
+          serFollower(res.follower);
+          setFollowing(res.followes);
+          setSupports(res.supports);
+
+          setProxy(res.normalAlert !== 0);
+          setFound(res.foundAlert !== 0);
+          setMissing(res.proximityAlert !== 0);
+        },
+      });
+    }, [])
+  );
 
   const editProfile = (status) => {
     RootNavigation.navigate('Profile Setting', {id: avatarId, edit: status, info: info});

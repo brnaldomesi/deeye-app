@@ -12,11 +12,11 @@ const Mine = ({
 }) => {
 
   const handleDelete = () => {
-    onMenuItemPress("delete", post);
+    onMenuItemPress("delete");
   }
 
   const handleEdit = () => {
-    onMenuItemPress("edit", post);
+    onMenuItemPress("edit");
   }
 
   const list_mine = [

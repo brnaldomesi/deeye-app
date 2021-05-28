@@ -73,11 +73,11 @@ const MissingDetailInfo = ({
           </View>
           <View style={ml1}>
             <Text style={[fromDetail ? textWhite : textYellow100, fontWeightBold]}>Height</Text>
-            <Text style={fromDetail ? textWhite : undefined}>{!missingContent.height_cm ? ' - ' : missingContent.height_ft + ' cm'}</Text>
+            <Text style={fromDetail ? textWhite : undefined}>{!missingContent.height_cm || !missingContent.height_ft? ' - ' : missingContent.height_ft + ' cm'}</Text>
           </View>
           <View style={ml1}>
             <Text style={[fromDetail ? textWhite : textYellow100, fontWeightBold]}>Weight</Text>
-            <Text style={fromDetail ? textWhite : undefined}>{!missingContent.weight_kg ? '- ' : missingContent.weight_lb + ' kg'}</Text>
+            <Text style={fromDetail ? textWhite : undefined}>{!missingContent.weight_kg || !missingContent.weight_lb? '- ' : missingContent.weight_lb + ' kg'}</Text>
           </View>
         </View>
         <Button
@@ -135,15 +135,15 @@ const MissingDetailInfo = ({
                   <Image style={[styles.contactImg, styles.person_call]} source={IMAGES_PATH.phoneCall}/>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={handlePersonSms}>
-                  <Image style={[styles.contactImg, styles.person_sms]} source={IMAGES_PATH.openChat} />  
+                  <Image style={[styles.contactImg, styles.person_sms]} source={IMAGES_PATH.openChat} />
                 </TouchableOpacity>
               </View>
               <Text style={[fromDetail ? textWhite : undefined, textDot7]}>If you have any information about{"\n"}the whomabout of {missingContent.fullname}</Text>
             </View>
           </View>
-        </> 
+        </>
       }
-    </View>  
+    </View>
   )
 };
 

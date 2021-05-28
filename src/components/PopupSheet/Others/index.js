@@ -24,34 +24,34 @@ const Others = ({
   const i_state = post.follow_state === 0? 'Follow' : 'Unfollow';
   const [state, setState] = useState(i_state);
   const owner = post.author.first_name + ' ' + post.author.last_name;
-  
+
   const handleHate = () => {
-    onMenuItemPress("hate", post);
+    onMenuItemPress("hate");
   }
 
   const handleReport = () => {
-    onMenuItemPress("report", post);
+    onMenuItemPress("report");
   }
 
   const handleSave = () => {
-    onMenuItemPress("save", post);
+    onMenuItemPress("save");
   }
 
   const handleShare = () => {
-    onMenuItemPress("share", post);
+    onMenuItemPress("share");
   }
 
   const handleDownload = () => {
-    onMenuItemPress("down", post)
+    onMenuItemPress("down")
   }
 
   const handleFollow = () => {
     if(state === 'Follow') {
       setState("Unfollow");
-      onMenuItemPress("follow", post);
+      onMenuItemPress("follow");
     } else {
       setState("Follow");
-      onMenuItemPress("unfollow", post);
+      onMenuItemPress("unfollow");
     }
   }
 
