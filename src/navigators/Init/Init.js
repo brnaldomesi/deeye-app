@@ -67,7 +67,8 @@ const Init = ({route, isAuthenticated}) => {
     if (Platform.OS === 'android') {
       phoneNumber = 'tel:${' + '012-345-6789' + '}';
     } else {
-      phoneNumber = 'telprompt:${' + '012-345-6789' + '}';
+      // phoneNumber = 'telprompt:${' + '012-345-6789' + '}';
+      phoneNumber = 'tel://' + '012-345-6789' + '';
     }
 
     Linking.openURL(phoneNumber);

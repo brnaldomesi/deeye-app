@@ -55,8 +55,8 @@ const PersonalInfo = ({navigation, uploadFile, route, updatePost}) => {
   const btn_type = !route.params.missingType? 'update' : 'next';
   const i_fullname = !route.params.missingType? formData.missing_post.fullname : '';
   const i_gender = !route.params.missingType? formData.missing_post.sex : '';
-  const i_height = !route.params.missingType? formData.missing_post.height_cm : '';
-  const i_weight = !route.params.missingType? formData.missing_post.weight_kg : '';
+  const i_height = !route.params.missingType && formData.missing_post.height_cm !== 'null'? formData.missing_post.height_cm : '';
+  const i_weight = !route.params.missingType && formData.missing_post.height_cm !== 'null'? formData.missing_post.weight_kg : '';
   const i_hair = !route.params.missingType? formData.missing_post.hair : 'Black';
   const i_race = !route.params.missingType? formData.missing_post.race : 'Black';
   const i_eye = !route.params.missingType? formData.missing_post.eye : 'Black';

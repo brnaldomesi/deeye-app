@@ -21,7 +21,9 @@ import {
 import {
   Image,
   Text,
-  View
+  View,
+  Linking, 
+  Platform
 } from 'react-native';
 
 import AntIcon from 'react-native-vector-icons/AntDesign';
@@ -41,16 +43,40 @@ const MissingDetailInfo = ({
   fromDetail
 }) => {
 
-  const handlePoliceCall = () => {
+  const handlePoliceCall = (num1) => {
+    let phoneNumber = '';
 
+    if (Platform.OS === 'android') {
+      phoneNumber = 'tel:${' + num1 + '}';
+    } else {
+      phoneNumber = 'tel://' + num1 + '';
+    }
+
+    Linking.openURL(phoneNumber);
   }
 
-  const handlePersonCall = () => {
+  const handlePersonCall = (num2) => {
+    let phoneNumber = '';
 
+    if (Platform.OS === 'android') {
+      phoneNumber = 'tel:${' + num2 + '}';
+    } else {
+      phoneNumber = 'tel://' + num2 + '';
+    }
+
+    Linking.openURL(phoneNumber);
   }
+  
+  const handlePersonSms = (num2) => {
+    let phoneNumber = '';
 
-  const handlePersonSms = () => {
+    if (Platform.OS === 'android') {
+      phoneNumber = 'sms:${' + num2 + '}';
+    } else {
+      phoneNumber = 'sms://' + num2 + '';
+    }
 
+    Linking.openURL(phoneNumber);
   }
 
   return (
@@ -122,7 +148,7 @@ const MissingDetailInfo = ({
                   <Text>Police Contact</Text>
                   <Text>{missingContent.contact_phone_number1? missingContent.contact_phone_number1 : ' - '}</Text>
                 </View>
-                <TouchableOpacity onPress={handlePoliceCall}>
+                <TouchableOpacity onPress={() => handlePoliceCall(missingContent.contact_phone_number1)}>
                   <Image style={[styles.contactImg, styles.police_call]} source={IMAGES_PATH.phoneCall} />
                 </TouchableOpacity>
               </View>
@@ -131,10 +157,10 @@ const MissingDetailInfo = ({
                   <Text>Personal Contact</Text>
                   <Text>{missingContent.contact_phone_number2? missingContent.contact_phone_number2 : ' - '}</Text>
                 </View>
-                <TouchableOpacity onPress={handlePersonCall}>
+                <TouchableOpacity onPress={() => handlePersonCall(missingContent.contact_phone_number2)}>
                   <Image style={[styles.contactImg, styles.person_call]} source={IMAGES_PATH.phoneCall}/>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={handlePersonSms}>
+                <TouchableOpacity onPress={() => handlePersonSms(missingContent.contact_phone_number2)}>
                   <Image style={[styles.contactImg, styles.person_sms]} source={IMAGES_PATH.openChat} />
                 </TouchableOpacity>
               </View>
