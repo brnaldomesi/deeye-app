@@ -5,7 +5,7 @@ import {
   TextInput,
   View
 } from 'react-native';
-import React, { useCallback, useState, useEffect } from 'react';
+import React, { useCallback, useState, useEffect, useRef } from 'react';
 import {
   absolute,
   bgPrimary,
@@ -63,7 +63,6 @@ const CircumstanceInfo = ({
   updatePost
 }) => {
   const formData = route.params;
-  console.log("formData", formData)
   const btn_type = !route.params.post_type? 'update' : 'next';
   const i_fullname = !route.params.post_type? formData.missing_post.fullname : '';
   const i_gender = !route.params.post_type? formData.missing_post.sex : '';
@@ -84,7 +83,8 @@ const CircumstanceInfo = ({
   const i_language = !route.params.post_type? formData.missing_post.language: '';
   const i_contactAgencyName = !route.params.post_type? formData.missing_post.contactAgencyName: '';
   const i_caseUpload = !route.params.post_type? formData.missing_post.caseUpload: '';
-  const i_duoLocation = !route.params.post_type? formData.missing_post.duoLocation: '';
+  const i_duoLocation = !route.params.post_type && formData.missing_post.duoLocation !== 'null' ? formData.missing_post.duoLocation: '';
+  const Location = i_duoLocation !== null ? i_duoLocation : '';
   const [aka, setAka] = useState(i_aka);
   const [markinfo, setMarkinfo] = useState(i_mark);
   const [dob, setDob] = useState(i_dob);
@@ -110,7 +110,11 @@ const CircumstanceInfo = ({
   const [selectedFileName, setSelectedFileName] = useState('');
   const [lat, setLat] = useState(0);
   const [lng, setLng] = useState(0);
+
+  const ref = useRef();
+  
   useEffect(() => {
+    ref.current?.setAddressText(Location);
     setDuoLocation(i_duoLocation);
   }, [])
   const handleNext = useCallback(() => {
@@ -229,6 +233,7 @@ const CircumstanceInfo = ({
           <Text style={[textDot7, italic]}>Where the person went missing</Text>
           <View style={mtp5}>
             <GooglePlacesAutocomplete
+              ref={ref}
               onPress={handlePlacePick}
               fetchDetails={true}
               query={{
