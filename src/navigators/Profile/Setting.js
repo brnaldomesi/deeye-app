@@ -97,7 +97,7 @@ const Setting = ({route, navigation, setUserInfoUpdate}) => {
               style={{
               width: '60%',
               padding: 0,
-              fontSize: 12,
+              fontSize: 18,
               height: 30,
               borderBottomColor: '#999999',
               color: '#05174f',
@@ -115,7 +115,7 @@ const Setting = ({route, navigation, setUserInfoUpdate}) => {
               style={{
               width: '60%',
               padding: 0,
-              fontSize: 12,
+              fontSize: 18,
               height: 30,
               borderBottomColor: '#999999',
               color: '#05174f',
@@ -134,7 +134,7 @@ const Setting = ({route, navigation, setUserInfoUpdate}) => {
               style={{
               width: '60%',
               padding: 0,
-              fontSize: 12,
+              fontSize: 18,
               height: 30,
               borderBottomColor: '#999999',
               color: '#05174f',
@@ -152,7 +152,7 @@ const Setting = ({route, navigation, setUserInfoUpdate}) => {
               style={{
               width: '60%',
               padding: 0,
-              fontSize: 12,
+              fontSize: 18,
               height: 30,
               borderBottomColor: '#999999',
               color: '#05174f',
@@ -174,7 +174,7 @@ const Setting = ({route, navigation, setUserInfoUpdate}) => {
                 placeholder={'Enter Current Password'} secureTextEntry={true} style={{
                 width: '60%',
                 padding: 0,
-                fontSize: 12,
+                fontSize: 18,
                 height: 30,
                 borderBottomColor: '#999999',
                 color: '#05174f',
@@ -192,7 +192,7 @@ const Setting = ({route, navigation, setUserInfoUpdate}) => {
                 placeholder={'Enter New Password'} secureTextEntry={true} style={{
                 width: '60%',
                 padding: 0,
-                fontSize: 12,
+                fontSize: 18,
                 height: 30,
                 borderBottomColor: '#999999',
                 color: '#05174f',
@@ -210,7 +210,7 @@ const Setting = ({route, navigation, setUserInfoUpdate}) => {
                 placeholder={'Confirm New Password'} secureTextEntry={true} style={{
                 width: '60%',
                 padding: 0,
-                fontSize: 12,
+                fontSize: 18,
                 height: 30,
                 borderBottomColor: '#999999',
                 color: '#05174f',

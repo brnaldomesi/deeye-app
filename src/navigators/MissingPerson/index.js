@@ -20,6 +20,7 @@ const MissingPerson = ({ navigation }) => {
         name="MissingCategory"
         component={MissingCategory}
         options={{
+          headerBackTitleVisible: false,
           title: 'Missing Person Post',
           headerBackImage: () => <AntIcon size={25} name="close" color={Colors.primary} />
         }}
@@ -28,6 +29,7 @@ const MissingPerson = ({ navigation }) => {
         name="PersonalInfo"
         component={PersonalInfo}
         options={{
+          headerBackTitleVisible: false,
           title: 'Missing Person',
         }}
       />
@@ -35,6 +37,7 @@ const MissingPerson = ({ navigation }) => {
         name="CircumstanceInfo"
         component={CircumstanceInfo}
         options={{
+          headerBackTitleVisible: false,
           title: 'Personal Information',
         }}
       />
@@ -42,6 +45,7 @@ const MissingPerson = ({ navigation }) => {
         name="ContactInfo"
         component={ContactInfo}
         options={{
+          headerBackTitleVisible: false,
           title: 'Circumstance Information',
         }}
       />
@@ -49,6 +53,7 @@ const MissingPerson = ({ navigation }) => {
         name="Review"
         component={Review}
         options={{
+          headerBackTitleVisible: false,
           title: 'Circumstance Information',
         }}
       />

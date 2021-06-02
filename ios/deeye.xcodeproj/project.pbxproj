@@ -839,7 +839,7 @@
 				CODE_SIGN_ENTITLEMENTS = deeye/deeye.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 13;
 				DEVELOPMENT_TEAM = K823RJ47KN;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = deeye/Info.plist;
@@ -869,7 +869,7 @@
 				CODE_SIGN_ENTITLEMENTS = deeye/deeye.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 13;
 				DEVELOPMENT_TEAM = K823RJ47KN;
 				INFOPLIST_FILE = deeye/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
