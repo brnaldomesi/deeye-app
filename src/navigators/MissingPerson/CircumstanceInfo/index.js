@@ -77,13 +77,14 @@ const CircumstanceInfo = ({
   const i_phone2 = !route.params.post_type? formData.missing_post.contact_phone_number2 : '';
   const i_aka = !route.params.post_type? formData.missing_post.aka : '';
   const i_mark = !route.params.post_type? formData.missing_post.mark: '';
-  const i_dob = !route.params.post_type? formData.missing_post.dob: new Date(1598051730000);
+  const i_dob = !route.params.missingType? moment(formData.missing_post.dob, "YYYY-MM-DD"): moment('2020-1-1', "YYYY-MM-DD");
   const i_medicalCondition = !route.params.post_type? formData.missing_post.medicalCondition: '';
   const i_tatoo = !route.params.post_type? formData.missing_post.tatoo: '';
   const i_language = !route.params.post_type? formData.missing_post.language: '';
   const i_contactAgencyName = !route.params.post_type? formData.missing_post.contactAgencyName: '';
   const i_caseUpload = !route.params.post_type? formData.missing_post.caseUpload: '';
   const i_duoLocation = !route.params.post_type && formData.missing_post.duoLocation !== 'null' ? formData.missing_post.duoLocation: '';
+  const i_missing_since = route.params.post_type !== undefined ? moment('2020-1-1', "YYYY-MM-DD") : moment(formData.missing_post.missingSince, "YYYY-MM-DD");
   const Location = i_duoLocation !== null ? i_duoLocation : '';
   const [aka, setAka] = useState(i_aka);
   const [markinfo, setMarkinfo] = useState(i_mark);
@@ -103,7 +104,7 @@ const CircumstanceInfo = ({
   const [number1, setNumber1] = useState(i_phone1);
   const [number2, setNumber2] = useState(i_phone2);
   const [duoLocation, setDuoLocation] = useState(i_duoLocation);
-  const [missingSince, setMissingSince] = useState(new Date(1598051730000));
+  const [missingSince, setMissingSince] = useState(i_missing_since);
   const [showMissingSince, setShowMissingSince] = useState(false);
   const [hasTattoo, setHasTattoo] = useState(i_tatoo);
   const [companyName, setCompanyName] = useState('');
@@ -112,7 +113,7 @@ const CircumstanceInfo = ({
   const [lng, setLng] = useState(0);
 
   const ref = useRef();
-  
+
   useEffect(() => {
     ref.current?.setAddressText(Location);
     setDuoLocation(i_duoLocation);
@@ -144,12 +145,12 @@ const CircumstanceInfo = ({
     updatePost({
       id: post_id,
       data: {
-        fullname: fullname, 
-        sex: gender, 
-        race: race, 
-        height: height, 
-        weight: weight, 
-        eye: eye, 
+        fullname: fullname,
+        sex: gender,
+        race: race,
+        height: height,
+        weight: weight,
+        eye: eye,
         hair: hair,
         circumstance: circumstance,
         contact_phone_number1: number1,
@@ -162,7 +163,8 @@ const CircumstanceInfo = ({
         language: language,
         contactAgencyName: contactAgencyName,
         caseUpload: caseUpload,
-        duoLocation: duoLocation
+        duoLocation: duoLocation,
+        missingSince: moment(missingSince).format("YYYY-MM-DD hh:mm:ss")
       },
       success: () => {
         RootNavigation.navigate('Home');
@@ -198,7 +200,7 @@ const CircumstanceInfo = ({
   const handleMissingSinceChange = (event, selectedDate) => {
     const currentDate = selectedDate || missingSince;
     setShowMissingSince(Platform.OS === 'ios');
-    setMissingSince(currentDate);
+    setMissingSince(moment(currentDate, "YYYY-MM-DD"));
   }
 
   const handleUploadPick = async () => {
@@ -260,13 +262,23 @@ const CircumstanceInfo = ({
                 />
               </MyButton>
               <View style={[justifyCenter, ml1]}>
-                <Text>{missingSince.getFullYear()}/{missingSince.getMonth() + 1}/{missingSince.getDate()}</Text>
+                {<TextInput
+                  onChangeText={text => {
+                    const Y = Number(text.split('/', 3)[0]);
+                    const M = Number(text.split('/', 3)[1]);
+                    const D = Number(text.split('/', 3)[2]);
+                    const date = Y + '-' + M + '-' + D;
+                    if(Number(text.split('/', 3)[0]) > 2000 && Number(text.split('/', 3)[1]) > 0 && Number(text.split('/', 3)[1]) < 13 && Number(text.split('/', 3)[2]) > 0 && Number(text.split('/', 3)[2]) < 32 && text.split('/', 3).length == 3)
+                    setMissingSince(moment(date, "YYYY-MM-DD"));
+                  }}
+                  placeholder="Unknown">{missingSince.year() + '/' + Number(missingSince.month() + 1).toString() + '/' + missingSince.date()}
+                </TextInput>}
               </View>
             </View>
             {showMissingSince && (
               <DateTimePicker
                 testID="dateTimePicker"
-                value={missingSince}
+                value={missingSince.toDate()}
                 mode='date'
                 is24Hour={true}
                 display="default"
@@ -371,7 +383,7 @@ const CircumstanceInfo = ({
                 title="Next Step(Contact Information)"
                 onPress={handleNext}
                 buttonStyle={[bgPrimary, roundedSm, px2]}
-              /> : 
+              /> :
               <Button
                 title="Update Post"
                 onPress={handleUpdate}

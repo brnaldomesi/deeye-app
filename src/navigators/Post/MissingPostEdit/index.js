@@ -57,6 +57,7 @@ const MissingPostEdit = ({
   const [contactAgencyName, setContactAgencyName] = useState(missingContent.contactAgencyName);
   const [caseUpload, setCaseUpload] = useState(missingContent.caseUpload);
   const [duoLocation, setDuoLocation] = useState(post.missing_post_content.duo_location);
+  const [missingSince, setMissingSince] = useState(post.missing_post_content.missing_since);
 
   useEffect(() => {
     if (uri) {
@@ -115,6 +116,7 @@ const MissingPostEdit = ({
     formData.missing_post.contactAgencyName = contactAgencyName;
     formData.missing_post.caseUpload = caseUpload;
     formData.missing_post.duoLocation = duoLocation;
+    formData.missing_post.missingSince = missingSince;
     RootNavigation.navigate(nav, formData);
   }
 

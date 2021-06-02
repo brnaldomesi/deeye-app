@@ -63,13 +63,14 @@ const ContactInfo = ({
   const i_phone2 = !route.params.post_type? formData.missing_post.contact_phone_number2 : '';
   const i_aka = !route.params.post_type? formData.missing_post.aka : '';
   const i_mark = !route.params.post_type? formData.missing_post.mark: '';
-  const i_dob = !route.params.post_type? new Date(formData.missing_post.dob): new Date(1598051730000);
+  const i_dob = !route.params.missingType? moment(formData.missing_post.dob, "YYYY-MM-DD"): moment('2020-1-1', "YYYY-MM-DD");
   const i_medicalCondition = !route.params.post_type? formData.missing_post.medicalCondition: '';
   const i_tatoo = !route.params.post_type? formData.missing_post.tatoo: '';
   const i_language = !route.params.post_type? formData.missing_post.language: '';
   const i_contactAgencyName = !route.params.post_type? formData.missing_post.contactAgencyName: '';
   const i_caseUpload = !route.params.post_type? formData.missing_post.caseUpload: '';
   const i_duoLocation = !route.params.post_type? formData.missing_post.duoLocation: '';
+  const i_missing_since = route.params.post_type !== "" && route.params.post_type !== undefined ? moment('2020-1-1', "YYYY-MM-DD") : moment(formData.missing_post.missingSince, "YYYY-MM-DD");
   const post_id = !route.params.post_type? formData.missing_post.id : '';
   const [aka, setAka] = useState(i_aka);
   const [markinfo, setMarkinfo] = useState(i_mark);
@@ -96,6 +97,7 @@ const ContactInfo = ({
   const [haveRerpot, setHaveRerpot] = useState(false);
   const [selectedFileName, setSelectedFileName] = useState('');
   const [attachments, setAttachments] = useState([]);
+  const [missingSince, setMissingSince] = useState(i_missing_since);
   const handleSubmit = () => {
     formData.missing_post.contact_phone_number1 = contactPhoneNumber1;
     formData.missing_post.contact_phone_number2 = contactPhoneNumber2;
@@ -152,7 +154,8 @@ const ContactInfo = ({
         language: language,
         contactAgencyName: contactAgencyName,
         caseUpload: caseUpload,
-        duoLocation: duoLocation
+        duoLocation: duoLocation,
+        missingSince: moment(missingSince).format("YYYY-MM-DD hh:mm:ss")
       },
       success: () => {
         RootNavigation.navigate('Home');

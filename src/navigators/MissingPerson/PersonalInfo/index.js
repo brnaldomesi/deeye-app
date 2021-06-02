@@ -7,7 +7,7 @@ import {
   TextInput,
   View
 } from 'react-native';
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import {updatePost} from 'src/redux/modules/posts';
 import {
   Size,
@@ -66,20 +66,20 @@ const PersonalInfo = ({navigation, uploadFile, route, updatePost}) => {
   const post_id = !route.params.missingType? formData.missing_post.id : '';
   const i_aka = !route.params.missingType? formData.missing_post.aka : '';
   const i_mark = !route.params.missingType? formData.missing_post.mark: '';
-  const i_dob = !route.params.missingType? new Date(formData.missing_post.dob): new Date(1598051730000);
+  const i_dob = !route.params.missingType? moment(formData.missing_post.dob, "YYYY-MM-DD"): moment('2020-1-1', "YYYY-MM-DD");
   const i_medicalCondition = !route.params.missingType? formData.missing_post.medicalCondition: '';
   const i_tatoo = !route.params.missingType? formData.missing_post.tatoo: '';
   const i_language = !route.params.missingType? formData.missing_post.language: '';
   const i_contactAgencyName = !route.params.missingType? formData.missing_post.contactAgencyName: '';
   const i_caseUpload = !route.params.missingType? formData.missing_post.caseUpload: '';
   const i_duoLocation = !route.params.missingType? formData.missing_post.duoLocation: '';
+  const i_missing_since = route.params.missingType !== "" && route.params.missingType !== undefined ? moment('2020-1-1', "YYYY-MM-DD") : moment(formData.missing_post.missingSince, "YYYY-MM-DD");
   const [fullname, setFullname] = useState(i_fullname);
   const [aka, setAka] = useState(i_aka);
   const [gender, setGender] = useState(i_gender);
   const [height, setHeight] = useState(i_height);
   const [weight, setWeight] = useState(i_weight);
   const [markinfo, setMarkinfo] = useState(i_mark);
-  const [dob, setDob] = useState(i_dob);
   const [duoLocation, setDuoLocation] = useState(i_duoLocation);
   const [heightUnit, setHeightUnit] = useState('ft');
   const [weightUnit, setWeightUnit] = useState('kg');
@@ -97,7 +97,9 @@ const PersonalInfo = ({navigation, uploadFile, route, updatePost}) => {
   const [caseUpload, setCaseUpload] = useState(i_caseUpload);
   const [showDatePicker, setShowDatePicer] = useState(false);
   const [attachments, setAttachments] = useState([]);
+  const [missingSince, setMissingSince] = useState(i_missing_since);
   const { missingType } = route.params;
+  const [dob, setDob] = useState(i_dob);
 
   const handleNext = () => {
     const formData = {}
@@ -126,17 +128,16 @@ const PersonalInfo = ({navigation, uploadFile, route, updatePost}) => {
     formData.post_type = "MissingPerson";
     navigation.navigate('CircumstanceInfo', formData)
   };
-
   const handleUpdate = () => {
     updatePost({
       id: post_id,
       data: {
-        fullname: fullname, 
-        sex: gender, 
-        race: race, 
-        height: height, 
-        weight: weight, 
-        eye: eye, 
+        fullname: fullname,
+        sex: gender,
+        race: race,
+        height: height,
+        weight: weight,
+        eye: eye,
         hair: hair,
         circumstance: circumstance,
         contact_phone_number1: number1,
@@ -149,7 +150,8 @@ const PersonalInfo = ({navigation, uploadFile, route, updatePost}) => {
         language: language,
         contactAgencyName: contactAgencyName,
         caseUpload: caseUpload,
-        duoLocation: duoLocation
+        duoLocation: duoLocation,
+        missingSince: moment(missingSince).format("YYYY-MM-DD hh:mm:ss")
       },
       success: () => {
         RootNavigation.navigate('Home');
@@ -209,36 +211,25 @@ const PersonalInfo = ({navigation, uploadFile, route, updatePost}) => {
   const handleDobChange = (event, selectedDate) => {
     const currentDate = selectedDate || dob;
     setShowDatePicer(Platform.OS === 'ios');
-    setDob(currentDate);
+    setDob(moment(currentDate, "YYYY-MM-DD"));
   }
 
   const handleHeightCm = () => {
-    // if(heightUnit === 'ft' & height !== null) {
-    //   setHeight((height * 30.48).toFixed(0))
-    // }
     setHeightUnit('cm')
   }
 
   const handleHeightFt = () => {
-    // if(heightUnit === 'cm' & height !== null) {
-    //   setHeight((height / 30.48).toFixed(1))
-    // }
     setHeightUnit('ft')
   }
 
   const handleWeightKg = () => {
-    // if(weightUnit === 'lb' & weight !== null) {
-    //   setWeight((weight * 0.45).toFixed(0))
-    // }
     setWeightUnit('kg')
   }
 
   const handleWeightLb = () => {
-    // if(weightUnit === 'kg' & weight !== null) {
-    //   setWeight((weight / 0.45).toFixed(1))
-    // }
     setWeightUnit('lb')
   }
+
   return (
     <View style={flexOne}>
       <Header title="Personal Information" step={1} />
@@ -295,22 +286,23 @@ const PersonalInfo = ({navigation, uploadFile, route, updatePost}) => {
                   />
                 </MyButton>
                 <View style={[justifyCenter, ml1]}>
-                  <TextInput 
+                  {<TextInput
                     onChangeText={text => {
                       const Y = Number(text.split('/', 3)[0]);
-                      const M = Number(text.split('/', 3)[1]) - 1;
+                      const M = Number(text.split('/', 3)[1]);
                       const D = Number(text.split('/', 3)[2]);
-                      if(text.split('/', 3)[0] !== '' && text.split('/', 3)[1] !== '' && text.split('/', 3)[2] !== '')
-                      setDob(new Date(Y, M, D));
-                    }} 
-                    placeholder="Unknown">{dob.getFullYear()}/{dob.getMonth() + 1}/{dob.getDate()}
-                  </TextInput>
+                      const date = Y + '-' + M + '-' + D;
+                      if(Number(text.split('/', 3)[0]) > 2000 && Number(text.split('/', 3)[1]) > 0 && Number(text.split('/', 3)[1]) < 13 && Number(text.split('/', 3)[2]) > 0 && Number(text.split('/', 3)[2]) < 32 && text.split('/', 3).length == 3)
+                      setDob(moment(date, "YYYY-MM-DD"));
+                    }}
+                    placeholder="Unknown">{dob.year() + '/' + Number(dob.month() + 1).toString() + '/' + dob.date()}
+                  </TextInput>}
                 </View>
               </View>
               {showDatePicker && (
                 <DateTimePicker
                   testID="dateTimePicker"
-                  value={dob}
+                  value={dob.toDate()}
                   mode='date'
                   is24Hour={true}
                   display="default"
@@ -439,7 +431,7 @@ const PersonalInfo = ({navigation, uploadFile, route, updatePost}) => {
               <View style={[styles.dropdown, mtp5, w80P]}>
                 <Picker
                   selectedValue={hair}
-                  onValueChange={(itemValue, itemIndex) => 
+                  onValueChange={(itemValue, itemIndex) =>
                     {
                       setHair(itemValue)
                     }
@@ -553,7 +545,7 @@ const PersonalInfo = ({navigation, uploadFile, route, updatePost}) => {
                 title="Next Step(Circumstance)"
                 onPress={handleNext}
                 buttonStyle={[bgPrimary, roundedSm, px2]}
-              /> : 
+              /> :
               <Button
                 title="Update Post"
                 onPress={handleUpdate}

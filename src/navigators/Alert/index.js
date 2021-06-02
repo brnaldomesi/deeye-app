@@ -34,15 +34,15 @@ const Alert = ({getAlertList, alerts, emptyBadgeCount, setFollow}) => {
   const listArr = alerts;
 
   const handleDetail = (id, type) => () => {
-    setFollow({
-      isPin: type === 'follow',
-      isFollow: true,
-      follower_id: id,
-      data: {user_id: id, type: type},
-      success: () => {
-        getFollowList()
-      }
-    });
+    // setFollow({
+    //   isPin: true,
+    //   isFollow: true,
+    //   follower_id: id,
+    //   data: {user_id: id, type: type},
+    //   success: () => {
+    //     getFollowList()
+    //   }
+    // });
   }
 
   return (
@@ -96,9 +96,11 @@ const Alert = ({getAlertList, alerts, emptyBadgeCount, setFollow}) => {
               {item.action_type === 'follow' ?
                 <View style={styles.timeText}>
                   <View style={styles.rightImg}>
-                    <TouchableOpacity style={styles.settingTouch} onPress={handleDetail(item.id, 'remove')}>
+                    {/*<TouchableOpacity style={styles.settingTouch} onPress={handleDetail(item.id, 'remove')}>*/}
+                    <View style={styles.settingTouch}>
                       <Text style={styles.settingText}>unfollow</Text>
-                    </TouchableOpacity>
+                    </View>
+                    {/*</TouchableOpacity>*/}
                   </View>
                   <View>
                     <Text style={styles.text_min}>{getDiffFromToday(item.updated_at)}</Text>
