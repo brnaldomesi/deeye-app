@@ -12,7 +12,7 @@ const First = ({ navigation }) => {
 
   return (
     <View style={basicPadding}>
-      <IconButton 
+      {/* <IconButton 
         onPress={handlePress('Email')}
         text='Gmail'
         imageName="gmail"
@@ -47,7 +47,7 @@ const First = ({ navigation }) => {
       />
       <Divider 
         style={styles.divider} 
-      />
+      /> */}
       <IconButton 
         onPress={handlePress('Email')}
         text='Email Address'
@@ -57,12 +57,12 @@ const First = ({ navigation }) => {
       <Divider 
         style={styles.divider} 
       />
-      <IconButton 
+      {/* <IconButton 
         onPress={handlePress('Phone')}
         text='Phone number'
         imageName="phone"
         aspectRatio={7/11}
-      />
+      /> */}
     </View>
   );
 };
